@@ -1,0 +1,462 @@
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({IntroText = "slap Royale",Name = "slap Royale", HidePremium = false, SaveConfig = true, ConfigFolder = "slap battles"})
+
+--Anti chest bypass--
+
+local namecall
+	namecall =
+	hookmetamethod(
+	game,
+	"__namecall",
+	function(self, ...)
+		local Args = {...}
+		if getnamecallmethod() == "FireServer" and tostring(self) == "WS" then
+			return
+		elseif getnamecallmethod() == "FireServer" and tostring(self) == "WS2" then
+			return
+		elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
+			return
+		elseif getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
+			return
+		end
+		return namecall(self, ...)
+	end
+	)
+
+local Tab4 = Window:MakeTab({
+	Name = "script",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab = Window:MakeTab({
+	Name = "Item",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab1 = Window:MakeTab({
+	Name = "player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab3 = Window:MakeTab({
+	Name = "localplayer",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab2 = Window:MakeTab({
+	Name = "Teleports",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab1:AddSlider({
+	Name = "big glove",
+	Min = 1,
+	Max = 40,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "glove",
+	Callback = function(v)
+		local plr = game.Players.LocalPlayer
+
+function supaSiza(v)
+   if v:IsA("Tool") then
+       v.Glove.Transparency = 0.75
+       v.Glove.Size = Vector3.new(v, v, v)
+   end
+end
+
+plr.Character.ChildAdded:Connect(supaSiza)
+
+plr.CharacterAdded:Connect(function(char)
+   char.ChildAdded:Connect(supaSiza)
+end)
+	end    
+})
+
+Tab1:AddToggle({
+	Name = "slap arua",
+	Default = false,
+	Callback = function(bool)
+		getgenv().Aura = bool
+				while getgenv().Aura == true do
+					wait(.005)
+					for _, L_8 in pairs(game.Players:GetPlayers()) do
+						if L_8 ~= game.Players.LocalPlayer then
+							if
+							L_8.Character:FindFirstChild("HumanoidRootPart") ~= nil and
+							L_8.Character:FindFirstChild("Humanoid") and
+							not L_8.Character:FindFirstChild("Dead")  and not game.Players.LocalPlayer.Character:FindFirstChild("Dead")  then
+							
+								local magnitude =
+								(L_8.Character.HumanoidRootPart.Position -
+								game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+								if magnitude < 20.01 then
+									game:GetService("ReplicatedStorage").Events.Slap:FireServer(L_8.Character.Torso)
+								end
+							end
+						end
+					end
+				end
+	end    
+})
+
+Tab:AddButton({
+	Name = "get all items",
+	Callback = function()
+      		local lp = game.Players.LocalPlayer
+		for _, L_2 in ipairs(game.Workspace:GetDescendants()) do
+
+			if L_2:IsA("TouchTransmitter") and L_2.Parent.Name == "Handle" and game.Players.LocalPlayer.Character.inMatch.Value == true then
+				lp.Character.Humanoid:EquipTool(L_2.Parent.Parent)
+			end
+			
+
+
+		end
+		
+		wait(.25)
+		
+		game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "godmode",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.Vulnerable:Destroy()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "school",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {
+                CFrame = CFrame.new(
+                    508.355164,
+                    51.9435844,
+                    -369.250031,
+                    -0.0291695595,
+                    0.696763933,
+                    0.71670723,
+                    -0.998238981,
+                    0.0167474151,
+                    -0.0569090843,
+                    -0.0516551733,
+                    -0.717105031,
+                    0.695048273
+                )
+            }
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Desert",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {CFrame = CFrame.new(-642, 15.1884031, -93.6500015, 1, 0, 0, 0, 1, 0, 0, 0, 1)}
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "field",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {CFrame = CFrame.new(469.94043, 89.8776321, 385.162689, 1, 0, 0, 0, 1, 0, 0, 0, 1)}
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Hallow hills",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {
+                CFrame = CFrame.new(
+                    -129.338455,
+                    103.993027,
+                    357.294373,
+                    -0.998822331,
+                    0.0428290665,
+                    0.0228018295,
+                    0.041174911,
+                    0.996791124,
+                    -0.0686445013,
+                    -0.0256686416,
+                    -0.067624785,
+                    -0.997380614
+                )
+            }
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "under map",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {CFrame = CFrame.new()}
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "caver",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {
+                CFrame = CFrame.new(
+                    542.96228,
+                    -43.080822,
+                    -209.350006,
+                    0.193205729,
+                    -0.0219757352,
+                    0.980912149,
+                    -0.974057674,
+                    0.115763538,
+                    0.194449127,
+                    -0.117827021,
+                    -0.993033648,
+                    0.000960545964
+                )
+            }
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "tween",
+	Callback = function()
+      		local players = game:GetService("Players")
+        local plr = players.LocalPlayer
+        local tween = game:GetService("TweenService")
+        local humroot = plr.Character:WaitForChild("HumanoidRootPart")
+        local startTween =
+            tween:Create(
+            humroot,
+            TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0),
+            {
+                CFrame = CFrame.new(
+                    542.96228,
+                    -43.080822,
+                    -209.350006,
+                    0.193205729,
+                    -0.0219757352,
+                    0.980912149,
+                    -0.974057674,
+                    0.115763538,
+                    0.194449127,
+                    -0.117827021,
+                    -0.993033648,
+                    0.000960545964
+                )
+            }
+        )
+        startTween:Play()
+        startTween.Completed:Wait()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "no dame zone",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.inZone:Destroy()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "power all",
+	Callback = function()
+      		for _, L_3 in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if
+				L_3:IsA("Tool") and L_3.Name == "Potion of Strength" or L_3.Name == "Bull's essence" or
+				L_3.Name == "Speed Potion" or
+				L_3.Name == "Boba" or
+				L_3.Name == "Frog Potion" or
+				L_3.Name == "Strength Brew" or
+			    L_3.Name == "Frog Brew" or
+				L_3.Name == "Speed Brew"
+				then
+					L_3.Parent = game.Players.LocalPlayer.Character
+				end
+			end
+			wait(.5)
+			for _, L_4 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if L_4:IsA("Tool") then
+					L_4:Activate()
+				end
+			end
+  	end    
+})
+
+Tab:AddButton({
+	Name = "bomb bus",
+	Callback = function()
+      		local lp = game.Players.LocalPlayer
+			for _, L_5 in ipairs(game.Workspace:GetDescendants()) do
+				if L_5:IsA("TouchTransmitter") and L_5.Parent.Name == "Handle" and L_5.Parent.Parent.Name == "Bomb" and workspace:FindFirstChild("BusModel") then
+					local Magnitude = (lp.Character.HumanoidRootPart.Position - workspace.BusModel.Position).Magnitude
+if 20 > Magnitude then 
+    
+    
+    
+					lp.Character.Humanoid:EquipTool(L_5.Parent.Parent)
+				end
+			end
+			wait(.1)
+			for _, L_6 in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if L_6:IsA("Tool") and L_6.Name == "Bomb" then
+					L_6.Parent = game.Players.LocalPlayer.Character
+				end
+			end
+			wait(.25)
+			for _, L_7 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if L_7:IsA("Tool") then
+					L_7:Activate()
+				end
+			end
+			end
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "anti acid",
+	Callback = function(sex)
+      		local sex = Instance.new("Part")
+
+		sex.Parent = game.Workspace
+		sex.Size = Vector3.new(154, 26, 132)
+		sex.Position = Vector3.new(-60, -5, -731)
+		sex.Transparency = 1
+		sex.Anchored = true
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "anti lava",
+	Callback = function(AntiLava)
+      		local AntiLava = Instance.new("Part", game.Workspace)
+
+			AntiLava.Position = Vector3.new(-238, -43, 401)
+
+			AntiLava.Size = Vector3.new(150,10,150)
+
+			AntiLava.Anchored = true
+
+			AntiLava.Transparency = 1
+  	end    
+})
+
+Tab4:AddButton({
+	Name = "keyboard",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+  	end    
+})
+
+Tab4:AddBind({
+	Name = "hitbox",
+	Default = Enum.KeyCode.Q,
+	Hold = false,
+	Callback = function()
+		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
+	end    
+})
+
+Tab4:AddBind({
+	Name = "inf yield",
+	Default = Enum.KeyCode.Q,
+	Hold = false,
+	Callback = function()
+		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+	end    
+})
+
+Tab3:AddSlider({
+	Name = "Walkspeed [WS]",
+	Min = 20,
+	Max = 300,
+	Default = 39,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "WS",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end    
+})
+
+Tab3:AddSlider({
+	Name = "Jumppower",
+	Min = 50,
+	Max = 500,
+	Default = 69,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JP",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	end    
+})
