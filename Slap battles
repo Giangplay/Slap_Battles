@@ -225,9 +225,9 @@ Tab7:AddSlider({
 
 Tab7:AddSlider({
 	Name = "Fow",
-	Min = 50,
+	Min = 70,
 	Max = 500,
-	Default = 50,
+	Default = 70,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "View",
