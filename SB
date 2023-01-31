@@ -1,6 +1,26 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles | by giang", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
+---functions---
+
+function AutoCandy()
+    local playerHead = game.Players.LocalPlayer.Character.Head
+    while getgenv().AutoCandy == true do wait()
+
+            for i,v in pairs(game:GetService("Workspace").CandyCorns:GetDescendants()) do
+                if v.Name == "TouchInterest" and v.Parent then
+                    
+                    firetouchinterest(playerHead, v.Parent, 0)
+        
+                    firetouchinterest(playerHead, v.Parent, 1)
+                end
+            end
+            end
+            
+        
+
+end
+
 ---SafeSpot---
 
 local SafeSpot = Instance.new("Part", workspace)
@@ -509,6 +529,15 @@ end
 	end    
 })
 
+Tab4:AddToggle({
+	Name = "auto Candy",
+	Default = false,
+	Callback = function(Value)
+		getgenv().AutoCandy = Value
+            AutoCandy()
+	end    
+})
+
 Tab1:AddButton({
 	Name = "dizzy hub",
 	Callback = function()
@@ -853,6 +882,20 @@ Tab9:AddButton({
 	Name = "TP to Arena",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
+  	end    
+})
+
+Tab9:AddButton({
+	Name = "TP to Brazil (kick you)",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-469.613953, 304.469482, -11.8963394, 0, -1, 0, 1, 0, -0, 0, 0, 1)
+  	end    
+})
+
+Tab9:AddButton({
+	Name = "TP to Glove Error (20K slap)",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-570.804138, 320.128052, 21.6225147, 0.91358912, 6.14746583e-08, -0.406638622, -7.28098968e-08, 1, -1.2403313e-08, 0.406638622, 4.0938847e-08, 0.91358912)
   	end    
 })
 
