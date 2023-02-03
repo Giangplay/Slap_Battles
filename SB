@@ -112,13 +112,19 @@ local Tab6 = Window:MakeTab({
 })
 
 local Tab7 = Window:MakeTab({
-	Name = "player",
+	Name = "local",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab9 = Window:MakeTab({
 	Name = "Tp",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab10 = Window:MakeTab({
+	Name = "auto join",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -371,6 +377,22 @@ end
 end
 end
         
+    end
+	end    
+})
+
+Tab10:AddToggle({
+	Name = "auto join lobby",
+	Default = false,
+	Callback = function(Value)
+		getgenv().autojoin = Value
+    while getgenv().autojoin == true do
+        wait(3)
+        if not game:GetService("Players").LocalPlayer.Character.isInArena.Value then
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.Head, workspace.Lobby.Teleport1, 1)
+            wait(.1)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.Head, workspace.Lobby.Teleport1, 0)
+        end
     end
 	end    
 })
@@ -1023,3 +1045,5 @@ Tab5:AddButton({
       		fireclickdetector(game:GetService("Workspace").Lobby.Ghost.ClickDetector)
   	end    
 })
+
+OrionLib:Init()
