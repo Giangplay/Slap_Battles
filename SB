@@ -440,66 +440,66 @@ Tab2:AddButton({
 })
 
 Tab4:AddToggle({
-	Name = "get bob",
+	Name = "Get bob",
 	Default = false,
-	Callback = function(Get_Bob)
+	Callback = function(Get_bob)
 	     GetBob = Get_Bob
-         
+ 
         if Get_Bob == true then
-            
+ 
             FarmBob()
-            
-            
-            
+ 
+ 
+ 
             end
-            
-            
-            
-      function FarmBob()
-        
+ 
+ 
+ 
+    function FarmBob()
+ 
         while GetBob do
-            
+ 
             task.wait(.25)
-            
+ 
              if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-            
+ 
             task.wait(.76)
-            
-            
+ 
+ 
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = workspace.Lobby.Teleport1.CFrame
-            
+ 
             task.wait(.77)
-            
+ 
 game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
-
+ 
 task.wait(1.45)
-
+ 
 if not workspace:FindFirstChild("bobcap") then
-    
+ 
     local args = {
     [1] = game:GetService("Players").LocalPlayer.Character,
     [2] = false
 }
-
+ 
 game:GetService("ReplicatedStorage").HumanoidDied:FireServer(unpack(args))
-
+ 
     else
-        
-        print("Got Bob")
-    
+ 
+        print("wait get bob")
+ 
     end
-
-
-                
-                
+ 
+ 
+ 
+ 
             end
-        
-        
-        
+ 
+ 
+ 
     end
-            
-            
-            
+ 
+ 
+ 
             end
 	end    
 })
