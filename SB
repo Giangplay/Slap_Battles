@@ -1,6 +1,19 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles | by giang", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
+---Name---
+
+function disable(username, cantouch)
+    warn(username)
+    if workspace:FindFirstChild("ObbyItem"..username.."LavaBlock") then
+       warn("ObbyItem"..username.."LavaBlock")
+       workspace:FindFirstChild("ObbyItem"..username.."LavaBlock").CanTouch = cantouch
+    elseif workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner") then
+    warn("ObbyItem"..username.."LavaSpinner")
+    workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner").CanTouch = cantouch
+ end
+end
+
 ---functions---
 
 function AutoCandy()
@@ -89,12 +102,6 @@ local Tab2 = Window:MakeTab({
 
 local Tab3 = Window:MakeTab({
 	Name = "get glove Elude",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab5 = Window:MakeTab({
-	Name = "epin glove",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -440,66 +447,66 @@ Tab2:AddButton({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob",
+	Name = "get bob",
 	Default = false,
-	Callback = function(Get_bob)
-	     GetBob = Get_Bob
- 
+	Callback = function(Get_Bob)
+		GetBob = Get_Bob
+         
         if Get_Bob == true then
- 
+            
             FarmBob()
- 
- 
- 
+            
+            
+            
             end
- 
- 
- 
+
+
+
     function FarmBob()
- 
+        
         while GetBob do
- 
+            
             task.wait(.25)
- 
+            
              if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
- 
+            
             task.wait(.76)
- 
- 
+            
+            
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = workspace.Lobby.Teleport1.CFrame
- 
+            
             task.wait(.77)
- 
+            
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
- 
+
 task.wait(1.45)
- 
+
 if not workspace:FindFirstChild("bobcap") then
- 
+    
     local args = {
     [1] = game:GetService("Players").LocalPlayer.Character,
     [2] = false
 }
- 
+
 game:GetService("ReplicatedStorage").HumanoidDied:FireServer(unpack(args))
- 
+
     else
- 
-        print("wait get bob")
- 
+        
+        print("Got Bob")
+    
     end
- 
- 
- 
- 
+
+
+                
+                
             end
- 
- 
- 
+        
+        
+        
     end
- 
- 
- 
+            
+            
+            
             end
 	end    
 })
@@ -553,6 +560,40 @@ Tab4:AddToggle({
 		getgenv().AutoCandy = Value
             AutoCandy()
 	end    
+})
+
+Tab11:AddToggle({
+	Name = "Disable Kill Blocks",
+	Default = false,
+	Callback = function(a)
+		getgenv().disable = a
+     if getgenv().disable == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, false)
+        end
+     end
+   else
+       for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, true)
+        end
+     end
+  end
+	end    
+})
+
+Tab11:AddTextbox({
+	Name = "view player health",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(txt)
+		for i,v in pairs(game.Players:GetChildren()) do
+      if string.find(v.Name, txt) then
+       print(v.Character.Humanoid.Health)
+   end
+  end
+	end	  
 })
 
 Tab11:AddToggle({
@@ -1300,97 +1341,6 @@ Tab1:AddBind({
     game:GetService("ReplicatedStorage").Timestopchoir:FireServer();
     game:GetService("ReplicatedStorage").Timestop:FireServer();
 	end    
-})
-
-Tab5:AddButton({
-	Name = "epin default",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Default.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin diamond",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Diamond.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin ZZZZZZZ",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.ZZZZZZZ.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin extended",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Extended.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin brick",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Brick.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin snow",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Snow.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin pull",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Pull.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin flash",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Flash.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin spring",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Spring.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin swapper",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Swapper.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin bull",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Bull.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin dice",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Dice.ClickDetector)
-  	end    
-})
-
-Tab5:AddButton({
-	Name = "epin Ghost",
-	Callback = function()
-      		fireclickdetector(game:GetService("Workspace").Lobby.Ghost.ClickDetector)
-  	end    
 })
 
 OrionLib:Init()
