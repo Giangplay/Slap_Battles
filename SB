@@ -442,7 +442,7 @@ Tab2:AddButton({
 Tab4:AddToggle({
 	Name = "get bob",
 	Default = false,
-	Callback = function(bool)
+	Callback = function(Get_Bob)
 	     GetBob = Get_Bob
          
         if Get_Bob == true then
@@ -455,7 +455,7 @@ Tab4:AddToggle({
             
             
             
-            function FarmBob()
+      function FarmBob()
         
         while GetBob do
             
