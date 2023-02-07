@@ -443,76 +443,63 @@ Tab4:AddToggle({
 	Name = "get bob",
 	Default = false,
 	Callback = function(bool)
-		GetBob = bool
-        
-            if bool == true then
-                
-                while GetBob do
+	     GetBob = Get_Bob
+         
+        if Get_Bob == true then
             
-            wait(.001)
+            FarmBob()
+            
+            
+            
+            end
+            
+            
+            
+            function FarmBob()
+        
+        while GetBob do
+            
+            task.wait(.25)
             
              if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
             
-                    wait(1)
-                    
-                    local humanoid = game.Players.LocalPlayer.Character.Humanoid
+            task.wait(.76)
+            
+            
+            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = workspace.Lobby.Teleport1.CFrame
+            
+            task.wait(.77)
+            
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
-                    local HRP = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-                    local Portal = game.Workspace.Lobby.Teleport1.Position
+task.wait(1.45)
 
-                    local path = pathfindingService:CreatePath()
- 
-                    path:ComputeAsync(HRP.Position, Portal)
- 
-                    local Waypoints = path:GetWaypoints()
-
-                    repeat wait(.25)
-                        for i, waypoint in pairs(Waypoints) do
-                            
-                            humanoid:MoveTo(waypoint.Position)
-                            
-                        end
-
-                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered")
-
-                    wait(2)
-
-                    if workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") then
+if not workspace:FindFirstChild("bobcap") then
     
-                        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+    local args = {
+    [1] = game:GetService("Players").LocalPlayer.Character,
+    [2] = false
+}
 
-                        game:GetService("ReplicatedStorage").Duplicate:FireServer()
+game:GetService("ReplicatedStorage").HumanoidDied:FireServer(unpack(args))
 
-                    else
-    
-    
-                    repeat wait(1.4)
-    
-                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") 
-
-                    
-                    game:GetService("ReplicatedStorage").Duplicate:FireServer()
-
-    
-
-                    end
-                        
-                        wait(1.45)
-
-                        if not workspace:FindFirstChild("bobcap") then
-    
-                            game:GetService("ReplicatedStorage").HumanoidDied:FireServer(game.Players.LocalPlayer.Character, false)
-
-                        else
+    else
         
-                            print("Got Bob")
+        print("Got Bob")
     
-                        end
+    end
+
+
                 
-                    end 
-           
-                end
-    
+                
+            end
+        
+        
+        
+    end
+            
+            
+            
             end
 	end    
 })
@@ -569,91 +556,10 @@ Tab4:AddToggle({
 })
 
 Tab11:AddToggle({
-	Name = "Default autofarm",
-	Default = false,
-	Callback = function(bool)
-		getgenv().Farming = bool
-
-                if bool == true then
-
-                    while getgenv().Farming do
-
-                        wait()
-
-                        for Index, Human in next, game.Players:GetPlayers() do
-                                
-                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-                                
-                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                
-                                
-                                wait(.1)
-                                
-                                if getGlove() == "Default" then
-                                        
-
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
-                                    
-                                        wait(.25)
-                                        
-                                    game.ReplicatedStorage.b:FireServer(Human.Character.Head)
-                                    
-                                        wait(.25)
-                                    
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-	end    
-})
-
-Tab11:AddToggle({
-	Name = "ghost autofarm",
-	Default = false,
-	Callback = function(bool)
-		getgenv().Farming = bool
-
-                if bool == true then
-
-                    while getgenv().Farming do
-
-                        wait()
-
-                        for Index, Human in next, game.Players:GetPlayers() do
-                                
-                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-                                
-                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                
-                                
-                                wait(.1)
-                                
-                                if getGlove() == "Ghost" then
-                                        
-
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,16,0)
-                                    
-                                        wait(.25)
-                                        
-                                    game.ReplicatedStorage.GhostHit:FireServer(Human.Character.Head)
-                                    
-                                        wait(.25)
-                                    
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-	end    
-})
-
-Tab11:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
 	Callback = function(bool)
+	
 		getgenv().AntiZaHando = bool
         
         if bool == true then
@@ -681,6 +587,7 @@ Tab11:AddToggle({
 	Name = "Anti Reaper",
 	Default = false,
 	Callback = function(bool)
+	
 		getgenv().AntiReaper = bool
         
         if bool == true then
@@ -711,6 +618,7 @@ Tab11:AddToggle({
 	Name = "Anti Pusher",
 	Default = false,
 	Callback = function(bool)
+	
 		getgenv().AntiPusher = bool
         
         if bool == true then
