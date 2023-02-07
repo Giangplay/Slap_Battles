@@ -470,7 +470,7 @@ Tab4:AddToggle({
  
             task.wait(.77)
  
-game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
  
 task.wait(1.45)
  
