@@ -1,0 +1,170 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "slap battles | Killstreak | by giang", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles Killstreak"})
+
+---anti voin---
+
+local jesus = Instance.new("Part", workspace)
+
+	jesus.Name = "jesusWalk"
+	jesus.Size = Vector3.new(2047, 0.009, 2019)
+	jesus.Position = Vector3.new(-80.5, -10.005, -246.5)
+	jesus.CanCollide = false
+	jesus.Anchored = true
+	jesus.Transparency = 1
+	
+local arenaVoid = Instance.new("Part", workspace)
+
+	arenaVoid.Name = "arenaVoid"
+	arenaVoid.Size = Vector3.new(798, 1, 1290)
+	arenaVoid.Position = Vector3.new(3450, 59.009, 68)
+	arenaVoid.CanCollide = false
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 1
+
+---anti cheat bypass---
+
+local Namecall
+Namecall = hookmetamethod(game, '__namecall', function(self, ...)
+   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+       return
+   end
+   return Namecall(self, ...)
+end)
+
+local Tab = Window:MakeTab({
+	Name = "combat",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab1 = Window:MakeTab({
+	Name = "Anti void",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab2 = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "killstreak slap arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.KSHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Hitbox",
+	Callback = function()
+      		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "inf yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "on 100 Slaps Fight Arena (Can't Lose)",
+	Callback = function()
+      		arenaVoid.CanCollide = true
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 0.5
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "off 100 Slaps Fight Arena (Can't Lose)",
+	Callback = function()
+      		arenaVoid.CanCollide = false
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 1
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "On Normal Arena Anti-Void",
+	Callback = function()
+      		jesus.CanCollide = true
+	jesus.Anchored = true
+	jesus.Transparency = 0.5
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Off Normal Arena Anti-Void",
+	Callback = function()
+      		jesus.CanCollide = false
+	jesus.Anchored = true
+	jesus.Transparency = 1
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Destroy the cube of death",
+	Callback = function()
+      		workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:Destroy()
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Destroy Death Barriers",
+	Callback = function()
+      		if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
+    
+            workspace.DEATHBARRIER:Destroy()
+            workspace.DEATHBARRIER2:Destroy()
+            workspace.dedBarrier:Destroy()
+        
+        else
+            
+            print("No Death Barriers")
+        
+        end
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Destroy Nametap",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.Head["Nametag"]:Destroy()
+  	end    
+})
+
+OrionLib:Init()
