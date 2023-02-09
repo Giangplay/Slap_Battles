@@ -142,6 +142,12 @@ local Tab11 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab12 = Window:MakeTab({
+	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Section = Tab:AddSection({
 	Name = "main"
 })
@@ -714,6 +720,13 @@ Tab11:AddButton({
 	Name = "Destroy Nametap",
 	Callback = function()
       		game.Players.LocalPlayer.Character.Head["Nametag"]:Destroy()
+  	end    
+})
+
+Tab11:AddButton({
+	Name = "Anti ragdoll",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/28qZ6YBD", true))()
   	end    
 })
 
@@ -1323,8 +1336,8 @@ Tab9:AddButton({
   	end    
 })
 
-Tab1:AddBind({
-	Name = "godmode",
+Tab12:AddBind({
+	Name = "godmode (glove golden)",
 	Default = Enum.KeyCode.T,
 	Hold = false,
 	Callback = function()
@@ -1332,7 +1345,7 @@ Tab1:AddBind({
 	end    
 })
 
-Tab1:AddBind({
+Tab12:AddBind({
 	Name = "time shop",
 	Default = Enum.KeyCode.T,
 	Hold = false,
@@ -1340,6 +1353,17 @@ Tab1:AddBind({
 		game:GetService("ReplicatedStorage").TimestopJump:FireServer();
     game:GetService("ReplicatedStorage").Timestopchoir:FireServer();
     game:GetService("ReplicatedStorage").Timestop:FireServer();
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "inf Reverse",
+	Default = false,
+	Callback = function(S)
+		shared.hi = S
+	    while shared.hi and wait(6) do
+    game:GetService("ReplicatedStorage").ReverseAbility:FireServer()
+end
 	end    
 })
 
