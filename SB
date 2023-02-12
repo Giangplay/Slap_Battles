@@ -1,6 +1,71 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles | by giang", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
+---GetGlove---
+
+local function getGlove()
+	    
+	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+	        
+	        return "Default"
+	        
+	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Snow" then
+	    
+	       
+	       return "Snow"
+	    
+	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Bull" then
+	        
+	       return "Bull"
+	       
+	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Dice" then
+       
+            return "Dice"
+            
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boomerang" then
+       
+            return "Boomerang"
+        
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "T H I C K" then
+       
+            return "T H I C K"
+	        
+        
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Reaper" then  
+            
+             return "Reaper"
+             
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
+            
+            return "Killstreak"
+        
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "God's Hand" then 
+    
+            return "God's Hand"
+            
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then 
+            
+            return "Error"
+        
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "The Flex" then 
+            
+            return "The Flex"
+            
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Detonator" then 
+            
+            return "Detonator"
+            
+        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then 
+            
+            return "Ghost"
+            
+        
+        end
+
+    end
+
+	local pathfindingService = game:GetService("PathfindingService")
+
 ---Name---
 
 function disable(username, cantouch)
@@ -148,6 +213,12 @@ local Tab12 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab13 = Window:MakeTab({
+	Name = "autofram slap",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Section = Tab:AddSection({
 	Name = "main"
 })
@@ -160,7 +231,7 @@ Tab:AddButton({
 })
 
 Tab3:AddButton({
-	Name = "tp end (you pass) (PC and PE must be smooth if the device is weak then press get code is ok",
+	Name = "tp end",
 	Callback = function()
       		local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 
@@ -184,7 +255,7 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
-	Name = "get code free (Let your friends know the code) ",
+	Name = "get code free",
 	Callback = function()
       		print(#game.Players:GetChildren() * 25 + 1100 - 7)
   	end    
@@ -212,7 +283,7 @@ Tab:AddBind({
 	Hold = false,
 	Callback = function()
 		while true do
-    wait(0.5)
+    wait(.001)
 spawn(function()
 for i, v in pairs(game:GetService("Workspace").Arena.island5.Slapples:GetDescendants()) do
 		if v:IsA("TouchTransmitter") then
@@ -403,16 +474,25 @@ end
 Tab10:AddToggle({
 	Name = "auto join lobby",
 	Default = false,
-	Callback = function(Value)
-		getgenv().autojoin = Value
-    while getgenv().autojoin == true do
-        wait(3)
-        if not game:GetService("Players").LocalPlayer.Character.isInArena.Value then
-            firetouchinterest(game:GetService("Players").LocalPlayer.Character.Head, workspace.Lobby.Teleport1, 1)
-            wait(.1)
-            firetouchinterest(game:GetService("Players").LocalPlayer.Character.Head, workspace.Lobby.Teleport1, 0)
-        end
-    end
+	Callback = function(bool)
+		
+        getgenv().autoJoin = bool
+
+            if bool == true then
+
+                while getgenv().autoJoin do
+
+                    wait()
+                    
+                        if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport1.CFrame
+                            
+                        end
+                        
+                        
+                end
+            end
 	end    
 })
 
@@ -455,64 +535,77 @@ Tab2:AddButton({
 Tab4:AddToggle({
 	Name = "get bob",
 	Default = false,
-	Callback = function(Get_Bob)
-		GetBob = Get_Bob
-         
-        if Get_Bob == true then
-            
-            FarmBob()
-            
-            
-            
-            end
-
-
-
-    function FarmBob()
+	Callback = function(bool)
+		GetBob = bool
         
-        while GetBob do
+            if bool == true then
+                
+                while GetBob do
             
-            task.wait(.25)
+            wait(.001)
             
              if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
             
-            task.wait(.76)
-            
-            
-            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = workspace.Lobby.Teleport1.CFrame
-            
-            task.wait(.77)
-            
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
+                    wait(1)
+                    
+                    local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
-task.wait(1.45)
+                    local HRP = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    local Portal = game.Workspace.Lobby.Teleport1.Position
 
-if not workspace:FindFirstChild("bobcap") then
+                    local path = pathfindingService:CreatePath()
+ 
+                    path:ComputeAsync(HRP.Position, Portal)
+ 
+                    local Waypoints = path:GetWaypoints()
+
+                    repeat wait(.25)
+                        for i, waypoint in pairs(Waypoints) do
+                            
+                            humanoid:MoveTo(waypoint.Position)
+                            
+                        end
+
+                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered")
+
+                    wait(2)
+
+                    if workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") then
     
-    local args = {
-    [1] = game:GetService("Players").LocalPlayer.Character,
-    [2] = false
-}
+                        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 
-game:GetService("ReplicatedStorage").HumanoidDied:FireServer(unpack(args))
+                        game:GetService("ReplicatedStorage").Duplicate:FireServer()
 
-    else
-        
-        print("Got Bob")
+                    else
     
-    end
+    
+                    repeat wait(1.4)
+    
+                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") 
 
+                    
+                    game:GetService("ReplicatedStorage").Duplicate:FireServer()
 
+    
+
+                    end
+                        
+                        wait(1.45)
+
+                        if not workspace:FindFirstChild("bobcap") then
+    
+                            game:GetService("ReplicatedStorage").HumanoidDied:FireServer(game.Players.LocalPlayer.Character, false)
+
+                        else
+        
+                            print("Got Bob")
+    
+                        end
                 
-                
-            end
-        
-        
-        
-    end
-            
-            
-            
+                    end 
+           
+                end
+    
             end
 	end    
 })
@@ -600,6 +693,193 @@ Tab11:AddTextbox({
    end
   end
 	end	  
+})
+
+Tab13:AddToggle({
+	Name = "slap arua",
+	Default = false,
+	Callback = function(bool)
+		
+        getgenv().SlapAura = bool
+
+            if bool == true then
+
+                while getgenv().SlapAura do
+
+                    wait(.001)
+                        
+                        for Index, Player in next, game.Players:GetPlayers() do
+                            
+                            if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
+                                
+                                if Player.Character:FindFirstChild("Head") then
+                                    
+                                if Player.Character.Head:FindFirstChild("UnoReverseCard") == nil and Player.Character:FindFirstChild("rock") == nil then
+                                    
+                                    if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+
+                                    local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
+                                    
+                                    if 20 >= Magnitude then
+                                        
+                                        
+                                        if getGlove() == "Default" then 
+                                            
+                                            game:GetService("ReplicatedStorage").b:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "Snow" then
+                                            
+                                            game:GetService("ReplicatedStorage").SnowHit:FireServer(Player.Character.Head)
+                                            
+                                        elseif getGlove() == "Bull" then 
+                                            
+                                            game:GetService("ReplicatedStorage").BullHit:FireServer(Player.Character.Head) 
+                                            
+                                        elseif getGlove() == "Boomerang" then  
+                                            
+                                            game:GetService("ReplicatedStorage").BoomerangH:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "T H I C K" then
+
+                                            game:GetService("ReplicatedStorage").GeneralHit:FireServer(Player.Character.Head)
+                                            
+                                        elseif getGlove() == "God's Hand" then
+
+                                            game:GetService("ReplicatedStorage").Godshand:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "Error" then 
+                                            
+                                            game:GetService("ReplicatedStorage").Errorhit:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "The Flex" then 
+                                            
+                                             game:GetService("ReplicatedStorage").FlexHit:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "Detonator" then 
+                                            
+                                            game:GetService("ReplicatedStorage").DetonatorHit:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "Reaper" then
+                                            
+                                            game.ReplicatedStorage.ReaperHit:FireServer(Player.Character.Head)
+                                            
+                                        elseif getGlove() == "Killstreak" then
+                                            
+                                            game.ReplicatedStorage.KSHit:FireServer(Player.Character.Head)
+                                        
+                                        elseif getGlove() == "Dice" then
+                                            
+                                            game.ReplicatedStorage.DiceHit:FireServer(Player.Character.Head)
+                                            
+                                        elseif getGlove() == "Ghost" then
+                                            
+                                            game.ReplicatedStorage.GhostHit:FireServer(Player.Character.Head)
+                                        end
+                                        
+                                        
+                                end
+                                    
+                                    end
+                            end
+                                
+                                end
+                        end
+                        
+                            
+                            
+                        end
+                    
+                        
+                
+                end
+                
+                
+            end
+	end    
+})
+
+Tab13:AddToggle({
+	Name = "autofram slap (Defualt)",
+	Default = false,
+	Callback = function(bool)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "Default" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.b:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+	end    
+})
+
+Tab13:AddToggle({
+	Name = "Autofram slap (ghost)",
+	Default = false,
+	Callback = function(Value)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "Ghost" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,16,0)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.GhostHit:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+	end    
 })
 
 Tab11:AddToggle({
