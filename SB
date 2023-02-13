@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "slap battles | by giang", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---GetGlove---
 
@@ -843,7 +843,7 @@ Tab13:AddToggle({
 Tab13:AddToggle({
 	Name = "Autofram slap (ghost)",
 	Default = false,
-	Callback = function(Value)
+	Callback = function(bool)
 		
             getgenv().Farming = bool
 
@@ -1099,39 +1099,6 @@ Tab6:AddToggle({
 })
 
 Tab6:AddToggle({
-	Name = "Diamond slap arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.DiamondHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
 	Name = "Default slap arua",
 	Default = false,
 	Callback = function(AntiZa)
@@ -1153,6 +1120,39 @@ Tab6:AddToggle({
                if 20 >= Magnitude then
                    
                    game.ReplicatedStorage.b:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Diamond slap arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.DiamondHit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
