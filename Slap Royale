@@ -91,7 +91,7 @@ Tab1:AddToggle({
 								local magnitude =
 								(L_8.Character.HumanoidRootPart.Position -
 								game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-								if magnitude < 20.01 then
+								if magnitude < 100 then
 									game:GetService("ReplicatedStorage").Events.Slap:FireServer(L_8.Character.Torso)
 								end
 							end
@@ -115,30 +115,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddToggle({
-	Name = "toggle get all item",
-	Default = false,
-	Callback = function(Grab)
-		_G.settingsTable.GrabItems = Grab    
-
-               while _G.settingsTable.GrabItems do
-                wait(.1)
-                if workspace[game.Players.LocalPlayer.Name].inMatch.Value == true then
-                    wait(0.1)
-            local lp = game.Players.LocalPlayer
-            for i, v in ipairs(game.Workspace:GetDescendants()) do
-
-                if v:IsA("TouchTransmitter") and v.Parent.Name == "Handle" then
-                    lp.Character.Humanoid:EquipTool(v.Parent.Parent)
-                end
-                
-                
-                end
-                end
-               end
-	end    
-})
-
 Tab:AddButton({
 	Name = "get all items",
 	Callback = function()
@@ -159,74 +135,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddButton({
-	Name = "get lab code",
-	Callback = function()
-      		function code(decal)
-                if decal == "http://www.roblox.com/asset/?id=9648769161" then
-                    return 4
-                elseif decal == "http://www.roblox.com/asset/?id=9648765536" then
-                    return 2
-                elseif decal == "http://www.roblox.com/asset/?id=9648762863" then
-                    return 3
-                elseif decal == "http://www.roblox.com/asset/?id=9648759883" then
-                    return 9
-                elseif decal == "http://www.roblox.com/asset/?id=9648755440" then
-                    return 8
-                elseif decal == "http://www.roblox.com/asset/?id=9648752438" then
-                    return 2
-                elseif decal == "http://www.roblox.com/asset/?id=9648749145" then
-                    return 8
-                elseif decal == "http://www.roblox.com/asset/?id=9648745618" then
-                    return 3
-                elseif decal == "http://www.roblox.com/asset/?id=9648742013" then
-                    return 7
-                elseif decal == "http://www.roblox.com/asset/?id=9648738553" then
-                    return 8
-                elseif decal == "http://www.roblox.com/asset/?id=9648734698" then
-                    return 2
-                elseif decal == "http://www.roblox.com/asset/?id=9648730082" then
-                    return 6
-                elseif decal == "http://www.roblox.com/asset/?id=9648723237" then
-                    return 3
-                elseif decal == "http://www.roblox.com/asset/?id=9648718450" then
-                    return 6
-                elseif decal == "http://www.roblox.com/asset/?id=9648715920" then
-                    return 6
-                elseif decal == "http://www.roblox.com/asset/?id=9648712563" then
-                    return 2
-                end
-            end
-
-            for i, v in ipairs(game:GetService("Workspace").Map.CodeBrick.SurfaceGui:GetDescendants()) do
-                if v.Name == "IMGTemplate" then
-                    Code = code(tostring(v.Image))
-                    warn(tostring(Code))
-                end
-            end
-  	end    
-})
-
-for i,v in ipairs(game:GetService("Workspace").Map:WaitForChild("CodeBrick"):WaitForChild("SurfaceGui"):GetDescendants()) do
-    if v.Name == 'IMGTemplate' then
-        local decal_url = tostring(v.Image)
-        local code = decal_codes[decal_url]
-
-        if 0 < #game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Display.SurfaceGui.TextLabel.Text then
-            fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons.Reset.ClickDetector)
-        end
-
-        task.wait(.2)
-
-        fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons[code].ClickDetector)
-    end
-end
-
-task.wait(.2)
-
-fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons.Enter.ClickDetector)
-  	end    
-})
 
 Tab1:AddButton({
 	Name = "godmode",
@@ -349,8 +257,6 @@ Tab4:AddBind({
 		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
 	end    
 })
-
-Tab3:AddParagraph("walkspeed and jumppower","speed and jumppower control you")
 
 Tab3:AddSlider({
 	Name = "Walkspeed [WS]",
