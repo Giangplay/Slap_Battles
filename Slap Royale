@@ -167,45 +167,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddParagraph("get lab code","get lab code auto")
-
-Tab:AddButton({
-	Name = "auto get lab code",
-	Callback = function()
-      		local decal_codes = {
-    ["http://www.roblox.com/asset/?id=9648769161"] = "4",
-
-    ["http://www.roblox.com/asset/?id=9648765536"] = "2",
-
-    ["http://www.roblox.com/asset/?id=9648762863"] = "3",
-
-    ["http://www.roblox.com/asset/?id=9648759883"] = "9",
-
-    ["http://www.roblox.com/asset/?id=9648755440"] = "8",
-
-    ["http://www.roblox.com/asset/?id=9648752438"] = "2",
-
-    ["http://www.roblox.com/asset/?id=9648749145"] = "8",
-
-    ["http://www.roblox.com/asset/?id=9648745618"] = "3",
-
-    ["http://www.roblox.com/asset/?id=9648742013"] = "7",
-
-    ["http://www.roblox.com/asset/?id=9648738553"] = "8",
-
-    ["http://www.roblox.com/asset/?id=9648734698"] = "2",
-
-    ["http://www.roblox.com/asset/?id=9648730082"] = "6",
-
-    ["http://www.roblox.com/asset/?id=9648723237"] = "3",
-
-    ["http://www.roblox.com/asset/?id=9648718450"] = "6",
-
-    ["http://www.roblox.com/asset/?id=9648715920"] = "6",
-
-    ["http://www.roblox.com/asset/?id=9648712563"] = "2"
-}
-
 Tab:AddButton({
 	Name = "get lab code",
 	Callback = function()
@@ -318,8 +279,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddParagraph("bomb bus","dame people bus")
-
 Tab:AddButton({
 	Name = "bomb bus",
 	Callback = function()
@@ -405,7 +364,7 @@ Tab4:AddBind({
 	end    
 })
 
-Tab3:AddParagraph("walkspeed","speed control you")
+Tab3:AddParagraph("walkspeed and jumppower","speed and jumppower control you")
 
 Tab3:AddSlider({
 	Name = "Walkspeed [WS]",
@@ -419,8 +378,6 @@ Tab3:AddSlider({
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 	end    
 })
-
-Tab3:AddParagraph("jumppower","Jumppower control you")
 
 Tab3:AddSlider({
 	Name = "Jumppower",
