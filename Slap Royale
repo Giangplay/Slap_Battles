@@ -48,8 +48,6 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab1:AddParagraph("big glove","you glove big reach")
-
 Tab1:AddSlider({
 	Name = "big glove",
 	Min = 1,
@@ -75,8 +73,6 @@ plr.CharacterAdded:Connect(function(char)
 end)
 	end    
 })
-
-Tab1:AddParagraph("slap arua","slap arua people")
 
 Tab1:AddToggle({
 	Name = "slap arua",
@@ -105,8 +101,6 @@ Tab1:AddToggle({
 	end    
 })
 
-Tab:AddParagraph("One shot","one shot people die")
-
 Tab:AddButton({
 	Name = "One shot",
 	Callback = function()
@@ -120,8 +114,6 @@ Tab:AddButton({
             end
   	end    
 })
-
-Tab:AddParagraph("get all item","item tp you")
 
 Tab:AddToggle({
 	Name = "toggle get all item",
@@ -236,8 +228,6 @@ fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").
   	end    
 })
 
-Tab1:AddParagraph("anti all","no dame")
-
 Tab1:AddButton({
 	Name = "godmode",
 	Callback = function()
@@ -251,8 +241,6 @@ Tab1:AddButton({
       		game.Players.LocalPlayer.Character.inZone:Destroy()
   	end    
 })
-
-Tab:AddParagraph("power","you power big")
 
 Tab:AddButton({
 	Name = "power all",
@@ -308,8 +296,6 @@ if 20 > Magnitude then
 			end
   	end    
 })
-
-Tab1:AddParagraph("anti","part")
 
 Tab1:AddButton({
 	Name = "anti acid",
