@@ -148,43 +148,43 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
 end)
 
 local Tab = Window:MakeTab({
-	Name = "combat",
+	Name = "Combat",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab1 = Window:MakeTab({
-	Name = "script",
+	Name = "Script",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
-	Name = "Anti voin",
+	Name = "Anti void",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab3 = Window:MakeTab({
-	Name = "get glove Elude",
+	Name = "Get Glove Elude",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab4 = Window:MakeTab({
-	Name = "fram",
+	Name = "autofram",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab6 = Window:MakeTab({
-	Name = "kill arua",
+	Name = "Kill Arua",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab7 = Window:MakeTab({
-	Name = "local",
+	Name = "Local",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -196,7 +196,7 @@ local Tab9 = Window:MakeTab({
 })
 
 local Tab10 = Window:MakeTab({
-	Name = "auto join",
+	Name = "Auto Join",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -214,7 +214,7 @@ local Tab12 = Window:MakeTab({
 })
 
 local Tab13 = Window:MakeTab({
-	Name = "autofram slap",
+	Name = "Autofram Slap",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -230,7 +230,7 @@ OrionLib:MakeNotification({
 	Name = "Script by giang",
 	Content = "Nope",
 	Image = "rbxassetid://4483345998",
-	Time = 40
+	Time = 10
 })
 
 local Section = Tab:AddSection({
@@ -279,6 +279,20 @@ Tab3:AddButton({
 	Name = "On console",
 	Callback = function()
       		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Synapse X PE",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Animation PE",
+	Callback = function()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
   	end    
 })
 
@@ -518,7 +532,7 @@ Tab10:AddToggle({
 })
 
 Tab2:AddButton({
-	Name = "on 100 Slaps Fight Arena (Can't Lose)",
+	Name = "On 100 Slaps Fight Arena (Can't Lose)",
 	Callback = function()
       		arenaVoid.CanCollide = true
 	arenaVoid.Anchored = true
@@ -527,7 +541,7 @@ Tab2:AddButton({
 })
 
 Tab2:AddButton({
-	Name = "off 100 Slaps Fight Arena (Can't Lose)",
+	Name = "Off 100 Slaps Fight Arena (Can't Lose)",
 	Callback = function()
       		arenaVoid.CanCollide = false
 	arenaVoid.Anchored = true
@@ -554,7 +568,7 @@ Tab2:AddButton({
 })
 
 Tab4:AddToggle({
-	Name = "get bob",
+	Name = "Get bob",
 	Default = false,
 	Callback = function(bool)
 		GetBob = bool
@@ -632,7 +646,7 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "get tram",
+	Name = "Autofram Brick (Trap)",
 	Default = false,
 	Callback = function(bool)
 		Brick = bool
@@ -663,7 +677,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "auto Tp to plate  (600 seconds)",
+	Name = "Auto Tp to plate  (600 seconds)",
 	Default = false,
 	Callback = function(S)
 		shared.hi = S
