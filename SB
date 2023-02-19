@@ -238,7 +238,7 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddButton({
-	Name = "keyboard",
+	Name = "keyboard V1",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
   	end    
@@ -293,6 +293,13 @@ Tab1:AddButton({
 	Name = "Animation PE",
 	Callback = function()
       		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Keyboard v2",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Keyboard%20v2"))()
   	end    
 })
 
