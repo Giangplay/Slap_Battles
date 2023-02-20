@@ -299,7 +299,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Keyboard v2",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Keyboard%20v2"))()
+      		loadstring(game:HttpGet(('https://pastebin.com/raw/SxgKjiRT'),true))()
   	end    
 })
 
