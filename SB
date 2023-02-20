@@ -348,6 +348,40 @@ Tab4:AddButton({
   	end    
 })
 
+Tab4:AddButton({
+	Name = "Get redacted (5000 slap)",
+	Callback = function()
+         local Door = 1
+
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) and 5000 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+
+    repeat
+    
+    task.wait(.25)
+
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.PocketDimension.Doors[Door].CFrame
+
+    Door = Door + 1
+
+    print(Door)
+
+    wait(5)
+
+
+
+    
+    until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850)
+
+else 
+
+    print("YOU ALREADY HAVE [ R E D A C T E D ] !!")
+
+    print("OR YOU DONT HAVE 5K SLAPS")
+
+end
+  	end    
+})
+
 Tab7:AddSlider({
 	Name = "Walkspeed [WS]",
 	Min = 20,
