@@ -710,15 +710,40 @@ end
 	end    
 })
 
-Tab4:AddToggle({
-	Name = "Auto Tp to plate  (600 seconds)",
-	Default = false,
-	Callback = function(S)
-		shared.hi = S
-	    while shared.hi and wait(0.01) do
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
-end
-	end    
+Tab4:AddButton({
+	Name = "Get Tycoon",
+	Callback = function()
+      		
+        
+        
+        if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2129212145) then
+            
+            if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+                
+            repeat task.wait(.2)
+                                
+            firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                            
+            firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+
+                            
+            until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+            
+            else
+                
+            end
+            
+            repeat task.wait(.2)
+                
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.Plate.CFrame * CFrame.new(0,-2,0)
+                
+            until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2129212145) 
+            
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.Plate.CFrame * CFrame.new(0,2,0)
+
+            
+        end
+  	end    
 })
 
 Tab4:AddToggle({
@@ -952,6 +977,45 @@ Tab13:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Megarock | Custom",
+	Default = false,
+	Callback = function(bool)
+		
+        AntiRock = bool
+        
+        if bool == true then
+            
+        while AntiRock do
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+
+                if v.Name == "rock" and v.CanTouch == true then
+
+                    v.CanTouch = false
+
+                 end
+
+            end
+            
+        end
+        
+        else
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+
+                if v.Name == "rock" and v.CanTouch == false then
+
+                    v.CanTouch = true
+
+                 end
+
+            end
+            
+        end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
 	Callback = function(bool)
@@ -1041,35 +1105,123 @@ Tab11:AddToggle({
 	end    
 })
 
-Tab11:AddButton({
-	Name = "Destroy the cube of death",
-	Callback = function()
-      		workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:Destroy()
-  	end    
+Tab11:AddToggle({
+	Name = "Disable Cube Of Death",
+	Default = false,
+	Callback = function(bool)
+		if bool == true then
+        
+        if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+            
+        workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+        
+        end
+        
+        else
+            
+            if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+                
+                workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
+
+                
+            end
+
+        end
+        
+	end    
 })
 
-Tab11:AddButton({
-	Name = "Destroy Death Barriers",
-	Callback = function()
-      		if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
+Tab11:AddToggle({
+	Name = "Disable Death Barriers",
+	Default = false,
+	Callback = function(bool)
+		
+        if bool == true then
+        
+        if workspace:FindFirstChild("dedBarrier") and workspace:FindFirstChild("DEATHBARRIER") and workspace:FindFirstChild("DEATHBARRIER2") then
     
-            workspace.DEATHBARRIER:Destroy()
-            workspace.DEATHBARRIER2:Destroy()
-            workspace.dedBarrier:Destroy()
+            workspace.DEATHBARRIER.CanTouch = false
+            workspace.DEATHBARRIER2.CanTouch = false
+            workspace.dedBarrier.CanTouch = false
         
         else
             
             print("No Death Barriers")
         
         end
-  	end    
+        
+        else
+            
+            workspace.DEATHBARRIER.CanTouch = true
+            workspace.DEATHBARRIER2.CanTouch = true
+            workspace.dedBarrier.CanTouch = true
+        
+        
+        end
+	end    
 })
 
-Tab11:AddButton({
-	Name = "Destroy Nametap",
-	Callback = function()
-      		game.Players.LocalPlayer.Character.Head["Nametag"]:Destroy()
-  	end    
+Tab11:AddToggle({
+	Name = " Auto Remove nametag",
+	Default = false,
+	Callback = function(Value)
+		 
+        Auto_Remove = bool
+        
+        if bool == true then
+
+
+        task.wait(.05)
+            
+            while Auto_Remove == true do
+                
+                local Character = game.Players.LocalPlayer.CharacterAdded:Wait() 
+
+            
+
+                repeat task.wait(.0005) until Character and Character:FindFirstChild("Head") and Character:FindFirstChild("Head"):FindFirstChild("Nametag")
+                
+                game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
+                
+                
+                
+            end
+            
+        end
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "Invisible Reverse [ FE ]",
+	Default = false,
+	Callback = function(bool)
+		 
+        Invis_Reverse = bool
+        
+        if bool == true then
+            
+        
+        
+        while Invis_Reverse do
+        
+            repeat wait(.005) until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
+
+            game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
+
+            for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    
+                if v.Name == "SelectionBox" then
+                
+                v:Destroy()
+        
+                end
+            
+            end
+        
+        end
+        
+        end
+	end    
 })
 
 Tab11:AddButton({
@@ -1657,16 +1809,9 @@ Tab9:AddButton({
 })
 
 Tab9:AddButton({
-	Name = "TP to Brazil (kick you)",
+	Name = "TP to Brazil",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-469.613953, 304.469482, -11.8963394, 0, -1, 0, 1, 0, -0, 0, 0, 1)
-  	end    
-})
-
-Tab9:AddButton({
-	Name = "TP to Glove Error (20K slap)",
-	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-570.804138, 320.128052, 21.6225147, 0.91358912, 6.14746583e-08, -0.406638622, -7.28098968e-08, 1, -1.2403313e-08, 0.406638622, 4.0938847e-08, 0.91358912)
   	end    
 })
 
