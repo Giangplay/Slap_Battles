@@ -565,40 +565,40 @@ Tab10:AddToggle({
 	end    
 })
 
-Tab2:AddToggle({
-	Name = "100 Slaps Fight Arena (Can't Lose)",
-	Default = false,
-	Callback = function(state)
-		if state then
-
-	arenaVoid.CanCollide = true
+Tab2:AddButton({
+	Name = "On 100 Slaps Fight Arena (Can't Lose)",
+	Callback = function()
+      		arenaVoid.CanCollide = true
 	arenaVoid.Anchored = true
 	arenaVoid.Transparency = 0.5
-
-    else
-
-	arenaVoid.CanCollide = false
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 1
-    end
-	end    
+  	end    
 })
 
-Tab2:AddToggle({
-	Name = "Normal Arena Anti-Void",
-	Default = false,
-	Callback = function(state)
-		if state then
-	jesus.CanCollide = true
+Tab2:AddButton({
+	Name = "Off 100 Slaps Fight Arena (Can't Lose)",
+	Callback = function()
+      		arenaVoid.CanCollide = false
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 1
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "On Normal Arena Anti-Void",
+	Callback = function()
+      		jesus.CanCollide = true
 	jesus.Anchored = true
 	jesus.Transparency = 0.5
-    else
+  	end    
+})
 
-	jesus.CanCollide = false
+Tab2:AddButton({
+	Name = "Off Normal Arena Anti-Void",
+	Callback = function()
+      		jesus.CanCollide = false
 	jesus.Anchored = true
 	jesus.Transparency = 1
-    end
-	end    
+  	end    
 })
 
 Tab4:AddToggle({
