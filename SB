@@ -710,7 +710,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab12:AddToggle({
 	Name = "Auto TP Plate (600 second)",
 	Default = false,
 	Callback = function(S)
@@ -727,6 +727,27 @@ Tab4:AddToggle({
 	Callback = function(Value)
 		getgenv().AutoCandy = Value
             AutoCandy()
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Disable Kill Blocks",
+	Default = false,
+	Callback = function(a)
+		getgenv().disable = a
+     if getgenv().disable == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, false)
+        end
+     end
+   else
+       for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, true)
+        end
+     end
+  end
 	end    
 })
 
@@ -931,6 +952,55 @@ Tab13:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Megarock / Customs",
+	Default = false,
+	Callback = function(bool)
+	
+        AntiRock = bool
+        
+        if bool == true then
+            
+        while AntiRock do
+            
+            task.wait()
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+
+                task.wait()
+                
+                if v.Name == "rock" and v.CanTouch == true then
+
+                    task.wait()
+                    
+                    v.CanTouch = false
+
+                 end
+
+            end
+            
+        end
+        
+        else
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                task.wait()
+                
+                if v.Name == "rock" and v.CanTouch == false then
+                    
+                    task.wait()
+                    
+                    v.CanTouch = true
+
+                 end
+
+            end
+            
+        end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
 	Callback = function(bool)
@@ -1016,6 +1086,36 @@ Tab11:AddToggle({
             
             end
             
+        end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Squid",
+	Default = false,
+	Callback = function(bool)
+	    
+        AntiSquid = bool
+        
+        
+        if bool == true then
+            
+            while AntiSquid do
+                
+            task.wait()
+            
+            for i,v in pairs(game.Players.LocalPlayer.PlayerGui.SquidInk:GetChildren()) do
+                
+                if v.Parent then
+                    
+                    v:Destroy()
+                    
+                end
+                
+            end
+            
+            end
+        
         end
 	end    
 })
