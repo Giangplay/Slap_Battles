@@ -1043,36 +1043,6 @@ Tab11:AddToggle({
 })
 
 Tab11:AddToggle({
-	Name = "Anti Squid",
-	Default = false,
-	Callback = function(bool)
-	    
-        AntiSquid = bool
-        
-        
-        if bool == true then
-            
-            while AntiSquid do
-                
-            task.wait()
-            
-            for i,v in pairs(game.Players.LocalPlayer.PlayerGui.SquidInk:GetChildren()) do
-                
-                if v.Parent then
-                    
-                    v:Destroy()
-                    
-                end
-                
-            end
-            
-            end
-        
-        end
-	end    
-})
-
-Tab11:AddToggle({
 	Name = "Disable Cube Of Death",
 	Default = false,
 	Callback = function(bool)
