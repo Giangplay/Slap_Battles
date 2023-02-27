@@ -730,28 +730,6 @@ Tab4:AddToggle({
 	end    
 })
 
-Tab11:AddToggle({
-	Name = "Disable Kill Blocks",
-	Default = false,
-	Callback = function(a)
-		getgenv().disable = a
-     if getgenv().disable == true then
-      for i,v in pairs(game.Players:GetChildren()) do
-        if v.leaderstats.Glove.Value == "Obby" then
-          disable(v.Name, false)
-        end
-     end
-   else
-       for i,v in pairs(game.Players:GetChildren()) do
-        if v.leaderstats.Glove.Value == "Obby" then
-          disable(v.Name, true)
-        end
-     end
-  end
-end)
-	end    
-})
-
 Tab11:AddTextbox({
 	Name = "view player health",
 	Default = "",
