@@ -585,7 +585,7 @@ Tab2:AddToggle({
 })
 
 Tab2:AddToggle({
-	Name = "Normal Arena Anti Void",
+	Name = "Normal Arena Anti-Void",
 	Default = false,
 	Callback = function(state)
 		if state then
