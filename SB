@@ -748,6 +748,7 @@ Tab11:AddToggle({
         end
      end
   end
+end)
 	end    
 })
 
@@ -948,55 +949,6 @@ Tab13:AddToggle({
                         end
                     end
                 end
-	end    
-})
-
-Tab11:AddToggle({
-	Name = "Anti Megarock / Customs",
-	Default = false,
-	Callback = function(bool)
-	
-        AntiRock = bool
-        
-        if bool == true then
-            
-        while AntiRock do
-            
-            task.wait()
-            
-            for i,v in pairs(game.Workspace:GetDescendants()) do
-
-                task.wait()
-                
-                if v.Name == "rock" and v.CanTouch == true then
-
-                    task.wait()
-                    
-                    v.CanTouch = false
-
-                 end
-
-            end
-            
-        end
-        
-        else
-            
-            for i,v in pairs(game.Workspace:GetDescendants()) do
-                
-                task.wait()
-                
-                if v.Name == "rock" and v.CanTouch == false then
-                    
-                    task.wait()
-                    
-                    v.CanTouch = true
-
-                 end
-
-            end
-            
-        end
 	end    
 })
 
