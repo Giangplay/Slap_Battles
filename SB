@@ -565,40 +565,40 @@ Tab10:AddToggle({
 	end    
 })
 
-Tab2:AddButton({
-	Name = "On 100 Slaps Fight Arena (Can't Lose)",
-	Callback = function()
-      		arenaVoid.CanCollide = true
+Tab2:AddToggle({
+	Name = "100 Slaps Fight Arena (Can't Lose)",
+	Default = false,
+	Callback = function(state)
+		if state then
+
+	arenaVoid.CanCollide = true
 	arenaVoid.Anchored = true
 	arenaVoid.Transparency = 0.5
-  	end    
-})
 
-Tab2:AddButton({
-	Name = "Off 100 Slaps Fight Arena (Can't Lose)",
-	Callback = function()
-      		arenaVoid.CanCollide = false
+    else
+
+	arenaVoid.CanCollide = false
 	arenaVoid.Anchored = true
 	arenaVoid.Transparency = 1
-  	end    
+    end
+	end    
 })
 
-Tab2:AddButton({
-	Name = "On Normal Arena Anti-Void",
-	Callback = function()
-      		jesus.CanCollide = true
+Tab2:AddToggle({
+	Name = "Normal Arena Anti-Void",
+	Default = false,
+	Callback = function(state)
+		if state then
+	jesus.CanCollide = true
 	jesus.Anchored = true
 	jesus.Transparency = 0.5
-  	end    
-})
+    else
 
-Tab2:AddButton({
-	Name = "Off Normal Arena Anti-Void",
-	Callback = function()
-      		jesus.CanCollide = false
+	jesus.CanCollide = false
 	jesus.Anchored = true
 	jesus.Transparency = 1
-  	end    
+    end
+	end    
 })
 
 Tab4:AddToggle({
@@ -885,6 +885,36 @@ Tab13:AddToggle({
                         end
                     end
                 end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "anti Squid",
+	Default = false,
+	Callback = function(bool)
+		
+        AntiSquid = bool
+        
+        
+        if bool == true then
+            
+            while AntiSquid do
+                
+            task.wait()
+            
+            for i,v in pairs(game.Players.LocalPlayer.PlayerGui.SquidInk:GetChildren()) do
+                
+                if v.Parent then
+                    
+                    v:Destroy()
+                    
+                end
+                
+            end
+            
+            end
+        
+        end
 	end    
 })
 
