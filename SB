@@ -316,41 +316,50 @@ Tab1:AddButton({
   	end    
 })
 
-Tab:AddBind({
+Tab:AddButton({
 	Name = "inf yield",
-	Default = Enum.KeyCode.Q,
-	Hold = false,
 	Callback = function()
-		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
-	end    
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
 })
 
-Tab:AddBind({
-	Name = "fram slapples",
-	Default = Enum.KeyCode.Q,
-	Hold = false,
+Tab:AddButton({
+	Name = "Hitbox",
 	Callback = function()
-		while true do
-    wait(.001)
-spawn(function()
-for i, v in pairs(game:GetService("Workspace").Arena.island5.Slapples:GetDescendants()) do
-		if v:IsA("TouchTransmitter") then
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 0)
-				task.wait()
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 1)
-		end
- end
-end)
-end
-	end    
+      		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
+  	end    
 })
 
-Tab:AddBind({
-	Name = "hitbox",
-	Default = Enum.KeyCode.Q,
-	Hold = false,
-	Callback = function()
-		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
+Tab:AddToggle({
+	Name = "Autofarm Slapples",
+	Default = false,
+	Callback = function(bool)
+	
+		getgenv().Slapple = bool
+
+                if bool == true then
+
+                    while getgenv().Slapple do
+
+                        wait(.001)
+
+                        for Index, Slapple in next, workspace.Arena.island5.Slapples:GetDescendants() do
+
+                            if Slapple.ClassName == "TouchTransmitter" then
+
+                                firetouchinterest(game.Players.LocalPlayer.Character.Head, Slapple.Parent, 0)
+                                firetouchinterest(game.Players.LocalPlayer.Character.Head, Slapple.Parent, 1)
+                                
+
+                            end
+
+
+
+                        end
+
+                    end
+
+                end
 	end    
 })
 
@@ -744,7 +753,7 @@ Tab4:AddToggle({
 })
 
 Tab11:AddTextbox({
-	Name = "Edit hitbox",
+	Name = "hitbox",
 	Default = "",
 	TextDisappear = true,
 	Callback = function(Value)
@@ -767,36 +776,6 @@ end
 end
 end)
 	end	  
-})
-
-Tab11:AddSlider({
-	Name = "Hitbox",
-	Min = 0,
-	Max = 100,
-	Default = 0,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Hitbox",
-	Callback = function(Value)
-		_G.HeadSize = Value
-_G.Disabled = true
-
-game:GetService('RunService').RenderStepped:connect(function()
-if _G.Disabled then
-for i,v in next, game:GetService('Players'):GetPlayers() do
-if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-pcall(function()
-v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-v.Character.HumanoidRootPart.Transparency = 0.5
-v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really black")
-v.Character.HumanoidRootPart.Material = "Neon"
-v.Character.HumanoidRootPart.CanCollide = false
-end)
-end
-end
-end
-end)
-	end    
 })
 
 Tab11:AddTextbox({
@@ -1267,7 +1246,7 @@ Tab1:AddButton({
 })
 
 Tab6:AddToggle({
-	Name = "killstreak slap arua",
+	Name = "Spin Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
 		_G.Gay = AntiZa
@@ -1287,73 +1266,7 @@ Tab6:AddToggle({
         
                if 20 >= Magnitude then
                    
-                   game.ReplicatedStorage.KSHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Reaper Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.ReaperHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Diamond Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.DiamondHit:FireServer(v.Character["Right Leg"])
+                   game.ReplicatedStorage.spinhit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -1399,7 +1312,7 @@ Tab6:AddToggle({
 })
 
 Tab6:AddToggle({
-	Name = "Spin Slap Arua",
+	Name = "Diamond Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
 		_G.Gay = AntiZa
@@ -1419,7 +1332,7 @@ Tab6:AddToggle({
         
                if 20 >= Magnitude then
                    
-                   game.ReplicatedStorage.spinhit:FireServer(v.Character["Right Leg"])
+                   game.ReplicatedStorage.DiamondHit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -1597,7 +1510,7 @@ Tab6:AddToggle({
 })
 
 Tab6:AddToggle({
-	Name = "Dream Slap Arua",
+	Name = "Spring Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
 		_G.Gay = AntiZa
@@ -1617,304 +1530,7 @@ Tab6:AddToggle({
         
                if 20 >= Magnitude then
                    
-                   game.ReplicatedStorage.Dreamhit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Bull Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.BullHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Boomerang Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.BoomerangH:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Godshand Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.Godshand:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Error Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.Errorhit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "The Flex Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.FlexHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Dice Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.DiceHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Ghost Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.GhostHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Cheeky Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.CheekyHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Stun Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.MailHit:FireServer(v.Character["Right Leg"])
+                   game.ReplicatedStorage.springhit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -1960,6 +1576,732 @@ Tab6:AddToggle({
 })
 
 Tab6:AddToggle({
+	Name = "Dice Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.DiceHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Bull Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.BullHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Ghost Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.GhostHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Thanos Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.ThanosHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Stun Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.MailHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Za Hando slap arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.zhramt:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Fort slap arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.Fort:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Meganet Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.MeganetHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Pusher Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.PusherHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Anchor Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.hitAnchor:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Space Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.HtSpace:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Boomerang Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.BoomerangH:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Dream Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.Dreamhit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Mail Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.MailHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "T H I C K Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.GeneralHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Replica Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.ReplicaHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Golden Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.GoldenHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Cheeky Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.CheekyHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Reaper Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.ReaperHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Defense Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.DefenseHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "killstreak slap arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.KSHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Reverse Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.ReverseHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
 	Name = "Shukuchi Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
@@ -1981,6 +2323,39 @@ Tab6:AddToggle({
                if 20 >= Magnitude then
                    
                    game.ReplicatedStorage.ShukuchiHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Duelist Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.DuelistHit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -2059,7 +2434,7 @@ Tab6:AddToggle({
 })
 
 Tab6:AddToggle({
-	Name = "Space Slap Arua",
+	Name = "Adios Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
 		_G.Gay = AntiZa
@@ -2079,370 +2454,7 @@ Tab6:AddToggle({
         
                if 20 >= Magnitude then
                    
-                   game.ReplicatedStorage.HtSpace:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Reverse Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.ReverseHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Mail Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.MailHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Cheeky Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.CheekyHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Anchor Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.hitAnchor:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Thanos Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.ThanosHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Stun Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.HtStun:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Golden Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.GoldenHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Replica Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.ReplicaHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Defense Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.DefenseHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Meganet Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.MeganetHit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab6:AddToggle({
-	Name = "Spring Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.springhit:FireServer(v.Character["Right Leg"])
+                   game.ReplicatedStorage.hitAdios:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -2487,6 +2499,39 @@ Tab6:AddToggle({
 	end    
 })
 
+Tab5:AddToggle({
+	Name = "Engie Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.engiehit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
 Tab6:AddToggle({
 	Name = "Rocky Slap Arua",
 	Default = false,
@@ -2509,6 +2554,270 @@ Tab6:AddToggle({
                if 20 >= Magnitude then
                    
                    game.ReplicatedStorage.RockyHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Conveyor Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.ConvHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "SHOP Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.SHOP:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Phantom Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.PhantomHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Wormhole Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.WormHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "God's hand Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.Godshand:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Baller Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.GeneralHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "The Flex Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.FlexHit:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+	end    
+})
+
+Tab6:AddToggle({
+	Name = "Error Slap Arua",
+	Default = false,
+	Callback = function(AntiZa)
+		_G.Gay = AntiZa
+   
+   if AntiZa == true then
+       
+       while _G.Gay do
+    
+    wait(.001)
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 20 >= Magnitude then
+                   
+                   game.ReplicatedStorage.Errorhit:FireServer(v.Character["Right Leg"])
                    
                    end
              end
@@ -2971,72 +3280,6 @@ Tab5:AddToggle({
                if 20 >= Magnitude then
                    
                    game.ReplicatedStorage.buddiesHIT:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "engie Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.engiehit:FireServer(v.Character["Right Leg"])
-                   
-                   end
-             end
-    end
-    
-    end
-    
-    end
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "Adios Slap Arua",
-	Default = false,
-	Callback = function(AntiZa)
-		_G.Gay = AntiZa
-   
-   if AntiZa == true then
-       
-       while _G.Gay do
-    
-    wait(.001)
-    
-    for i,v in pairs(game.Players:GetPlayers()) do
-        
-        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-            
-
-            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-        
-               if 20 >= Magnitude then
-                   
-                   game.ReplicatedStorage.HitAdios:FireServer(v.Character["Right Leg"])
                    
                    end
              end
