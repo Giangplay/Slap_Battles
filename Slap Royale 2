@@ -1,0 +1,310 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Slap Royale", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "Slap Royale"})
+
+--Anti bypass
+
+local namecall
+    namecall =
+        hookmetamethod(
+        game,
+        "__namecall",
+        function(self, ...)
+            local Args = {...}
+            if getnamecallmethod() == "FireServer" and tostring(self) == "WS" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "WS2" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
+                return
+            end
+            return namecall(self, ...)
+        end
+    )
+
+    if syn then
+        print("On anti bypass")
+    end
+
+local Tab = Window:MakeTab({
+	Name = "Combat",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab1 = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab2 = Window:MakeTab({
+	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab3 = Window:MakeTab({
+	Name = "Local",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab4 = Window:MakeTab({
+	Name = "Setting",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+OrionLib:MakeNotification({
+	Name = "Script Slap Royale",
+	Content = "ID: 9431156611",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+OrionLib:MakeNotification({
+	Name = "You make ban",
+	Content = "there are many hacks and many admins",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+OrionLib:MakeNotification({
+	Name = "Script By Giang",
+	Content = "Discord R2O and Youtube",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+Tab:AddToggle({
+	Name = "Slap Arua",
+	Default = false,
+	Callback = function(bool)
+		getgenv().Aura = bool
+				while getgenv().Aura == true do
+					wait(.001)
+					for _, L_8 in pairs(game.Players:GetPlayers()) do
+						if L_8 ~= game.Players.LocalPlayer then
+							if
+							L_8.Character:FindFirstChild("HumanoidRootPart") ~= nil and
+							L_8.Character:FindFirstChild("Humanoid") and
+							not L_8.Character:FindFirstChild("Dead")  and not game.Players.LocalPlayer.Character:FindFirstChild("Dead")  then
+							
+								local magnitude =
+								(L_8.Character.HumanoidRootPart.Position -
+								game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+								if magnitude < 20.01 then
+									game:GetService("ReplicatedStorage").Events.Slap:FireServer(L_8.Character.Torso)
+								end
+							end
+						end
+					end
+				end
+	end    
+})
+
+Tab1:AddButton({
+	Name = "get all items",
+	Callback = function()
+      		local lp = game.Players.LocalPlayer
+		for _, L_2 in ipairs(game.Workspace:GetDescendants()) do
+
+			if L_2:IsA("TouchTransmitter") and L_2.Parent.Name == "Handle" and game.Players.LocalPlayer.Character.inMatch.Value == true then
+				lp.Character.Humanoid:EquipTool(L_2.Parent.Parent)
+			end
+			
+
+
+		end
+		
+		wait(.25)
+		
+		game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Use All Permanent Items",
+	Callback = function()
+      		for _, L_3 in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if
+				L_3:IsA("Tool") and L_3.Name == "Potion of Strength" or L_3.Name == "Bull's essence" or
+				L_3.Name == "Speed Potion" or
+				L_3.Name == "Boba" or
+				L_3.Name == "Frog Potion" or
+				L_3.Name == "Strength Brew" or
+			    L_3.Name == "Frog Brew" or
+				L_3.Name == "Speed Brew"
+				then
+					L_3.Parent = game.Players.LocalPlayer.Character
+				end
+			end
+			wait(.5)
+			for _, L_4 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if L_4:IsA("Tool") then
+					L_4:Activate()
+				end
+			end
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Bomb bus",
+	Callback = function()
+      		local lp = game.Players.LocalPlayer
+			for _, L_5 in ipairs(game.Workspace:GetDescendants()) do
+				if L_5:IsA("TouchTransmitter") and L_5.Parent.Name == "Handle" and L_5.Parent.Parent.Name == "Bomb" and workspace:FindFirstChild("BusModel") then
+					local Magnitude = (lp.Character.HumanoidRootPart.Position - workspace.BusModel.Position).Magnitude
+if 20 > Magnitude then 
+    
+    
+    
+					lp.Character.Humanoid:EquipTool(L_5.Parent.Parent)
+				end
+			end
+			wait(.1)
+			for _, L_6 in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if L_6:IsA("Tool") and L_6.Name == "Bomb" then
+					L_6.Parent = game.Players.LocalPlayer.Character
+				end
+			end
+			wait(.25)
+			for _, L_7 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if L_7:IsA("Tool") then
+					L_7:Activate()
+				end
+			end
+			end
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "One shot",
+	Callback = function()
+      		local lp = game.Players.LocalPlayer
+
+            for k, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Cube of Ice" then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    v:Activate()
+                end
+            end
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Anti Acid",
+	Callback = function(sex)
+      		local sex = Instance.new("Part")
+
+		sex.Parent = game.Workspace
+		sex.Size = Vector3.new(154, 26, 132)
+		sex.Position = Vector3.new(-60, -5, -731)
+		sex.Transparency = 1
+		sex.Anchored = true
+  	end    
+})
+
+Tab2:AddButton({
+	Name = "Anti Lava",
+	Callback = function(AntiLava)
+      		local AntiLava = Instance.new("Part", game.Workspace)
+
+			AntiLava.Position = Vector3.new(-238, -43, 401)
+
+			AntiLava.Size = Vector3.new(150,10,150)
+
+			AntiLava.Anchored = true
+
+			AntiLava.Transparency = 1
+  	end    
+})
+
+Tab2:AddToggle({
+	Name = "Remove Zone Blur",
+	Default = false,
+	Callback = function(bool)
+		
+    if Blur == true then
+                    
+	game:GetService("ReplicatedStorage").ZoneEffects.ZoneBlur.Enabled = false
+
+	game:GetService("ReplicatedStorage").ZoneEffects.ZoneColorCorrection.Enabled = false
+
+    else
+
+    game:GetService("ReplicatedStorage").ZoneEffects.ZoneBlur.Enabled = true
+
+    game:GetService("ReplicatedStorage").ZoneEffects.ZoneColorCorrection.Enabled = true
+    
+    end
+	end    
+})
+
+Tab3:AddSlider({
+	Name = "Walkspeed [ WS ]",
+	Min = 20,
+	Max = 300,
+	Default = 25,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "WS",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end    
+})
+
+Tab3:AddSlider({
+	Name = "Jumppower [ JP ]",
+	Min = 50,
+	Max = 500,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JP",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	end    
+})
+
+Tab4:AddButton({
+	Name = "inf yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+Tab4:AddTextbox({
+	Name = "hitbox edit",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Value)
+		_G.HeadSize = Value
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.5
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really black")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+	end	  
+})
+
+Tab4:AddButton({
+	Name = "Hitbox",
+	Callback = function()
+      		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
+  	end    
+})
