@@ -1,68 +1,30 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
----GetGlove---
+---Setfpscap---
 
-local function getGlove()
-	    
-	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-	        
-	        return "Default"
-	        
-	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Snow" then
-	    
-	       
-	       return "Snow"
-	    
-	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Bull" then
-	        
-	       return "Bull"
-	       
-	    elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Dice" then
-       
-            return "Dice"
-            
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boomerang" then
-       
-            return "Boomerang"
+if setfpscap then
         
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "T H I C K" then
-       
-            return "T H I C K"
-	        
+        setfpscap(1269)
         
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Reaper" then  
-            
-             return "Reaper"
-             
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
-            
-            return "Killstreak"
-        
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "God's Hand" then 
-    
-            return "God's Hand"
-            
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then 
-            
-            return "Error"
-        
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "The Flex" then 
-            
-            return "The Flex"
-            
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Detonator" then 
-            
-            return "Detonator"
-            
-        elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then 
-            
-            return "Ghost"
-            
-        
-        end
-
     end
+    
+    local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R20-EXPLOITER/main/Files/Gloves.lua"))()
+
+	local function getGlove()
+	    
+	    return game.Players.LocalPlayer.leaderstats.Glove.Value
+	    
+	end
+	
+	
+
+    local Hittables = {"Right Leg", "Left Leg", "Torso", "Head"}
+    
+    local Hit = math.random(#Hittables)
+    
+    local toHit = Hittables[Hit]
+
 
 	local pathfindingService = game:GetService("PathfindingService")
 
@@ -214,6 +176,12 @@ local Tab13 = Window:MakeTab({
 
 local Tab14 = Window:MakeTab({
 	Name = "Troller sever",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab15 = Window:MakeTab({
+	Name = "Cradit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -802,7 +770,7 @@ Tab13:AddToggle({
 
                 while getgenv().SlapAura do
 
-                    wait(.001)
+                    task.wait(.005)
                         
                         for Index, Player in next, game.Players:GetPlayers() do
                             
@@ -816,61 +784,10 @@ Tab13:AddToggle({
 
                                     local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
                                     
-                                    if 20 >= Magnitude then
+                                    if 25 >= Magnitude then
                                         
                                         
-                                        if getGlove() == "Default" then 
-                                            
-                                            game:GetService("ReplicatedStorage").b:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "Snow" then
-                                            
-                                            game:GetService("ReplicatedStorage").SnowHit:FireServer(Player.Character.Head)
-                                            
-                                        elseif getGlove() == "Bull" then 
-                                            
-                                            game:GetService("ReplicatedStorage").BullHit:FireServer(Player.Character.Head) 
-                                            
-                                        elseif getGlove() == "Boomerang" then  
-                                            
-                                            game:GetService("ReplicatedStorage").BoomerangH:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "T H I C K" then
-
-                                            game:GetService("ReplicatedStorage").GeneralHit:FireServer(Player.Character.Head)
-                                            
-                                        elseif getGlove() == "God's Hand" then
-
-                                            game:GetService("ReplicatedStorage").Godshand:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "Error" then 
-                                            
-                                            game:GetService("ReplicatedStorage").Errorhit:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "The Flex" then 
-                                            
-                                             game:GetService("ReplicatedStorage").FlexHit:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "Detonator" then 
-                                            
-                                            game:GetService("ReplicatedStorage").DetonatorHit:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "Reaper" then
-                                            
-                                            game.ReplicatedStorage.ReaperHit:FireServer(Player.Character.Head)
-                                            
-                                        elseif getGlove() == "Killstreak" then
-                                            
-                                            game.ReplicatedStorage.KSHit:FireServer(Player.Character.Head)
-                                        
-                                        elseif getGlove() == "Dice" then
-                                            
-                                            game.ReplicatedStorage.DiceHit:FireServer(Player.Character.Head)
-                                            
-                                        elseif getGlove() == "Ghost" then
-                                            
-                                            game.ReplicatedStorage.GhostHit:FireServer(Player.Character.Head)
-                                        end
+                                        shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
                                         
                                         
                                 end
@@ -891,6 +808,7 @@ Tab13:AddToggle({
                 
                 
             end
+
 	end    
 })
 
@@ -1044,43 +962,70 @@ Tab11:AddToggle({
 })
 
 Tab13:AddToggle({
-	Name = "autofram slap (Defualt)",
+	Name = "All glove autofarm slap",
 	Default = false,
 	Callback = function(bool)
 		
-            getgenv().Farming = bool
+            allFarming = bool
 
                 if bool == true then
+                    
+                    if setfpscap then
+                        
+                        setfpscap(50)
+                    
+                    end
 
-                    while getgenv().Farming do
+                    while allFarming do
 
-                        wait()
+                        task.wait()
 
                         for Index, Human in next, game.Players:GetPlayers() do
-                                
-                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                            
+                            if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
                                 
                                 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                                 
                                 
-                                wait(.1)
+                                task.wait(.1)
                                 
-                                if getGlove() == "Default" then
-                                        
 
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+
+                                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+                                        
+                                        task.wait()
+                                        
+                                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+                                    
                                     
                                         wait(.25)
                                         
-                                    game.ReplicatedStorage.b:FireServer(Human.Character.Head)
-                                    
+                                    shared.gloveHits[getGlove()]:FireServer(Human.Character:FindFirstChild("Torso"))
+                                        
                                         wait(.25)
                                     
                                     end
                                 end
                             end
                         end
+                    
+                    
+                    else
+                    
+                    if setfpscap then
+                    
+                    setfpscap(1269)
+                    
                     end
+                    
+                    if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+                        
+                        task.wait(3)
+                        
+                        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+                        
+                    end
+                    
                 end
 	end    
 })
@@ -1120,31 +1065,44 @@ Tab13:AddToggle({
 	Default = false,
 	Callback = function(bool)
 		
-            getgenv().Farming = bool
+            Farming = bool
 
                 if bool == true then
-
-                    while getgenv().Farming do
+                    
+                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+                    
+                    if setfpscap then
+                        
+                        setfpscap(50)
+                        
+                    end
+                    
+                    while Farming do
 
                         wait()
 
                         for Index, Human in next, game.Players:GetPlayers() do
                                 
-                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                            if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
                                 
                                 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                                 
                                 
-                                wait(.1)
+                                task.wait(.1)
                                 
                                 if getGlove() == "Ghost" then
                                         
 
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,16,0)
+                                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame * CFrame.new(6,-2,6)
+                                        
+                                        task.wait()
+                                        
+                                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+                                    
                                     
                                         wait(.25)
                                         
-                                    game.ReplicatedStorage.GhostHit:FireServer(Human.Character.Head)
+                                    game.ReplicatedStorage.GhostHit:FireServer(Human.Character:WaitForChild(toHit))
                                     
                                         wait(.25)
                                     
@@ -1153,6 +1111,31 @@ Tab13:AddToggle({
                             end
                         end
                     end
+                    
+                else
+                    
+                game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+                
+
+                
+                    if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+                        
+                        task.wait(3)
+                        
+                        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+                        
+                    end
+
+
+
+                
+                
+                if setfpscap then
+                    
+                    setfpscap(1269)
+                    
+                end
+                
                 end
 	end    
 })
@@ -1391,11 +1374,48 @@ Tab12:AddToggle({
 	end    
 })
 
-Tab11:AddButton({
-	Name = "Anti ragdoll",
-	Callback = function()
-      		loadstring(game:HttpGet("https://pastebin.com/raw/28qZ6YBD", true))()
-  	end    
+Tab11:AddToggle({
+	Name = "Anti Ragdoll",
+	Default = false,
+	Callback = function(bool)
+		antiRagdoll = bool
+        
+        if bool == true then
+        
+    
+        while antiRagdoll do
+    
+        task.wait()
+        
+        if not spamSleep  and not allFarming and not Farming  then
+            
+            
+        task.wait()
+        
+        local Character = game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+    
+        Character:WaitForChild("Ragdolled").Changed:Connect(function()
+        
+            if antiRagdoll == true  and Character:WaitForChild("Ragdolled").Value == true then
+            
+            repeat task.wait()
+                
+            Character:FindFirstChild("Torso").Anchored = true
+                
+            until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdolled").Value == false
+            
+            Character:FindFirstChild("Torso").Anchored = false
+
+            end
+        
+        end)
+     
+    
+end
+            
+        end
+        end
+	end    
 })
 
 Tab1:AddButton({
@@ -4491,6 +4511,167 @@ Tab14:AddToggle({
             end
         end
 	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam thanos",
+	Default = false,
+	Callback = function(bool)
+		  
+        autoThanos = bool
+        
+        if bool == true then
+            
+            while autoThanos do
+                
+                task.wait()
+
+                if getGlove() == "Thanos" then
+    
+                    task.wait()
+                    
+                    game.ReplicatedStorage.Illbeback:FireServer()
+                
+                end
+            end
+    
+        end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam sleep",
+	Default = false,
+	Callback = function(bool)
+		   
+        spamSleep = bool
+        
+        if bool == true then
+            
+            while spamSleep do
+                
+                task.wait()
+                
+                if getGlove() == "ZZZZZZZ" then
+                    
+                    task.wait(.1)
+                    
+                    game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+                    
+                end
+                
+                
+            end
+            
+        end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Golden Effect [FE]",
+	Default = false,
+	Callback = function(bool)
+		  
+        autoGod = bool
+        
+        if bool == true then
+            
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                
+                if autoGod == true and 2500 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+                    
+                    task.wait()
+                    
+                    game.ReplicatedStorage.Ungoldify:FireServer(true)
+                    
+                    task.wait(.1)
+                    
+                    
+                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
+                    
+                    task.wait(.2)
+                    fireclickdetector(game.Workspace.Lobby.Golden.ClickDetector)
+                    
+                    task.wait(.2)
+                    
+                    game.ReplicatedStorage.Goldify:FireServer(true)
+                    
+                    task.wait(.2)
+                    
+                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
+                    
+                end
+                
+            end)
+            
+        end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Invis",
+	Default = false,
+	Callback = function(bool)
+		  
+        autoInvis = bool
+        
+        if bool == true then
+            
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                
+                if autoInvis == true and 666 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+                    
+                    task.wait()
+                    
+                    game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+                    
+                    task.wait(.1)
+                    
+                    
+                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
+                    
+                    task.wait(.2)
+                    
+                    fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
+                    
+                    task.wait(.2)
+                    
+                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+                    
+                    task.wait(.2)
+                    
+                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
+                    
+                end
+                
+            end)
+            
+        end
+	end    
+})
+
+Tab15:AddButton({
+	Name = "Anakin#3568",
+	Callback = function()
+      		
+        if setclipboard then
+            
+            setclipboard("Anakin#3568")
+            
+        end
+  	end    
+})
+
+Tab15:AddButton({
+	Name = "Join Discord Invite",
+	Callback = function()
+	
+      	if setclipboard then
+            
+            setclipboard("https://discord.com/invite/VpWkYvGxMn")
+            
+        end
+  	end    
 })
 
 OrionLib:Init()
