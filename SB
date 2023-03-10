@@ -363,6 +363,13 @@ Tab4:AddButton({
   	end    
 })
 
+Tab:AddButton({
+	Name = "Toggle",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/6tkxv04C"))()
+  	end    
+})
+
 Tab4:AddButton({
 	Name = "Get redacted (5000 slap)",
 	Callback = function()
@@ -759,7 +766,7 @@ for i,v in next, game:GetService('Players'):GetPlayers() do
 if v.Name ~= game:GetService('Players').LocalPlayer.Name then
 pcall(function()
 v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-v.Character.HumanoidRootPart.Transparency = 0.5
+v.Character.HumanoidRootPart.Transparency = 0.9
 v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really black")
 v.Character.HumanoidRootPart.Material = "Neon"
 v.Character.HumanoidRootPart.CanCollide = false
@@ -888,7 +895,7 @@ Tab13:AddToggle({
 })
 
 Tab11:AddToggle({
-	Name = "Anti Anti Megarock / Custom",
+	Name = "Anti Megarock / Custom",
 	Default = false,
 	Callback = function(bool)
 		
@@ -4482,89 +4489,6 @@ Tab14:AddToggle({
                 game.ReplicatedStorage.ErrorDeath:FireServer()
                 
             end
-        end
-	end    
-})
-
-Tab14:AddToggle({
-	Name = "Golden  Effect [FE]",
-	Default = false,
-	Callback = function(bool)
-		  
-        autoGod = bool
-        
-        if bool == true then
-            
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
-                
-                if autoGod == true and 2500 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
-                    
-                    task.wait()
-                    
-                    game.ReplicatedStorage.Ungoldify:FireServer(true)
-                    
-                    task.wait(.1)
-                    
-                    
-                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
-                    
-                    task.wait(.2)
-                    fireclickdetector(game.Workspace.Lobby.Golden.ClickDetector)
-                    
-                    task.wait(.2)
-                    
-                    game.ReplicatedStorage.Goldify:FireServer(true)
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
-                    
-                end
-                
-            end)
-            
-        end
-	end    
-})
-
-Tab14:AddToggle({
-	Name = "Auto Invis",
-	Default = false,
-	Callback = function(bool)
-		   
-        autoInvis = bool
-        
-        if bool == true then
-            
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
-                
-                if autoInvis == true and 666 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
-                    
-                    task.wait()
-                    
-                    game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-                    
-                    task.wait(.1)
-                    
-                    
-                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
-                    
-                    task.wait(.2)
-                    
-                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
-                    
-                end
-                
-            end)
-            
         end
 	end    
 })
