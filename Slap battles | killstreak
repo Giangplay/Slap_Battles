@@ -11,15 +11,6 @@ local jesus = Instance.new("Part", workspace)
 	jesus.CanCollide = false
 	jesus.Anchored = true
 	jesus.Transparency = 1
-	
-local arenaVoid = Instance.new("Part", workspace)
-
-	arenaVoid.Name = "arenaVoid"
-	arenaVoid.Size = Vector3.new(798, 1, 1290)
-	arenaVoid.Position = Vector3.new(3450, 59.009, 68)
-	arenaVoid.CanCollide = false
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 1
 
 ---anti cheat bypass---
 
@@ -53,6 +44,33 @@ local Tab2 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab3 = Window:MakeTab({
+	Name = "Script",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+OrionLib:MakeNotification({
+	Name = "Script slap battles | killstreak",
+	Content = "ID: 11520107397",
+	Image = "rbxassetid://4483345998",
+	Time = 17
+})
+
+OrionLib:MakeNotification({
+	Name = "You make banned",
+	Content = "No banned",
+	Image = "rbxassetid://4483345998",
+	Time = 17
+})
+
+OrionLib:MakeNotification({
+	Name = "Cradit Giang and Anakin",
+	Content = "Discord R20",
+	Image = "rbxassetid://4483345998",
+	Time = 17
+})
+
 Tab:AddToggle({
 	Name = "killstreak slap arua",
 	Default = false,
@@ -72,7 +90,7 @@ Tab:AddToggle({
 
             local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
         
-               if 20 >= Magnitude then
+               if 30 >= Magnitude then
                    
                    game.ReplicatedStorage.KSHit:FireServer(v.Character["Right Leg"])
                    
@@ -86,54 +104,35 @@ Tab:AddToggle({
 	end    
 })
 
-Tab:AddButton({
+Tab4:AddButton({
 	Name = "Hitbox",
 	Callback = function()
       		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
   	end    
 })
 
-Tab:AddButton({
+Tab4:AddButton({
 	Name = "inf yield",
 	Callback = function()
       		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
 })
 
-Tab1:AddButton({
-	Name = "on 100 Slaps Fight Arena (Can't Lose)",
-	Callback = function()
-      		arenaVoid.CanCollide = true
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 0.5
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "off 100 Slaps Fight Arena (Can't Lose)",
-	Callback = function()
-      		arenaVoid.CanCollide = false
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 1
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "On Normal Arena Anti-Void",
-	Callback = function()
-      		jesus.CanCollide = true
+Tab1:AddToggle({
+	Name = "Normal Arena Anti-Void",
+	Default = false,
+	Callback = function(state)
+		if state then
+	jesus.CanCollide = true
 	jesus.Anchored = true
 	jesus.Transparency = 0.5
-  	end    
-})
+    else
 
-Tab1:AddButton({
-	Name = "Off Normal Arena Anti-Void",
-	Callback = function()
-      		jesus.CanCollide = false
+	jesus.CanCollide = false
 	jesus.Anchored = true
 	jesus.Transparency = 1
-  	end    
+    end
+	end    
 })
 
 Tab2:AddButton({
@@ -160,11 +159,80 @@ Tab2:AddButton({
   	end    
 })
 
-Tab2:AddButton({
-	Name = "Destroy Nametap",
-	Callback = function()
-      		game.Players.LocalPlayer.Character.Head["Nametag"]:Destroy()
-  	end    
+Tab2:AddToggle({
+	Name = " Auto Remove nametag",
+	Default = false,
+	Callback = function(bool)
+		 
+        Auto_Remove = bool
+        
+        if bool == true then
+        
+        game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+            
+            task.wait()
+            
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                
+                if Auto_Remove == true then
+                    
+                repeat task.wait()
+                    
+                until game.Players.LocalPlayer.Character:FindFirstChild("Head")
+                
+                game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+                    
+                end
+                
+            end)
+    
+        end
+        
+	end    
+})
+
+Tab2:AddToggle({
+	Name = "Anti Ragdoll",
+	Default = false,
+	Callback = function(bool)
+		antiRagdoll = bool
+        
+        if bool == true then
+        
+    
+        while antiRagdoll do
+    
+        task.wait()
+        
+        if not spamSleep  and not allFarming and not Farming  then
+            
+            
+        task.wait()
+        
+        local Character = game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+    
+        Character:WaitForChild("Ragdolled").Changed:Connect(function()
+        
+            if antiRagdoll == true  and Character:WaitForChild("Ragdolled").Value == true then
+            
+            repeat task.wait()
+                
+            Character:FindFirstChild("Torso").Anchored = true
+                
+            until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdolled").Value == false
+            
+            Character:FindFirstChild("Torso").Anchored = false
+
+            end
+        
+        end)
+     
+    
+end
+            
+        end
+        end
+	end    
 })
 
 OrionLib:Init()
