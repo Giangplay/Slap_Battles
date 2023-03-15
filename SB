@@ -1,7 +1,11 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
----Setfpscap---
+---pastebin---
+
+loadstring(game:HttpGet("https://pastebin.com/raw/S9ndbV9z"))()
+
+---setfpscap---
 
 if setfpscap then
         
@@ -11,22 +15,25 @@ if setfpscap then
     
     local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R20-EXPLOITER/main/Files/Gloves.lua"))()
 
+    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R20-EXPLOITER/main/Files/Functions.lua"))()
+
 	local function getGlove()
 	    
 	    return game.Players.LocalPlayer.leaderstats.Glove.Value
 	    
 	end
-	
-	
 
-    local Hittables = {"Right Leg", "Left Leg", "Torso", "Head"}
+---???---
+
+shared.removeBlue()
     
-    local Hit = math.random(#Hittables)
+    task.wait()
     
-    local toHit = Hittables[Hit]
-
-
-	local pathfindingService = game:GetService("PathfindingService")
+    shared.autofarmTab()
+    
+    task.wait()
+    
+    shared.createBed()
 
 ---functions---
 
@@ -190,21 +197,21 @@ OrionLib:MakeNotification({
 	Name = "Script slap battles",
 	Content = "ID: 6403373529",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 17
 })
 
 OrionLib:MakeNotification({
 	Name = "You make banned",
 	Content = "No banned",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 17
 })
 
 OrionLib:MakeNotification({
-	Name = "Cradit Giang",
+	Name = "Cradit Giang and Anakin",
 	Content = "Discord R20",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 17
 })
 
 local Section = Tab:AddSection({
@@ -451,51 +458,74 @@ end
 Tab4:AddToggle({
 	Name = "Time ZZZZZZZ (Get Fish)",
 	Default = false,
-	Callback = function(Fish)
-	local Time = 0
+	Callback = function(bool)
+	    
+        fishFarm = bool
+    
+        if bool == true then
+            
+        if game.Players.LocalPlayer.Character:FindFirstChild("entered") and getGlove() == "ZZZZZZZ" then
+            
+            print("READY")
+            
+            for x = 1, (Time + 3) do
+            
+            task.wait()
+            
+            print("--")
+            
+            end
+            
+            task.wait()
+            
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed [ OvErCrInGe02#0658 ] "].Bed3.CFrame * CFrame.new(0,0,-1)
+            
+            
+            
+            task.wait(.5)
+            
+            
+            
+            game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+            
 
-local Total = 3600
-	
-	
-		Timer = Fish
+            
 
-      if Fish == true then
+        else
+            
+            print("FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY")
+        
+        end
+        
+        task.wait()
+        
+            while fishFarm and task.wait() do
+        
+                if getGlove() == "ZZZZZZZ" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") then
+                
+                    if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("Ragdolled").Value then
+                    
+                        task.wait(1)
+                    
+                        Time = Time + 1
+                        
+                        print(Time)
+                    
+                    else
+                    
+                    Time = 0
+                    
+                    end
+                
+                end
 
-          Count()
-
-
-          end
-          
-          
-          
-          function Count()
-
-while Timer do
-
-
-
-task.wait(1)
-
-
-
-
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character.Ragdolled.Value then
-
-Time = Time + 1
-
-
-print(Time)
-
-
-else
-
-    Time = 0
-
-
-end
-end
-
-end
+            end
+    
+        else
+        
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        
+        end
 	end    
 })
 
@@ -1231,6 +1261,25 @@ Tab11:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Bubble",
+	Default = false,
+	Callback = function(Value)
+		 _G.AntiBubble = Value
+
+while _G.AntiBubble do
+        wait()
+        for i,v in pairs(workspace:GetChildren()) do
+           if v.Name == "BubbleObject" then
+             if v:FindFirstChild("Weld") then
+              v:FindFirstChild("Weld"):Destroy()
+           end
+          end
+         end
+        end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Stun",
 	Default = false,
 	Callback = function(bool)
@@ -1319,25 +1368,27 @@ Tab11:AddToggle({
         Auto_Remove = bool
         
         if bool == true then
-
-
-        task.wait(.05)
+        
+        game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
             
-            while Auto_Remove == true do
-                
-                local Character = game.Players.LocalPlayer.CharacterAdded:Wait() 
-
+            task.wait()
             
-
-                repeat task.wait(.0005) until Character and Character:FindFirstChild("Head") and Character:FindFirstChild("Head"):FindFirstChild("Nametag")
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
                 
-                game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
+                if Auto_Remove == true then
+                    
+                repeat task.wait()
+                    
+                until game.Players.LocalPlayer.Character:FindFirstChild("Head")
                 
+                game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+                    
+                end
                 
-                
-            end
-            
+            end)
+    
         end
+        
 	end    
 })
 
@@ -3618,7 +3669,7 @@ Tab5:AddToggle({
 	end    
 })
 
-Tab6:AddToggle({
+Tab5:AddToggle({
 	Name = "CULT Slap Arua",
 	Default = false,
 	Callback = function(AntiZa)
@@ -4469,18 +4520,53 @@ Tab9:AddButton({
 Tab12:AddButton({
 	Name = "Godmode [ PE ] [ Glove Gold ]",
 	Callback = function()
-      		game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+      		if 2500 >  game.Players.LocalPlayer.leaderstats.Slaps.Value then
+                
+                            game.StarterGui:SetCore("SendNotification",{
+                                Title = "not enough slap";
+                                Text = "Must be slaps to work";
+                            })
+                        game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+                        else
+                        game:GetService("StarterGui"):SetCore("SendNotification",{
+                            Title = "Godmode", 
+                            Text = "Please wait", 
+                            Icon = "rbxassetid://9379971756" 
+                        })
+                        
+                        game:GetService("StarterGui"):SetCore("SendNotification",{
+                            Title = "You On Godmode", -- Required
+                            Text = "You make ban the godmode ", -- Required
+                            Icon = "rbxassetid://9379971756" -- Optional
+                        })
+                    end
   	end    
 })
 
-Tab12:AddButton({
-	Name = "Time stop [ PE ]",
-	Callback = function()
-      	game:GetService("ReplicatedStorage").TimestopJump:FireServer();
-    game:GetService("ReplicatedStorage").Timestopchoir:FireServer();
-    game:GetService("ReplicatedStorage").Timestop:FireServer();
-  	end    
+Tab12:AddToggle({
+	Name = "Spam TimeStop",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoTimestop = boolean
+                
+                       if boolean == true then
+                        SpamTimestop()
+                    end
+	end    
 })
+
+Tab12:AddToggle({
+	Name = "Spam baller",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBaller = boolean
+                
+                       if boolean == true then
+                        SpamBaller()
+                    end
+	end    
+})
+
 
 Tab12:AddToggle({
 	Name = "inf Reverse",
@@ -4604,6 +4690,29 @@ Tab14:AddToggle({
                 
             end)
             
+        end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Spam Ping Pong",
+	Default = false,
+	Callback = function(bool)
+		
+        spamBall = bool
+        
+        if bool == true then
+           
+        while spamBall and task.wait() do
+        
+        if getGlove() == "Ping Pong" then
+            
+            game.ReplicatedStorage.GeneralAbility:FireServer()
+            
+        end
+        
+        end
+        
         end
 	end    
 })
