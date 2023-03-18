@@ -3,7 +3,7 @@ local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, 
 
 ---pastebin---
 
-loadstring(game:HttpGet("https://pastebin.com/raw/S9ndbV9z"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/T9eQBSHw"))()
 
 ---setfpscap---
 
@@ -23,7 +23,7 @@ if setfpscap then
 	    
 	end
 
----???---
+---Shared---
 
 shared.removeBlue()
     
@@ -103,6 +103,7 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
    return Namecall(self, ...)
 end)
 
+---Tab---
 local Tab = Window:MakeTab({
 	Name = "Combat",
 	Icon = "rbxassetid://4483345998",
@@ -299,7 +300,7 @@ Tab:AddButton({
 })
 
 Tab:AddToggle({
-	Name = "Autofarm Slapples",
+	Name = "Autofarm Slapples [ Free Slap ]",
 	Default = false,
 	Callback = function(bool)
 	
@@ -332,9 +333,16 @@ Tab:AddToggle({
 })
 
 Tab4:AddButton({
-	Name = "tp to safe",
+	Name = "TP To SafeSpot",
 	Callback = function()
          game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,50,0)
+  	end    
+})
+
+Tab4:AddButton({
+	Name = "Reset",
+	Callback = function()
+         game.Players.LocalPlayer.Character.Humanoid.Health = 0
   	end    
 })
 
@@ -346,7 +354,7 @@ Tab:AddButton({
 })
 
 Tab4:AddButton({
-	Name = "Get redacted (5000 slap)",
+	Name = "Get [Redacted] [ 5000 Slap ]",
 	Callback = function()
          local Door = 1
 
@@ -406,7 +414,7 @@ Tab7:AddSlider({
 })
 
 Tab4:AddToggle({
-	Name = "Time ghost (Get Voodoo)",
+	Name = "Time Ghost [ Get Voodoo ]",
 	Default = false,
 	Callback = function(Ghost)
 	local Time = 0
@@ -456,7 +464,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Time ZZZZZZZ (Get Fish)",
+	Name = "Time ZZZZZZZ [ Get Fish ]",
 	Default = false,
 	Callback = function(bool)
 	    
@@ -467,30 +475,19 @@ Tab4:AddToggle({
         if game.Players.LocalPlayer.Character:FindFirstChild("entered") and getGlove() == "ZZZZZZZ" then
             
             print("READY")
-            
-            for x = 1, (Time + 3) do
-            
+
             task.wait()
             
-            print("--")
-            
-            end
+            print("-------------------------------------------")
             
             task.wait()
             
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed [ OvErCrInGe02#0658 ] "].Bed3.CFrame * CFrame.new(0,0,-1)
             
-            
-            
             task.wait(.5)
-            
-            
             
             game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
             
-
-            
-
         else
             
             print("FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY")
@@ -507,7 +504,7 @@ Tab4:AddToggle({
                     
                         task.wait(1)
                     
-                        Time = Time + 1
+                        Time += 1
                         
                         print(Time)
                     
@@ -530,7 +527,7 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "slap baller",
+	Name = "Autofarm slap baller [ You Epin Glove Baller 20000 slap ]",
 	Default = false,
 	Callback = function(bool)
 		bully = bool
@@ -561,7 +558,7 @@ end
 })
 
 Tab10:AddToggle({
-	Name = "auto join lobby",
+	Name = "Auto Join Lobby",
 	Default = false,
 	Callback = function(bool)
 		
@@ -583,6 +580,13 @@ Tab10:AddToggle({
                 end
             end
 	end    
+})
+
+Tab10:AddButton({
+	Name = "Join Lobby",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport1.CFrame
+  	end    
 })
 
 Tab2:AddToggle({
@@ -700,7 +704,7 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Autofram Brick (Trap)",
+	Name = "Autofram Brick [ Get Trap ] [ Auto E ]",
 	Default = false,
 	Callback = function(bool)
 		Brick = bool
@@ -728,14 +732,14 @@ end
         
     end   
 	end    
-})
+})   
 
 Tab4:AddToggle({
-	Name = "Auto TP Plate (600 second)",
+	Name = "Auto TP Plate [ 600 second ]",
 	Default = false,
 	Callback = function(S)
 		shared.hi = S
-	    while shared.hi and wait(0.01) do
+	    while shared.hi and wait(.001) do
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
 end
 	end    
@@ -751,8 +755,8 @@ Tab4:AddToggle({
 })
 
 Tab11:AddTextbox({
-	Name = "hitbox",
-	Default = "",
+	Name = "hitbox [ Reach ]",
+	Default = "Size",
 	TextDisappear = true,
 	Callback = function(Value)
 		_G.HeadSize = Value
@@ -777,8 +781,8 @@ end)
 })
 
 Tab11:AddTextbox({
-	Name = "view player health",
-	Default = "",
+	Name = "view player health [ On Console ]",
+	Default = "Name Player",
 	TextDisappear = true,
 	Callback = function(txt)
 		for i,v in pairs(game.Players:GetChildren()) do
@@ -790,7 +794,7 @@ Tab11:AddTextbox({
 })
 
 Tab13:AddToggle({
-	Name = "slap arua",
+	Name = "Slap Arua [ All Glove ] [ You kick and banned ]",
 	Default = false,
 	Callback = function(bool)
 		
@@ -992,7 +996,7 @@ Tab11:AddToggle({
 })
 
 Tab13:AddToggle({
-	Name = "All glove autofarm slap",
+	Name = "All Glove AutoFarm Slap [ You make banned ]",
 	Default = false,
 	Callback = function(bool)
 		
@@ -1091,7 +1095,7 @@ Tab11:AddToggle({
 })
 
 Tab13:AddToggle({
-	Name = "Autofram slap (ghost)",
+	Name = "Ghost Autofarm Slap [ You make banned ]",
 	Default = false,
 	Callback = function(bool)
 		
@@ -4517,34 +4521,20 @@ Tab9:AddButton({
   	end    
 })
 
-Tab12:AddButton({
-	Name = "Godmode [ PE ] [ Glove Gold ]",
-	Callback = function()
-      		if 2500 >  game.Players.LocalPlayer.leaderstats.Slaps.Value then
+Tab12:AddToggle({
+	Name = "Auto spam baller",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBaller = boolean
                 
-                            game.StarterGui:SetCore("SendNotification",{
-                                Title = "not enough slap";
-                                Text = "Must be slaps to work";
-                            })
-                        game:GetService("ReplicatedStorage").Goldify:FireServer(true)
-                        else
-                        game:GetService("StarterGui"):SetCore("SendNotification",{
-                            Title = "Godmode", 
-                            Text = "Please wait", 
-                            Icon = "rbxassetid://9379971756" 
-                        })
-                        
-                        game:GetService("StarterGui"):SetCore("SendNotification",{
-                            Title = "You On Godmode", -- Required
-                            Text = "You make ban the godmode ", -- Required
-                            Icon = "rbxassetid://9379971756" -- Optional
-                        })
+                       if boolean == true then
+                        SpamBaller()
                     end
-  	end    
+	end    
 })
 
 Tab12:AddToggle({
-	Name = "Spam TimeStop",
+	Name = "Auto spam timestop",
 	Default = false,
 	Callback = function(boolean)
 		getgenv().autoTimestop = boolean
@@ -4556,26 +4546,90 @@ Tab12:AddToggle({
 })
 
 Tab12:AddToggle({
-	Name = "Spam baller",
+	Name = "Auto spam baller 30s",
 	Default = false,
 	Callback = function(boolean)
-		getgenv().autoBaller = boolean
+		getgenv().autoBallerFarm = boolean
                 
                        if boolean == true then
-                        SpamBaller()
+                        SpamBallerFarm()
                     end
 	end    
 })
 
+Tab12:AddButton({
+	Name = "Godmode [ PE ] [ Glove Gold ]",
+	Callback = function()
+      		game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+  	end    
+})
 
 Tab12:AddToggle({
-	Name = "inf Reverse",
+	Name = "Whirlwind Godmode",
 	Default = false,
-	Callback = function(S)
-		shared.hi = S
-	    while shared.hi and wait(6) do
-    game:GetService("ReplicatedStorage").ReverseAbility:FireServer()
-end
+	Callback = function(bool)
+		
+    autoWhirl = bool
+    
+    if bool == true then
+        
+    game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+    
+    task.wait()
+
+    while autoWhirl do
+        
+    task.wait()
+	
+	if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+	    
+	if getGlove() == "Whirlwind" then
+	    
+        repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Invincible") == nil
+        
+        game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+	
+	end
+	end
+	
+
+    end
+    else
+    
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    
+    end
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "Reverse godmode",
+	Default = false,
+	Callback = function(bool)
+		
+	    autoReverse = bool
+	    
+	    if bool == true then
+		
+	    while autoReverse do
+	       
+	    task.wait()
+	    
+	    local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+	    
+	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and Character:FindFirstChild("entered") then
+	        
+            task.wait(5.7)
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+
+        
+	        
+	    end
+
+	    end
+	    
+        end
 	end    
 })
 
