@@ -103,7 +103,6 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
    return Namecall(self, ...)
 end)
 
----Tab---
 local Tab = Window:MakeTab({
 	Name = "Combat",
 	Icon = "rbxassetid://4483345998",
@@ -268,6 +267,13 @@ Tab1:AddButton({
 	Name = "Synapse X PE",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Krnl PE",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Krnl"))()
   	end    
 })
 
@@ -737,10 +743,11 @@ end
 Tab4:AddToggle({
 	Name = "Auto TP Plate [ 600 second ]",
 	Default = false,
-	Callback = function(S)
-		shared.hi = S
-	    while shared.hi and wait(.001) do
+	Callback = function(bool)
+		_G.autoTpPlate = bool
+	   while _G.autoTpPlate do
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
+  wait(.001)
 end
 	end    
 })
