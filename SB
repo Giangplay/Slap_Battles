@@ -854,6 +854,27 @@ Tab13:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Admin",
+	Default = false,
+	Callback = function(bool)
+		
+    antiAdmins = bool
+    
+    if bool == true then
+           
+        game.Players.PlayerAdded:Connect(function(Plr)
+            
+            if Plr:GetRankInGroup(9950771) and 7 <= Plr:GetRankInGroup(9950771) and antiAdmins then
+                game.Players.LocalPlayer:Kick("Admin Cummer Detected 🔥")
+            end
+            
+        end)
+        
+    end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Megarock / Custom",
 	Default = false,
 	Callback = function(bool)
