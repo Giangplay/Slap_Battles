@@ -1,9 +1,9 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
----pastebin---
+---Spam---
 
-loadstring(game:HttpGet("https://pastebin.com/raw/T9eQBSHw"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Spam"))()
 
 ---setfpscap---
 
@@ -88,6 +88,19 @@ local arenaVoid = Instance.new("Part", workspace)
 	arenaVoid.CanCollide = false
 	arenaVoid.Anchored = true
 	arenaVoid.Transparency = 1
+
+---Anti Obby---
+
+function disable(username, cantouch)
+    warn(username)
+    if workspace:FindFirstChild("ObbyItem"..username.."LavaBlock") then
+       warn("ObbyItem"..username.."LavaBlock")
+       workspace:FindFirstChild("ObbyItem"..username.."LavaBlock").CanTouch = cantouch
+    elseif workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner") then
+    warn("ObbyItem"..username.."LavaSpinner")
+    workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner").CanTouch = cantouch
+ end
+end
 
 ---anti cheat bypass---
 
@@ -416,6 +429,19 @@ Tab7:AddSlider({
 	ValueName = "JP",
 	Callback = function(Value)
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "FOV",
+	Min = 70,
+	Max = 350,
+	Default = 70,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "FOV",
+	Callback = function(Value)
+		workspace.CurrentCamera.FieldOfView = Value
 	end    
 })
 
@@ -800,6 +826,25 @@ Tab11:AddTextbox({
 	end	  
 })
 
+Tab11:AddToggle({
+	Name = "Auto Rainbow [ Glove gold ]",
+	Default = false,
+	Callback = function(Value)
+		_G.Rainbow = Value
+while _G.Rainbow do
+local randomnumber = math.random(1004, 1032)
+local args = {
+    [1] = false,
+    [2] = BrickColor.new(randomnumber)
+}
+
+game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
+
+task.wait(0.075)
+end
+	end    
+})
+
 Tab13:AddToggle({
 	Name = "Slap Arua [ All Glove ] [ You kick and banned ]",
 	Default = false,
@@ -871,6 +916,27 @@ Tab11:AddToggle({
         end)
         
     end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Obby",
+	Default = false,
+	Callback = function(a)
+		getgenv().disable = a
+     if getgenv().disable == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, false)
+        end
+     end
+   else
+       for i,v in pairs(game.Players:GetChildren()) do
+        if v.leaderstats.Glove.Value == "Obby" then
+          disable(v.Name, true)
+        end
+     end
+  end
 	end    
 })
 
@@ -4501,6 +4567,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Control player",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/YuwF041a"))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "slap Royale R20",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/Roblox-Scripts/main/Slap_Royale.lua"))()
@@ -4549,6 +4622,13 @@ Tab9:AddButton({
   	end    
 })
 
+Tab9:AddButton({
+	Name = "No 1K slap join slap royela",
+	Callback = function()
+      		game:GetService"TeleportService":Teleport(9426795465)
+  	end    
+})
+
 Tab12:AddToggle({
 	Name = "Auto spam baller",
 	Default = false,
@@ -4557,6 +4637,18 @@ Tab12:AddToggle({
                 
                        if boolean == true then
                         SpamBaller()
+                    end
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "Auto spam Shukuchi [ Remdom peole ]",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoShukuchi = boolean
+                
+                       if boolean == true then
+                        SpamShukuchi()
                     end
 	end    
 })
