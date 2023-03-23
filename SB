@@ -117,7 +117,7 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
 end)
 
 local Tab = Window:MakeTab({
-	Name = "Combat",
+	Name = "Main",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -141,7 +141,7 @@ local Tab3 = Window:MakeTab({
 })
 
 local Tab4 = Window:MakeTab({
-	Name = "autofram",
+	Name = "Autofram",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -201,6 +201,12 @@ local Tab14 = Window:MakeTab({
 })
 
 local Tab15 = Window:MakeTab({
+	Name = "Ability Spams",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab16 = Window:MakeTab({
 	Name = "Cradit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
@@ -4629,54 +4635,6 @@ Tab9:AddButton({
   	end    
 })
 
-Tab12:AddToggle({
-	Name = "Auto spam baller",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoBaller = boolean
-                
-                       if boolean == true then
-                        SpamBaller()
-                    end
-	end    
-})
-
-Tab12:AddToggle({
-	Name = "Auto spam Shukuchi [ Remdom peole ]",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoShukuchi = boolean
-                
-                       if boolean == true then
-                        SpamShukuchi()
-                    end
-	end    
-})
-
-Tab12:AddToggle({
-	Name = "Auto spam timestop",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoTimestop = boolean
-                
-                       if boolean == true then
-                        SpamTimestop()
-                    end
-	end    
-})
-
-Tab12:AddToggle({
-	Name = "Auto spam baller 30s",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoBallerFarm = boolean
-                
-                       if boolean == true then
-                        SpamBallerFarm()
-                    end
-	end    
-})
-
 Tab12:AddButton({
 	Name = "Godmode [ PE ] [ Glove Gold ]",
 	Callback = function()
@@ -4933,7 +4891,127 @@ Tab14:AddToggle({
 	end    
 })
 
-Tab15:AddButton({
+Tab15:AddToggle({
+	Name = "Auto Spam Bus",
+	Default = false,
+	Callback = function(boolean)
+		  getgenv().autoBus = boolean
+                
+                       if boolean == true then
+                        SpamBus()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam baller",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBaller = boolean
+                
+                       if boolean == true then
+                        SpamBaller()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Shukuchi [ Remdom peole ]",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoShukuchi = boolean
+                
+                       if boolean == true then
+                        SpamShukuchi()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam timestop",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoTimestop = boolean
+                
+                       if boolean == true then
+                        SpamTimestop()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam baller 30s",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBallerFarm = boolean
+                
+                       if boolean == true then
+                        SpamBallerFarm()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto Spam Fort",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoFort = boolean
+                
+                       if boolean == true then
+                        SpamFort()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam bomb",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBomb = boolean
+                
+                       if boolean == true then
+                        SpamBomb()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Replica",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoReplica = boolean
+                
+                       if boolean == true then
+                        SpamReplica()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam well",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoWall = boolean
+                
+                       if boolean == true then
+                        SpamWall()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Jet",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoJet = boolean
+                
+                       if boolean == true then
+                        SpamJet()
+                    end
+	end    
+})
+
+Tab16:AddButton({
 	Name = "Anakin#3568",
 	Callback = function()
       		
@@ -4945,7 +5023,7 @@ Tab15:AddButton({
   	end    
 })
 
-Tab15:AddButton({
+Tab16:AddButton({
 	Name = "Join Discord Invite",
 	Callback = function()
 	
