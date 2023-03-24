@@ -667,7 +667,8 @@ Tab4:AddToggle({
 	Name = "Get bob",
 	Default = false,
 	Callback = function(bool)
-		GetBob = bool
+	
+        GetBob = bool
         
             if bool == true then
                 
@@ -677,7 +678,7 @@ Tab4:AddToggle({
             
              if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
             
-                    wait(1)
+                    wait(0.01)
                     
                     local humanoid = game.Players.LocalPlayer.Character.Humanoid
 
@@ -705,7 +706,7 @@ Tab4:AddToggle({
     
                         game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 
-                        game:GetService("ReplicatedStorage").Duplicate:FireServer()
+                        game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
                     else
     
@@ -5007,6 +5008,66 @@ Tab15:AddToggle({
                 
                        if boolean == true then
                         SpamJet()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Wall",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoWall = boolean
+                
+                       if boolean == true then
+                        SpamWall()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Table",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoTable = boolean
+                
+                       if boolean == true then
+                        SpamTable()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Rocky",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoRocky = boolean
+                
+                       if boolean == true then
+                        SpamRocky()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Za Hando",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoHand = boolean
+                
+                       if boolean == true then
+                        SpamHand()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Stun",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoStun = boolean
+                
+                       if boolean == true then
+                        SpamStun()
                     end
 	end    
 })
