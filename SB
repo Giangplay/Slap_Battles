@@ -324,6 +324,13 @@ Tab1:AddButton({
   	end    
 })
 
+Tab1:AddButton({
+	Name = "CherryUi's SB GUI",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomScriptr3/gggggggg/main/lolez.txt", true))()
+  	end    
+})
+
 Tab:AddButton({
 	Name = "inf yield",
 	Callback = function()
@@ -429,7 +436,7 @@ end
 Tab7:AddSlider({
 	Name = "Walkspeed [WS]",
 	Min = 20,
-	Max = 150,
+	Max = 500,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -455,7 +462,7 @@ Tab7:AddSlider({
 Tab7:AddSlider({
 	Name = "FOV",
 	Min = 70,
-	Max = 350,
+	Max = 500,
 	Default = 70,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -4644,6 +4651,13 @@ Tab9:AddButton({
 })
 
 Tab9:AddButton({
+	Name = "join 100 slap the win",
+	Callback = function()
+      		game:GetService("ReplicatedStorage").EventAnswered:FireServer(true)
+  	end    
+})
+
+Tab9:AddButton({
 	Name = "No 1K slap join slap royela",
 	Callback = function()
       		game:GetService"TeleportService":Teleport(9426795465)
@@ -4654,6 +4668,19 @@ Tab12:AddButton({
 	Name = "Godmode [ PE ] [ Glove Gold ]",
 	Callback = function()
       		game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+  	end    
+})
+
+Tab12:AddButton({
+	Name = "Glove make block",
+	Callback = function()
+      		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") then
+if v.Glove.Mesh then
+v.Glove.Mesh:Destroy()
+end
+end
+end
   	end    
 })
 
@@ -5107,6 +5134,13 @@ Tab16:AddButton({
             setclipboard("https://discord.com/invite/VpWkYvGxMn")
             
         end
+  	end    
+})
+
+Tab16:AddButton({
+	Name = "Destroy GUI",
+	Callback = function()
+      		OrionLib:Destroy()
   	end    
 })
 
