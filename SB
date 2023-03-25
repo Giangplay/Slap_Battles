@@ -310,6 +310,20 @@ Tab1:AddButton({
   	end    
 })
 
+Tab1:AddButton({
+	Name = "Slap battles old R2O",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Old"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Slap battles new R2O",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/6403373529.lua"))()
+  	end    
+})
+
 Tab:AddButton({
 	Name = "inf yield",
 	Callback = function()
