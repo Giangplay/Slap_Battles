@@ -4665,6 +4665,18 @@ Tab9:AddButton({
 })
 
 Tab12:AddButton({
+	Name = "Inf Jump",
+	Callback = function()
+      		local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+  	end    
+})
+
+Tab12:AddButton({
 	Name = "Godmode [ PE ] [ Glove Gold ]",
 	Callback = function()
       		game:GetService("ReplicatedStorage").Goldify:FireServer(true)
