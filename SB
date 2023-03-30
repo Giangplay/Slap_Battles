@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "slap battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---Spam---
 
@@ -275,6 +275,13 @@ Tab3:AddButton({
   	end    
 })
 
+Tab9:AddButton({
+	Name = "TP to Glove",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
+  	end    
+})
+
 Tab3:AddButton({
 	Name = "On console",
 	Callback = function()
@@ -464,7 +471,7 @@ Tab7:AddSlider({
 	Min = 70,
 	Max = 500,
 	Default = 70,
-	Color = Color3.fromRGB(255,255,255),
+	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "FOV",
 	Callback = function(boolean)
@@ -644,7 +651,7 @@ Tab10:AddToggle({
 Tab10:AddButton({
 	Name = "Join Lobby",
 	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport1.CFrame
+      	 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport1.CFrame
   	end    
 })
 
@@ -764,7 +771,7 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Autofram Brick [ Get Trap ] [ Auto E ]",
+	Name = "Autofram Brick [ Get Trap ] [ Auto E ] [ Wait you on keybroad ]",
 	Default = false,
 	Callback = function(bool)
 		Brick = bool
@@ -932,7 +939,7 @@ Tab11:AddButton({
       		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.15)
+wait(0.01)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -943,13 +950,10 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 Tab11:AddToggle({
 	Name = "Freeze",
 	Default = false,
-	Callback = function(state)
-		if state then
-
+	Callback = function(Value)
+		if Value then
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-
     else
-
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
     end
 	end    
@@ -4669,6 +4673,13 @@ Tab9:AddButton({
 	Name = "TP to Brazil",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-469.613953, 304.469482, -11.8963394, 0, -1, 0, 1, 0, -0, 0, 0, 1)
+  	end    
+})
+
+Tab9:AddButton({
+	Name = "TP to island slapple",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-372.316162, 52.223587, -28.7749767, 0.471774817, 0.473522365, 0.743777633, 0.0744042397, -0.861925364, 0.501546323, 0.878574133, -0.181276739, -0.441866755)
   	end    
 })
 
