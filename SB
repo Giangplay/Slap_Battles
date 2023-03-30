@@ -438,11 +438,11 @@ Tab7:AddSlider({
 	Min = 20,
 	Max = 500,
 	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
+	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "WS",
-	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	Callback = function(boolean)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = boolean
 	end    
 })
 
@@ -451,11 +451,11 @@ Tab7:AddSlider({
 	Min = 50,
 	Max = 500,
 	Default = 50,
-	Color = Color3.fromRGB(255,255,255),
+	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "JP",
-	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	Callback = function(boolean)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = boolean
 	end    
 })
 
@@ -467,8 +467,8 @@ Tab7:AddSlider({
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "FOV",
-	Callback = function(Value)
-		workspace.CurrentCamera.FieldOfView = Value
+	Callback = function(boolean)
+		workspace.CurrentCamera.FieldOfView = boolean
 	end    
 })
 
@@ -685,7 +685,7 @@ Tab2:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob",
+	Name = "Get bob [ Fix ] [ old ]",
 	Default = false,
 	Callback = function(bool)
 	
@@ -923,6 +923,35 @@ Tab13:AddToggle({
                 
             end
 
+	end    
+})
+
+Tab11:AddButton({
+	Name = "Kick Player [ Epin Za Hando ] [ Inconsistent ]",
+	Callback = function()
+      		game:GetService("ReplicatedStorage").Erase:FireServer()
+wait(0.47)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
+wait(0.15)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(3.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+  	end    
+})
+
+Tab11:AddToggle({
+	Name = "Freeze",
+	Default = false,
+	Callback = function(state)
+		if state then
+
+	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+
+    else
+
+	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+    end
 	end    
 })
 
@@ -5126,7 +5155,7 @@ Tab15:AddToggle({
 })
 
 Tab16:AddButton({
-	Name = "Anakin#3568",
+	Name = "Copy Anakin#3568",
 	Callback = function()
       		
         if setclipboard then
@@ -5138,7 +5167,7 @@ Tab16:AddButton({
 })
 
 Tab16:AddButton({
-	Name = "Join Discord Invite",
+	Name = "Copy Join Discord Invite",
 	Callback = function()
 	
       	if setclipboard then
