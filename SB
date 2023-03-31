@@ -685,81 +685,18 @@ Tab2:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob [ Fix ] [ old ]",
+	Name = "Get bob",
 	Default = false,
 	Callback = function(bool)
-	
-        GetBob = bool
-        
-            if bool == true then
-                
-                while GetBob do
-            
-            wait(.001)
-            
-             if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-            
-                    wait(0.01)
-                    
-                    local humanoid = game.Players.LocalPlayer.Character.Humanoid
-
-                    local HRP = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-                    local Portal = game.Workspace.Lobby.Teleport1.Position
-
-                    local path = pathfindingService:CreatePath()
- 
-                    path:ComputeAsync(HRP.Position, Portal)
- 
-                    local Waypoints = path:GetWaypoints()
-
-                    repeat wait(.25)
-                        for i, waypoint in pairs(Waypoints) do
-                            
-                            humanoid:MoveTo(waypoint.Position)
-                            
-                        end
-
-                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered")
-
-                    wait(2)
-
-                    if workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") then
-    
-                        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-
-                        game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
-
-                    else
-    
-    
-                    repeat wait(1.4)
-    
-                    until workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") 
-
-                    
-                    game:GetService("ReplicatedStorage").Duplicate:FireServer()
-
-    
-
-                    end
-                        
-                        wait(1.45)
-
-                        if not workspace:FindFirstChild("bobcap") then
-    
-                            game:GetService("ReplicatedStorage").HumanoidDied:FireServer(game.Players.LocalPlayer.Character, false)
-
-                        else
-        
-                            print("Got Bob")
-    
-                        end
-                
-                    end 
-           
-                end
-    
-            end
+	    _G.autoFarmBob = bool
+	   while _G.autoFarmBob do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-563.724304, 329.831696, 3.99024963, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+wait(1)
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
+wait(2)
+game.Players.LocalPlayer.Character.Humanoid.Health = '0'
+wait(5)
+end
 	end    
 })
 
@@ -862,7 +799,7 @@ Tab11:AddBind({
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.15)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -876,7 +813,7 @@ Tab11:AddButton({
       		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.15)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -5269,12 +5206,12 @@ Tab16:AddButton({
 })
 
 Tab16:AddButton({
-	Name = "Copy Join Discord Invite",
+	Name = "Copy Join Discord R2O",
 	Callback = function()
 	
       	if setclipboard then
             
-            setclipboard("https://discord.com/invite/VpWkYvGxMn")
+            setclipboard("https://discord.gg/zty372wma5")
             
         end
   	end    
