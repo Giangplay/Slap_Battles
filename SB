@@ -862,7 +862,7 @@ Tab11:AddBind({
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.01)
+wait(0.15)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -876,7 +876,7 @@ Tab11:AddButton({
       		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.01)
+wait(0.15)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -4688,7 +4688,7 @@ Tab9:AddButton({
 Tab9:AddButton({
 	Name = "TP to island slapple",
 	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-372.316162, 52.223587, -28.7749767, 0.471774817, 0.473522365, 0.743777633, 0.0744042397, -0.861925364, 0.501546323, 0.878574133, -0.181276739, -0.441866755)
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-395.928558, 51.4515495, 0.1516953, 0.460573077, -0.439980179, 0.770901978, 0.149108738, -0.817809463, -0.555836499, 0.875008047, 0.370951533, -0.311056137)
   	end    
 })
 
