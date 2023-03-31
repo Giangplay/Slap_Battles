@@ -35,7 +35,7 @@ shared.removeBlue()
     
     shared.createBed()
 
----functions---
+---functions Auto Candy---
 
 function AutoCandy()
     local playerHead = game.Players.LocalPlayer.Character.Head
@@ -245,7 +245,7 @@ Tab:AddButton({
 })
 
 Tab3:AddButton({
-	Name = "tp end",
+	Name = "Get badge [ join the you kick ]",
 	Callback = function()
       		local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 
@@ -269,21 +269,21 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
-	Name = "get code free",
+	Name = "Get code free [ On console ]",
 	Callback = function()
       		print(#game.Players:GetChildren() * 25 + 1100 - 7)
   	end    
 })
 
-Tab9:AddButton({
-	Name = "TP to Glove",
+Tab3:AddButton({
+	Name = "TP to badge [ Tp glove ]",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
   	end    
 })
 
 Tab3:AddButton({
-	Name = "On console",
+	Name = "On console [ F9 ] [ No PC ]",
 	Callback = function()
       		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
@@ -393,16 +393,9 @@ Tab4:AddButton({
 })
 
 Tab4:AddButton({
-	Name = "Reset",
+	Name = "Reset [ you die ]",
 	Callback = function()
          game.Players.LocalPlayer.Character.Humanoid.Health = 0
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Toggle",
-	Callback = function()
-      		loadstring(game:HttpGet("https://pastebin.com/raw/6tkxv04C"))()
   	end    
 })
 
@@ -771,7 +764,7 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Autofram Brick [ Get Trap ] [ Auto E ] [ Wait you on keybroad ]",
+	Name = "Autofram Brick [ Get Trap ] [ Auto E ] [ you on keybroad ]",
 	Default = false,
 	Callback = function(bool)
 		Brick = bool
@@ -802,7 +795,7 @@ end
 })   
 
 Tab4:AddToggle({
-	Name = "Auto TP Plate [ 600 second ]",
+	Name = "Auto TP Plate [ 600 second ] [ Get Tycoon ]",
 	Default = false,
 	Callback = function(bool)
 		_G.autoTpPlate = bool
@@ -859,6 +852,36 @@ Tab11:AddTextbox({
    end
   end
 	end	  
+})
+
+Tab11:AddBind({
+	Name = "Kick Player [ Epin Za Hando ] [ Inconsistent ] [ keybroad ]",
+	Default = Enum.KeyCode.Q,
+	Hold = false,
+	Callback = function()
+		game:GetService("ReplicatedStorage").Erase:FireServer()
+wait(0.47)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
+wait(0.01)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(3.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+	end    
+})
+
+Tab11:AddButton({
+	Name = "Kick Player [ Epin Za Hando ] [ Inconsistent ]",
+	Callback = function()
+      		game:GetService("ReplicatedStorage").Erase:FireServer()
+wait(0.47)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
+wait(0.01)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(3.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+  	end    
 })
 
 Tab11:AddToggle({
@@ -931,20 +954,6 @@ Tab13:AddToggle({
             end
 
 	end    
-})
-
-Tab11:AddButton({
-	Name = "Kick Player [ Epin Za Hando ] [ Inconsistent ]",
-	Callback = function()
-      		game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.47)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.01)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(3.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-  	end    
 })
 
 Tab11:AddToggle({
@@ -4921,29 +4930,6 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Spam Ping Pong",
-	Default = false,
-	Callback = function(bool)
-		
-        spamBall = bool
-        
-        if bool == true then
-           
-        while spamBall and task.wait() do
-        
-        if getGlove() == "Ping Pong" then
-            
-            game.ReplicatedStorage.GeneralAbility:FireServer()
-            
-        end
-        
-        end
-        
-        end
-	end    
-})
-
-Tab14:AddToggle({
 	Name = "Auto Invis",
 	Default = false,
 	Callback = function(bool)
@@ -5082,18 +5068,6 @@ Tab15:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam well",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoWall = boolean
-                
-                       if boolean == true then
-                        SpamWall()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
 	Name = "Auto spam Jet",
 	Default = false,
 	Callback = function(boolean)
@@ -5161,6 +5135,123 @@ Tab15:AddToggle({
                 
                        if boolean == true then
                         SpamStun()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Glitch",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoGlitch = boolean
+                
+                       if boolean == true then
+                        SpamGlitch()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Stop",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoStop = boolean
+                
+                       if boolean == true then
+                        SpamStop()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Track",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoTrack = boolean
+                
+                       if boolean == true then
+                        SpamTrack()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Mail",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoMail = boolean
+                
+                       if boolean == true then
+                        SpamMail()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Bubble",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoBubble = boolean
+                
+                       if boolean == true then
+                        SpamBubble()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Shard",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoShard = boolean
+                       if boolean == true then
+                        SpamShard()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Swap",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoSwap = boolean
+                       if boolean == true then
+                        SpamSwap()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Slapple",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoSlapple = boolean
+                
+                       if boolean == true then
+                        SpamSlapple()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Dominance",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoDominance = boolean
+                
+                       if boolean == true then
+                        SpamDominance()
+                    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Brick [ No AutoFarm Brick ]",
+	Default = false,
+	Callback = function(boolean)
+		getgenv().autoLego = boolean
+                       if boolean == true then
+                        SpamLego()
                     end
 	end    
 })
