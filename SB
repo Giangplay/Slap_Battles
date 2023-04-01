@@ -4909,18 +4909,6 @@ Tab14:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto Spam Bus",
-	Default = false,
-	Callback = function(boolean)
-		  getgenv().autoBus = boolean
-                
-                       if boolean == true then
-                        SpamBus()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
 	Name = "Auto spam baller",
 	Default = false,
 	Callback = function(boolean)
@@ -4957,49 +4945,13 @@ Tab15:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam baller 30s",
+	Name = "Auto spam baller [ 30s ]",
 	Default = false,
 	Callback = function(boolean)
 		getgenv().autoBallerFarm = boolean
                 
                        if boolean == true then
                         SpamBallerFarm()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto Spam Fort",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoFort = boolean
-                
-                       if boolean == true then
-                        SpamFort()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam bomb",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoBomb = boolean
-                
-                       if boolean == true then
-                        SpamBomb()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Replica",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoReplica = boolean
-                
-                       if boolean == true then
-                        SpamReplica()
                     end
 	end    
 })
@@ -5017,78 +4969,6 @@ Tab15:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam Wall",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoWall = boolean
-                
-                       if boolean == true then
-                        SpamWall()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Table",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoTable = boolean
-                
-                       if boolean == true then
-                        SpamTable()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Rocky",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoRocky = boolean
-                
-                       if boolean == true then
-                        SpamRocky()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Za Hando",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoHand = boolean
-                
-                       if boolean == true then
-                        SpamHand()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Stun",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoStun = boolean
-                
-                       if boolean == true then
-                        SpamStun()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Glitch",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoGlitch = boolean
-                
-                       if boolean == true then
-                        SpamGlitch()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
 	Name = "Auto spam Stop",
 	Default = false,
 	Callback = function(boolean)
@@ -5101,30 +4981,6 @@ Tab15:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam Track",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoTrack = boolean
-                
-                       if boolean == true then
-                        SpamTrack()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Mail",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoMail = boolean
-                
-                       if boolean == true then
-                        SpamMail()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
 	Name = "Auto spam Bubble",
 	Default = false,
 	Callback = function(boolean)
@@ -5132,63 +4988,6 @@ Tab15:AddToggle({
                 
                        if boolean == true then
                         SpamBubble()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Shard",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoShard = boolean
-                       if boolean == true then
-                        SpamShard()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Swap",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoSwap = boolean
-                       if boolean == true then
-                        SpamSwap()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Slapple",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoSlapple = boolean
-                
-                       if boolean == true then
-                        SpamSlapple()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Dominance",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoDominance = boolean
-                
-                       if boolean == true then
-                        SpamDominance()
-                    end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Brick [ No AutoFarm Brick ]",
-	Default = false,
-	Callback = function(boolean)
-		getgenv().autoLego = boolean
-                       if boolean == true then
-                        SpamLego()
                     end
 	end    
 })
