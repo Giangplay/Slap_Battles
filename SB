@@ -214,7 +214,7 @@ local Tab16 = Window:MakeTab({
 
 OrionLib:MakeNotification({
 	Name = "Script slap battles",
-	Content = "ID: 6403373529",
+	Content = "ID: 6403373529 | 11520107397",
 	Image = "rbxassetid://4483345998",
 	Time = 17
 })
@@ -456,6 +456,19 @@ Tab7:AddSlider({
 	ValueName = "JP",
 	Callback = function(boolean)
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = boolean
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Hip Height [HT]",
+	Min = 2,
+	Max = 100,
+	Default = 2,
+	Color = Color3.fromRGB(0,255,0),
+	Increment = 1,
+	ValueName = "HT",
+	Callback = function(boolean)
+		game.Players.LocalPlayer.Character.Humanoid.HipHeight = boolean
 	end    
 })
 
@@ -4826,87 +4839,54 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Golden Effect [FE]",
+	Name = "Auto Invis",
 	Default = false,
 	Callback = function(bool)
-		  
-        autoGod = bool
+		    
+        spamInvis = bool
         
         if bool == true then
             
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+            while spamInvis do
                 
-                if autoGod == true and 2500 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+                task.wait()
+                
+                if getGlove() == "Ghost" then
                     
                     task.wait()
                     
-                    game.ReplicatedStorage.Ungoldify:FireServer(true)
-                    
-                    task.wait(.1)
-                    
-                    
-                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
-                    
-                    task.wait(.2)
-                    fireclickdetector(game.Workspace.Lobby.Golden.ClickDetector)
-                    
-                    task.wait(.2)
-                    
-                    game.ReplicatedStorage.Goldify:FireServer(true)
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
+                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+                    game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
                     
                 end
                 
-            end)
+                
+            end
             
         end
 	end    
 })
 
 Tab14:AddToggle({
-	Name = "Auto Invis",
+	Name = "Auto spam Zero G Sound",
 	Default = false,
 	Callback = function(bool)
-		  
-        autoInvis = bool
+		 
+        spamZeroG = bool
         
         if bool == true then
             
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+            while spamZeroG do
                 
-                if autoInvis == true and 666 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
-                    
-                    task.wait()
-                    
-                    game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-                    
-                    task.wait(.1)
-                    
-                    
-                    local gloveClick = game.Players.LocalPlayer.leaderstats.Glove.Value
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
-                    
-                    task.wait(.2)
-                    
-                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-                    
-                    task.wait(.2)
-                    
-                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
-                    
-                end
+                task.wait()
                 
-            end)
-            
+                game:GetService("ReplicatedStorage").ZeroGSound:FireServer()
+                
+            end
         end
 	end    
 })
+
 
 Tab15:AddToggle({
 	Name = "Auto spam baller",
