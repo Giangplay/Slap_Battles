@@ -820,20 +820,6 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 	end    
 })
 
-Tab11:AddButton({
-	Name = "Kick Player [ Epin Za Hando ] [ Inconsistent ]",
-	Callback = function()
-      		game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.47)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(3.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-  	end    
-})
-
 Tab11:AddToggle({
 	Name = "Auto Rainbow [ Glove gold ]",
 	Default = false,
@@ -1284,6 +1270,132 @@ Tab13:AddToggle({
                     
                 end
                 
+                end
+	end    
+})
+
+Tab13:AddToggle({
+	Name = "Default Autofarm Slap [ You make banned ]",
+	Default = false,
+	Callback = function(bool)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "Default" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.b:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+	end    
+})
+
+Tab13:AddToggle({
+	Name = "Dream Autofarm Slap [ You make banned ]",
+	Default = false,
+	Callback = function(bool)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "Dream" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.Dreamhit:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+	end    
+})
+
+Tab13:AddToggle({
+	Name = "God's hand Autofarm Slap [ You make banned ]",
+	Default = false,
+	Callback = function(bool)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "God's hand" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.Godshand:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
                 end
 	end    
 })
@@ -4697,7 +4809,7 @@ Tab12:AddToggle({
 })
 
 Tab12:AddButton({
-	Name = "Glove make block",
+	Name = "Glove make block [ Default ]",
 	Callback = function()
       		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
