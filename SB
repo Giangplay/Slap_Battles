@@ -4675,11 +4675,25 @@ end)
   	end    
 })
 
-Tab12:AddButton({
-	Name = "Godmode [ PE ] [ Glove Gold ]",
-	Callback = function()
-      		game:GetService("ReplicatedStorage").Goldify:FireServer(true)
-  	end    
+Tab12:AddToggle({
+	Name = "godmode [ Glove Golden ] [ PE ]",
+	Default = false,
+	Callback = function(Value)
+		if Value then
+	local args = {
+        [1] = true
+    }
+    
+    game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))  
+    else
+	local args = {
+        [1] = false,
+        [2] = BrickColor.new(1003)
+    }
+    
+    game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
+    end
+	end    
 })
 
 Tab12:AddButton({
@@ -4693,44 +4707,6 @@ end
 end
 end
   	end    
-})
-
-Tab12:AddToggle({
-	Name = "Whirlwind Godmode",
-	Default = false,
-	Callback = function(bool)
-		
-    autoWhirl = bool
-    
-    if bool == true then
-        
-    game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-    
-    task.wait()
-
-    while autoWhirl do
-        
-    task.wait()
-	
-	if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-	    
-	if getGlove() == "Whirlwind" then
-	    
-        repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Invincible") == nil
-        
-        game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-	
-	end
-	end
-	
-
-    end
-    else
-    
-    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-    
-    end
-	end    
 })
 
 Tab12:AddToggle({
