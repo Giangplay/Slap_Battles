@@ -1,1 +1,1 @@
-loadtring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/9431156611.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/9431156611.lua"))()
