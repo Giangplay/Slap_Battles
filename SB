@@ -238,7 +238,7 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddButton({
-	Name = "keyboard",
+	Name = "keyboard [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
   	end    
@@ -339,14 +339,14 @@ Tab1:AddButton({
 })
 
 Tab:AddButton({
-	Name = "inf yield",
+	Name = "inf yield [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
 })
 
 Tab:AddButton({
-	Name = "Hitbox",
+	Name = "Hitbox [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
   	end    
@@ -698,7 +698,7 @@ Tab2:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob",
+	Name = "Get bob [ You Epin Replica ] [ PE on Keybroad ]",
 	Default = false,
 	Callback = function(bool)
 	    _G.autoFarmBob = bool
@@ -757,7 +757,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "auto Candy",
+	Name = "Auto Candy",
 	Default = false,
 	Callback = function(Value)
 		getgenv().AutoCandy = Value
@@ -905,7 +905,7 @@ Tab11:AddToggle({
 })
 
 Tab11:AddToggle({
-	Name = "Anti Admin",
+	Name = "Anti Admin [ Kick you the admin Join ]",
 	Default = false,
 	Callback = function(bool)
 		
@@ -1346,48 +1346,6 @@ Tab13:AddToggle({
                                         wait(.25)
                                         
                                     game.ReplicatedStorage.Dreamhit:FireServer(Human.Character.Head)
-                                    
-                                        wait(.25)
-                                    
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-	end    
-})
-
-Tab13:AddToggle({
-	Name = "God's hand Autofarm Slap [ You make banned ]",
-	Default = false,
-	Callback = function(bool)
-		
-            getgenv().Farming = bool
-
-                if bool == true then
-
-                    while getgenv().Farming do
-
-                        wait()
-
-                        for Index, Human in next, game.Players:GetPlayers() do
-                                
-                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-                                
-                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                
-                                
-                                wait(.1)
-                                
-                                if getGlove() == "God's hand" then
-                                        
-
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
-                                    
-                                        wait(.25)
-                                        
-                                    game.ReplicatedStorage.Godshand:FireServer(Human.Character.Head)
                                     
                                         wait(.25)
                                     
@@ -4762,7 +4720,7 @@ Tab9:AddButton({
 })
 
 Tab9:AddButton({
-	Name = "join 100 slap the win",
+	Name = "Join 100 slap the win",
 	Callback = function()
       		game:GetService("ReplicatedStorage").EventAnswered:FireServer(true)
   	end    
@@ -4772,18 +4730,6 @@ Tab9:AddButton({
 	Name = "No 1K slap join slap royela",
 	Callback = function()
       		game:GetService"TeleportService":Teleport(9426795465)
-  	end    
-})
-
-Tab12:AddButton({
-	Name = "Inf Jump",
-	Callback = function()
-      		local InfiniteJumpEnabled = true
-game:GetService("UserInputService").JumpRequest:connect(function()
-	if InfiniteJumpEnabled then
-		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
-	end
-end)
   	end    
 })
 
@@ -4808,21 +4754,8 @@ Tab12:AddToggle({
 	end    
 })
 
-Tab12:AddButton({
-	Name = "Glove make block [ Default ]",
-	Callback = function()
-      		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if v:IsA("Tool") then
-if v.Glove.Mesh then
-v.Glove.Mesh:Destroy()
-end
-end
-end
-  	end    
-})
-
 Tab12:AddToggle({
-	Name = "Reverse godmode",
+	Name = "Reverse godmode [ Glove Reverse ]",
 	Default = false,
 	Callback = function(bool)
 		
@@ -4852,8 +4785,33 @@ Tab12:AddToggle({
 	end    
 })
 
+Tab12:AddButton({
+	Name = "Inf Jump",
+	Callback = function()
+      		local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+  	end    
+})
+
+Tab12:AddButton({
+	Name = "Glove make block [ Default ]",
+	Callback = function()
+      		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") then
+if v.Glove.Mesh then
+v.Glove.Mesh:Destroy()
+end
+end
+end
+  	end    
+})
+
 Tab14:AddToggle({
-	Name = "Auto Spam Error",
+	Name = "Auto Spam Error [ no glove ]",
 	Default = false,
 	Callback = function(bool)
 		   
@@ -4873,7 +4831,7 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Auto Spam thanos",
+	Name = "Auto Spam thanos [ glove thanos ]",
 	Default = false,
 	Callback = function(bool)
 		  
@@ -4899,7 +4857,7 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Auto Spam sleep",
+	Name = "Auto Spam sleep [ glove ZZZZZZZ ]",
 	Default = false,
 	Callback = function(bool)
 		   
@@ -4927,7 +4885,7 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Auto Invis",
+	Name = "Auto Invis [ glove Ghost ]",
 	Default = false,
 	Callback = function(bool)
 		    
@@ -5025,7 +4983,7 @@ Tab15:AddToggle({
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam Jet",
+	Name = "Auto spam Jet [ Remdom people ]",
 	Default = false,
 	Callback = function(boolean)
 		getgenv().autoJet = boolean
