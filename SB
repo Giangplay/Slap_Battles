@@ -205,7 +205,7 @@ local Tab13 = Window:MakeTab({
 })
 
 local Tab14 = Window:MakeTab({
-	Name = "Troller sever",
+	Name = "Troller Sever",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -223,17 +223,17 @@ local Tab16 = Window:MakeTab({
 })
 
 OrionLib:MakeNotification({
-	Name = "Script slap battles",
+	Name = "Script slap battles.",
 	Content = "ID: 6403373529 | 11520107397",
 	Image = "rbxassetid://4483345998",
 	Time = 17
 })
 
 OrionLib:MakeNotification({
-	Name = "You Name "..Player.Name.."No Banned",
-	Content = "Admin write by name and ban the game when joining the game",
+	Name = "Your name is "..Player.Name..", don't let admin see your name",
+	Content = "Admin see your name and you're banned immediately",
 	Image = "rbxassetid://4483345998",
-	Time = 10
+	Time = 17
 })
 
 OrionLib:MakeNotification({
