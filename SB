@@ -168,6 +168,12 @@ local Tab7 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab8 = Window:MakeTab({
+	Name = "Animations",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Tab9 = Window:MakeTab({
 	Name = "Tp",
 	Icon = "rbxassetid://4483345998",
@@ -224,10 +230,10 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "You name "..Player.Name..".",
+	Name = "You Name "..Player.Name.."No Banned",
 	Content = "Admin write by name and ban the game when joining the game",
 	Image = "rbxassetid://4483345998",
-	Time = 17
+	Time = 10
 })
 
 OrionLib:MakeNotification({
@@ -245,7 +251,7 @@ OrionLib:MakeNotification({
 })
 
 local Section = Tab:AddSection({
-	Name = "main"
+	Name = "Main"
 })
 
 Tab:AddButton({
@@ -4734,6 +4740,78 @@ Tab1:AddButton({
 	Name = "turies spy",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Reamsrpy", true))()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Headless",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Groove",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Floss",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Parker",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Kick",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "L",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Laugh",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Thriller",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Helicopter",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
   	end    
 })
 
