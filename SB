@@ -230,8 +230,8 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "Your name is "..Player.Name..", don't let admin see your name",
-	Content = "Admin see your name and you're banned immediately",
+	Name = "Your name is "..Player.Name..".",
+	Content = "Hello "..Player.Name..".",
 	Image = "rbxassetid://4483345998",
 	Time = 17
 })
