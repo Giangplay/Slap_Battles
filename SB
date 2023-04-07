@@ -454,12 +454,31 @@ Tab7:AddSlider({
 	Name = "Walkspeed [WS]",
 	Min = 20,
 	Max = 500,
-	Default = 20,
+	Default = 50,
 	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "WS",
-	Callback = function(boolean)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = boolean
+	Callback = function(WS)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
+        
+        WS1 = WS
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Walkspeed Set Auto",
+	Default = false,
+	Callback = function(bool)
+		autoSet1 = bool
+        if bool == true then
+            while autoSet1 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.WalkSpeed ~= WS1 then
+                    Character:FindFirstChild("Humanoid").WalkSpeed = WS1
+                end
+            end
+        end
 	end    
 })
 
@@ -467,12 +486,31 @@ Tab7:AddSlider({
 	Name = "Jumppower [JP]",
 	Min = 50,
 	Max = 500,
-	Default = 50,
+	Default = 100,
 	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "JP",
-	Callback = function(boolean)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = boolean
+	Callback = function(JP)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = JP
+        
+        WS2 = JP
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Jumppower Set Auto",
+	Default = false,
+	Callback = function(bool)
+		autoSet2 = bool
+        if bool == true then
+            while autoSet2 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.JumpPower ~= WS2 then
+                    Character:FindFirstChild("Humanoid").JumpPower = WS2
+                end
+            end
+        end
 	end    
 })
 
@@ -480,12 +518,31 @@ Tab7:AddSlider({
 	Name = "Hip Height [HT]",
 	Min = 2,
 	Max = 100,
-	Default = 2,
+	Default = 9,
 	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "HT",
-	Callback = function(boolean)
-		game.Players.LocalPlayer.Character.Humanoid.HipHeight = boolean
+	Callback = function(HT)
+		game.Players.LocalPlayer.Character.Humanoid.HipHeight = HT
+
+        WS3 = HT
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Hip Height Set Auto",
+	Default = false,
+	Callback = function(bool)
+		autoSet3 = bool
+        if bool == true then
+            while autoSet3 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.HipHeight ~= WS3 then
+                    Character:FindFirstChild("Humanoid").HipHeight  = WS3
+                end
+            end
+        end
 	end    
 })
 
