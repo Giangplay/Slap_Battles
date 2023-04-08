@@ -454,7 +454,7 @@ Tab7:AddSlider({
 	Name = "Walkspeed [WS]",
 	Min = 20,
 	Max = 500,
-	Default = 50,
+	Default = 29,
 	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "WS",
@@ -480,6 +480,13 @@ Tab7:AddToggle({
             end
         end
 	end    
+})
+
+Tab7:AddButton({
+	Name = "Reset Walkspeed",
+	Callback = function()
+         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+  	end    
 })
 
 Tab7:AddSlider({
@@ -514,6 +521,13 @@ Tab7:AddToggle({
 	end    
 })
 
+Tab7:AddButton({
+	Name = "Reset Jumppower",
+	Callback = function()
+         game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+  	end    
+})
+
 Tab7:AddSlider({
 	Name = "Hip Height [HT]",
 	Min = 2,
@@ -544,6 +558,13 @@ Tab7:AddToggle({
             end
         end
 	end    
+})
+
+Tab7:AddButton({
+	Name = "Reset Hip Height",
+	Callback = function()
+         game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
+  	end    
 })
 
 Tab7:AddSlider({
@@ -772,18 +793,37 @@ Tab2:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob [ You Epin Replica ] [ PE on Keybroad ]",
+	Name = "Get bob [ You Epin Replica ]",
 	Default = false,
 	Callback = function(bool)
-	    _G.autoFarmBob = bool
-	   while _G.autoFarmBob do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-563.724304, 329.831696, 3.99024963, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-wait(1)
-game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
-wait(2)
-game.Players.LocalPlayer.Character.Humanoid.Health = '0'
-wait(5)
-end
+	    
+        bobFarm = bool
+        
+        if bool == true then
+           
+            while bobFarm do
+                
+                task.wait()
+                
+                    if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+
+                    game.ReplicatedStorage.Duplicate:FireServer()
+
+                    task.wait()
+                    
+                    tick = os.time()
+                    
+                    repeat task.wait()
+                        
+                    until os.time() - tick >= 5.1
+                    
+                    end
+            end
+            
+            else
+            
+            task.wait(10.2)
+        end
 	end    
 })
 
@@ -828,6 +868,17 @@ Tab4:AddToggle({
   wait(.001)
 end
 	end    
+})
+
+Tab4:AddButton({
+	Name = "Get Tycoon [ Auto Tp Plate ]",
+	Callback = function()
+      		repeat task.wait(.001)
+    
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
+        
+    until game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text == "Plate Counter: 600"
+  	end    
 })
 
 Tab4:AddToggle({
