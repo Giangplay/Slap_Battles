@@ -231,6 +231,12 @@ local Tab15 = Window:MakeTab({
 })
 
 local Tab16 = Window:MakeTab({
+	Name = "Auto Join game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab17 = Window:MakeTab({
 	Name = "Cradit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
@@ -4951,13 +4957,6 @@ Tab9:AddButton({
   	end    
 })
 
-Tab9:AddButton({
-	Name = "No 1K slap join slap royela",
-	Callback = function()
-      		game:GetService"TeleportService":Teleport(9426795465)
-  	end    
-})
-
 Tab12:AddToggle({
 	Name = "godmode [ Glove Golden ] [ PE ]",
 	Default = false,
@@ -5587,6 +5586,27 @@ end
 })
 
 Tab16:AddButton({
+	Name = "Slap Royela [ No 1K The Join ]",
+	Callback = function()
+      		game:GetService"TeleportService":Teleport(9426795465)
+  	end    
+})
+
+Tab16:AddButton({
+	Name = "slap battles [ Gamemode Killstreak ]",
+	Callback = function()
+      		game:GetService"TeleportService":Teleport(11520107397)
+  	end    
+})
+
+Tab16:AddButton({
+	Name = "slap battles [ NO OND SHOT GLOVE ]",
+	Callback = function()
+      		game:GetService"TeleportService":Teleport(9015014224)
+  	end    
+})
+
+Tab17:AddButton({
 	Name = "Copy Anakin#3568",
 	Callback = function()
         if setclipboard then
@@ -5596,7 +5616,7 @@ Tab16:AddButton({
   	end    
 })
 
-Tab16:AddButton({
+Tab17:AddButton({
 	Name = "Copy Join Discord R2O",
 	Callback = function()
       	if setclipboard then
@@ -5606,7 +5626,18 @@ Tab16:AddButton({
   	end    
 })
 
-Tab16:AddButton({
+Tab17:AddButton({
+	Name = "Cradit Script The Giang",
+	Callback = function()
+	    OrionLib:MakeNotification({
+	        Name = "Nope",
+	        Content = "You Is Copy, No Copy",
+	        Time = 5
+	    })
+  	end    
+})
+
+Tab17:AddButton({
 	Name = "Destroy GUI",
 	Callback = function()
       		OrionLib:Destroy()
