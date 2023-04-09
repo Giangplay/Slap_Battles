@@ -5,6 +5,24 @@ local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, 
 
 local Player = game.Players.LocalPlayer.Character
 
+---Notification---
+
+function Notifications()
+    OrionLib:MakeNotification({
+        Name = "Copy Success",
+        Content = "Join the discord",
+        Time = 5
+    })
+end
+
+function Notifications2()
+    OrionLib:MakeNotification({
+        Name = "Copy Success",
+        Content = "Join is friend",
+        Time = 5
+    })
+end
+
 ---setfpscap---
 
 if setfpscap then
@@ -233,12 +251,6 @@ OrionLib:MakeNotification({
 OrionLib:MakeNotification({
 	Name = "You make banned",
 	Content = "No banned",
-	Time = 17
-})
-
-OrionLib:MakeNotification({
-	Name = "Cradit Giang and Anakin",
-	Content = "Discord R20",
 	Time = 17
 })
 
@@ -5577,11 +5589,9 @@ end
 Tab16:AddButton({
 	Name = "Copy Anakin#3568",
 	Callback = function()
-      		
         if setclipboard then
-            
             setclipboard("Anakin#3568")
-            
+            Notifications2()
         end
   	end    
 })
@@ -5589,11 +5599,9 @@ Tab16:AddButton({
 Tab16:AddButton({
 	Name = "Copy Join Discord R2O",
 	Callback = function()
-	
       	if setclipboard then
-            
             setclipboard("https://discord.gg/zty372wma5")
-            
+            Notifications()
         end
   	end    
 })
