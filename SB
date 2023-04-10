@@ -391,7 +391,7 @@ Tab:AddToggle({
 	Callback = function(bool)
 	    _G.autoFarmSlap = bool
       while _G.autoFarmSlap do
-    wait(0.5)
+    wait(.001)
 spawn(function()
 for i, v in pairs(game:GetService("Workspace").Arena.island5.Slapples:GetDescendants()) do
 		if v:IsA("TouchTransmitter") then
@@ -4844,74 +4844,43 @@ Tab1:AddButton({
 })
 
 Tab8:AddButton({
-	Name = "Headless",
+	Name = "Script All Animations",
 	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/freeAnimations.lua"))()
   	end    
 })
 
 Tab8:AddButton({
-	Name = "Groove",
+	Name = "Notification All Animations",
 	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
+    OrionLib:MakeNotification({
+        Name = "You is 10 Dance",
+        Content = "animations bypass free",
+        Time = 5
+    })
+    task.wait(1)
+    OrionLib:MakeNotification({
+        Name = "Chat",
+        Content = "/e l",
+        Time = 10
+    })
+    task.wait(1)
+    OrionLib:MakeNotification({
+        Name = "Chat",
+        Content = "/e groove",
+        Time = 10
+    })
+    task.wait(1)
+    OrionLib:MakeNotification({
+        Name = "Chat",
+        Content = "/e helicopter",
+        Time = 10
+    })
+    task.wait(1)
 
-Tab8:AddButton({
-	Name = "Floss",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
 
-Tab8:AddButton({
-	Name = "Parker",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
 
-Tab8:AddButton({
-	Name = "Kick",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
 
-Tab8:AddButton({
-	Name = "L",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "Laugh",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "Thriller",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "Helicopter",
-	Callback = function()
-local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
-Anim:Play()
   	end    
 })
 
