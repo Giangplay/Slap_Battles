@@ -5,24 +5,6 @@ local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, 
 
 local Player = game.Players.LocalPlayer.Character
 
----Notification---
-
-function Notifications()
-    OrionLib:MakeNotification({
-        Name = "Copy Success",
-        Content = "Join the discord",
-        Time = 5
-    })
-end
-
-function Notifications2()
-    OrionLib:MakeNotification({
-        Name = "Copy Success",
-        Content = "Join is friend",
-        Time = 5
-    })
-end
-
 ---setfpscap---
 
 if setfpscap then
@@ -583,6 +565,19 @@ Tab7:AddSlider({
 	end    
 })
 
+Tab7:AddSlider({
+	Name = "Gravity",
+	Min = 0,
+	Max = 999999,
+	Default = 100,
+	Color = Color3.fromRGB(0,255,0),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(boolean)
+		game.Workspace.Gravity = boolean
+	end    
+})
+
 Tab4:AddToggle({
 	Name = "Time Ghost [ Get Voodoo ]",
 	Default = false,
@@ -739,15 +734,23 @@ Tab10:AddToggle({
                 while getgenv().autoJoin do
 
                     wait()
+                        
+                        repeat task.wait() until game.Players.LocalPlayer.Character
                     
                         if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                        
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport1.CFrame
+                            
+                            repeat task.wait(.005)
+                                
+                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                            
+                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+
+                            until game.Players.LocalPlayer.Character:FindFirstChild("entered")
                             
                         end
-                        
-                        
+                
                 end
+                
             end
 	end    
 })
@@ -1013,11 +1016,7 @@ Tab11:AddToggle({
 	Name = "Freeze",
 	Default = false,
 	Callback = function(Value)
-		if Value then
-	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-    else
-	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-    end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = Value
 	end    
 })
 
@@ -1074,7 +1073,7 @@ Tab11:AddToggle({
             
             while AntiRock do
                 
-                task.wait(.1)
+                task.wait(.001)
                 
         for _, Instance in pairs(game.Workspace:GetDescendants()) do
                     
@@ -1517,6 +1516,48 @@ Tab13:AddToggle({
 	end    
 })
 
+Tab13:AddToggle({
+	Name = "Golden Autofarm Slap [ You make banned ]",
+	Default = false,
+	Callback = function(bool)
+		
+            getgenv().Farming = bool
+
+                if bool == true then
+
+                    while getgenv().Farming do
+
+                        wait()
+
+                        for Index, Human in next, game.Players:GetPlayers() do
+                                
+                            if Human ~= game.Players.LocalPlayer and Human.Character  and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+                                
+                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                
+                                wait(.1)
+                                
+                                if getGlove() == "Golden" then
+                                        
+
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Human.Character["Torso"].CFrame * CFrame.new(0,-6,3)
+                                    
+                                        wait(.25)
+                                        
+                                    game.ReplicatedStorage.GoldenHit:FireServer(Human.Character.Head)
+                                    
+                                        wait(.25)
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+	end    
+})
+
 Tab11:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
@@ -1776,42 +1817,39 @@ Tab11:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(bool)
-		antiRagdoll = bool
+		
+        antiRagdoll = bool
         
         if bool == true then
+            
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
         
-    
-        while antiRagdoll do
-    
         task.wait()
         
-        if not spamSleep  and not allFarming and not Farming  then
-            
-            
-        task.wait()
-        
-        local Character = game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
-    
-        Character:WaitForChild("Ragdolled").Changed:Connect(function()
-        
-            if antiRagdoll == true  and Character:WaitForChild("Ragdolled").Value == true then
-            
-            repeat task.wait()
-                
-            Character:FindFirstChild("Torso").Anchored = true
-                
-            until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdolled").Value == false
-            
-            Character:FindFirstChild("Torso").Anchored = false
+        game.Players.LocalPlayer.CharacterAdded:Connect(function()
 
-            end
-        
-        end)
-     
-    
-end
+            local Character = game.Workspace[game.Players.LocalPlayer.Name]
             
-        end
+            task.wait()
+            
+            Character:WaitForChild("Ragdolled").Changed:Connect(function()
+                
+                if Character:WaitForChild("Ragdolled").Value == true and antiRagdoll == true then
+                    
+                    repeat task.wait()
+                        
+                    Character.Torso.Anchored = true
+                        
+                    until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdolled").Value == false
+                    
+                    Character.Torso.Anchored = false
+
+                end
+                
+            end)
+            
+        end)
+        
         end
 	end    
 })
@@ -5580,7 +5618,11 @@ Tab17:AddButton({
 	Callback = function()
         if setclipboard then
             setclipboard("Anakin#3568")
-            Notifications2()
+            OrionLib:MakeNotification({
+                 Name = "Copy Success",
+                 Content = "Join in friends",
+                 Time = 5
+            })
         end
   	end    
 })
@@ -5590,7 +5632,11 @@ Tab17:AddButton({
 	Callback = function()
       	if setclipboard then
             setclipboard("https://discord.gg/zty372wma5")
-            Notifications()
+            OrionLib:MakeNotification({
+                 Name = "Copy Success",
+                 Content = "Join the discord",
+                 Time = 5
+            })
         end
   	end    
 })
