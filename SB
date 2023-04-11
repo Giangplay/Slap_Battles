@@ -4882,43 +4882,9 @@ Tab1:AddButton({
 })
 
 Tab8:AddButton({
-	Name = "Script All Animations",
+	Name = "Script All Animations [ You chat /e ]",
 	Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/freeAnimations.lua"))()
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "Notification All Animations",
-	Callback = function()
-    OrionLib:MakeNotification({
-        Name = "You is 10 Dance",
-        Content = "animations bypass free",
-        Time = 5
-    })
-    task.wait(1)
-    OrionLib:MakeNotification({
-        Name = "Chat",
-        Content = "/e l",
-        Time = 10
-    })
-    task.wait(1)
-    OrionLib:MakeNotification({
-        Name = "Chat",
-        Content = "/e groove",
-        Time = 10
-    })
-    task.wait(1)
-    OrionLib:MakeNotification({
-        Name = "Chat",
-        Content = "/e helicopter",
-        Time = 10
-    })
-    task.wait(1)
-
-
-
-
   	end    
 })
 
