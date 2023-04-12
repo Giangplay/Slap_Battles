@@ -370,6 +370,8 @@ Tab:AddButton({
 Tab:AddToggle({
 	Name = "Autofarm Slapples [ Free Slap ] [ PE ]",
 	Default = false,
+	Save = true,
+    Flag = "AutoFarm",
 	Callback = function(bool)
 	    _G.autoFarmSlap = bool
       while _G.autoFarmSlap do
@@ -461,6 +463,8 @@ Tab7:AddSlider({
 Tab7:AddToggle({
 	Name = "Walkspeed Set Auto",
 	Default = false,
+	Save = true,
+    Flag = "WalkSpeed",
 	Callback = function(bool)
 		autoSet1 = bool
         if bool == true then
@@ -500,6 +504,8 @@ Tab7:AddSlider({
 Tab7:AddToggle({
 	Name = "Jumppower Set Auto",
 	Default = false,
+	Save = true,
+    Flag = "Jumppower",
 	Callback = function(bool)
 		autoSet2 = bool
         if bool == true then
@@ -539,6 +545,8 @@ Tab7:AddSlider({
 Tab7:AddToggle({
 	Name = "Hip Height Set Auto",
 	Default = false,
+	Save = true,
+    Flag = "HipHeight",
 	Callback = function(bool)
 		autoSet3 = bool
         if bool == true then
@@ -773,6 +781,8 @@ Tab10:AddButton({
 Tab2:AddToggle({
 	Name = "100 Slaps Fight Arena (Can't Lose)",
 	Default = false,
+	Save = true,
+    Flag = "AntiVoid100Slap",
 	Callback = function(state)
 		if state then
 
@@ -792,6 +802,8 @@ Tab2:AddToggle({
 Tab2:AddToggle({
 	Name = "Normal Arena Anti-Void",
 	Default = false,
+	Save = true,
+    Flag = "AntiVoid",
 	Callback = function(state)
 		if state then
 	jesus.CanCollide = true
@@ -1031,6 +1043,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Admin [ Kick you the admin Join ]",
 	Default = false,
+	Save = true,
+    Flag = "AntiAdmin",
 	Callback = function(bool)
 		
     antiAdmins = bool
@@ -1052,6 +1066,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
+	Save = true,
+    Flag = "AntiObby",
 	Callback = function(a)
 		getgenv().disable = a
      if getgenv().disable == true then
@@ -1073,6 +1089,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Megarock / Custom",
 	Default = false,
+	Save = true,
+    Flag = "AntiMegarock",
 	Callback = function(bool)
 		
         AntiRock = bool
@@ -1124,6 +1142,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
+	Save = true,
+    Flag = "AntiMail",
 	Callback = function(bool)
 		  
         antiMail = bool
@@ -1165,6 +1185,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
+	Save = true,
+    Flag = "AntiHallowJack",
 	Callback = function(bool)
 		antiHallow = bool
         
@@ -1184,6 +1206,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Booster",
 	Default = false,
+	Save = true,
+    Flag = "AntiBooster",
 	Callback = function(bool)
 		
         antiBooster = bool
@@ -1291,6 +1315,8 @@ Tab13:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Squid",
 	Default = false,
+	Save = true,
+    Flag = "AntiSpuid",
 	Callback = function(bool)
 		
         AntiSquid = bool
@@ -1569,6 +1595,8 @@ Tab13:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
+	Save = true,
+    Flag = "AntiZaHando",
 	Callback = function(bool)
 	
 		getgenv().AntiZaHando = bool
@@ -1597,6 +1625,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Reaper",
 	Default = false,
+	Save = true,
+    Flag = "AntiReaper",
 	Callback = function(bool)
 	
 		getgenv().AntiReaper = bool
@@ -1628,6 +1658,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Pusher",
 	Default = false,
+	Save = true,
+    Flag = "AntiPusher",
 	Callback = function(bool)
 	
 		getgenv().AntiPusher = bool
@@ -1659,6 +1691,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
+	Save = true,
+    Flag = "AntiBubble",
 	Callback = function(Value)
 		 _G.AntiBubble = Value
 
@@ -1678,6 +1712,8 @@ while _G.AntiBubble do
 Tab11:AddToggle({
 	Name = "Anti Stun",
 	Default = false,
+	Save = true,
+    Flag = "AntiStun",
 	Callback = function(bool)
 		 
         antiStun = bool
@@ -1703,6 +1739,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Disable Cube Of Death",
 	Default = false,
+	Save = true,
+    Flag = "AntiCubeOfDeath",
 	Callback = function(bool)
 		if bool == true then
         
@@ -1729,6 +1767,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = "Disable Death Barriers",
 	Default = false,
+	Save = true,
+    Flag = "AntiDeath",
 	Callback = function(bool)
 		
         if bool == true then
@@ -1759,6 +1799,8 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = " Auto Remove nametag",
 	Default = false,
+	Save = false,
+    Flag = "AntiNameTag",
 	Callback = function(bool)
 		 
         Auto_Remove = bool
@@ -1824,6 +1866,8 @@ Tab12:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
+	Save = false,
+    Flag = "AntiRagdoll",
 	Callback = function(bool)
 		
         antiRagdoll = bool
