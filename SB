@@ -1799,7 +1799,7 @@ Tab11:AddToggle({
 Tab11:AddToggle({
 	Name = " Auto Remove nametag",
 	Default = false,
-	Save = false,
+	Save = true,
     Flag = "AntiNameTag",
 	Callback = function(bool)
 		 
@@ -1866,7 +1866,7 @@ Tab12:AddToggle({
 Tab11:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
-	Save = false,
+	Save = true,
     Flag = "AntiRagdoll",
 	Callback = function(bool)
 		
