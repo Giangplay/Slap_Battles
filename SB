@@ -427,9 +427,17 @@ if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlaye
 
 else 
 
-    print("YOU ALREADY HAVE [ R E D A C T E D ] !!")
+       OrionLib:MakeNotification({
+	        Name = "You No 5K slap",
+	        Content = "You already have [ R E D A C T E D ]!",
+	        Time = 7
+	    })
 
-    print("OR YOU DONT HAVE 5K SLAPS")
+       OrionLib:MakeNotification({
+	        Name = "Or you don't have 5K slaps.",
+	        Content = "No Get [ R E D A C T E D ]",
+	        Time = 7
+	    })
 
 end
   	end    
@@ -888,7 +896,7 @@ Tab4:AddToggle({
 Tab11:AddTextbox({
 	Name = "hitbox [ Reach ]",
 	Default = "Size",
-	TextDisappear = true,
+	TextDisappear = false,
 	Callback = function(Value)
 		_G.HeadSize = Value
 _G.Disabled = true
@@ -914,7 +922,7 @@ end)
 Tab11:AddTextbox({
 	Name = "view player health [ On Console ]",
 	Default = "Name Player",
-	TextDisappear = true,
+	TextDisappear = false,
 	Callback = function(txt)
 		for i,v in pairs(game.Players:GetChildren()) do
       if string.find(v.Name, txt) then
@@ -932,7 +940,7 @@ Tab11:AddBind({
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.1)
+wait(0.15)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -4885,6 +4893,86 @@ Tab8:AddButton({
 	Name = "Script All Animations [ You chat /e ]",
 	Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/freeAnimations.lua"))()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Spasm",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Spasm,game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Groove",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Headless",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "L",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.L,game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Floss",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Kick",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Kick,game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "parker",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Laugh",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Thriller",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
+  	end    
+})
+
+Tab8:AddButton({
+	Name = "Helicopter",
+	Callback = function()
+local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Anim:Play()
   	end    
 })
 
