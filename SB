@@ -69,6 +69,20 @@ SafeSpot.Anchored = true
 
 SafeSpot.Transparency = .7
 
+---NoSlap---
+
+local NoSlap = Instance.new("Part", workspace)
+
+NoSlap.Position = Vector3.new(-100049.7, 204.8, -1500)
+
+NoSlap.Name = "NoSlap"
+
+NoSlap.Size = Vector3.new(60,60,60)
+
+NoSlap.Anchored = true
+
+NoSlap.Transparency = .7
+
 ---anti voin---
 
 local jesus = Instance.new("Part", workspace)
@@ -400,6 +414,13 @@ Tab4:AddButton({
 	Name = "TP To SafeSpot",
 	Callback = function()
          game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,50,0)
+  	end    
+})
+
+Tab4:AddButton({
+	Name = "TP To NoSlap",
+	Callback = function()
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.NoSlap.CFrame * CFrame.new(0,50,0)
   	end    
 })
 
