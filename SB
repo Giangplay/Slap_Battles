@@ -342,7 +342,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Arceus X V3 [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Arcue_x.lua"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Arcue%20x"))()
   	end    
 })
 
