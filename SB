@@ -347,6 +347,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Arceus x [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Arcue%20x"))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Slap Royale",
 	Callback = function()
       		loadstring(game:HttpGet(('https://pastebin.com/raw/Tx7XLqcm'),true))()
