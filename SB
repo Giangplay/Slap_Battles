@@ -323,7 +323,7 @@ Tab3:AddButton({
 	Callback = function()
       		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
-})
+}) on
 
 Tab1:AddButton({
 	Name = "Synapse X [ PE ]",
@@ -340,16 +340,16 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
-	Name = "Animation [ PE ]",
+	Name = "Arceus X V3 [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Arcue_x.lua"))()
   	end    
 })
 
 Tab1:AddButton({
-	Name = "Slap Royale",
+	Name = "Animation [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet(('https://pastebin.com/raw/Tx7XLqcm'),true))()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
   	end    
 })
 
