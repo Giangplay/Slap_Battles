@@ -323,7 +323,7 @@ Tab3:AddButton({
 	Callback = function()
       		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
-}) on
+})
 
 Tab1:AddButton({
 	Name = "Synapse X [ PE ]",
@@ -343,6 +343,13 @@ Tab1:AddButton({
 	Name = "Animation [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Slap Royale",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://pastebin.com/raw/Tx7XLqcm'),true))()
   	end    
 })
 
