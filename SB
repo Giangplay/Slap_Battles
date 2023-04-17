@@ -58,30 +58,16 @@ end
 ---SafeSpot---
 
 local SafeSpot = Instance.new("Part", workspace)
-
+    
 SafeSpot.Position = Vector3.new(-1500,100,-1500)
-
+    
 SafeSpot.Name = "Spot"
-
-SafeSpot.Size = Vector3.new(60,60,60)
-
+    
+SafeSpot.Size = Vector3.new(50,50,50)
+    
 SafeSpot.Anchored = true
-
+    
 SafeSpot.Transparency = .7
-
----NoSlap---
-
-local NoSlap = Instance.new("Part", workspace)
-
-NoSlap.Position = Vector3.new(-100049.7, 204.8, -1500)
-
-NoSlap.Name = "NoSlap"
-
-NoSlap.Size = Vector3.new(60,60,60)
-
-NoSlap.Anchored = true
-
-NoSlap.Transparency = .7
 
 ---anti voin---
 
@@ -204,6 +190,12 @@ local Tab11 = Window:MakeTab({
 
 local Tab12 = Window:MakeTab({
 	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab18 = Window:MakeTab({
+	Name = "Auto Epin Glove",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -425,13 +417,6 @@ Tab4:AddButton({
 })
 
 Tab4:AddButton({
-	Name = "TP To NoSlap",
-	Callback = function()
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.NoSlap.CFrame * CFrame.new(0,50,0)
-  	end    
-})
-
-Tab4:AddButton({
 	Name = "Reset [ you die ]",
 	Callback = function()
          game.Players.LocalPlayer.Character.Humanoid.Health = 0
@@ -445,36 +430,28 @@ Tab4:AddButton({
 
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) and 5000 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
 
-    repeat
+repeat
     
-    task.wait(.25)
+task.wait(.25)
 
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.PocketDimension.Doors[Door].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.PocketDimension.Doors[Door].CFrame
 
-    Door = Door + 1
+Door = Door + 1
 
-    print(Door)
+print(Door)
 
-    wait(5)
+wait(5)
 
 
 
     
-    until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850)
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850)
 
 else 
 
-       OrionLib:MakeNotification({
-	        Name = "You No 5K slap",
-	        Content = "You already have [ R E D A C T E D ]!",
-	        Time = 7
-	    })
+print("YOU ALREADY HAVE [ R E D A C T E D ] !!")
 
-       OrionLib:MakeNotification({
-	        Name = "Or you don't have 5K slaps.",
-	        Content = "No Get [ R E D A C T E D ]",
-	        Time = 7
-	    })
+print("OR YOU DONT HAVE 5K SLAPS")
 
 end
   	end    
@@ -664,7 +641,11 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost"  then
 Time = Time + 1
 
 
-print(Time)
+OrionLib:MakeNotification({
+	Name = ""..Time.." Second",
+	Content = "Nope",
+	Time = 2
+})
 
 
 else
@@ -683,7 +664,7 @@ Tab4:AddToggle({
 	Name = "Time ZZZZZZZ [ Get Fish ]",
 	Default = false,
 	Callback = function(bool)
-	    
+	
         fishFarm = bool
     
         if bool == true then
@@ -706,7 +687,11 @@ Tab4:AddToggle({
             
         else
             
-            print("FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY")
+        OrionLib:MakeNotification({
+	        Name = "FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY",
+	        Content = "You Tp bed",
+	        Time = 5
+	    })
         
         end
         
@@ -722,7 +707,11 @@ Tab4:AddToggle({
                     
                         Time += 1
                         
-                        print(Time)
+                            OrionLib:MakeNotification({
+	                            Name = ""..Time.." Second",
+	                            Content = "Nope",
+	                            Time = 2
+	                         })
                     
                     else
                     
@@ -855,6 +844,57 @@ Tab2:AddToggle({
 	end    
 })
 
+Tab2:AddToggle({
+	Name = "Anti Void [ Cradit Anakin ]",
+	Default = false,
+	Save = true,
+    Flag = "AntiVoid",
+	Callback = function(Value)
+		
+        if Value == true then
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == false then
+               
+                        v.CanCollide = true
+                        
+                        v.Material = "ForceField"
+                        
+                        v.Color = Color3.new(255,255,255)
+                        
+                        v.Transparency = .9
+               
+                    end
+           
+                end
+                
+            end
+            
+            else
+                
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == true then
+               
+                        v.CanCollide = false
+                        
+                        v.Transparency = 1
+               
+                    end
+           
+                end
+                
+            end
+        
+        end
+	end    
+})
+
 Tab4:AddToggle({
 	Name = "Get bob [ You Epin Replica ]",
 	Default = false,
@@ -894,30 +934,31 @@ Tab4:AddToggle({
 	Name = "Autofram Brick [ Get Trap ] [ Auto E ] [ you on keybroad ]",
 	Default = false,
 	Callback = function(bool)
-		Brick = bool
-        
-        if bool == true then
+	    Brick = bool
             
-            BooleanTing()
+            if bool == true then
+                
+                BooleanTing()
+                
+                end
+
+
+        function BooleanTing()
             
-            end
-       
-    function BooleanTing()
+                  while Brick do
+                      task.wait(0.01)
+            if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+            task.wait(5.2)
         
-              while Brick do
-                  task.wait(0.01)
-        if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-        task.wait(5.2)
+        game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
     
-    game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
-
-
-
-end
-
-end
-        
-    end   
+    
+    
+    end
+    
+    end
+            
+        end
 	end    
 })   
 
@@ -1031,6 +1072,8 @@ Tab13:AddToggle({
 
                     task.wait(.005)
                         
+                        pcall(function()
+                            
                         for Index, Player in next, game.Players:GetPlayers() do
                             
                             if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
@@ -1045,9 +1088,7 @@ Tab13:AddToggle({
                                     
                                     if 25 >= Magnitude then
                                         
-                                        
                                         shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
-                                        
                                         
                                 end
                                     
@@ -1057,17 +1098,11 @@ Tab13:AddToggle({
                                 end
                         end
                         
-                            
-                            
                         end
-                    
-                        
-                
+                    end)
                 end
                 
-                
             end
-
 	end    
 })
 
@@ -1296,28 +1331,32 @@ Tab13:AddToggle({
                         setfpscap(50)
                     
                     end
+                    
+                    workspace.DEATHBARRIER.CanTouch = false
+                    workspace.DEATHBARRIER2.CanTouch = false
+                    workspace.dedBarrier.CanTouch = false
+            
+                    task.wait()
 
                     while allFarming do
 
                         task.wait()
-
+                        
+                        pcall(function()
+                        
                         for Index, Human in next, game.Players:GetPlayers() do
                             
                             if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
                                 
                                 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                                 
-                                
                                 task.wait(.1)
                                 
-
-
                                     game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
                                         
                                         task.wait()
                                         
                                     game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-                                    
                                     
                                         wait(.25)
                                         
@@ -1327,7 +1366,10 @@ Tab13:AddToggle({
                                     
                                     end
                                 end
-                            end
+                        end
+                        
+                        end)
+                        
                         end
                     
                     
@@ -1338,6 +1380,10 @@ Tab13:AddToggle({
                     setfpscap(1269)
                     
                     end
+                    
+                    workspace.DEATHBARRIER.CanTouch = true
+                    workspace.DEATHBARRIER2.CanTouch = true
+                    workspace.dedBarrier.CanTouch = true
                     
                     if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
                         
@@ -1387,8 +1433,7 @@ Tab13:AddToggle({
 	Name = "Ghost Autofarm Slap [ You make banned ]",
 	Default = false,
 	Callback = function(bool)
-		
-            Farming = bool
+		Farming = bool
 
                 if bool == true then
                     
@@ -1403,25 +1448,24 @@ Tab13:AddToggle({
                     while Farming do
 
                         wait()
-
+                        
+                        pcall(function()
+                            
                         for Index, Human in next, game.Players:GetPlayers() do
                                 
                             if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
                                 
                                 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                                 
-                                
                                 task.wait(.1)
                                 
                                 if getGlove() == "Ghost" then
-                                        
 
                                     game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame * CFrame.new(6,-2,6)
                                         
                                         task.wait()
                                         
                                     game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-                                    
                                     
                                         wait(.25)
                                         
@@ -1433,13 +1477,12 @@ Tab13:AddToggle({
                                 end
                             end
                         end
+                        end)
                     end
                     
                 else
                     
                 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-                
-
                 
                     if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
                         
@@ -1449,10 +1492,6 @@ Tab13:AddToggle({
                         
                     end
 
-
-
-                
-                
                 if setfpscap then
                     
                     setfpscap(1269)
@@ -5166,12 +5205,13 @@ end)
 })
 
 Tab12:AddButton({
-	Name = "Glove make block [ Default ]",
+	Name = "Glove make block [ all glove ]",
 	Callback = function()
       		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
-if v.Glove.Mesh then
+if v.Glove.Mesh or v.Glove.Cuff.Mesh then
 v.Glove.Mesh:Destroy()
+v.Glove.Cuff.Mesh:Destroy()
 end
 end
 end
@@ -5257,27 +5297,40 @@ Tab14:AddToggle({
 	Default = false,
 	Callback = function(bool)
 		    
-        spamInvis = bool
+        autoInvis = bool
+
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+
+                if autoInvis == true and 666 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
+
         
-        if bool == true then
-            
-            while spamInvis do
-                
-                task.wait()
-                
-                if getGlove() == "Ghost" then
+                    repeat task.wait()  
                     
-                    task.wait()
+                    until game.Players.LocalPlayer.Character:FindFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag") ~= nil
                     
-                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+                    game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
+
                     game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-                    
+
+                    task.wait(.1)
+
+                    local gloveClick = tostring(getGlove())
+
+                    task.wait(.2)
+
+                    fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
+
+                    task.wait(.2)
+
+                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+
+                    task.wait(.2)
+
+                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
+
                 end
-                
-                
-            end
-            
-        end
+
+            end)
 	end    
 })
 
@@ -5286,18 +5339,54 @@ Tab14:AddToggle({
 	Default = false,
 	Callback = function(bool)
 		 
-        spamZeroG = bool
+    spamSpace = bool
+    
+    if bool == true then
         
-        if bool == true then
+        while spamSpace do
             
-            while spamZeroG do
-                
-                task.wait()
-                
-                game:GetService("ReplicatedStorage").ZeroGSound:FireServer()
-                
+            task.wait()
+            
+            if getGlove() == "Space" then
+                game.ReplicatedStorage["ZeroGSound"]:FireServer()
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+
             end
+            
         end
+        
+    else
+        for x = 1,5 do
+            task.wait()
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+        end
+
+        
+    end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto Spam ping pong",
+	Default = false,
+	Callback = function(Value)
+		_G.PingPongSpam = Value
+while _G.PingPongSpam do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(8)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam RecallVFX",
+	Default = false,
+	Callback = function(Value)
+		_G.RecallVFXSpam = Value
+while _G.RecallVFXSpam do
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+wait(3.05)
+end
 	end    
 })
 
@@ -5308,6 +5397,7 @@ Tab15:AddToggle({
 		_G.CoilSpam = Value
 while _G.CoilSpam do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
 task.wait()
 end
 	end    
@@ -5399,6 +5489,18 @@ Tab15:AddToggle({
 		_G.PusherSpam = Value
 while _G.PusherSpam do
 game:GetService("ReplicatedStorage").PusherWall:FireServer()
+wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Mitten",
+	Default = false,
+	Callback = function(Value)
+		_G.MittenSpam = Value
+while _G.MittenSpam do
+game:GetService("ReplicatedStorage").MittenA:FireServer()
 wait(5.2)
 end
 	end    
@@ -5747,6 +5849,15 @@ Tab16:AddButton({
 	Callback = function()
       		game:GetService"TeleportService":Teleport(9015014224)
   	end    
+})
+
+Tab18:AddDropdown({
+	Name = "Epin glove",
+	Default = "Glove",
+	Options = {"Default", "Extended", "Diamond", "ZZZZZZZ", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "Golden", "Cheeky", "Reaper", "Defense", "T H I C K", "Killstreak", "Reverse", "Shukuchi", "Duelist", "Woah", "Ice", "Adios", "Blocked", "Engineer", "STOP", "Phantom", "Wormhole", "Baller", "God's hands"},
+	Callback = function(Value)
+		fireclickdetector(game.Workspace.Lobby[Value].ClickDetector)
+	end    
 })
 
 Tab17:AddButton({
