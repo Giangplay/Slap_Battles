@@ -59,11 +59,11 @@ end
 
 local SafeSpot = Instance.new("Part", workspace)
     
-SafeSpot.Position = Vector3.new(-1500,100,-1500)
+SafeSpot.Position = Vector3.new(-198951.64,100,-1500)
     
 SafeSpot.Name = "Spot"
     
-SafeSpot.Size = Vector3.new(50,50,50)
+SafeSpot.Size = Vector3.new(500,1,500)
     
 SafeSpot.Anchored = true
     
@@ -412,7 +412,7 @@ end
 Tab4:AddButton({
 	Name = "TP To SafeSpot",
 	Callback = function()
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,50,0)
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,20,0)
   	end    
 })
 
