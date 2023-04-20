@@ -4985,6 +4985,20 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Dex V2",
+	Callback = function()
+      		loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Dex V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Control player",
 	Callback = function()
       		loadstring(game:HttpGet("https://pastebin.com/raw/YuwF041a"))()
@@ -5100,37 +5114,51 @@ Anim:Play()
 })
 
 Tab9:AddButton({
-	Name = "TP to Arena",
+	Name = "TP To Arena",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
   	end    
 })
 
 Tab9:AddButton({
-	Name = "TP to Spam Player",
+	Name = "TP To Spam Player",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-339.448792, 324.929474, -1.96081245)
   	end    
 })
 
 Tab9:AddButton({
-	Name = "TP to Brazil",
+	Name = "TP To Brazil",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-469.613953, 304.469482, -11.8963394, 0, -1, 0, 1, 0, -0, 0, 0, 1)
   	end    
 })
 
 Tab9:AddButton({
-	Name = "TP to island slapple",
+	Name = "TP To island slapple",
 	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-395.928558, 51.4515495, 0.1516953, 0.460573077, -0.439980179, 0.770901978, 0.149108738, -0.817809463, -0.555836499, 0.875008047, 0.370951533, -0.311056137)
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-399.643463, 50.7640572, -15.5156841, -0.219157591, -0, -0.97568953, -0, 1.00000012, -0, 0.97568953, 0, -0.219157591)
   	end    
 })
 
 Tab9:AddButton({
-	Name = "TP to Plate",
+	Name = "TP To Plate",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
+  	end    
+})
+
+Tab9:AddButton({
+	Name = "TP To Arena Default",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(103.019653, 359.984283, -9.12073612, 0.00716629531, -7.62347554e-08, -0.99997431, 5.0424859e-08, 1, -7.58753416e-08, 0.99997431, -4.98798194e-08, 0.00716629531)
+  	end    
+})
+
+Tab9:AddButton({
+	Name = "TP To Round",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3034.03369, 144.78009, -5.25375271, 0.935709953, 0.160234556, -0.314279824, 0.00408654613, 0.885907471, 0.463844001, 0.352746665, -0.435307741, 0.828297615)
   	end    
 })
 
