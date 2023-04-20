@@ -3,7 +3,11 @@ local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, 
 
 ---Value---
 
-local Player = game.Players.LocalPlayer.Character
+local Player = game.Players.LocalPlayer.Character.Name
+
+local Code = #game.Players:GetChildren() * 25 + 1100 - 7
+
+local CodePlayer = #game.Players:GetChildren() + 0
 
 ---setfpscap---
 
@@ -59,11 +63,11 @@ end
 
 local SafeSpot = Instance.new("Part", workspace)
     
-SafeSpot.Position = Vector3.new(-198951.64,100,-1500)
+SafeSpot.Position = Vector3.new(-1500,100,-1500)
     
 SafeSpot.Name = "Spot"
     
-SafeSpot.Size = Vector3.new(500,1,500)
+SafeSpot.Size = Vector3.new(50,50,50)
     
 SafeSpot.Anchored = true
     
@@ -237,8 +241,8 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "Your name is "..Player.Name..".",
-	Content = "Hello "..Player.Name..".",
+	Name = "Your name is "..Player..".",
+	Content = "Hello "..Player..".",
 	Time = 17
 })
 
@@ -297,9 +301,13 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
-	Name = "Get code free [ On console ]",
+	Name = "Get code and Sever Player",
 	Callback = function()
-      		print(#game.Players:GetChildren() * 25 + 1100 - 7)
+	    OrionLib:MakeNotification({
+	        Name = "Code "..Code..".",
+	        Content = "Sever "..CodePlayer.." Player",
+	        Time = 5
+	    })
   	end    
 })
 
@@ -307,13 +315,6 @@ Tab3:AddButton({
 	Name = "TP to badge [ Tp glove ] [ Join the ? ]",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "On console [ F9 ] [ PC and PE ] ",
-	Callback = function()
-      		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
 })
 
@@ -5205,7 +5206,7 @@ end)
 })
 
 Tab12:AddButton({
-	Name = "Glove make block [ all glove ]",
+	Name = "Glove make block [ Default And Extended ]",
 	Callback = function()
       		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
@@ -5218,8 +5219,15 @@ end
   	end    
 })
 
+Tab12:AddButton({
+	Name = "On console [ F9 ] [ PC and PE ] ",
+	Callback = function()
+      		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
+  	end    
+})
+
 Tab14:AddToggle({
-	Name = "Auto Spam Error [ no glove ]",
+	Name = "Auto Spam Error [ No glove ]",
 	Default = false,
 	Callback = function(bool)
 		   
@@ -5854,7 +5862,7 @@ Tab16:AddButton({
 Tab18:AddDropdown({
 	Name = "Epin glove",
 	Default = "Glove",
-	Options = {"Default", "Extended", "Diamond", "ZZZZZZZ", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "Golden", "Cheeky", "Reaper", "Defense", "T H I C K", "Killstreak", "Reverse", "Shukuchi", "Duelist", "Woah", "Ice", "Adios", "Blocked", "Engineer", "STOP", "Phantom", "Wormhole", "Baller", "God's hands"},
+	Options = {"Default", "Extended", "Diamond", "ZZZZZZZ", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "Golden", "Cheeky", "Reaper", "Defense", "T H I C K", "Killstreak", "Reverse", "Shukuchi", "Duelist", "Woah", "Ice", "Adios", "Blocked", "Engineer", "STOP", "Phantom", "Wormhole", "Baller", "Ping Pong", "God's hand", "The Flex", "Error"},
 	Callback = function(Value)
 		fireclickdetector(game.Workspace.Lobby[Value].ClickDetector)
 	end    
