@@ -607,6 +607,57 @@ Tab7:AddSlider({
 })
 
 Tab4:AddToggle({
+	Name = "Time Diamond [ Get Megarock ]",
+	Default = false,
+	Callback = function(Ghost)
+	local Time = 0
+	
+		Timer = Ghost
+
+      if Ghost == true then
+
+          Count()
+
+
+          end
+
+
+function Count()
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"  then
+
+Time = Time + 1
+
+
+OrionLib:MakeNotification({
+	Name = "[ Diamond ] : "..Time.." Second / 3600000 second / Ready and Why",
+	Content = "Nope",
+	Time = 2
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
+Tab4:AddToggle({
 	Name = "Time Ghost [ Get Voodoo ]",
 	Default = false,
 	Callback = function(Ghost)
@@ -642,7 +693,7 @@ Time = Time + 1
 
 
 OrionLib:MakeNotification({
-	Name = ""..Time.." Second",
+	Name = "[ Ghost ] : "..Time.." Second / 3600 Second",
 	Content = "Nope",
 	Time = 2
 })
@@ -708,7 +759,7 @@ Tab4:AddToggle({
                         Time += 1
                         
                             OrionLib:MakeNotification({
-	                            Name = ""..Time.." Second",
+	                            Name = "[ ZZZZZZZ ] : "..Time.." Second / 3600 Second",
 	                            Content = "Nope",
 	                            Time = 2
 	                         })
