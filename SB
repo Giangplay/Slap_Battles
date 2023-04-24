@@ -9,32 +9,30 @@ local Player = game.Players.LocalPlayer.Character.Name
 
 if setfpscap then
         
-        setfpscap(1269)
+        setfpscap(12569)
         
     end
     
-    local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R20-EXPLOITER/main/Files/Gloves.lua"))()
+   local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
 
-    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R20-EXPLOITER/main/Files/Functions.lua"))()
+   local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
-	local function getGlove()
+   local function getGlove()
 	    
-	    return game.Players.LocalPlayer.leaderstats.Glove.Value
+       return game.Players.LocalPlayer.leaderstats.Glove.Value
 	    
-	end
+    end
 
 ---Shared---
 
 shared.removeBlue()
+   
+shared.autofarmTab()
     
-    task.wait()
+shared.createBed()
     
-    shared.autofarmTab()
+shared.chatPlr()
     
-    task.wait()
-    
-    shared.createBed()
-
 ---functions Auto Candy---
 
 function AutoCandy()
@@ -5529,7 +5527,7 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
 PersonToKill = RandomPlayer
 game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
-wait(0.01)
+task.wait()
 end
 	end    
 })
