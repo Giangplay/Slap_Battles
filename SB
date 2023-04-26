@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
 local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---Value---
@@ -67,7 +67,7 @@ SafeSpot.Anchored = true
     
 SafeSpot.Transparency = .7
 
----anti voin---
+---anti void---
 
 local jesus = Instance.new("Part", workspace)
 
@@ -415,6 +415,13 @@ Tab4:AddButton({
 })
 
 Tab4:AddButton({
+	Name = "TP To Bed",
+	Callback = function()
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed [ OvErCrInGe02#0658 ] "].Bed3.CFrame * CFrame.new(0,0,-1)
+  	end    
+})
+
+Tab4:AddButton({
 	Name = "Reset [ you die ]",
 	Callback = function()
          game.Players.LocalPlayer.Character.Humanoid.Health = 0
@@ -539,9 +546,9 @@ Tab7:AddButton({
 
 Tab7:AddSlider({
 	Name = "Hip Height [HT]",
-	Min = 2,
+	Min = 0,
 	Max = 500,
-	Default = 4,
+	Default = 1,
 	Color = Color3.fromRGB(0,255,0),
 	Increment = 1,
 	ValueName = "HT",
@@ -637,8 +644,8 @@ Time = Time + 1
 
 
 OrionLib:MakeNotification({
-	Name = "[ Diamond ] : "..Time.." Second / 3600000 second / Ready and Why",
-	Content = "Nope",
+	Name = "[ Diamond ] : "..Time.." Second",
+	Content = "3600000 second / Ready and Why",
 	Time = 2
 })
 
@@ -691,8 +698,8 @@ Time = Time + 1
 
 
 OrionLib:MakeNotification({
-	Name = "[ Ghost ] : "..Time.." Second / 3600 Second",
-	Content = "Nope",
+	Name = "[ Ghost ] : "..Time.." Second",
+	Content = "3600 Second",
 	Time = 2
 })
 
@@ -757,8 +764,8 @@ Tab4:AddToggle({
                         Time += 1
                         
                             OrionLib:MakeNotification({
-	                            Name = "[ ZZZZZZZ ] : "..Time.." Second / 3600 Second",
-	                            Content = "Nope",
+	                            Name = "[ ZZZZZZZ ] : "..Time.." Second",
+	                            Content = "3600 Second",
 	                            Time = 2
 	                         })
                     
@@ -1039,23 +1046,41 @@ Tab11:AddTextbox({
 	Default = "Size",
 	TextDisappear = false,
 	Callback = function(Value)
-		_G.HeadSize = Value
-_G.Disabled = true
+		if shared.Size == nil then
+    shared.Size = Value
+end
 
-game:GetService('RunService').RenderStepped:connect(function()
-if _G.Disabled then
-for i,v in next, game:GetService('Players'):GetPlayers() do
-if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-pcall(function()
-v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-v.Character.HumanoidRootPart.Transparency = 0.9
-v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really black")
-v.Character.HumanoidRootPart.Material = "Neon"
-v.Character.HumanoidRootPart.CanCollide = false
-end)
+if setfpscap then
+    setfpscap(1269)
 end
+
+for i,x in pairs(game.Players:GetPlayers()) do
+    if x ~= game.Players.LocalPlayer and x.Character ~= nil and x.Character:FindFirstChild("HumanoidRootPart") then
+        x.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.Character:WaitForChild("HumanoidRootPart").Color = Color3.fromRGB(0, 255, 255)
+        x.Character:WaitForChild("HumanoidRootPart").Material = "Neon"
+        x.Character:WaitForChild("HumanoidRootPart").Transparency = .9
+        task.wait(.1)
+            x.CharacterAdded:Connect(function(x)
+                repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+                task.wait(.35)
+                x.HumanoidRootPart.Size =  Vector3.new(shared.Size, shared.Size, shared.Size)
+                x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+                x.HumanoidRootPart.Material = "Neon"
+                x.HumanoidRootPart.Transparency = .9
+            end)
+    end
 end
-end
+
+game.Players.PlayerAdded:Connect(function(Child)
+    Child.CharacterAdded:Connect(function(x)
+        repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+        task.wait(.35)
+        x.HumanoidRootPart.Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+        x.HumanoidRootPart.Material = "Neon"
+        x.HumanoidRootPart.Transparency = .9
+    end)
 end)
 	end	  
 })
@@ -1063,10 +1088,10 @@ end)
 Tab11:AddTextbox({
 	Name = "view player health [ On Console ]",
 	Default = "Name Player",
-	TextDisappear = false,
-	Callback = function(txt)
+	TextDisappear = true,
+	Callback = function(Value)
 		for i,v in pairs(game.Players:GetChildren()) do
-      if string.find(v.Name, txt) then
+      if string.find(v.Name, Value) then
        print(v.Character.Humanoid.Health)
    end
   end
@@ -1080,7 +1105,7 @@ Tab11:AddBind({
 	Callback = function()
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-475.594543, 312.237335, -1.69819295, -0.966648996, 0.00683405716, -0.256013691, 8.53024389e-08, 0.999643922, 0.0266842805, 0.256104887, 0.0257943124, -0.966304779)
 wait(0.15)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
@@ -5178,7 +5203,7 @@ Tab9:AddButton({
 Tab9:AddButton({
 	Name = "TP To Brazil",
 	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-469.613953, 304.469482, -11.8963394, 0, -1, 0, 1, 0, -0, 0, 0, 1)
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-475.594543, 312.237335, -1.69819295, -0.966648996, 0.00683405716, -0.256013691, 8.53024389e-08, 0.999643922, 0.0266842805, 0.256104887, 0.0257943124, -0.966304779)
   	end    
 })
 
@@ -5320,13 +5345,6 @@ v.Glove.Cuff.Mesh:Destroy()
 end
 end
 end
-  	end    
-})
-
-Tab12:AddButton({
-	Name = "On console [ F9 ] [ PC and PE ] ",
-	Callback = function()
-      		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
 })
 
@@ -5694,6 +5712,18 @@ end
 })
 
 Tab15:AddToggle({
+	Name = "Auto spam Berserk",
+	Default = false,
+	Callback = function(Value)
+		_G.BerserkSpam = Value
+while _G.BerserkSpam do
+game:GetService("ReplicatedStorage").BerserkCharge:FireServer(game:GetService("Players").LocalPlayer.Character.Berserk)
+wait(2.1)
+end
+	end    
+})
+
+Tab15:AddToggle({
 	Name = "Auto spam Timstop",
 	Default = false,
 	Callback = function(Value)
@@ -5766,6 +5796,19 @@ wait(4.2)
 end
 	end    
 })
+
+Tab15:AddToggle({
+	Name = "Auto spam Kinetic",
+	Default = false,
+	Callback = function(Value)
+		_G.KineticSpam = Value
+while _G.KineticSpam do
+game:GetService("ReplicatedStorage").KineticExpl:FireServer(game:GetService("Players").LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+wait(9.2)
+end
+	end    
+})
+
 
 Tab15:AddToggle({
 	Name = "Auto spam Stop",
@@ -5997,6 +6040,13 @@ Tab16:AddButton({
   	end    
 })
 
+Tab16:AddButton({
+	Name = "Slap Battles A",
+	Callback = function()
+      		game:GetService"TeleportService":Teleport(12845859004)
+  	end    
+})
+
 Tab18:AddDropdown({
 	Name = "Epin glove",
 	Default = "Glove",
@@ -6011,6 +6061,20 @@ Tab17:AddButton({
 	Callback = function()
         if setclipboard then
             setclipboard("Anakin#3568")
+            OrionLib:MakeNotification({
+                 Name = "Copy Success",
+                 Content = "Join in friends",
+                 Time = 5
+            })
+        end
+  	end    
+})
+
+Tab17:AddButton({
+	Name = "Copy Guy that exists#1915",
+	Callback = function()
+        if setclipboard then
+            setclipboard("Guy that exists#1915")
             OrionLib:MakeNotification({
                  Name = "Copy Success",
                  Content = "Join in friends",
