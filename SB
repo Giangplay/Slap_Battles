@@ -496,13 +496,6 @@ Tab7:AddToggle({
 	end    
 })
 
-Tab7:AddButton({
-	Name = "Reset Walkspeed",
-	Callback = function()
-         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
-  	end    
-})
-
 Tab7:AddSlider({
 	Name = "Jumppower [JP]",
 	Min = 50,
@@ -537,13 +530,6 @@ Tab7:AddToggle({
 	end    
 })
 
-Tab7:AddButton({
-	Name = "Reset Jumppower",
-	Callback = function()
-         game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-  	end    
-})
-
 Tab7:AddSlider({
 	Name = "Hip Height [HT]",
 	Min = 0,
@@ -576,13 +562,6 @@ Tab7:AddToggle({
             end
         end
 	end    
-})
-
-Tab7:AddButton({
-	Name = "Reset Hip Height",
-	Callback = function()
-         game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
-  	end    
 })
 
 Tab7:AddSlider({
@@ -647,6 +626,149 @@ OrionLib:MakeNotification({
 	Name = "[ Diamond ] : "..Time.." Second",
 	Content = "3600000 second / Ready and Why",
 	Time = 2
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Get bob [ You Epin Replica ] [ Fast ] [ No Notification ]",
+	Default = false,
+	Callback = function(bool)
+	    
+        bobFarm = bool
+        
+        if bool == true then
+           
+            while bobFarm do
+                
+                task.wait()
+                
+                    if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+
+                    game.ReplicatedStorage.Duplicate:FireServer()
+
+                    task.wait()
+                    
+                    tick = os.time()
+                    
+                    repeat task.wait()
+                        
+                    until os.time() - tick >= 5.1
+                    
+                    end
+            end
+            
+            else
+            
+            task.wait(10.2)
+        end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Get bob [ Auto E ] [ Keyboard PE ] [ Yes Notification ]",
+	Default = false,
+	Callback = function(Ghost)
+	local Time = 0
+	
+		Timer = Ghost
+
+      if Ghost == true then
+
+          Count()
+
+
+          end
+
+
+function Count()
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+
+Time = Time + 1
+
+wait(15.01)
+
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
+
+OrionLib:MakeNotification({
+	Name = "[ Replica ] : "..Time.." / 7500",
+	Content = "You got bob 7500 not 1000",
+	Time = 3
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Get bob [ Fast ] [ Yes Notification ]",
+	Default = false,
+	Callback = function(Ghost)
+	local Time = 0
+	
+		Timer = Ghost
+
+      if Ghost == true then
+
+          Count()
+
+
+          end
+
+
+function Count()
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+
+Time = Time + 1
+
+wait(5.1)
+
+game.ReplicatedStorage.Duplicate:FireServer()
+
+OrionLib:MakeNotification({
+	Name = "[ Replica ] : "..Time.." / 7500",
+	Content = "You got bob 7500 not 1000",
+	Time = 3
 })
 
 
@@ -904,7 +1026,7 @@ Tab2:AddToggle({
 	Name = "Anti Void [ Cradit Anakin ]",
 	Default = false,
 	Save = true,
-    Flag = "AntiVoid",
+    Flag = "AntiVoidAnakin",
 	Callback = function(Value)
 		
         if Value == true then
@@ -947,41 +1069,6 @@ Tab2:AddToggle({
                 
             end
         
-        end
-	end    
-})
-
-Tab4:AddToggle({
-	Name = "Get bob [ You Epin Replica ]",
-	Default = false,
-	Callback = function(bool)
-	    
-        bobFarm = bool
-        
-        if bool == true then
-           
-            while bobFarm do
-                
-                task.wait()
-                
-                    if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-
-                    game.ReplicatedStorage.Duplicate:FireServer()
-
-                    task.wait()
-                    
-                    tick = os.time()
-                    
-                    repeat task.wait()
-                        
-                    until os.time() - tick >= 5.1
-                    
-                    end
-            end
-            
-            else
-            
-            task.wait(10.2)
         end
 	end    
 })
@@ -5257,7 +5344,7 @@ Tab9:AddButton({
 })
 
 Tab9:AddButton({
-	Name = "TP To 🌚",
+	Name = "TP To Moyai",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227.625656, -15.7160769, -12.4729147, -0.00455607148, 0, 0.999989569, 0, 1, -0, -0.999989688, 0, -0.00455607101)
   	end    
