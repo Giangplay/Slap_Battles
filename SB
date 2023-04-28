@@ -593,20 +593,22 @@ Tab7:AddSlider({
 Tab4:AddToggle({
 	Name = "Time Diamond [ Get Megarock ]",
 	Default = false,
-	Callback = function(Ghost)
+	Callback = function(Diamond)
 	local Time = 0
 	
-		Timer = Ghost
+		Timer = Diamond
 
-      if Ghost == true then
+      if Diamond == true then
 
-          Count()
+          TimeDiamond()
 
 
           end
 
 
-function Count()
+function TimeDiamond()
+
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
 while Timer do
 
@@ -677,114 +679,6 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
-	Name = "Get bob [ Auto E ] [ Keyboard PE ] [ Yes Notification ]",
-	Default = false,
-	Callback = function(Ghost)
-	local Time = 0
-	
-		Timer = Ghost
-
-      if Ghost == true then
-
-          Count()
-
-
-          end
-
-
-function Count()
-
-while Timer do
-
-
-
-task.wait(1)
-
-
-
-
-if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-
-Time = Time + 1
-
-wait(15.01)
-
-game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
-
-OrionLib:MakeNotification({
-	Name = "[ Replica ] : "..Time.." / 7500",
-	Content = "You got bob 7500 not 1000",
-	Time = 3
-})
-
-
-else
-
-    Time = 0
-
-
-end
-end
-
-end
-	end    
-})
-
-Tab4:AddToggle({
-	Name = "Get bob [ Fast ] [ Yes Notification ]",
-	Default = false,
-	Callback = function(Ghost)
-	local Time = 0
-	
-		Timer = Ghost
-
-      if Ghost == true then
-
-          Count()
-
-
-          end
-
-
-function Count()
-
-while Timer do
-
-
-
-task.wait(1)
-
-
-
-
-if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-
-Time = Time + 1
-
-wait(5.1)
-
-game.ReplicatedStorage.Duplicate:FireServer()
-
-OrionLib:MakeNotification({
-	Name = "[ Replica ] : "..Time.." / 7500",
-	Content = "You got bob 7500 not 1000",
-	Time = 3
-})
-
-
-else
-
-    Time = 0
-
-
-end
-end
-
-end
-	end    
-})
-
-Tab4:AddToggle({
 	Name = "Time Ghost [ Get Voodoo ]",
 	Default = false,
 	Callback = function(Ghost)
@@ -804,6 +698,8 @@ local Total = 3600
 
 
 function Count()
+
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
 while Timer do
 
