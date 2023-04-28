@@ -144,6 +144,12 @@ local Tab4 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab19 = Window:MakeTab({
+	Name = "Autofram Time",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Tab6 = Window:MakeTab({
 	Name = "Kill Arua Glove 1",
 	Icon = "rbxassetid://4483345998",
@@ -590,7 +596,7 @@ Tab7:AddSlider({
 	end    
 })
 
-Tab4:AddToggle({
+Tab19:AddToggle({
 	Name = "Time Diamond [ Get Megarock ]",
 	Default = false,
 	Callback = function(Diamond)
@@ -643,6 +649,60 @@ end
 	end    
 })
 
+Tab19:AddToggle({
+	Name = "Time Diamond 1H [ Get Megarock ]",
+	Default = false,
+	Callback = function(Diamond)
+	local Time = 0
+	
+		Timer = Diamond
+
+      if Diamond == true then
+
+          TimeDiamond()
+
+
+          end
+
+
+function TimeDiamond()
+
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"  then
+
+Time = Time + 1
+
+wait(3600)
+
+OrionLib:MakeNotification({
+	Name = "[ Diamond ] : "..Time.." H",
+	Content = "10H / Ready and Why",
+	Time = 5
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
 Tab4:AddToggle({
 	Name = "Get bob [ You Epin Replica ] [ Fast ] [ No Notification ]",
 	Default = false,
@@ -679,6 +739,60 @@ Tab4:AddToggle({
 })
 
 Tab4:AddToggle({
+	Name = "Get bob [ Spam bob 1/7500 ] [ Auto E ]",
+	Default = false,
+	Callback = function(Replica)
+	local Time = 0
+	
+		Timer = Replica
+
+      if Replica == true then
+
+          SpamReplica()
+
+
+          end
+
+
+function SpamReplica()
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"  then
+
+Time = Time + 1
+
+wait(15.1)
+
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
+
+OrionLib:MakeNotification({
+	Name = "[ Diamond ] : "..Time.."/7500",
+	Content = "1/7500 Not old / Spam bob",
+	Time = 2
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
+Tab19:AddToggle({
 	Name = "Time Ghost [ Get Voodoo ]",
 	Default = false,
 	Callback = function(Ghost)
@@ -734,7 +848,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab19:AddToggle({
 	Name = "Time ZZZZZZZ [ Get Fish ]",
 	Default = false,
 	Callback = function(bool)
