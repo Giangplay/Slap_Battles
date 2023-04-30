@@ -765,7 +765,7 @@ task.wait(1)
 
 
 
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"  then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica"  then
 
 Time = Time + 1
 
@@ -775,6 +775,60 @@ game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
 OrionLib:MakeNotification({
 	Name = "[ Diamond ] : "..Time.."/7500",
+	Content = "1/7500 Not old / Spam bob",
+	Time = 2
+})
+
+
+else
+
+    Time = 0
+
+
+end
+end
+
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Get bob [ Spam bob 1/7500 ] [ Fast ]",
+	Default = false,
+	Callback = function(Replica)
+	local Time = 0
+	
+		Timer = Replica
+
+      if Replica == true then
+
+          SpamReplica()
+
+
+          end
+
+
+function SpamReplica()
+
+while Timer do
+
+
+
+task.wait(1)
+
+
+
+
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica"  then
+
+Time = Time + 1
+
+wait(5.1)
+
+game.ReplicatedStorage.Duplicate:FireServer()
+
+OrionLib:MakeNotification({
+	Name = "[ Replica ] : "..Time.."/7500",
 	Content = "1/7500 Not old / Spam bob",
 	Time = 2
 })
@@ -5442,6 +5496,26 @@ v.Glove.Cuff.Mesh:Destroy()
 end
 end
 end
+  	end    
+})
+
+Tab12:AddButton({
+	Name = "View Testing Server (Good for glove leaking)",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+        game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("GuiService"):ClearError()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9020359053)
   	end    
 })
 
