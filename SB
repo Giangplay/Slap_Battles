@@ -1257,7 +1257,7 @@ Tab11:AddBind({
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-475.594543, 312.237335, -1.69819295, -0.966648996, 0.00683405716, -0.256013691, 8.53024389e-08, 0.999643922, 0.0266842805, 0.256104887, 0.0257943124, -0.966304779)
-wait(0.15)
+wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -5596,42 +5596,13 @@ Tab14:AddToggle({
 Tab14:AddToggle({
 	Name = "Auto Invis [ glove Ghost ]",
 	Default = false,
-	Callback = function(bool)
-		    
-        autoInvis = bool
-
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
-
-                if autoInvis == true and 666 <= game.Players.LocalPlayer.leaderstats.Slaps.Value then
-
-        
-                    repeat task.wait()  
-                    
-                    until game.Players.LocalPlayer.Character:FindFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("Nametag") ~= nil
-                    
-                    game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
-
-                    game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-
-                    task.wait(.1)
-
-                    local gloveClick = tostring(getGlove())
-
-                    task.wait(.2)
-
-                    fireclickdetector(game.Workspace.Lobby.Ghost.ClickDetector)
-
-                    task.wait(.2)
-
-                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-
-                    task.wait(.2)
-
-                    fireclickdetector(game.Workspace.Lobby[gloveClick].ClickDetector)
-
-                end
-
-            end)
+	Callback = function(Value)
+		 _G.GhostSoundSpam = Value
+while _G.GhostSoundSpam do
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+task.wait()
+end 
 	end    
 })
 
@@ -5837,6 +5808,18 @@ Tab15:AddToggle({
 while _G.MittenSpam do
 game:GetService("ReplicatedStorage").MittenA:FireServer()
 wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Adios",
+	Default = false,
+	Callback = function(Value)
+		_G.AdiosSpam = Value
+while _G.AdiosSpam do
+game:GetService("ReplicatedStorage").AdiosActivated:FireServer()
+wait(8.3)
 end
 	end    
 })
