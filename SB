@@ -69,14 +69,14 @@ SafeSpot.Transparency = .7
 
 ---anti void---
 
-local jesus = Instance.new("Part", workspace)
+local AntiVoid = Instance.new("Part", workspace)
 
-	jesus.Name = "jesusWalk"
-	jesus.Size = Vector3.new(2047, 0.009, 2019)
-	jesus.Position = Vector3.new(-80.5, -10.005, -246.5)
-	jesus.CanCollide = false
-	jesus.Anchored = true
-	jesus.Transparency = 1
+	AntiVoid.Name = "AntiVoid"
+	AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
+	AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
 	
 local arenaVoid = Instance.new("Part", workspace)
 
@@ -741,20 +741,20 @@ Tab4:AddToggle({
 Tab4:AddToggle({
 	Name = "Get bob [ Spam bob 1/7500 ] [ Auto E ]",
 	Default = false,
-	Callback = function(Replica)
+	Callback = function(ReplicaAutoE)
 	local Time = 0
 	
-		Timer = Replica
+		Timer = ReplicaAutoE
 
-      if Replica == true then
+      if ReplicaAutoE == true then
 
-          SpamReplica()
+          SpamReplicaAutoE()
 
 
           end
 
 
-function SpamReplica()
+function SpamReplicaAutoE()
 
 while Timer do
 
@@ -795,20 +795,20 @@ end
 Tab4:AddToggle({
 	Name = "Get bob [ Spam bob 1/7500 ] [ Fast ]",
 	Default = false,
-	Callback = function(Replica)
+	Callback = function(ReplicaFast)
 	local Time = 0
 	
-		Timer = Replica
+		Timer = ReplicaFast
 
-      if Replica == true then
+      if ReplicaFast == true then
 
-          SpamReplica()
+          SpamReplicaFast()
 
 
           end
 
 
-function SpamReplica()
+function SpamReplicaFast()
 
 while Timer do
 
@@ -1074,14 +1074,14 @@ Tab2:AddToggle({
     Flag = "AntiVoid",
 	Callback = function(state)
 		if state then
-	jesus.CanCollide = true
-	jesus.Anchored = true
-	jesus.Transparency = 0.5
+	AntiVoid.CanCollide = true
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 0.5
     else
 
-	jesus.CanCollide = false
-	jesus.Anchored = true
-	jesus.Transparency = 1
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
     end
 	end    
 })
