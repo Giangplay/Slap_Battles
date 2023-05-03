@@ -774,7 +774,7 @@ wait(15.1)
 game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 
 OrionLib:MakeNotification({
-	Name = "[ Diamond ] : "..Time.."/7500",
+	Name = "[ Replica ] : "..Time.."/7500",
 	Content = "1/7500 Not old / Spam bob",
 	Time = 2
 })
@@ -1257,7 +1257,7 @@ Tab11:AddBind({
 		game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-475.594543, 312.237335, -1.69819295, -0.966648996, 0.00683405716, -0.256013691, 8.53024389e-08, 0.999643922, 0.0266842805, 0.256104887, 0.0257943124, -0.966304779)
-wait(0.3)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
@@ -5789,6 +5789,18 @@ end
 })
 
 Tab15:AddToggle({
+	Name = "Auto spam Shard",
+	Default = false,
+	Callback = function(Value)
+		_G.ShardsSpam = Value
+while _G.ShardsSpam do
+game:GetService("ReplicatedStorage").Shards:FireServer()
+wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
 	Name = "Auto spam Pusher",
 	Default = false,
 	Callback = function(Value)
@@ -5963,6 +5975,17 @@ end
 	end    
 })
 
+Tab15:AddToggle({
+	Name = "Auto spam Engineer",
+	Default = false,
+	Callback = function(Value)
+		_G.EngineerSpam = Value
+while _G.EngineerSpam do
+game:GetService("ReplicatedStorage").Sentry:FireServer()
+wait(5.2)
+end
+	end    
+})
 
 Tab15:AddToggle({
 	Name = "Auto spam Stop",
