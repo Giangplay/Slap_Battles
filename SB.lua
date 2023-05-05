@@ -1254,10 +1254,10 @@ Tab11:AddBind({
 	Default = Enum.KeyCode.Q,
 	Hold = false,
 	Callback = function()
-		game:GetService("ReplicatedStorage").Erase:FireServer()
+game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-475.594543, 312.237335, -1.69819295, -0.966648996, 0.00683405716, -0.256013691, 8.53024389e-08, 0.999643922, 0.0266842805, 0.256104887, 0.0257943124, -0.966304779)
-wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
+wait(0.15)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
