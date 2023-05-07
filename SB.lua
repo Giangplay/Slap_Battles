@@ -350,6 +350,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Kill Player [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Slap Royale",
 	Callback = function()
       		loadstring(game:HttpGet(('https://pastebin.com/raw/Tx7XLqcm'),true))()
@@ -5209,6 +5216,20 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Fling Player [ Tool Power ]",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://pastefy.ga/GvnHVjT5/raw'),true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Btool Cute",
+	Callback = function()
+      		loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Dex V2",
 	Callback = function()
       		loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
@@ -5486,6 +5507,27 @@ end)
 })
 
 Tab12:AddButton({
+	Name = "Tool Click Tp",
+	Callback = function()
+      		local plr = game:GetService("Players").LocalPlayer
+local mouse = plr:GetMouse()
+
+local tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+
+tool.Activated:Connect(function()
+local root = plr.Character.HumanoidRootPart
+local pos = mouse.Hit.Position+Vector3.new(0,2.5,0)
+local offset = pos-root.Position
+root.CFrame = root.CFrame+offset
+end)
+
+tool.Parent = plr.Backpack
+  	end    
+})
+
+Tab12:AddButton({
 	Name = "Glove make block [ Default And Extended ]",
 	Callback = function()
       		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -5594,7 +5636,7 @@ Tab14:AddToggle({
 })
 
 Tab14:AddToggle({
-	Name = "Auto Invis [ glove Ghost ]",
+	Name = "Spam Ghost",
 	Default = false,
 	Callback = function(Value)
 		 _G.GhostSoundSpam = Value
@@ -5772,6 +5814,18 @@ game:GetService("ReplicatedStorage").BombThrow:FireServer()
 wait(2.5)
 game:GetService("ReplicatedStorage").BombThrow:FireServer()
 wait(4.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Sparky",
+	Default = false,
+	Callback = function(Value)
+		_G.SparkySpam = Value
+while _G.SparkySpam do
+game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
+task.wait()
 end
 	end    
 })
@@ -6227,7 +6281,7 @@ Tab16:AddButton({
 Tab18:AddDropdown({
 	Name = "Epin glove",
 	Default = "Glove",
-	Options = {"Default", "Extended", "Diamond", "ZZZZZZZ", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "Golden", "Cheeky", "Reaper", "Replica", "Defense", "T H I C K", "Killstreak", "Reverse", "Shukuchi", "Duelist", "Woah", "Ice", "Adios", "Blocked", "Engineer", "STOP", "Phantom", "Wormhole", "Baller", "Ping Pong", "Home Run", "God's hand", "The Flex", "Error"},
+	Options = {"Default", "Extended", "Diamond", "ZZZZZZZ", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "Golden", "Cheeky", "Reaper", "Replica", "Defense", "T H I C K", "Killstreak", "Reverse", "Shukuchi", "Duelist", "Woah", "Ice", "Adios", "Blocked", "Engineer", "STOP", "Phantom", "Wormhole", "Baller", "Ping Pong", "Home Run", "God's Hand", "The Flex", "Error"},
 	Callback = function(Value)
 		fireclickdetector(game.Workspace.Lobby[Value].ClickDetector)
 	end    
