@@ -242,7 +242,7 @@ OrionLib:MakeNotification({
 
 OrionLib:MakeNotification({
 	Name = "Your name is "..Player..".",
-	Content = "Hello "..Player..".",
+	Content = "Name is "..Player..".",
 	Time = 17
 })
 
@@ -277,47 +277,74 @@ Tab:AddButton({
 })
 
 Tab3:AddButton({
-	Name = "Get badge [ join the you kick ]",
+	Name = "Auto Join ?",
 	Callback = function()
-      		local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
+    if game:GetService("Workspace"):FindFirstChild("Keypad") == nil then
+        return;
+    end
+    
+    local pass = tostring(#game:GetService("Players"):GetPlayers() * 25 + 1100 - 7)
+    fireclickdetector(game:GetService("Workspace"):FindFirstChild("Keypad"):WaitForChild("Buttons"):WaitForChild("Reset"):FindFirstChildWhichIsA("ClickDetector"));
+    
+    task.wait(.2);
+    
+    for x=1, 4 do
+        local c = pass:sub(x, x);
+        fireclickdetector(game:GetService("Workspace"):FindFirstChild("Keypad"):WaitForChild("Buttons"):WaitForChild(c):FindFirstChildWhichIsA("ClickDetector"));
+        task.wait(.2);
+    end
+    
+    fireclickdetector(game:GetService("Workspace"):FindFirstChild("Keypad"):WaitForChild("Buttons"):WaitForChild("Enter"):FindFirstChildWhichIsA("ClickDetector"));
+    game:GetService("TeleportService"):Teleport(11828384869, game:GetService("Players").LocalPlayer);
+    
+    if syn ~= nil then
+        syn.queue_on_teleport([[
+            repeat task.wait() until game:IsLoaded() or game.IsLoaded;
+            repeat task.wait() until game:GetService("Players").LocalPlayer ~= nil and game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") ~= nil;
+            
+            for _,collectible in pairs(game:GetService("Workspace"):FindFirstChild("Collectable"):GetChildren()) do
+                if collectible:IsA("BasePart") then
+                    if firetouchinterest ~= nil then
+                        firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), collectible, 0);
+                        firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), collectible, 1);
+                    else
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = collectible.CFrame;
+                        wait(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() / 1000);
+                    end
+                end
+            end
+            
+            if firetouchinterest ~= nil then
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove"), 0);
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove"), 1);
+            else
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove").CFrame;
+            end
+        ]]);
+    else
+        warn("[Warning] Your exploit doesn't seem to support queue_on_teleport function! Click this button once you got teleported in the game, else it will not work.");
+        
+        if game.PlaceId == 11828384869 then
+            for _,collectible in pairs(game:GetService("Workspace"):FindFirstChild("Collectable"):GetChildren()) do
+                if collectible:IsA("BasePart") then
+                    if firetouchinterest ~= nil then
+                        firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), collectible, 0);
+                        firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), collectible, 1);
+                    else
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = collectible.CFrame;
+                        wait(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() / 1000);
+                    end
+                end
+            end
+            
+            if firetouchinterest ~= nil then
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove"), 0);
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove"), 1);
+            else
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):FindFirstChild("Ruins"):FindFirstChild("Elude"):FindFirstChild("Glove").CFrame;
+            end
         end
-        
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        
-        game:GetService("RunService").RenderStepped:Connect(function()
-            localPlr.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-        end)
-    ]])
-end
-
-game:GetService("TeleportService"):Teleport(11828384869)
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "Get code [ On console ]",
-	Callback = function()
-	          print(#game.Players:GetChildren() * 25 + 1100 - 7)
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "TP to badge [ Tp glove ] [ Join the ? ]",
-	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "On console [ F9 ] [ PC and PE ] ",
-	Callback = function()
-      		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
+    end
   	end    
 })
 
@@ -5562,7 +5589,7 @@ game:GetService("TeleportService"):Teleport(9020359053)
 })
 
 Tab14:AddToggle({
-	Name = "Auto Spam Error [ No glove ]",
+	Name = "Auto Spam Error Death [ No glove ]",
 	Default = false,
 	Callback = function(bool)
 		   
@@ -5644,6 +5671,18 @@ while _G.GhostSoundSpam do
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 task.wait()
+end 
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Spam Error Sound [ Glove Error ]",
+	Default = false,
+	Callback = function(Value)
+		 _G.ErrorSoundSpam = Value
+while _G.ErrorSoundSpam do
+game:GetService("ReplicatedStorage").LetMeBeClear:FireServer(true)
+task.wait(1.1)
 end 
 	end    
 })
