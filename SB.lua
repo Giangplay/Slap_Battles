@@ -3,7 +3,7 @@ local Window = OrionLib:MakeWindow({Name = "Slap Battles", HidePremium = false, 
 
 ---Value---
 
-local Player = game.Players.LocalPlayer.Character.Name
+local Player = game.Playe.Name
 
 ---setfpscap---
 
@@ -15,7 +15,7 @@ if setfpscap then
     
    local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
 
-   local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
+   local Functions = (game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
    local function getGlove()
 	    
