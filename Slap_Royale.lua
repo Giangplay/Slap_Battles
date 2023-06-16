@@ -111,7 +111,7 @@ local Credits = Coasting:CreateTab("Credits")
 local Creators = Credits:CreateSection("Creators")
 local Discord = Credits:CreateSection("Discord")
 
-SlapArua:CreateToggle("Slap Arua", function(state)
+SlapArua:CreateToggle("Slap Arua", function(bool)
    slapAura = bool
 		  
 		  if bool == true then
