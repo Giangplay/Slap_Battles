@@ -41,7 +41,7 @@ local Tab3 = Coasting:CreateTab("Settings")
 local TabPower = Tab3:CreateSection("Power")
 local TabScript = Tab3:CreateSection("Script")
 
-TabCombat:CreateToggle("Slap Arua", function(bool)
+TabCombat:CreateToggle("Slap Arua [ Killstreak ]", function(bool)
    _G.Gay = bool
    
    if bool == true then
@@ -69,6 +69,36 @@ TabCombat:CreateToggle("Slap Arua", function(bool)
     
     end
 end)
+
+TabCombat:CreateToggle("Slap Arua [ Default ]", function(bool)
+   _G.Gay = bool
+   
+   if bool == true then
+       
+       while _G.Gay do
+    
+    task.wait()
+    
+    for i,v in pairs(game.Players:GetPlayers()) do
+        
+        if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+            
+
+            local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+        
+               if 50 >= Magnitude then
+                   
+                   game.ReplicatedStorage.b:FireServer(v.Character["Right Leg"])
+                   
+                   end
+             end
+    end
+    
+    end
+    
+    end
+end)
+
 
 TabAntiVoid:CreateToggle("Anti Void", function(bool)
    if bool then
