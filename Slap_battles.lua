@@ -1178,6 +1178,39 @@ end
   	end    
 })
 
+Tab11:AddButton({
+	Name = "Destroy All Tycoon [ others and You ]",
+	Callback = function()
+for _, tycoon in pairs(workspace:GetChildren()) do
+        if string.find(tycoon.Name, "ÅTycoon") then
+            for i = 0,100 do
+                fireclickdetector(tycoon.Destruct.ClickDetector, 0)
+                fireclickdetector(tycoon.Destruct.ClickDetector, 1)
+            end
+        end
+    end
+  	end    
+})
+
+Tab11:AddToggle({
+	Name = "Auto Click Tycoon",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoClickTycoon = Value
+while _G.AutoClickTycoon do
+for _, tycoon in pairs(workspace:GetChildren()) do
+                if string.find(tycoon.Name, "ÅTycoon") then
+                    if tycoon:FindFirstChild("Click") then
+                        fireclickdetector(tycoon.Click.ClickDetector, 0)
+                        fireclickdetector(tycoon.Click.ClickDetector, 1)
+                    end
+                end
+            end
+task.wait()
+end
+	end    
+})
+
 Tab11:AddToggle({
 	Name = "Auto Rainbow [ Glove gold ]",
 	Default = false,
@@ -1271,8 +1304,8 @@ Tab11:AddToggle({
 	Default = false,
 	Save = true,
     Flag = "AntiObby",
-	Callback = function(a)
-		getgenv().disable = a
+	Callback = function(bool)
+		getgenv().disable = bool
      if getgenv().disable == true then
       for i,v in pairs(game.Players:GetChildren()) do
         if v.leaderstats.Glove.Value == "Obby" then
@@ -1743,6 +1776,39 @@ Tab11:AddToggle({
                 for i,v in pairs(game.Workspace:GetChildren()) do
         
                     if v.Name == "wall" then
+            
+                    v.CanCollide = false
+            
+        
+                    end
+        
+        
+                end
+            
+            end
+            
+        end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Bus",
+	Default = false,
+	Save = true,
+    Flag = "AntiBus",
+	Callback = function(bool)
+	
+		getgenv().AntiBus = bool
+        
+        if bool == true then
+            
+            while getgenv().AntiBus do
+            
+                task.wait()
+            
+                for i,v in pairs(game.Workspace:GetChildren()) do
+        
+                    if v.Name == "BusModel" then
             
                     v.CanCollide = false
             
