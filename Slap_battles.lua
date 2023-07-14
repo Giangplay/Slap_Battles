@@ -27,29 +27,21 @@ local Player = game.Players.LocalPlayer.Character.Name
 ---setfpscap---
 
 if setfpscap then
-        
     setfpscap(12569)
-        
 end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
-
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
 local function getGlove()
-	    
     return game.Players.LocalPlayer.leaderstats.Glove.Value
-	    
 end
 
 ---Shared---
 
 shared.removeBlue()
-   
 shared.autofarmTab()
-    
 shared.createBed()
-    
 shared.chatPlr()
     
 ---SafeSpot---
@@ -720,32 +712,19 @@ Tab4:AddToggle({
 	Name = "Get bob [ You Epin Replica ] [ Fast ]",
 	Default = false,
 	Callback = function(bool)
-	    
-        bobFarm = bool
-        
+	    bobFarm = bool
         if bool == true then
-           
             while bobFarm do
-                
                 task.wait()
-                
                     if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-
-                    game.ReplicatedStorage.Duplicate:FireServer(true)
-
+                    game.ReplicatedStorage.Duplicate:FireServer()
                     task.wait()
-                    
                     tick = os.time()
-                    
                     repeat task.wait()
-                        
-                    until os.time() - tick >= 5.1
-                    
+                    until os.time() - tick >= 5.2
                     end
             end
-            
             else
-            
             task.wait(10.2)
         end
 	end    
@@ -1147,19 +1126,22 @@ Tab11:AddBind({
 	Default = Enum.KeyCode.Z,
 	Hold = false,
 	Callback = function()
-		for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                     if v.ClassName == "Part" then
                         v.CanTouch = false
                     end
                 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(1022,213.8,1498)
-wait(0.15)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Rock.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                     if v.ClassName == "Part" then
                         v.CanTouch = true
@@ -1206,6 +1188,20 @@ for _, tycoon in pairs(workspace:GetChildren()) do
                     end
                 end
             end
+task.wait()
+end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Rhythm Note Spam + Auto Press [ Equip Rhythm ]",
+	Default = false,
+	Callback = function(Value)
+		_G.RhythmNoteSpam = Value
+while _G.RhythmNoteSpam do
+game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
+game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
+game.Players.LocalPlayer.Character.Rhythm:Activate()
 task.wait()
 end
 	end    
@@ -1289,7 +1285,7 @@ Tab11:AddToggle({
            
         game.Players.PlayerAdded:Connect(function(Plr)
             
-            if Plr:GetRankInGroup(9950771) and 2 <= Plr:GetRankInGroup(9950771) and antiAdmins then
+            if Plr:GetRankInGroup(9950771) and 7 <= Plr:GetRankInGroup(9950771) and antiAdmins then
                 game.Players.LocalPlayer:Kick("Admin Cummer Detected 🔥")
             end
             
@@ -1583,6 +1579,23 @@ Tab11:AddToggle({
     else
           game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Enabled = true
     end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Brick",
+	Default = false,
+	Save = true,
+    Flag = "AntiBrick",
+	Callback = function(bool)
+	while bool == true do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Union" then
+                        v.CanTouch = false
+                    end
+                end
+task.wait()
+end
 	end    
 })
 
@@ -2860,6 +2873,18 @@ Tab15:AddToggle({
 while _G.PusherSpam do
 game:GetService("ReplicatedStorage").PusherWall:FireServer()
 wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Rhythm Explosion Spam [ WORKS WITH ALL GLOVES ]",
+	Default = false,
+	Callback = function(Value)
+		_G.RhythmSpam = Value
+while _G.RhythmSpam do
+game:GetService("ReplicatedStorage").rhythmevent:FireServer("AoeExplosion",0)
+task.wait()
 end
 	end    
 })
