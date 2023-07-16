@@ -3,7 +3,7 @@ if not game:IsLoaded() then
 end
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
 local Window = OrionLib:MakeWindow({Name = (("Slap Battles 👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---anti cheat bypass---
@@ -717,7 +717,7 @@ Tab4:AddToggle({
             while bobFarm do
                 task.wait()
                     if getGlove() == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-                    game.ReplicatedStorage.Duplicate:FireServer()
+                    game.ReplicatedStorage.Duplicate:FireServer(true)
                     task.wait()
                     tick = os.time()
                     repeat task.wait()
@@ -841,6 +841,22 @@ task.wait()
 for _, v in ipairs(workspace:GetChildren()) do
 if string.sub(v.Name, 3, 8) == "Baller" then
 game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+end
+end
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Autofarm Slap Replica [ You Enter Arena Default ]",
+	Default = false,
+	Callback = function(bool)
+_G.SlapReplica = bool
+while _G.SlapReplica do
+task.wait()
+for _, replica in pairs(workspace:GetChildren()) do
+if string.find(replica.Name, "Å") then
+game:GetService("ReplicatedStorage").b:FireServer(replica:WaitForChild("HumanoidRootPart"))
 end
 end
 end
@@ -2849,6 +2865,18 @@ Tab15:AddToggle({
 while _G.ReplicaSpam do
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Replica [ 14.3 Second ]",
+	Default = false,
+	Callback = function(Value)
+		_G.ReplicaSpam = Value
+while _G.ReplicaSpam do
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(14.2)
 end
 	end    
 })
