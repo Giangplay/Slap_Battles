@@ -30,7 +30,7 @@ if setfpscap then
     setfpscap(12569)
 end
     
-local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
+local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
 local function getGlove()
@@ -1399,40 +1399,6 @@ Tab11:AddToggle({
         end
 	end    
 })
-
-Tab11:AddToggle({
-	Name = "Noclip Megarock / Custom",
-	Default = false,
-	Save = true,
-    Flag = "NoclipMegarock",
-	Callback = function(bool)
-	
-		getgenv().NoclipMegarock = bool
-        
-        if bool == true then
-            
-            while getgenv().NoclipMegarock do
-            
-                task.wait()
-            
-                for i,v in pairs(game.Workspace:GetChildren()) do
-        
-                    if v.Name = "rock" then
-            
-                    v.CanCollide = false
-            
-        
-                    end
-        
-        
-                end
-            
-            end
-            
-        end
-	end    
-})
-
 
 Tab11:AddToggle({
 	Name = "Anti Mail",
