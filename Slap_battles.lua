@@ -1867,6 +1867,39 @@ Tab11:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Barrier",
+	Default = false,
+	Save = true,
+    Flag = "AntiBarrier",
+	Callback = function(bool)
+	
+		getgenv().AntiBarrier = bool
+        
+        if bool == true then
+            
+            while getgenv().AntiBarrier do
+            
+                task.wait()
+            
+                for i,v in pairs(game.Workspace:GetChildren()) do
+        
+                    if string.find(v.Name, "ÅBarrier") then
+            
+                    v.CanCollide = false
+            
+        
+                    end
+        
+        
+                end
+            
+            end
+            
+        end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
 	Save = true,
