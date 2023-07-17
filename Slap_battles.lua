@@ -565,9 +565,9 @@ end
 	end    
 })
 
-Tab:AddSlider({
+Tab7:AddSlider({
 	Name = "WalkSpeed",
-	Min = 0,
+	Min = 20,
 	Max = 1000,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
@@ -598,14 +598,18 @@ Tab7:AddToggle({
 	end    
 })
 
-Tab7:AddTextbox({
+Tab7:AddSlider({
 	Name = "JumpPower",
-	Default = "50",
-	TextDisappear = false,
+	Min = 50,
+	Max = 1000,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JumpPower",
 	Callback = function(JP)
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = JP
         WS2 = JP
-	end	  
+	end    
 })
 
 Tab7:AddToggle({
@@ -627,14 +631,18 @@ Tab7:AddToggle({
 	end    
 })
 
-Tab7:AddTextbox({
+Tab7:AddSlider({
 	Name = "Hip Height",
-	Default = "",
-	TextDisappear = false,
+	Min = 0,
+	Max = 100,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hip Height",
 	Callback = function(HT)
 		game.Players.LocalPlayer.Character.Humanoid.HipHeight = HT
         WS3 = HT
-	end	  
+	end    
 })
 
 Tab7:AddToggle({
