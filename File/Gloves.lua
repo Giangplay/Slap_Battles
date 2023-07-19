@@ -94,7 +94,6 @@
     ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
     ["Spy"] = game.ReplicatedStorage.SpyHit,
     ["Detonator"] = game.ReplicatedStorage.DetonatorHit,
-    ["CULT"] = gameReplicatedStorage.CULTHit,
     ["Rage"] = game.ReplicatedStorage.GRRRR,
     ["Trap"] = game.ReplicatedStorage.traphi,
     ["Orbit"] = game.ReplicatedStorage.Orbihit,
