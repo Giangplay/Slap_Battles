@@ -21,6 +21,7 @@
     ["Elude"] = game.ReplicatedStorage.GeneralHit,
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
+    ["fish"] = game.ReplicatedStorage.GeneralHit,
     ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
@@ -32,10 +33,19 @@
     ["Chain"] = game.ReplicatedStorage.GeneralHit,
     ["Ping Pong"] = game.ReplicatedStorage.GeneralHit,
     ["Whirlwind"] = game.ReplicatedStorage.GeneralHit,
+    ["Slicer"] = game.ReplicatedStorage.GeneralHit,
+    ["Counter"] = game.ReplicatedStorage.GeneralHit,
+    ["Hammer"] = game.ReplicatedStorage.GeneralHit,
+    ["Excavator"] = game.ReplicatedStorage.GeneralHit,
+    ["Home Run"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
     ["Diamond"] = game.ReplicatedStorage.DiamondHit,
+    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
+    
+    ----------------------------------------
+    
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -77,7 +87,6 @@
     ["Wormhole"] = game.ReplicatedStorage.WormHit,
     ["Acrobat"] = game.ReplicatedStorage.AcHit,
     ["Plague"] = game.ReplicatedStorage.PlagueHit,
-    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
     ["[REDACTED]"] = game.ReplicatedStorage.ReHit,
     ["bus"] = game.ReplicatedStorage.hitbus,
     ["Phase"] = game.ReplicatedStorage.PhaseH,
@@ -102,6 +111,7 @@
     ["Disarm"] = game.ReplicatedStorage.DisarmH,
     ["Dominance"] = game.ReplicatedStorage.DominanceHit,
     ["Link"] = game.ReplicatedStorage.LinkHit,
+    ["Rojo"] = game.ReplicatedStorage.RojoHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
