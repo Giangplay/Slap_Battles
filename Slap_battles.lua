@@ -30,7 +30,7 @@ if setfpscap then
     setfpscap(12569)
 end
     
-local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
+local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
 local function getGlove()
@@ -422,7 +422,7 @@ end
 })
 
 Tab:AddToggle({
-	Name = "Auto Farm Candy [ 1/1000 candy ]",
+	Name = "Auto Farm Candy",
 	Default = false,
 	Save = true,
     Flag = "AutoFarmCandy",
@@ -661,32 +661,6 @@ Tab7:AddToggle({
                 end
             end
         end
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "FOV",
-	Min = 70,
-	Max = 2000,
-	Default = 70,
-	Color = Color3.fromRGB(0,255,0),
-	Increment = 1,
-	ValueName = "FOV",
-	Callback = function(bool)
-		workspace.CurrentCamera.FieldOfView = bool
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Gravity",
-	Min = 0,
-	Max = 2000,
-	Default = 100,
-	Color = Color3.fromRGB(0,255,0),
-	Increment = 1,
-	ValueName = "Gravity",
-	Callback = function(bool)
-		game.Workspace.Gravity = bool
 	end    
 })
 
@@ -1818,39 +1792,6 @@ Tab11:AddToggle({
                 for i,v in pairs(game.Workspace:GetChildren()) do
         
                     if v.Name == "wall" then
-            
-                    v.CanCollide = false
-            
-        
-                    end
-        
-        
-                end
-            
-            end
-            
-        end
-	end    
-})
-
-Tab11:AddToggle({
-	Name = "Anti Bus",
-	Default = false,
-	Save = true,
-    Flag = "AntiBus",
-	Callback = function(bool)
-	
-		getgenv().AntiBus = bool
-        
-        if bool == true then
-            
-            while getgenv().AntiBus do
-            
-                task.wait()
-            
-                for i,v in pairs(game.Workspace:GetChildren()) do
-        
-                    if v.Name == "BusModel" then
             
                     v.CanCollide = false
             
