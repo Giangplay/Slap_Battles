@@ -22,7 +22,7 @@
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
-    ["🗿"] = game.ReplicatedStorage.GeneralHit,
+    ["ðŸ—¿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
@@ -38,6 +38,7 @@
     ["Hammer"] = game.ReplicatedStorage.GeneralHit,
     ["Excavator"] = game.ReplicatedStorage.GeneralHit,
     ["Home Run"] = game.ReplicatedStorage.GeneralHit,
+    ["Psycho"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
@@ -112,6 +113,9 @@
     ["Dominance"] = game.ReplicatedStorage.DominanceHit,
     ["Link"] = game.ReplicatedStorage.LinkHit,
     ["Rojo"] = game.ReplicatedStorage.RojoHit,
+    ["rob"] = game.ReplicatedStorage.robhit,
+    ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
+    ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
