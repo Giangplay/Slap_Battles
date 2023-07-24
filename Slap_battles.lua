@@ -474,6 +474,57 @@ Tab4:AddButton({
 })
 
 Tab4:AddButton({
+	Name = "Get Chain [ Needs 1k slaps ]",
+	Callback = function()
+Place = game.PlaceId
+Server = game.JobId
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+local decal_codes = {
+    ["http://www.roblox.com/asset/?id=9648769161"] = "4",
+    ["http://www.roblox.com/asset/?id=9648765536"] = "2",
+    ["http://www.roblox.com/asset/?id=9648762863"] = "3",
+    ["http://www.roblox.com/asset/?id=9648759883"] = "9",
+    ["http://www.roblox.com/asset/?id=9648755440"] = "8",
+    ["http://www.roblox.com/asset/?id=9648752438"] = "2",
+    ["http://www.roblox.com/asset/?id=9648749145"] = "8",
+    ["http://www.roblox.com/asset/?id=9648745618"] = "3",
+    ["http://www.roblox.com/asset/?id=9648742013"] = "7",
+    ["http://www.roblox.com/asset/?id=9648738553"] = "8",
+    ["http://www.roblox.com/asset/?id=9648734698"] = "2",
+    ["http://www.roblox.com/asset/?id=9648730082"] = "6",
+    ["http://www.roblox.com/asset/?id=9648723237"] = "3",
+    ["http://www.roblox.com/asset/?id=9648718450"] = "6",
+    ["http://www.roblox.com/asset/?id=9648715920"] = "6",
+    ["http://www.roblox.com/asset/?id=9648712563"] = "2"
+}
+    for i,v in ipairs(game:GetService("Workspace").Map:WaitForChild("CodeBrick"):WaitForChild("SurfaceGui"):GetDescendants()) do
+        if v.Name == 'IMGTemplate' then
+            local decal_url = tostring(v.Image)
+            local code = decal_codes[decal_url]
+            if 0 < #game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Display.SurfaceGui.TextLabel.Text then
+                fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons.Reset.ClickDetector)
+            end
+            task.wait(.2)
+            fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons[code].ClickDetector)
+        end
+    end
+    task.wait(.2)
+    fireclickdetector(game:GetService("Workspace").Map:WaitForChild("OriginOffice").Door.Keypad.Buttons.Enter.ClickDetector)
+game:GetService("TeleportService"):TeleportToPlaceInstance(Place, Server, game.Players.LocalPlayer)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9431156611)
+  	end    
+})
+
+Tab4:AddButton({
 	Name = "Get [Redacted] [ 5000 Slap ]",
 	Callback = function()
 local Door = 1
@@ -1181,17 +1232,19 @@ Tab11:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
 	Callback = function(Value)
-		_G.AutoClickTycoon = Value
-while _G.AutoClickTycoon do
-for _, tycoon in pairs(workspace:GetChildren()) do
-                if string.find(tycoon.Name, "ÅTycoon") then
-                    if tycoon:FindFirstChild("Click") then
-                        fireclickdetector(tycoon.Click.ClickDetector, 0)
-                        fireclickdetector(tycoon.Click.ClickDetector, 1)
-                    end
-                end
-            end
-task.wait()
+		_G.AutoTycoon = Value
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "End" and v.ClassName == "Part" then
+            v.Size = Vector3.new(28, 0.3, 4)
+        end
+    end
+while _G.AutoTycoon do
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+    task.wait()
 end
 	end    
 })
@@ -2527,6 +2580,18 @@ end
 })
 
 Tab14:AddToggle({
+	Name = "Spam Hitman Sound",
+	Default = false,
+	Callback = function(Value)
+		 _G.HitmanSoundSpam = Value
+while _G.HitmanSoundSpam do
+game:GetService("ReplicatedStorage"):WaitForChild("HitmanAbility"):FireServer("ReplicateGoldenRevolver",{0})
+task.wait()
+end
+	end    
+})
+
+Tab14:AddToggle({
 	Name = "Spam Error Death Sound",
 	Default = false,
 	Callback = function(Value)
@@ -2595,6 +2660,223 @@ Tab14:AddToggle({
 
         
     end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto Spam Ability",
+	Default = false,
+	Callback = function(Value)
+		On = Value
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" do
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" do
+game:GetService("ReplicatedStorage").Fortlol:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" do
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
+local LocalPlayer = game.Players.LocalPlayer
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
+PersonToKill = RandomPlayer
+game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
+wait(0.01)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
+game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
+game:GetService("ReplicatedStorage").Slicer:FireServer("slash", game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame, Vector3.new())
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rob" do
+game:GetService("ReplicatedStorage"):WaitForChild("rob"):FireServer()
+wait(15)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" do
+game:GetService("ReplicatedStorage").KrakenArm:FireServer()
+wait(5)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Psycho" do
+game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer({["grabEnabled"] = true})
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "75" do
+game:GetService("ReplicatedStorage").KSABILI:FireServer()
+wait(6.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bus" do
+game:GetService("ReplicatedStorage").busmoment:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Mitten" do
+game:GetService("ReplicatedStorage").MittenA:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" do
+game:GetService("ReplicatedStorage").Fortlol:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Defense" do
+game:GetService("ReplicatedStorage").Barrier:FireServer()
+wait(0.25)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bomb" do
+game:GetService("ReplicatedStorage").BombThrow:FireServer()
+wait(2.5)
+game:GetService("ReplicatedStorage").BombThrow:FireServer()
+wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" do
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Pusher" do
+game:GetService("ReplicatedStorage").PusherWall:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jet" do
+local LocalPlayer = game.Players.LocalPlayer
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
+PersonToKill = RandomPlayer
+game:GetService("ReplicatedStorage").AirStrike:FireServer(PersonToKill.Character)
+wait(5.1)
+end
+while game.Players.LocalPlayer.leaderstats.Glove.Value == "Tableflip" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Shield" and On do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rocky" do
+game:GetService("ReplicatedStorage").RockyShoot:FireServer()
+wait(6.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "God's Hand" do
+game:GetService("ReplicatedStorage").TimestopJump:FireServer()
+game:GetService("ReplicatedStorage").Timestopchoir:FireServer()
+game:GetService("ReplicatedStorage").Timestop:FireServer()
+wait(50.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" do
+game:GetService("ReplicatedStorage").Erase:FireServer()
+wait(5.1)
+end
+while game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and On do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" do
+game:GetService("ReplicatedStorage").StunR:FireServer(game:GetService("Players").LocalPlayer.Character.Stun)
+wait(10.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "STOP" do
+game:GetService("ReplicatedStorage").STOP:FireServer(true)
+wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Track" do
+local LocalPlayer = game.Players.LocalPlayer
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
+PersonToKill = RandomPlayer
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PersonToKill.Character)
+wait(10.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Mail" do
+game:GetService("ReplicatedStorage").MailSend:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shard" do
+game:GetService("ReplicatedStorage").Shards:FireServer()
+wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" do
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bubble" do
+game:GetService("ReplicatedStorage").BubbleThrow:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slapple" do
+game:GetService("ReplicatedStorage").funnyTree:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
+game:GetService("ReplicatedStorage").KineticExpl:FireServer(game:GetService("Players").LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+wait(9.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Dominance" do
+game:GetService("ReplicatedStorage").DominanceAc:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "[REDACTED]" do
+game:GetService("ReplicatedStorage").Well:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Duelist" do
+game:GetService("ReplicatedStorage").DuelistAbility:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Engineer" do
+game:GetService("ReplicatedStorage").Sentry:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" do
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+wait(1.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Trap" do
+game:GetService("ReplicatedStorage").funnyhilariousbeartrap:FireServer()
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "woah" do
+game:GetService("ReplicatedStorage").VineThud:FireServer()
+wait(5.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" do
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" do
+game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Charge" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Charge)
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Coil" do
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
+wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
+game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Excavator" do
+game:GetService("ReplicatedStorage"):WaitForChild("Excavator"):InvokeServer()
+game:GetService("ReplicatedStorage"):WaitForChild("ExcavatorCancel"):FireServer()
+wait(7.3)
+end
 	end    
 })
 
@@ -3260,6 +3542,21 @@ Tab15:AddToggle({
 while _G.SentrySpam do
 game:GetService("ReplicatedStorage").Sentry:FireServer()
 wait(5.2)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto spam Rojo [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+if Person == nil then
+Person = game.Players.LocalPlayer.Name
+end
+_G.RojoSpam = Value
+while _G.RojoSpam do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+task.wait()
 end
 	end    
 })
