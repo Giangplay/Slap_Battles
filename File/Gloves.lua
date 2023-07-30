@@ -116,6 +116,7 @@
     ["rob"] = game.ReplicatedStorage.robhit,
     ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
+    ["Thor"] = game.ReplicatedStorage.ThorHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
