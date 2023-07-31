@@ -1208,9 +1208,14 @@ Tab11:AddButton({
 	Name = "Give others 20 kill Reaper [ Player Slap You ]",
 	Callback = function()
 for i = 1, 20 do
-game:GetService("ReplicatedStorage").HumanoidDied:FireServer(game:GetService("Players").LocalPlayer.Character, false)
-wait()
+        game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
 end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "DeathMark" then
+                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+                    end 
+                end
   	end    
 })
 
@@ -1225,6 +1230,56 @@ for _, tycoon in pairs(workspace:GetChildren()) do
             end
         end
     end
+  	end    
+})
+
+Tab11:AddButton({
+	Name = "Godmode [ All Glove ] [ Not The Free Kill and Reaper ]",
+	Callback = function()
+if game.Players.LocalPlayer.Character.isInArena.Value == false then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+wait(0.5)
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        v.Parent = game.LogService
+                    end
+                end
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+wait(4)
+for i,v in pairs(game.LogService:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        v.Parent = game.Players.LocalPlayer.Character
+                    end
+                end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    end
+                end 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Origo.CFrame
+elseif game.Players.LocalPlayer.Character.isInArena.Value == true then
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        v.Parent = game.LogService
+                    end
+                end
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+wait(4)
+for i,v in pairs(game.LogService:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        v.Parent = game.Players.LocalPlayer.Character
+                    end
+                end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v.ClassName == "Tool" then
+                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    end
+                end 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Origo.CFrame
+end
   	end    
 })
 
@@ -2876,6 +2931,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Excavator" do
 game:GetService("ReplicatedStorage"):WaitForChild("Excavator"):InvokeServer()
 game:GetService("ReplicatedStorage"):WaitForChild("ExcavatorCancel"):FireServer()
 wait(7.3)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Thor" do
+game:GetService("ReplicatedStorage").ThorAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+task.wait()
 end
 	end    
 })
