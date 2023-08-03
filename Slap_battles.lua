@@ -3,7 +3,7 @@ if not game:IsLoaded() then
 end
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library.lua')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local Window = OrionLib:MakeWindow({Name = (("Slap Battles 👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---anti cheat bypass---
@@ -1407,6 +1407,24 @@ Tab11:AddToggle({
 })
 
 Tab11:AddToggle({
+	Name = "Anti Kick",
+	Default = false,
+	Save = true,
+    Flag = "AntiKick",
+	Callback = function(bool)
+	_G.AntiKick = bool
+while _G.AntiKick do
+for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+                    if v.Name == "ErrorPrompt" then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
 	Save = true,
@@ -1552,36 +1570,15 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiBooster",
 	Callback = function(bool)
-		 
-        antiBooster = bool
-        
-        if bool == true then
-            
-            if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("BoosterObject", 1) then
-            
-                game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("BoosterObject", 1):Destroy()
-            
-            end
-        
-            task.wait()
-            
-            game.Workspace[game.Players.LocalPlayer.Name].DescendantAdded:Connect(function(v)
-                
-                if antiBooster == true then
-                    
+		_G.AntiBooster = Value
+while _G.AntiBooster do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
                     if v.Name == "BoosterObject" then
-                        
-                        task.wait(.1)
-                        
                         v:Destroy()
-                        
                     end
-                    
                 end
-                
-            end)
-            
-        end
+task.wait()
+end
 	end    
 })
 
@@ -1671,11 +1668,16 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiSpuid",
 	Callback = function(bool)
-	if bool == true then
-        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = false
-    else
+	_G.AntiSquid = bool
+if _G.AntiSquid == false then
         game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = true
-    end
+        end
+while _G.AntiSquid do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("SquidInk") then
+        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = false
+end
+task.wait()
+end
 	end    
 })
 
@@ -1690,6 +1692,24 @@ Tab11:AddToggle({
     else
           game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Enabled = true
     end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Time Stop",
+	Default = false,
+	Save = true,
+    Flag = "AntiTimeStop",
+	Callback = function(bool)
+	_G.AntiTimestop = bool
+while _G.AntiTimestop do
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.ClassName == "Part" then
+                        v.Anchored = false
+                    end
+                end
+task.wait()
+end
 	end    
 })
 
@@ -1921,30 +1941,22 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiBarrier",
 	Callback = function(bool)
-	
-		getgenv().AntiBarrier = bool
-        
-        if bool == true then
-            
-            while getgenv().AntiBarrier do
-            
-                task.wait()
-            
-                for i,v in pairs(game.Workspace:GetChildren()) do
-        
-                    if string.find(v.Name, "ÅBarrier") then
-            
-                    v.CanCollide = false
-            
-        
-                    end
-        
-        
-                end
-            
-            end
-            
-        end
+	_G.NoclipBarrier = bool
+if _G.NoclipBarrier == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅBarrier") then
+v.CanCollide = true
+end
+end
+end
+while _G.NoclipBarrier do
+for i,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅBarrier") then
+v.CanCollide = false
+end
+end
+task.wait()
+end
 	end    
 })
 
