@@ -31,18 +31,15 @@ if setfpscap then
 end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
-local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
+local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Bed.lua"))()
 
 local function getGlove()
     return game.Players.LocalPlayer.leaderstats.Glove.Value
 end
 
----Shared---
+---SharedBed---
 
-shared.removeBlue()
-shared.autofarmTab()
 shared.createBed()
-shared.chatPlr()
     
 ---SafeSpot---
 
@@ -307,7 +304,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Bu
 task.wait(0.1)
 print(#game.Players:GetPlayers() * 25 + 1100 - 7)
 OrionLib:MakeNotification({
-	Name = "On Console",
+	Name = "Check Console",
 	Content = "PC : On F9 / PE : Chat /console",
 	Image = "rbxassetid://4483345998",
 	Time = 9
@@ -316,7 +313,7 @@ OrionLib:MakeNotification({
 })
 
 Tab3:AddButton({
-	Name = "On Console",
+	Name = "Check Console",
 	Callback = function()
       		game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9" , false , game)
   	end    
@@ -462,7 +459,7 @@ end
 Tab4:AddButton({
 	Name = "TP To Bed",
 	Callback = function()
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed [ OvErCrInGe02#0658 ] "].Bed3.CFrame * CFrame.new(0,0,-1)
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
   	end    
 })
 
@@ -786,7 +783,7 @@ Tab19:AddToggle({
             
             task.wait()
             
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed [ OvErCrInGe02#0658 ] "].Bed3.CFrame * CFrame.new(0,0,-1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
             
             task.wait(.5)
             
@@ -3701,14 +3698,13 @@ end
 	end
 })
 
-local glove = {"Default", "Diamond", "ZZZZZZZ", "Extended", "Brick", "Snow", "Pull", "Flash", "Spring", "Swapper", "Bull", "Dice", "Ghost", "Thanos", "Stun", "Za Hando", "Fort", "Magnet", "Pusher", "Anchor", "Space", "Boomerang", "Dream", "Mail", "T H I C K", "Golden", "Squid", "Cheeky", "Reaper", "Replica", "Defense", "Killstreak", "Reverse", "Shukuchi", "Duelist", "woah", "Ice", "Gummy", "Adios", "Blocked", "Engineer", "Rocky", "Coil", "Conveyor", "Balloony", "Phantom", "Wormhole", "STOP", "Track", "Tableflip", "Shield", "Booster", "Ping Pong", "Baller", "Home Run", "Whirlwind", "Slicer", "Excavator", "God's Hand", "The Flex"}
-Tab18:AddDropdown({
+Tab18:AddTextbox({
 	Name = "Glove",
-	Default = "Killstreak",
-	Options = glove,
+	Default = "Glove Name",
+	TextDisappear = false,
 	Callback = function(Value)
 		EpinGlove = Value
-	end    
+	end	  
 })
 
 Tab18:AddButton({
