@@ -2,6 +2,8 @@
     
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
+    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
+    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
     
     ----------------------------------------
      
@@ -42,11 +44,6 @@
     
     ----------------------------------------
     
-    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
-    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    
-    ----------------------------------------
-    
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -71,6 +68,7 @@
     ["Golden"] = game.ReplicatedStorage.GoldenHit,
     ["Cheeky"] = game.ReplicatedStorage.CheekyHit,
     ["Reaper"] = game.ReplicatedStorage.ReaperHit,
+    ["Replica"] = game.ReplicatedStorage.ReplicaHit,
     ["Defense"] = game.ReplicatedStorage.DefenseHit,
     ["Killstreak"] = game.ReplicatedStorage.KSHit,
     ["Reverse"] = game.ReplicatedStorage.ReverseHit,
@@ -114,6 +112,7 @@
     ["Link"] = game.ReplicatedStorage.LinkHit,
     ["Rojo"] = game.ReplicatedStorage.RojoHit,
     ["rob"] = game.ReplicatedStorage.robhit,
+    ["Rhythm"] = game.ReplicatedStorage.rhythmhit,
     ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
