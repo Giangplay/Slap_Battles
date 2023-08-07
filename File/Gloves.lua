@@ -2,8 +2,6 @@
     
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
-    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
     
     ----------------------------------------
      
@@ -98,8 +96,6 @@
     ["CULT"] = game.ReplicatedStorage.CULTHit,
     ["bob"] = game.ReplicatedStorage.bobhit,
     ["Buddies"] = game.ReplicatedStorage.buddiesHIT,
-    ["Moon"] = game.ReplicatedStorage.CelestialHit,
-    ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
     ["Spy"] = game.ReplicatedStorage.SpyHit,
     ["Detonator"] = game.ReplicatedStorage.DetonatorHit,
     ["Rage"] = game.ReplicatedStorage.GRRRR,
@@ -116,6 +112,7 @@
     ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
+    ["Retro"] = game.ReplicatedStorage.RetroHit
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
@@ -125,6 +122,16 @@
     ["Stun"] = game.ReplicatedStorage.HtStun,
     ["Coil"] = game.ReplicatedStorage.HtStun,
 
+    ----------------------------------------
+    
+    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
+    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
+    
+    ----------------------------------------
+    
+    ["Moon"] = game.ReplicatedStorage.CelestialHit,
+    ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
+    
     ----------------------------------------
     
     ["Mitten"] = game.ReplicatedStorage.MittenHit,
