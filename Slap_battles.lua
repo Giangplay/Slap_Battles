@@ -2,6 +2,8 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
+game:GetService("GuiService"):ClearError()
+
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local Window = OrionLib:MakeWindow({Name = (("Slap Battles 👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
@@ -1233,7 +1235,7 @@ for _, tycoon in pairs(workspace:GetChildren()) do
 Tab11:AddButton({
 	Name = "Godmode [ All Glove ] [ Not The Free Kill and Reaper ]",
 	Callback = function()
-if game.Players.LocalPlayer.Character.isInArena.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.5)
@@ -1256,8 +1258,9 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     end
                 end 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Origo.CFrame
-elseif game.Players.LocalPlayer.Character.isInArena.Value == true then
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if v.ClassName == "Tool" then
                         v.Parent = game.LogService
                     end
@@ -2205,6 +2208,55 @@ Tab11:AddToggle({
 	end    
 })
 
+Tab11:AddToggle({
+	Name = "Ping Pong Orbit",
+	Default = false,
+	Callback = function(bool)
+		PingPongOrbit = bool
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
+Orbit = "0"
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
+while PingPongOrbit do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+Orbit = Orbit + OrbitSpeed
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
+if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15)
+                    end
+                end
+for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(180), math.rad(0), math.rad(0))
+                    end
+                end
+elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.Parent = game.Players.LocalPlayer.Character.Torso.RadioPart
+break
+                    end
+                end
+end
+task.wait(0.01)
+end
+	end    
+})
+
+Tab11:AddSlider({
+	Name = "Ping Pong Orbit Speed",
+	Min = 0,
+	Max = 50,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(bool)
+		OrbitSpeed = bool
+	end    
+})
+
 Tab1:AddButton({
 	Name = "drippy hub",
 	Callback = function()
@@ -2290,9 +2342,62 @@ Tab1:AddButton({
 })
 
 Tab8:AddButton({
-	Name = "Script All Animations [ You chat /e ]",
+	Name = "Script All Animations [ You chat /e Name Animation]",
 	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/freeAnimations.lua"))()
+Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
+L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
+Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
+Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+game.Players.LocalPlayer.Chatted:connect(function(msg)
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
+L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
+Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
+Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+if string.lower(msg) == "/e Floss" or string.lower(msg) == "/e floss" then
+Floss:Play()
+elseif string.lower(msg) == "/e Groove" or string.lower(msg) == "/e groove" then
+Groove:Play()
+elseif string.lower(msg) == "/e Headless" or string.lower(msg) == "/e headless" then
+Headless:Play()
+elseif string.lower(msg) == "/e Helicopter" or string.lower(msg) == "/e helicopter" then
+Helicopter:Play()
+elseif string.lower(msg) == "/e Kick" or string.lower(msg) == "/e kick" then
+Kick:Play()
+elseif string.lower(msg) == "/e L" or string.lower(msg) == "/e l" then
+L:Play()
+elseif string.lower(msg) == "/e Laugh" or string.lower(msg) == "/e laugh" then
+Laugh:Play()
+elseif string.lower(msg) == "/e Parker" or string.lower(msg) == "/e parker" then
+Parker:Play()
+elseif string.lower(msg) == "/e Spasm" or string.lower(msg) == "/e spasm" then
+Spasm:Play()
+elseif string.lower(msg) == "/e Thriller" or string.lower(msg) == "/e thriller" then
+Thriller:Play()
+end
+EP = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end)
+game:GetService("RunService").Heartbeat:Connect(function()
+if EP ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - EP).Magnitude
+if Magnitude > 1 then
+Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
+end
+end
+end)
   	end    
 })
 
