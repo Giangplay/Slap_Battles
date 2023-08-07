@@ -112,7 +112,7 @@
     ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
-    ["Retro"] = game.ReplicatedStorage.RetroHit
+    ["Retro"] = game.ReplicatedStorage.RetroHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
