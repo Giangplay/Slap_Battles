@@ -2247,8 +2247,8 @@ end
 Tab11:AddSlider({
 	Name = "Ping Pong Orbit Speed",
 	Min = 0,
-	Max = 50,
-	Default = 0,
+	Max = 100,
+	Default = 10,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Speed",
@@ -3815,7 +3815,9 @@ Tab18:AddTextbox({
 Tab18:AddButton({
 	Name = "Epin Glove",
 	Callback = function()
-        fireclickdetector(game.Workspace.Lobby[EpinGlove].ClickDetector)
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+  fireclickdetector(game.Workspace.Lobby[EpinGlove].ClickDetector)
+end
   	end    
 })
 
