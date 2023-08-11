@@ -685,21 +685,48 @@ OrionLib:MakeNotification({
 Tab4:AddButton({
 	Name = "Get Duck Bagde",
 	Callback = function()
-      		fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
+     fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
+else
+OrionLib:MakeNotification({
+	Name = "You have bagde",
+	Content = "Not Click",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
   	end 
 })
 
 Tab4:AddButton({
 	Name = "Get Orange Bagde",
 	Callback = function()
-      		fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector)
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) then
+    fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector)
+else
+OrionLib:MakeNotification({
+	Name = "You Have Bagde",
+	Content = "Not Click",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
   	end 
 })
 
 Tab4:AddButton({
 	Name = "Get Knife Bagde",
 	Callback = function()
-      		fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) then
+    fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
+else
+OrionLib:MakeNotification({
+	Name = "You Have Bagde",
+	Content = "Not Click",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
   	end 
 })
 
@@ -717,7 +744,7 @@ OrionLib:MakeNotification({
 })
 end
 task.wait()
-for i,v in pairs(workspace:GetDescendants()) do
+for i,v in pairs(workspace.Toolbox:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
 end
@@ -1175,7 +1202,7 @@ Tab4:AddToggle({
 while _G.FarmBrick do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 task.wait()
-game.VirtualInputManager:SendKeyEvent(true, "E", false, x)
+game.VirtualInputManager:SendKeyEvent(true, "E", false, game)
 task.wait(5.2)
 end
 end
@@ -1289,6 +1316,7 @@ Tab11:AddBind({
 	Default = Enum.KeyCode.Z,
 	Hold = false,
 	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
@@ -1310,6 +1338,9 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                     end
                 end
+else
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Za Hando equipped"})
+end
 	end    
 })
 
@@ -3019,6 +3050,7 @@ wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Coil" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
 wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
@@ -3069,7 +3101,7 @@ Tab15:AddToggle({
 while _G.CoilSpam do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
-task.wait()
+wait(3.1)
 end
 	end    
 })
