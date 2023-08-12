@@ -113,6 +113,7 @@
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
     ["Retro"] = game.ReplicatedStorage.RetroHit,
+    ["Cloud"] = game.ReplicatedStorage.CloudHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
