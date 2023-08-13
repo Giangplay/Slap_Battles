@@ -29,6 +29,7 @@
     ["Flamarang"] = game.ReplicatedStorage.GeneralHit,
     ["Kinetic"] = game.ReplicatedStorage.GeneralHit,
     ["Berserk"] = game.ReplicatedStorage.GeneralHit,
+    ["Quake"] = game.ReplicatedStorage.GeneralHit,
     ["Rattlebones"] = game.ReplicatedStorage.GeneralHit,
     ["Chain"] = game.ReplicatedStorage.GeneralHit,
     ["Ping Pong"] = game.ReplicatedStorage.GeneralHit,
