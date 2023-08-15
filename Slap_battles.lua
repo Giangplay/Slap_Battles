@@ -238,7 +238,7 @@ Tab:AddButton({
 Tab:AddButton({
 	Name = "Rejoin game [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Rejoin"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
   	end    
 })
 
@@ -331,7 +331,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Krnl [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Krnl"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Knrl.lua"))()
   	end    
 })
 
@@ -345,7 +345,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Arceus x [ PE ]",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Arcue%20x"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Arceus_X_V3.lua"))()
   	end    
 })
 
@@ -353,20 +353,6 @@ Tab1:AddButton({
 	Name = "Kill Player [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Slap Royale",
-	Callback = function()
-      		loadstring(game:HttpGet(('https://pastebin.com/raw/Tx7XLqcm'),true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Slap battles old R2O",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Old"))()
   	end    
 })
 
@@ -2282,7 +2268,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Fe fly V3",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Fly%20v3"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
   	end    
 })
 
@@ -2322,30 +2308,16 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
-	Name = "Control player",
-	Callback = function()
-      		loadstring(game:HttpGet("https://pastebin.com/raw/YuwF041a"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "slap Royale R20",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/Roblox-Scripts/main/Slap_Royale.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
 	Name = "TP gui player",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/TP%20gui"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/TP_Player.lua"))()
   	end    
 })
 
 Tab1:AddButton({
 	Name = "Turies Spy",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/SB-ok/main/Reamsrpy", true))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Reamsrpy.lua", true))()
   	end    
 })
 
@@ -2539,13 +2511,6 @@ Tab9:AddButton({
 })
 
 Tab9:AddButton({
-	Name = "TP To Round",
-	Callback = function()
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3034.03369, 144.78009, -5.25375271, 0.935709953, 0.160234556, -0.314279824, 0.00408654613, 0.885907471, 0.463844001, 0.352746665, -0.435307741, 0.828297615)
-  	end    
-})
-
-Tab9:AddButton({
 	Name = "TP To island 1",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-211.210846, -5.27827597, 4.13719559, -0.0225322824, 1.83683113e-08, -0.999746144, -1.83560154e-08, 1, 1.87866842e-08, 0.999746144, 1.87746618e-08, -0.0225322824)
@@ -2570,13 +2535,6 @@ Tab9:AddButton({
 	Name = "TP To Moyai",
 	Callback = function()
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227.625656, -15.7160769, -12.4729147, -0.00455607148, 0, 0.999989569, 0, 1, -0, -0.999989688, 0, -0.00455607101)
-  	end    
-})
-
-Tab9:AddButton({
-	Name = "Join 100 slap the win",
-	Callback = function()
-      		game:GetService("ReplicatedStorage").EventAnswered:FireServer(true)
   	end    
 })
 
@@ -2644,6 +2602,26 @@ game:GetService("GuiService"):ClearError()
     ]])
 end
 game:GetService("TeleportService"):Teleport(9020359053)
+  	end    
+})
+
+Tab12:AddButton({
+	Name = "View Testing Slap Royale Server",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+        game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("GuiService"):ClearError()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9412268818)
   	end    
 })
 
@@ -2852,10 +2830,6 @@ Tab15:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		On = Value
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" do
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
-wait(5.1)
-end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" do
 game:GetService("ReplicatedStorage").Fortlol:FireServer()
 wait(3.1)
@@ -2884,7 +2858,7 @@ game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
 game:GetService("ReplicatedStorage").Slicer:FireServer("slash", game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame, Vector3.new())
 wait(5.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rob" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
 game:GetService("ReplicatedStorage"):WaitForChild("rob"):FireServer()
 wait(15)
 end
@@ -2970,6 +2944,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "STOP" do
 game:GetService("ReplicatedStorage").STOP:FireServer(true)
 wait(4.1)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" do
+game:GetService("ReplicatedStorage").QuakeQuake:FireServer({["start"] = true})
+wait()
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Track" do
 local LocalPlayer = game.Players.LocalPlayer
 local players = game.Players:GetChildren()
@@ -3000,6 +2978,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slapple" do
 game:GetService("ReplicatedStorage").funnyTree:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 wait(3.1)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[game.Players.LocalPlayer.Name].Character.HumanoidRootPart.CFrame})
+task.wait()
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 game:GetService("ReplicatedStorage").KineticExpl:FireServer(game:GetService("Players").LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 wait(9.1)
@@ -3022,6 +3004,7 @@ wait(5.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" do
 game:GetService("ReplicatedStorage").lbrick:FireServer()
+game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
 wait(1.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Trap" do
@@ -3215,23 +3198,6 @@ Tab15:AddToggle({
 while _G.DefenseSpam do
 game:GetService("ReplicatedStorage").Barrier:FireServer()
 wait(0.25)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Home Run [ The you die ]",
-	Default = false,
-	Callback = function(Value)
-		_G.HomeRunSpam = Value
-while _G.HomeRunSpam do
-local args = {
-    [1] = {
-        ["start"] = true
-    }
-}
-game:GetService("ReplicatedStorage").HomeRun:FireServer(unpack(args))
-task.wait()
 end
 	end    
 })
