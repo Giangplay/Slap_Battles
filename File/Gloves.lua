@@ -119,6 +119,7 @@
     
     ----------------------------------------
 
+    ["Balloony"] = game.ReplicatedStorage.HtStun,
     ["Sparky"] = game.ReplicatedStorage.HtStun,
     ["Boogie"] = game.ReplicatedStorage.HtStun,
     ["Stun"] = game.ReplicatedStorage.HtStun,
