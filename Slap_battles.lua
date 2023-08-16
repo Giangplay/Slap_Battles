@@ -22,10 +22,6 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
    return Namecall(self, ...)
 end)
 
----Value---
-
-local Player = game.Players.LocalPlayer.Character.Name
-
 ---setfpscap---
 
 if setfpscap then
@@ -34,6 +30,7 @@ end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Bed.lua"))()
+local Player = game.Players.LocalPlayer.Character.Name
 
 local function getGlove()
     return game.Players.LocalPlayer.leaderstats.Glove.Value
@@ -1212,15 +1209,22 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto TP Plate [ 600 second ] [ Get Tycoon ]",
+	Name = "Get Tycoon",
 	Default = false,
 	Callback = function(Value)
 	   _G.AutoTpPlate = Value
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1)
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while _G.AutoTpPlate do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
 task.wait()
+end
+else
+OrionLib:MakeNotification({
+	Name = "Pls You Is Enter Lobby",
+	Content = "You Can Not Tp Plate",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
 end
 	end    
 })
@@ -1467,46 +1471,22 @@ Tab13:AddToggle({
 	Name = "Slap Arua [ All Glove ] [ You kick and banned ]",
 	Default = false,
 	Callback = function(Value)
-		
-        getgenv().SlapAura = Value
-
-            if Value == true then
-
-                while getgenv().SlapAura do
-
-                    task.wait()
-                        
-                        pcall(function()
-                            
-                        for Index, Player in next, game.Players:GetPlayers() do
-                            
-                            if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
-                                
-                                if Player.Character:FindFirstChild("Head") then
-                                    
-                                if Player.Character.Head:FindFirstChild("UnoReverseCard") == nil and Player.Character:FindFirstChild("rock") == nil then
-                                    
-                                    if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(Player.UserId) then
-
-                                    local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
-                                    
-                                    if 50 >= Magnitude then
-                                        
-                                        shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
-                                        
-                                end
-                                    
-                                    end
-                            end
-                                
-                                end
-                        end
-                        
-                        end
-                    end)
+		SlapAura = Value
+                while SlapAura do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove == "Error" then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if 25 >= Magnitude then
+shared.gloveHits[getGlove()]:FireServer(v.Character:WaitForChild("Head"),true)
+                    end
+end
+end
+end
                 end
-                
-            end
+task.wait()
+end
 	end    
 })
 
@@ -1782,7 +1762,8 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiBrick",
 	Callback = function(Value)
-	while Value == true do
+_G.AntiBrick = Value
+while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Union" then
                         v.CanTouch = false
@@ -2224,12 +2205,12 @@ game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, 
 if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15)
+v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
                     end
                 end
 for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == PingPongBall then
-                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(180), math.rad(0), math.rad(0))
+                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
                     end
                 end
 elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
@@ -2862,6 +2843,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
 game:GetService("ReplicatedStorage"):WaitForChild("rob"):FireServer()
 wait(15)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "bob" do
+game:GetService("ReplicatedStorage").bob:FireServer()
+wait(9)
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" do
 game:GetService("ReplicatedStorage").KrakenArm:FireServer()
 wait(5)
@@ -2977,6 +2962,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slapple" do
 game:GetService("ReplicatedStorage").funnyTree:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 wait(3.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Detonator" do
+game:GetService("ReplicatedStorage").Fart:FireServer()
+task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" do
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[game.Players.LocalPlayer.Name].Character.HumanoidRootPart.CFrame})
@@ -3131,7 +3120,7 @@ end
 })
 
 Tab15:AddToggle({
-	Name = "Auto spam Detonator [ then Slap People boob ]",
+	Name = "Auto spam Detonator",
 	Default = false,
 	Callback = function(Value)
 		_G.DetonatorSpam = Value
@@ -3887,6 +3876,57 @@ Tab17:AddButton({
 	Callback = function()
       		OrionLib:Destroy()
   	end 
+})
+
+OrionLib:Init()
+elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
+local Window = OrionLib:MakeWindow({Name = (("Slap Battles Testing👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Testing Server Freecam",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/SB%20Freecam"))()
+      end    
+})
+
+Tab:AddButton({
+	Name = "Testing Server Freecam (Mobile)",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/CameraSpy/main/Script", true))()
+       end    
+})
+
+Tab:AddButton({
+	Name = "Infinite Yield",
+	Callback = function()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Infinite%20Yield%20but%20with%20secure%20dex'))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Rejoin Server",
+	Callback = function()
+      		local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+        game:GetService("RunService").RenderStepped:Connect(function()
+            game:GetService("GuiService"):ClearError()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(game.PlaceId)
+  	end    
 })
 
 OrionLib:Init()
