@@ -2,6 +2,8 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
+game:GetService("GuiService"):ClearError()
+
 if game.PlaceId == 9431156611 then
 local bypass;
     bypass = hookmetamethod(game, "__namecall", function(method, ...) 
@@ -35,7 +37,7 @@ AntiLava.CanCollide = false
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
                 
-                local Window = OrionLib:MakeWindow({Name = "Slap Royale 👏", HidePremium = true, IntroEnabled = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+                local Window = OrionLib:MakeWindow({Name = "Slap Royale hub that exists", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
                 local Tab = Window:MakeTab({
                     Name = "Home",
@@ -44,26 +46,26 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ion
                 })
 
                 local Tab2 = Window:MakeTab({
+                    Name = "Combat",
+                    Icon = "http://www.roblox.com/asset/?id=7733674079",
+                    PremiumOnly = false
+                })
+
+                local Tab3 = Window:MakeTab({
                     Name = "Antis",
                     Icon = "http://www.roblox.com/asset/?id=7734056608",
                     PremiumOnly = false
                 })
  
-                local Tab3 = Window:MakeTab({
+                local Tab4 = Window:MakeTab({
                     Name = "Misc",
                     Icon = "http://www.roblox.com/asset/?id=4370318685",
                     PremiumOnly = false
                 })
 
-                local Tab4 = Window:MakeTab({
+                local Tab5 = Window:MakeTab({
                     Name = "Player",
                     Icon = "http://www.roblox.com/asset/?id=4335489011",
-                    PremiumOnly = false
-                })
-
-                local Tab5 = Window:MakeTab({
-                    Name = "Hubs",
-                    Icon = "http://www.roblox.com/asset/?id=4370344717",
                     PremiumOnly = false
                 })
 
@@ -72,7 +74,7 @@ Tab:AddLabel("If you have problems then message Guy that exists#1915")
 Tab:AddButton({
 	Name = "Infinite Yield",
 	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Infinite%20Yield%20but%20with%20secure%20dex'))()
   	end    
 })
 
@@ -83,7 +85,7 @@ Tab:AddButton({
   	end    
 })
 
-Tab2:AddToggle({
+Tab3:AddToggle({
 	Name = "Anti Acid",
 	Default = false,
 	Callback = function(Value)
@@ -91,7 +93,7 @@ AntiAcid.CanCollide = Value
 	end    
 })
 
-Tab2:AddToggle({
+Tab3:AddToggle({
 	Name = "Anti Lava",
 	Default = false,
 	Callback = function(Value)
@@ -99,44 +101,43 @@ AntiLava.CanCollide = Value
 	end    
 })
 
-Tab3:AddToggle({
-                    Name = "Slap Aura (Credits to R2O)",
+Tab2:AddToggle({
+                    Name = "Slap Aura",
                     Default = false,
-                    Callback = function(bool)
-slapAura = bool
-		  if bool == true then
-		    while slapAura == true do
-				task.wait()
-				for _, L_8 in pairs(game.Players:GetPlayers()) do
-					if L_8 ~= game.Players.LocalPlayer then
-						if L_8.Character:FindFirstChild("HumanoidRootPart") ~= nil and L_8.Character:FindFirstChild("Humanoid") and not L_8.Character:FindFirstChild("Dead")  and not game.Players.LocalPlayer.Character:FindFirstChild("Dead")  then
-							local magnitude = (L_8.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-								if 25 >= magnitude then
-									game:GetService("ReplicatedStorage").Events.Slap:FireServer(L_8.Character.Torso)
-								end
-							end
-						end
-					end
-		    end
+                    Callback = function(Value)
+SlapAura = Value
+                while SlapAura do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character then
+if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if 25 >= Magnitude then
+game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("Head"))
+                    end
+end
+end
+                end
+task.wait()
 end
 end
                 })
 
-Tab3:AddButton({
+Tab2:AddButton({
 	Name = "Get all items (Use in bus)",
 	Callback = function()
-repeat task.wait()
-until game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
             for i, v in ipairs(game.Workspace:GetChildren()) do
                 if v.ClassName == "Tool" then
  game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
                 end
             end
+repeat task.wait() until game.Workspace:FindFirstChildWhichIsA("Tool") == nil
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+end
   	end    
 })
 
-Tab3:AddButton({
+Tab2:AddButton({
 	Name = "Bomb Bus (Use in the lobby)",
 	Callback = function()
 repeat task.wait()
@@ -150,7 +151,7 @@ until game.Players.LocalPlayer.Backpack:FindFirstChild("Bomb")
 			end
 })
 
-Tab3:AddButton({
+Tab2:AddButton({
 	Name = "Leave bus early",
 	Callback = function()
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
@@ -160,7 +161,7 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 			end
 })
 
-Tab3:AddButton({
+Tab2:AddButton({
 	Name = "Inf 250 power (Needs 2 True Powers) (Use before other items)",
 	Callback = function()
 for i = 1, 2 do
@@ -170,7 +171,7 @@ end
                     end    	
                 })
 
-Tab3:AddButton({
+Tab2:AddButton({
 	Name = "Use permanent items",
 	Callback = function()
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
@@ -186,7 +187,7 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 			end
 })
 
-Tab3:AddButton({
+Tab4:AddButton({
 	Name = "Get Lab Code",
 	Callback = function()
 if game.Workspace.Map.CodeBrick.SurfaceGui:FindFirstChild("IMGTemplate") then
@@ -344,11 +345,11 @@ for i,v in pairs(game.Workspace.Map.CodeBrick.SurfaceGui:GetChildren()) do
                     end
                 end
 Code = first..second..third..fourth
-game.StarterGui:SetCore("SendNotification", {Title = Code,Duration = 5,Text = " ",})
+game.StarterGui:SetCore("SendNotification", {Title = Code,Duration = 5,Text = " "})
                     end    
                 })
 
-Tab3:AddButton({
+Tab4:AddButton({
 	Name = "Get Chain",
 	Callback = function()
 if game.Workspace.Map.CodeBrick.SurfaceGui:FindFirstChild("IMGTemplate") then
@@ -519,27 +520,80 @@ fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.Clic
                     end    
                 })
 
-Tab3:AddToggle({
+Tab4:AddToggle({
                     Name = "Remove Zone Color",
                     Default = false,
                     Callback = function(Value)
-_G.RemoveZone = Value
+RemoveZone = Value
 game.Players.LocalPlayer.Character:WaitForChild("inZone").Changed:Connect(function()
-if _G.RemoveZone then
+if RemoveZone then
 game.Players.LocalPlayer.Character:WaitForChild("inZone").Value = false
 end
 end)
 end
                 })
 
-Tab3:AddButton({
-	Name = "Free Emotes (Type /e emotename) (Credits to R2O)",
+Tab4:AddButton({
+	Name = "Free Emotes (Type /e emotename)",
 	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/SB%20Emotes"))()
+Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
+L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
+Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
+Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+game.Players.LocalPlayer.Chatted:connect(function(msg)
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
+Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
+Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
+Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
+Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
+L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
+Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
+Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
+Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
+Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+if string.lower(msg) == "/e Floss" or string.lower(msg) == "/e floss" then
+Floss:Play()
+elseif string.lower(msg) == "/e Groove" or string.lower(msg) == "/e groove" then
+Groove:Play()
+elseif string.lower(msg) == "/e Headless" or string.lower(msg) == "/e headless" then
+Headless:Play()
+elseif string.lower(msg) == "/e Helicopter" or string.lower(msg) == "/e helicopter" then
+Helicopter:Play()
+elseif string.lower(msg) == "/e Kick" or string.lower(msg) == "/e kick" then
+Kick:Play()
+elseif string.lower(msg) == "/e L" or string.lower(msg) == "/e l" then
+L:Play()
+elseif string.lower(msg) == "/e Laugh" or string.lower(msg) == "/e laugh" then
+Laugh:Play()
+elseif string.lower(msg) == "/e Parker" or string.lower(msg) == "/e parker" then
+Parker:Play()
+elseif string.lower(msg) == "/e Spasm" or string.lower(msg) == "/e spasm" then
+Spasm:Play()
+elseif string.lower(msg) == "/e Thriller" or string.lower(msg) == "/e thriller" then
+Thriller:Play()
+end
+EP = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end)
+game:GetService("RunService").Heartbeat:Connect(function()
+if EP ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - EP).Magnitude
+if Magnitude > 1 then
+Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
+end
+end
+end)
                     end    
                 })
 
-Tab4:AddSlider({
+Tab5:AddSlider({
 	Name = "Walkspeed",
 	Min = 20,
 	Max = 1000,
@@ -553,12 +607,12 @@ Walkspeed = Value
 	end    
 })
 
-Tab4:AddToggle({
+Tab5:AddToggle({
 	Name = "Keep Walkspeed",
 	Default = false,
 	Callback = function(Value)
-_G.KeepWalkspeed = Value
-            while _G.KeepWalkspeed do
+KeepWalkspeed = Value
+            while KeepWalkspeed do
                 if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
                     game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = Walkspeed
                 end
@@ -567,7 +621,7 @@ task.wait()
 	end    
 })
 
-Tab4:AddSlider({
+Tab5:AddSlider({
 	Name = "Jumppower",
 	Min = 50,
 	Max = 1000,
@@ -581,24 +635,17 @@ Jumppower = Value
 	end    
 })
 
-Tab4:AddToggle({
+Tab5:AddToggle({
 	Name = "Keep Jumppower",
 	Default = false,
 	Callback = function(Value)
-_G.KeepJumppower = Value
-            while _G.KeepJumppower do
+KeepJumppower = Value
+            while KeepJumppower do
                 if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Jumppower then
                     game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = Jumppower
                 end
 task.wait()
             end
 	end    
-})
-
-Tab5:AddButton({
-	Name = "R2O",
-	Callback = function()
-      		loadstring(game:HttpGet(("https://raw.githubusercontent.com/cheesynob39/R2O/main/Main.lua")))()
-  	end    
 })
 end
