@@ -22,7 +22,7 @@
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
-    [""] = game.ReplicatedStorage.GeneralHit,
+    ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
