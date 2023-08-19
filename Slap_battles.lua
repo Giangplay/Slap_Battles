@@ -1020,6 +1020,24 @@ end
 	end    
 })
 
+Tab4:AddToggle({
+	Name = "Auto Slap Null Mini",
+	Default = false,
+	Callback = function(Value)
+_G.SlapNull = Value
+while _G.SlapNull do
+for i = 1, 10 do
+local args = {
+    [1] = workspace:WaitForChild("Imp"):WaitForChild("Body")
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("b"):FireServer(unpack(args))
+end
+wait()
+end
+	end    
+})
+
 Tab10:AddToggle({
 	Name = "Auto Enter Arena",
 	Default = false,
