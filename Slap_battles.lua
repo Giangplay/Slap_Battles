@@ -1021,19 +1021,17 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Null Mini",
+	Name = "Auto Slap Null Mini [ Glove Defaut ]",
 	Default = false,
 	Callback = function(Value)
 _G.SlapNull = Value
 while _G.SlapNull do
-for i = 1, 10 do
+task.wait()
 local args = {
     [1] = workspace:WaitForChild("Imp"):WaitForChild("Body")
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("b"):FireServer(unpack(args))
-end
-wait()
 end
 	end    
 })
@@ -3115,7 +3113,19 @@ Tab15:AddToggle({
 		_G.NullSpam = Value
 while _G.NullSpam do
 game:GetService("ReplicatedStorage").NullAbility:FireServer()
-wait(0.01)
+task.wait(5.4)
+end
+	end    
+})
+
+Tab15:AddToggle({
+	Name = "Auto Spam Null [ All Glove ] [ 0,05s ]",
+	Default = false,
+	Callback = function(Value)
+		_G.NullSpam2 = Value
+while _G.NullSpam2 do
+game:GetService("ReplicatedStorage").NullAbility:FireServer()
+task.wait(0.05)
 end
 	end    
 })
