@@ -2200,9 +2200,7 @@ Tab11:AddToggle({
 	       
 	    task.wait()
 	    
-	    local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-	    
-	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and Character:FindFirstChild("entered") then
+	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") then
 	        
             task.wait(5.7)
             
@@ -2846,7 +2844,7 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" do
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait()
+wait(2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
@@ -2867,12 +2865,16 @@ game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
 game:GetService("ReplicatedStorage").Slicer:FireServer("slash", game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame, Vector3.new())
 wait(5.1)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") do
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+task.wait(5.7)
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
 game:GetService("ReplicatedStorage"):WaitForChild("rob"):FireServer()
-wait(15)
+wait(3)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "bob" do
-game:GetService("ReplicatedStorage").bob:FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("bob"):FireServer()
 wait(9)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" do
@@ -2979,6 +2981,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shard" do
 game:GetService("ReplicatedStorage").Shards:FireServer()
 wait(4.1)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Null" do
+game:GetService("ReplicatedStorage").NullAbility:FireServer()
+wait(0.01)
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" do
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(5.1)
@@ -2994,6 +3000,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Detonator" do
 game:GetService("ReplicatedStorage").Fart:FireServer()
 task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Berserk" do
+game:GetService("ReplicatedStorage").BerserkCharge:FireServer(game:GetService("Players").LocalPlayer.Character.Berserk)
+wait(2.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" do
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[game.Players.LocalPlayer.Name].Character.HumanoidRootPart.CFrame})
@@ -3069,6 +3079,8 @@ end
 	end    
 })
 
+Tab15:AddLabel("Ability Glove Spam")
+
 Tab15:AddToggle({
 	Name = "Auto Spam Ping Pong",
 	Default = false,
@@ -3130,7 +3142,7 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
 PersonToKill = RandomPlayer
 game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
-task.wait()
+wait(0.01)
 end
 	end    
 })
