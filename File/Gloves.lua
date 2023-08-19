@@ -115,6 +115,7 @@
     ["Thor"] = game.ReplicatedStorage.ThorHit,
     ["Retro"] = game.ReplicatedStorage.RetroHit,
     ["Cloud"] = game.ReplicatedStorage.CloudHit,
+    ["Null"] = game.ReplicatedStorage.NullHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     
     ----------------------------------------
