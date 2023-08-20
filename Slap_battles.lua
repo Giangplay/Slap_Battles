@@ -1024,14 +1024,17 @@ Tab4:AddToggle({
 	Name = "Auto Slap Null Mini [ Glove Defaut ]",
 	Default = false,
 	Callback = function(Value)
-_G.SlapNull = Value
-while _G.SlapNull do
+NullSlapFarm = Value
+                while NullSlapFarm do
+game:GetService("ReplicatedStorage").NullAbility:FireServer()
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Imp" then
+if v:FindFirstChild("Body") then
+shared.gloveHits[getGlove()]:FireServer(v.Body,true)
+end
+end
+                end
 task.wait()
-local args = {
-    [1] = workspace:WaitForChild("Imp"):WaitForChild("Body")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("b"):FireServer(unpack(args))
 end
 	end    
 })
@@ -3113,19 +3116,7 @@ Tab15:AddToggle({
 		_G.NullSpam = Value
 while _G.NullSpam do
 game:GetService("ReplicatedStorage").NullAbility:FireServer()
-task.wait(5.4)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto Spam Null [ All Glove ] [ 0,05s ]",
-	Default = false,
-	Callback = function(Value)
-		_G.NullSpam2 = Value
-while _G.NullSpam2 do
-game:GetService("ReplicatedStorage").NullAbility:FireServer()
-task.wait(0.05)
+wait(0.01)
 end
 	end    
 })
@@ -3179,7 +3170,7 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
 PersonToKill = RandomPlayer
 game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
-task.wait()
+wait(0.01)
 end
 	end    
 })
