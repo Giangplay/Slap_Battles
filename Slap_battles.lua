@@ -1021,7 +1021,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Null Mini [ Glove Defaut ]",
+	Name = "AutoFarm Null Slap [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
 NullSlapFarm = Value
