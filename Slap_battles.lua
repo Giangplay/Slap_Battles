@@ -1320,6 +1320,34 @@ end)
 	end	  
 })
 
+Tab11:AddTextbox({
+	Name = "Make Player Spam Rojo",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+Person = game.Players.LocalPlayer.Name
+else
+Person = Value
+end
+	end	  
+})
+
+Tab11:AddToggle({
+	Name = "Auto spam Rojo [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+if Person == nil then
+Person = game.Players.LocalPlayer.Name
+end
+_G.RojoSpam = Value
+while _G.RojoSpam do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+task.wait()
+end
+	end    
+})
+
 Tab11:AddBind({
 	Name = "Kick Player [ Glove Za Hanh ]",
 	Default = Enum.KeyCode.Z,
@@ -3754,21 +3782,6 @@ Tab15:AddToggle({
 while _G.SentrySpam do
 game:GetService("ReplicatedStorage").Sentry:FireServer()
 wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Rojo [ All Glove ]",
-	Default = false,
-	Callback = function(Value)
-if Person == nil then
-Person = game.Players.LocalPlayer.Name
-end
-_G.RojoSpam = Value
-while _G.RojoSpam do
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
-task.wait()
 end
 	end    
 })
