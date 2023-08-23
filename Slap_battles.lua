@@ -6,7 +6,8 @@ game:GetService("GuiService"):ClearError()
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
-local Window = OrionLib:MakeWindow({Name = (("Slap Battles 👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---anti cheat bypass---
 
@@ -210,8 +211,8 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "Your name is "..Player..".",
-	Content = "Name is "..Player..".",
+	Name = "Your name is "..Player,
+	Content = "Name is "..Player,
 	Time = 17
 })
 
@@ -1021,12 +1022,11 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "AutoFarm Null Slap [ All Glove ]",
+	Name = "Auto Null Slap [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
 NullSlapFarm = Value
                 while NullSlapFarm do
-game:GetService("ReplicatedStorage").NullAbility:FireServer()
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Imp" then
 if v:FindFirstChild("Body") then
@@ -3246,7 +3246,7 @@ Tab15:AddToggle({
 		_G.KrakenSpam = Value
 while _G.KrakenSpam do
 game:GetService("ReplicatedStorage").KrakenArm:FireServer()
-task.wait()
+wait(5)
 end
 	end    
 })
