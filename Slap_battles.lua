@@ -3962,7 +3962,8 @@ Tab17:AddButton({
 OrionLib:Init()
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
-local Window = OrionLib:MakeWindow({Name = (("Slap Battles Testing👏").." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
@@ -4008,6 +4009,94 @@ if teleportFunc then
 end
 game:GetService("TeleportService"):Teleport(game.PlaceId)
   	end    
+})
+
+OrionLib:Init()
+elseif game.PlaceId == 13833961666 then
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
+local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Combat",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "Dame Boss",
+	Default = false,
+	Save = true,
+	Flag = "DameBoss",
+	Callback = function(Value)
+_G.Dame = Value
+if Value == true then
+while _G.Dame do
+game:GetService("Workspace").bobBoss.DamageEvent:FireServer()
+task.wait(0.1)
+end
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Click Tycoon",
+	Default = false,
+	Save = true,
+	Flag = "Auto Tycoon"
+	Callback = function(Value)
+		_G.AutoTycoon = Value
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "End" and v.ClassName == "Part" then
+            v.Size = Vector3.new(28, 0.3, 4)
+        end
+    end
+while _G.AutoTycoon do
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+    wait()
+end
+	end    
+})
+
+Tab:AddLabel("Script OP")
+
+Tab:AddButton({
+	Name = "Fe fly V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "inf yield [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto spam Rob [ You Is Get Boss Phase 6 ]",
+	Default = false,
+	Callback = function(Value)
+		_G.RobSpam = Value
+while _G.RobSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(15)
+end
+	end    
+})
+
+Tab:AddLabel("Destroy Gui")
+
+Tab:AddButton({
+	Name = "Destroy GUI",
+	Callback = function()
+      		OrionLib:Destroy()
+  	end 
 })
 
 OrionLib:Init()
