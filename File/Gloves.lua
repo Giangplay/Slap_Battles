@@ -41,6 +41,7 @@
     ["Home Run"] = game.ReplicatedStorage.GeneralHit,
     ["Psycho"] = game.ReplicatedStorage.GeneralHit,
     ["Kraken"] = game.ReplicatedStorage.GeneralHit,
+    ["Gravity"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
