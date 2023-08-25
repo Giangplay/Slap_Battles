@@ -3019,6 +3019,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" do
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(5.1)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Gravity" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(20)
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bubble" do
 game:GetService("ReplicatedStorage").BubbleThrow:FireServer()
 wait(3.1)
@@ -4030,11 +4034,9 @@ Tab:AddToggle({
 	Flag = "DameBoss",
 	Callback = function(Value)
 _G.Dame = Value
-if Value == true then
 while _G.Dame do
 game:GetService("Workspace").bobBoss.DamageEvent:FireServer()
 task.wait(0.1)
-end
 end
 	end    
 })
@@ -4043,7 +4045,7 @@ Tab:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
 	Save = true,
-	Flag = "Auto Tycoon"
+	Flag = "Auto Tycoon",
 	Callback = function(Value)
 		_G.AutoTycoon = Value
     for i,v in pairs(workspace:GetDescendants()) do
@@ -4083,7 +4085,7 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.RobSpam = Value
-while _G.RobSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
+while _G.RobSpam do
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
