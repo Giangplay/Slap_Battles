@@ -4,7 +4,7 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
+if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
@@ -1022,7 +1022,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Null Slap [ All Glove ]",
+	Name = "Auto Null Slap [ All Glove ] [ Not Get Slap ]",
 	Default = false,
 	Callback = function(Value)
 NullSlapFarm = Value
@@ -1034,6 +1034,38 @@ shared.gloveHits[getGlove()]:FireServer(v.Body,true)
 end
 end
                 end
+task.wait()
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Auto Get Bagde Jet Orb [ Jet Spam 10% ]",
+	Default = false,
+	Callback = function(Value)
+AutoGetJet = Value
+while AutoGetJet do
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name == "JetOrb" then
+v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end
+task.wait()
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Auto Get Bagde Phase Orb [ Jet Spam 5% ]",
+	Default = false,
+	Callback = function(Value)
+AutoGetJet = Value
+while AutoGetJet do
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name == "PhaseOrb" then
+v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end
 task.wait()
 end
 	end    
@@ -1106,23 +1138,17 @@ Tab10:AddToggle({
 })
 
 Tab2:AddToggle({
-	Name = "100 Slaps Fight Arena (Can't Lose)",
+	Name = "100 Slaps Fight Arena [ Can't Lose ]",
 	Default = false,
 	Save = true,
     Flag = "AntiVoid100Slap",
-	Callback = function(state)
-		if state then
-
-	arenaVoid.CanCollide = true
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 0.5
-
-    else
-
-	arenaVoid.CanCollide = false
-	arenaVoid.Anchored = true
-	arenaVoid.Transparency = 1
-    end
+	Callback = function(bool)
+arenaVoid.CanCollide = bool
+if bool then
+arenaVoid.Transparency = 0.5
+else
+arenaVoid.Transparency = 1
+end
 	end    
 })
 
@@ -1131,17 +1157,13 @@ Tab2:AddToggle({
 	Default = false,
 	Save = true,
     Flag = "AntiVoid",
-	Callback = function(state)
-		if state then
-	AntiVoid.CanCollide = true
-	AntiVoid.Anchored = true
-	AntiVoid.Transparency = 0.5
-    else
-
-	AntiVoid.CanCollide = false
-	AntiVoid.Anchored = true
-	AntiVoid.Transparency = 1
-    end
+	Callback = function(bool)
+AntiVoid.CanCollide = bool
+if bool then
+AntiVoid.Transparency = 0.5
+else
+AntiVoid.Transparency = 1
+end
 	end    
 })
 
@@ -1411,6 +1433,17 @@ for _, tycoon in pairs(workspace:GetChildren()) do
 })
 
 Tab11:AddButton({
+	Name = "Destroy Light",
+	Callback = function()
+for _, v in pairs(game.Lighting:GetChildren()) do
+if v.Name ~= "Sky" then
+v:Destroy()
+end
+end
+  	end    
+})
+
+Tab11:AddButton({
 	Name = "Godmode [ All Glove ] [ Not The Free Kill and Reaper ]",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
@@ -1522,7 +1555,7 @@ Tab13:AddToggle({
                 while SlapAura do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if 25 >= Magnitude then
@@ -1550,8 +1583,8 @@ Tab11:AddToggle({
            
         game.Players.PlayerAdded:Connect(function(Plr)
             
-            if Plr:GetRankInGroup(9950771) and 7 <= Plr:GetRankInGroup(9950771) and antiAdmins then
-                game.Players.LocalPlayer:Kick("Admin Cummer Detected 🔥")
+            if Plr:GetRankInGroup(9950771) and 2 <= Plr:GetRankInGroup(9950771) and antiAdmins then
+                game.Players.LocalPlayer:Kick("Admin/High Rank Player Detected")
             end
             
         end)
@@ -3390,7 +3423,7 @@ Tab15:AddToggle({
 	Callback = function(Value)
 		_G.ReplicaSpam = Value
 while _G.ReplicaSpam do
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
+game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 wait(5.2)
 end
 	end    
@@ -3402,7 +3435,7 @@ Tab15:AddToggle({
 	Callback = function(Value)
 		_G.ReplicaSpam = Value
 while _G.ReplicaSpam do
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
+game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 wait(14.2)
 end
 	end    
@@ -3433,7 +3466,7 @@ end
 })
 
 Tab15:AddToggle({
-	Name = "Rhythm Explosion Spam [ WORKS WITH ALL GLOVES ]",
+	Name = "Rhythm Explosion Spam [ All Gloves ]",
 	Default = false,
 	Callback = function(Value)
 		_G.RhythmSpam = Value
