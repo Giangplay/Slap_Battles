@@ -1406,8 +1406,29 @@ end
 	end	  
 })
 
+Tab11:AddDropdown({
+	Name = "Retro Ability",
+	Default = "Rocket Launcher",
+	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
+	Callback = function(Value)
+RetroAbility = Value
+	end    
+})
+
 Tab11:AddToggle({
-	Name = "Auto spam Rojo [ All Glove ]",
+	Name = "Auto Spam Retro [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+RetroSpam = Value
+while RetroSpam do
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(RetroAbility)
+task.wait()
+end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Auto Spam Rojo [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
 if Person == nil then
