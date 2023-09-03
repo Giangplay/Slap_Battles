@@ -2714,20 +2714,6 @@ end
 })
 
 Tab12:AddButton({
-	Name = "Spawn Cloud [ All gloves ]",
-	Callback = function()
-      		game:GetService("ReplicatedStorage").CloudAbility:FireServer()
-  	end    
-})
-
-Tab12:AddButton({
-	Name = "Spawn Cloud Golden [ All gloves ]",
-	Callback = function()
-      		game.ReplicatedStorage.NimbusAbility:FireServer()
-  	end    
-})
-
-Tab12:AddButton({
 	Name = "View Testing Server [ Good for glove leaking ]",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
