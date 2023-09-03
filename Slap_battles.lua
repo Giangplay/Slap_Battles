@@ -45,16 +45,24 @@ shared.createBed()
 
 if not workspace:FindFirstChild("Spot") then
 local SafeSpot = Instance.new("Part", workspace)
- 
 SafeSpot.Position = Vector3.new(-1500,100,-1500)
- 
 SafeSpot.Name = "Spot"
- 
-SafeSpot.Size = Vector3.new(100,1,100)
- 
+SafeSpot.Size = Vector3.new(500,1,500)
 SafeSpot.Anchored = true
- 
 SafeSpot.Transparency = .7
+end
+
+---Part Go Deep Into The Ground---
+
+if not workspace:FindFirstChild("default") then
+local Farm = Instance.new("Part")
+Farm.Transparency = 0.5
+Farm.Anchored = true
+Farm.Name = "default"
+Farm.Size = Vector3.new(9,3,9)
+Farm.Parent = game.Workspace
+Farm.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
+Farm.Rotation = Vector3.new(0,0,0)
 end
 
 ---anti void---
@@ -435,6 +443,33 @@ else
 OrionLib:MakeNotification({
 	Name = "Enter Arena Pls",
 	Content = "Not You TP SafeSpot",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
+  	end    
+})
+
+Tab4:AddButton({
+	Name = "TP To Go Deep Into The Ground",
+	Callback = function()
+if workspace[game.Players.LocalPlayer.Name]:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.default.CFrame * CFrame.new(0,5,0)
+game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == "BLOCK" then
+                        v.CanTouch = false
+                    end
+                end
+workspace.DEATHBARRIER.CanTouch = false
+workspace.DEATHBARRIER2.CanTouch = false
+workspace.dedBarrier.CanTouch = false
+workspace.ArenaBarrier.CanTouch = false
+workspace.AntiDefaultArena.CanTouch = false
+else
+OrionLib:MakeNotification({
+	Name = "Enter Arena Pls",
+	Content = "Not You TP Go Deep Into The Ground",
 	Image = "rbxassetid://4483345998",
 	Time = 5
 })
@@ -998,7 +1033,7 @@ while _G.SlapBaller do
 task.wait()
 for _, v in ipairs(workspace:GetChildren()) do
 if string.sub(v.Name, 3, 8) == "Baller" then
-game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+shared.gloveHits[getGlove()]:FireServer(v:WaitForChild("HumanoidRootPart"))
 end
 end
 end
@@ -1014,7 +1049,7 @@ while _G.SlapReplica do
 task.wait()
 for _, replica in pairs(workspace:GetChildren()) do
 if string.find(replica.Name, "Å") then
-game:GetService("ReplicatedStorage").b:FireServer(replica:WaitForChild("HumanoidRootPart"))
+shared.gloveHits[getGlove()]:FireServer(replica:WaitForChild("HumanoidRootPart"))
 end
 end
 end
@@ -1040,7 +1075,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Get Bagde Jet Orb [ Jet Spam 10% ]",
+	Name = "Auto Get Bagde Jet Orb [ Jet Spawn 10% ]",
 	Default = false,
 	Callback = function(Value)
 AutoGetJet = Value
@@ -1056,13 +1091,29 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Get Bagde Phase Orb [ Jet Spam 5% ]",
+	Name = "Auto Get Bagde Phase Orb [ Jet Spawn 5% ]",
 	Default = false,
 	Callback = function(Value)
 AutoGetJet = Value
 while AutoGetJet do
 for _, v in pairs(workspace:GetChildren()) do
 if v.Name == "PhaseOrb" then
+v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end
+task.wait()
+end
+	end    
+})
+
+Tab4:AddToggle({
+	Name = "Auto Get Bagde Mitten [ Other Spawn Gift 1/100 ]",
+	Default = false,
+	Callback = function(Value)
+AutoPickUpGGift = Value
+while AutoPickUpGGift do
+for _,v in pairs(workspace:GetChildren()) do
+if v.Name == "Gift" then
 v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 end
 end
@@ -1243,7 +1294,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.
 task.wait()
 game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
 game:GetService("ReplicatedStorage").lbrick:FireServer()
-wait(2.3)
+task.wait(2.3)
 end
 end
 	end    
@@ -1492,6 +1543,22 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Origo.CFrame
 end
   	end    
+})
+
+Tab11:AddToggle({
+	Name = "Auto Click Destroy Tycoon",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoDestroyTycoon = Value
+while _G.AutoDestroyTycoon do
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+    task.wait()
+end
+	end    
 })
 
 Tab11:AddToggle({
@@ -2633,7 +2700,7 @@ tool.Parent = plr.Backpack
 })
 
 Tab12:AddButton({
-	Name = "Glove make block [ Default And Extended ]",
+	Name = "Glove make block",
 	Callback = function()
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
@@ -4030,7 +4097,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmo
 })
 
 Tab:AddButton({
-	Name = "Testing Server Freecam (Mobile)",
+	Name = "Testing Server Freecam [ Mobile ]",
 	Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/CameraSpy/main/Script", true))()
        end    
