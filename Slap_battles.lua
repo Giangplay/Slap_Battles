@@ -1567,6 +1567,25 @@ end
 })
 
 Tab11:AddToggle({
+	Name = "Auto Full Kinetic",
+	Default = false,
+	Callback = function(Value)
+FullKineticSpam = Value
+while FullKineticSpam do
+local args = {
+    [1] = {
+        ["Force"] = 0,
+        ["Direction"] = Vector3.new(1, 1.5, 0)
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(unpack(args))
+task.wait()
+end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Auto Click Destroy Tycoon",
 	Default = false,
 	Callback = function(Value)
