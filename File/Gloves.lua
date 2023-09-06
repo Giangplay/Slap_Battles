@@ -1,10 +1,10 @@
     shared.gloveHits = {
-    
+
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
     
     ----------------------------------------
-     
+
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -22,14 +22,13 @@
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
-    ["ðŸ—¿"] = game.ReplicatedStorage.GeneralHit,
+    ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
     ["Flamarang"] = game.ReplicatedStorage.GeneralHit,
     ["Kinetic"] = game.ReplicatedStorage.GeneralHit,
     ["Berserk"] = game.ReplicatedStorage.GeneralHit,
-    ["Quake"] = game.ReplicatedStorage.GeneralHit,
     ["Rattlebones"] = game.ReplicatedStorage.GeneralHit,
     ["Chain"] = game.ReplicatedStorage.GeneralHit,
     ["Ping Pong"] = game.ReplicatedStorage.GeneralHit,
@@ -40,6 +39,7 @@
     ["Excavator"] = game.ReplicatedStorage.GeneralHit,
     ["Home Run"] = game.ReplicatedStorage.GeneralHit,
     ["Psycho"] = game.ReplicatedStorage.GeneralHit,
+    ["Quake"] = game.ReplicatedStorage.GeneralHit,
     ["Kraken"] = game.ReplicatedStorage.GeneralHit,
     ["Gravity"] = game.ReplicatedStorage.GeneralHit,
     ["Lure"] = game.ReplicatedStorage.GeneralHit,
@@ -99,7 +99,7 @@
     ["potato"] = game.ReplicatedStorage.potatohit,
     ["CULT"] = game.ReplicatedStorage.CULTHit,
     ["bob"] = game.ReplicatedStorage.bobhit,
-    ["Buddies"] = game.ReplicatedStorage.buddiesHIT,
+    ["buddies"] = game.ReplicatedStorage.buddiesHIT,
     ["Spy"] = game.ReplicatedStorage.SpyHit,
     ["Detonator"] = game.ReplicatedStorage.DetonatorHit,
     ["Rage"] = game.ReplicatedStorage.GRRRR,
@@ -117,10 +117,10 @@
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
     ["Retro"] = game.ReplicatedStorage.RetroHit,
-    ["Cloud"] = game.ReplicatedStorage.CloudHit,
-    ["Null"] = game.ReplicatedStorage.NullHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
+    ["Cloud"] = game.ReplicatedStorage.CloudHit,
     ["spin"] = game.ReplicatedStorage.spinhit,
+    ["Null"] = game.ReplicatedStorage.NullHit,
     
     ----------------------------------------
 
