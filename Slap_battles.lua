@@ -968,15 +968,15 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Replica [ Glove Lobby Default ] [ All Glove Farm ]",
+	Name = "Auto Slap Replica [ Glove Lobby Default ]",
 	Default = false,
 	Callback = function(Value)
-_G.SlapReplica = Value
-while _G.SlapReplica do
+_G.SlapDefaultReplica = Value
+while _G.SlapDefaultReplica do
 task.wait()
-for _, replica in pairs(workspace:GetChildren()) do
-if string.find(replica.Name, "Å") then
-game:GetService("ReplicatedStorage").b:FireServer(replica:WaitForChild("HumanoidRootPart"))
+for _, c in pairs(workspace:GetChildren()) do
+if string.find(c.Name, "Å") then
+game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("HumanoidRootPart"))
 end
 end
 end
