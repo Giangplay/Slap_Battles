@@ -1877,15 +1877,17 @@ Tab11:AddToggle({
 	Name = "Anti Null",
 	Default = false,
 	Save = true,
-    Flag = "AntiNull",
+    Flag = "SlapAntiNull",
 	Callback = function(Value)
 AntiNull = Value
-while AntiNull do
+                while AntiNull do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Imp" and v:FindFirstChild("Body") then
+                    if v.Name == "Imp" then
+if v:FindFirstChild("Body") then
 shared.gloveHits[Glove]:FireServer(v.Body,true)
 end
 end
+                end
 task.wait()
 end
 	end    
