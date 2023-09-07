@@ -936,7 +936,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Autofarm Slap Baller [ You Epin Glove Baller ]",
+	Name = "Autofarm Slap Baller [ Farm All Glove ]",
 	Default = false,
 	Callback = function(Value)
 		_G.SlapBaller = Value
@@ -952,7 +952,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Replica [ You Enter Arena Default ] [ All Glove Farm ]",
+	Name = "Auto Slap Replica [ Other Spawn Replica ] [ All Glove Farm ]",
 	Default = false,
 	Callback = function(Value)
 _G.SlapReplica = Value
@@ -967,9 +967,8 @@ end
 	end    
 })
 
-_G.AutoGloveFarm = {["Replica"] = game.ReplicatedStorage.b}
 Tab4:AddToggle({
-	Name = "Auto Slap Replica [ You Enter Arena Default ]",
+	Name = "Auto Slap Replica [ Glove Lobby Default ] [ All Glove Farm ]",
 	Default = false,
 	Callback = function(Value)
 _G.SlapReplica = Value
@@ -977,7 +976,7 @@ while _G.SlapReplica do
 task.wait()
 for _, replica in pairs(workspace:GetChildren()) do
 if string.find(replica.Name, "Å") then
-_G.AutoGloveFarm[Glove]:FireServer(replica:WaitForChild("HumanoidRootPart"))
+game:GetService("ReplicatedStorage").b:FireServer(replica:WaitForChild("HumanoidRootPart"))
 end
 end
 end
