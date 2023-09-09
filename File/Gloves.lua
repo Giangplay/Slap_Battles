@@ -1,10 +1,10 @@
     shared.gloveHits = {
-
+    
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
     
     ----------------------------------------
-
+     
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -29,6 +29,7 @@
     ["Flamarang"] = game.ReplicatedStorage.GeneralHit,
     ["Kinetic"] = game.ReplicatedStorage.GeneralHit,
     ["Berserk"] = game.ReplicatedStorage.GeneralHit,
+    ["Quake"] = game.ReplicatedStorage.GeneralHit,
     ["Rattlebones"] = game.ReplicatedStorage.GeneralHit,
     ["Chain"] = game.ReplicatedStorage.GeneralHit,
     ["Ping Pong"] = game.ReplicatedStorage.GeneralHit,
@@ -39,10 +40,10 @@
     ["Excavator"] = game.ReplicatedStorage.GeneralHit,
     ["Home Run"] = game.ReplicatedStorage.GeneralHit,
     ["Psycho"] = game.ReplicatedStorage.GeneralHit,
-    ["Quake"] = game.ReplicatedStorage.GeneralHit,
     ["Kraken"] = game.ReplicatedStorage.GeneralHit,
     ["Gravity"] = game.ReplicatedStorage.GeneralHit,
     ["Lure"] = game.ReplicatedStorage.GeneralHit,
+    ["Jebaited"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
@@ -99,7 +100,7 @@
     ["potato"] = game.ReplicatedStorage.potatohit,
     ["CULT"] = game.ReplicatedStorage.CULTHit,
     ["bob"] = game.ReplicatedStorage.bobhit,
-    ["buddies"] = game.ReplicatedStorage.buddiesHIT,
+    ["Buddies"] = game.ReplicatedStorage.buddiesHIT,
     ["Spy"] = game.ReplicatedStorage.SpyHit,
     ["Detonator"] = game.ReplicatedStorage.DetonatorHit,
     ["Rage"] = game.ReplicatedStorage.GRRRR,
@@ -117,10 +118,10 @@
     ["Hitman"] = game.ReplicatedStorage.HitmanHit,
     ["Thor"] = game.ReplicatedStorage.ThorHit,
     ["Retro"] = game.ReplicatedStorage.RetroHit,
-    ["Custom"] = game.ReplicatedStorage.CustomHit,
     ["Cloud"] = game.ReplicatedStorage.CloudHit,
-    ["spin"] = game.ReplicatedStorage.spinhit,
     ["Null"] = game.ReplicatedStorage.NullHit,
+    ["Custom"] = game.ReplicatedStorage.CustomHit,
+    ["spin"] = game.ReplicatedStorage.spinhit,
     
     ----------------------------------------
 
