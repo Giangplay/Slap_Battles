@@ -842,7 +842,7 @@ Tab4:AddToggle({
         if Value == true then
             while bobFarm do
                 task.wait()
-                    if Glove == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+                    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
                     game.ReplicatedStorage.Duplicate:FireServer(true)
                     task.wait()
                     tick = os.time()
@@ -3861,7 +3861,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
-	Name = "Combat",
+	Name = "Main",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -3876,6 +3876,28 @@ _G.Dame = Value
 while _G.Dame do
 game:GetService("Workspace").bobBoss.DamageEvent:FireServer()
 task.wait(0.1)
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Anti Ragdoll",
+	Default = false,
+	Save = true,
+	Flag = "AntiRagdoll",
+	Callback = function(Value)
+antiRagdoll = Value
+while antiRagdoll do
+local Character = game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+Character:WaitForChild("Ragdollballsocket").Changed:Connect(function()
+if antiRagdoll == true and Character:WaitForChild("Ragdollballsocket").Value == true then
+repeat task.wait()
+Character:FindFirstChild("Torso").Anchored = true
+until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdollballsocket").Value == false
+Character:FindFirstChild("Torso").Anchored = false
+end
+end)
+task.wait()
 end
 	end    
 })
