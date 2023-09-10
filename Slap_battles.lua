@@ -32,7 +32,6 @@ end
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Bed.lua"))()
 local Player = game.Players.LocalPlayer.Character.Name
-local Glove = game.Players.LocalPlayer.leaderstats.Glove.Value
 
 shared.createBed()
     
