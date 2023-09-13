@@ -68,6 +68,7 @@ AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
 AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
 AntiVoid.CanCollide = false
 AntiVoid.Anchored = true
+AntiVoid.Material = "ForceField"
 AntiVoid.Transparency = 1
 
 local arenaVoid = Instance.new("Part", workspace)
@@ -76,6 +77,7 @@ arenaVoid.Size = Vector3.new(798, 1, 1290)
 arenaVoid.Position = Vector3.new(3450, 59.009, 68)
 arenaVoid.CanCollide = false
 arenaVoid.Anchored = true
+arenaVoid.Material = "ForceField"
 arenaVoid.Transparency = 1
 
 ---Anti Obby---
@@ -776,31 +778,24 @@ Tab19:AddToggle({
 	Time = 0
 	_G.AutoTime = Value
 while _G.AutoTime do
-
-task.wait(1)
-
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
-
+task.wait(3600)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 Time = Time + 1
-
 OrionLib:MakeNotification({
-	Name = "Time Diamond : "..Time.." / Until Bagde Why / Really",
-	Content = "You Afk Kick you ",
+	Name = "Time Diamond : "..Time.." / 10H",
+	Content = "Until Get Megarock",
 	Image = "rbxassetid://7743873443",
 	Time = 1
 })
-
 else
-
 Time = 0
-
 end
 end
 	end    
 })
 
 Tab4:AddToggle({
-	Name = "Get bob 1.0 [ You Epin Replica ] [ Fast ]",
+	Name = "Get bob 1.0 [ You Epin Replica ]",
 	Default = false,
 	Callback = function(Value)
 	    bobFarm = Value
@@ -840,7 +835,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and not game:Get
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 end
-task.wait(4.34)
+task.wait()
 end
 	end    
 })
@@ -855,14 +850,6 @@ Tab19:AddToggle({
         if Value == true then
             
         if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-            
-            print("READY")
-
-            task.wait()
-            
-            print("-------------------------------------------")
-            
-            task.wait()
             
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
             
@@ -924,24 +911,17 @@ Tab19:AddToggle({
 	Time = 0
 	_G.AutoTimeGhost = Value
 while _G.AutoTimeGhost do
-
 task.wait(1)
-
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-
 Time = Time + 1
-
 OrionLib:MakeNotification({
 	Name = "Time Ghost : "..Time.." / Until Get Voodoo",
 	Content = "You TP SafeSpot the Farm",
 	Image = "rbxassetid://7743873443",
 	Time = 1
 })
-
 else
-
 Time = 0
-
 end
 end
 	end    
@@ -999,13 +979,14 @@ Tab4:AddToggle({
 	Name = "Auto Get Bagde Jet Orb [ Jet Spawn 10% ]",
 	Default = false,
 	Callback = function(Value)
-AutoGetJet = Value
-while AutoGetJet do
-for _, v in pairs(workspace:GetChildren()) do
-if v.Name == "JetOrb" then
-v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-end
-end
+Jetfarm = Value
+while Jetfarm do
+for i,v in pairs(game.Workspacey:GetChildren()) do
+                    if v.Name == "JetOrb" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
 task.wait()
 end
 	end    
@@ -1015,13 +996,14 @@ Tab4:AddToggle({
 	Name = "Auto Get Bagde Phase Orb [ Jet Spawn 5% ]",
 	Default = false,
 	Callback = function(Value)
-AutoGetJet = Value
-while AutoGetJet do
-for _, v in pairs(workspace:GetChildren()) do
-if v.Name == "PhaseOrb" then
-v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-end
-end
+Phasefarm = Value
+while Phasefarm do
+for i,v in pairs(game.Workspacey:GetChildren()) do
+                    if v.Name == "PhaseOrb" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
 task.wait()
 end
 	end    
@@ -1031,13 +1013,14 @@ Tab4:AddToggle({
 	Name = "Auto Get Bagde Mitten [ Other Spawn Gift 1/100 ]",
 	Default = false,
 	Callback = function(Value)
-AutoPickUpGGift = Value
-while AutoPickUpGGift do
-for _,v in pairs(workspace:GetChildren()) do
-if v.Name == "Gift" then
-v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-end
-end
+Giftfarm = Value
+while Giftfarm do
+for i,v in pairs(game.Workspacey:GetChildren()) do
+                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
+                    end
+                end
 task.wait()
 end
 	end    
@@ -1049,6 +1032,7 @@ Tab4:AddToggle({
 	Callback = function(Value)
 AutoGetPotato = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and AutoGetPotato and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
 while AutoGetPotato do
 for i,v in pairs(workspace:GetChildren()) do
 if v.Name == "BubbleObject" then
@@ -1530,6 +1514,25 @@ end
 })
 
 Tab11:AddButton({
+	Name = "Glove No Cooldown Speed",
+	Callback = function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+
+while character.Humanoid.Health ~= 0 do
+local localscript = tool:FindFirstChildOfClass("LocalScript")
+local localscriptclone = localscript:Clone()
+localscriptclone = localscript:Clone()
+localscriptclone:Clone()
+localscript:Destroy()
+localscriptclone.Parent = tool
+wait(0.1)
+end
+  	end    
+})
+
+Tab11:AddButton({
 	Name = "Infinite Invisibility [ All Glove ]",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
@@ -1645,7 +1648,7 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if 25 >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("Head"),true)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
                     end
 end
 end
@@ -2505,25 +2508,6 @@ end
 })
 
 Tab12:AddButton({
-	Name = "Glove No Cooldown Speed",
-	Callback = function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
-
-while character.Humanoid.Health ~= 0 do
-local localscript = tool:FindFirstChildOfClass("LocalScript")
-local localscriptclone = localscript:Clone()
-localscriptclone = localscript:Clone()
-localscriptclone:Clone()
-localscript:Destroy()
-localscriptclone.Parent = tool
-wait(0.1)
-end
-  	end    
-})
-
-Tab12:AddButton({
 	Name = "View Testing Server [ Good for glove leaking ]",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -2816,6 +2800,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shard" do
 game:GetService("ReplicatedStorage").Shards:FireServer()
 wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "fish" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(3.05)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Null" do
 game:GetService("ReplicatedStorage").NullAbility:FireServer()
