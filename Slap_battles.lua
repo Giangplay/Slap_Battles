@@ -294,40 +294,15 @@ Tab:AddToggle({
 	Save = true,
     Flag = "AutoFarmSlapples",
 	Callback = function(Value)
-	    _G.autoFarmSlap = Value
-while _G.autoFarmSlap do
+	    SlappleFarm = Value
+while SlappleFarm do
+for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                end
+            end
 task.wait()
-spawn(function()
-for i, v in pairs(game:GetService("Workspace").Arena.island5.Slapples:GetDescendants()) do
-		if v:IsA("TouchTransmitter") then
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 0)
-				task.wait()
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 1)
-		end
- end
-end)
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Auto Farm Candy",
-	Default = false,
-	Save = true,
-    Flag = "AutoFarmCandy",
-	Callback = function(Value)
-_G.AutoCandy = Value
-while _G.AutoCandy do
-task.wait()
-spawn(function()
-for i,v in pairs(game:GetService("Workspace").CandyCorns:GetDescendants()) do
-         if v.Name == ("TouchInterest") and v.Parent then
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 0)
-				task.wait()
-				firetouchinterest(game.Players.LocalPlayer.Character.Head, v.Parent, 1)
-		end
- end
-end)
 end
 	end    
 })
@@ -1043,8 +1018,6 @@ task.wait()
 end
 elseif Value == true then
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Reverse equipped"})
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "And Other Spawn Bubble"})
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You can bagde, Not Toggle Get Potato"})
 end
 	end    
 })
@@ -1127,7 +1100,7 @@ Tab2:AddToggle({
 	Callback = function(Value)
         if Value == true then
 for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+if v.Name == "dedBarrier" or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
 if v.CanCollide == false then
 v.CanCollide = true
 v.Material = "ForceField"
@@ -1138,7 +1111,7 @@ end
 end
 else
 for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+if v.Name == "dedBarrier" or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
 if v.CanCollide == true then
 v.CanCollide = false
 v.Transparency = 1
@@ -1665,20 +1638,16 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiAdmin",
 	Callback = function(Value)
-		
-    antiAdmins = Value
-    
-    if Value == true then
-           
-        game.Players.PlayerAdded:Connect(function(Plr)
-            
-            if Plr:GetRankInGroup(9950771) and 2 <= Plr:GetRankInGroup(9950771) and antiAdmins then
-                game.Players.LocalPlayer:Kick("Admin/High Rank Player Detected")
-            end
-            
-        end)
-        
-    end
+AntiAdmins = Value
+while AntiAdmins do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v:GetRankInGroup(9950771) >= 2 then
+                        game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
+                        break
+                    end
+                end
+task.wait()
+end
 	end    
 })
 
