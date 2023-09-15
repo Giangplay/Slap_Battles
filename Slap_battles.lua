@@ -990,12 +990,11 @@ Tab4:AddToggle({
 	Callback = function(Value)
 Giftfarm = Value
 while Giftfarm do
-for i,v in pairs(game.Workspacey:GetChildren()) do
-                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
-                    end
-                end
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "Gift" then
+v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end
 task.wait()
 end
 	end    
