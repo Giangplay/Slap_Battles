@@ -34,7 +34,15 @@ local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangpla
 local Player = game.Players.LocalPlayer.Character.Name
 
 shared.createBed()
-    
+
+---Transparency---
+
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.5 then
+v.BackgroundTransparency = 0.05
+end
+end
+
 ---SafeSpot---
 
 if workspace:FindFirstChild("Spot") == nil then
@@ -959,7 +967,7 @@ Tab4:AddToggle({
 	Callback = function(Value)
 Jetfarm = Value
 while Jetfarm do
-for i,v in pairs(game.Workspacey:GetChildren()) do
+for i,v in pairs(workspace:GetChildren()) do
                     if v.Name == "JetOrb" and v:FindFirstChild("TouchInterest") then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
@@ -976,7 +984,7 @@ Tab4:AddToggle({
 	Callback = function(Value)
 Phasefarm = Value
 while Phasefarm do
-for i,v in pairs(game.Workspacey:GetChildren()) do
+for i,v in pairs(workspace:GetChildren()) do
                     if v.Name == "PhaseOrb" and v:FindFirstChild("TouchInterest") then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
@@ -1514,6 +1522,12 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+game.Players.LocalPlayer.Character.Head.Transparency = 0.5
+game.Players.LocalPlayer.Character.Torso.Transparency = 0.5
+game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
+game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
+game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
+game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 else
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You need to be in lobby and have 666+ slaps"})
@@ -2151,7 +2165,7 @@ Tab11:AddToggle({
 	Callback = function(Value)
 		AntiStun = Value
 while AntiStun do
-if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace:FindFirstChild("Shockwave") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace:FindFirstChild("Shockwave") and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
@@ -2827,13 +2841,18 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 for i = 1,100 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.05)
 end
 wait(1.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Kinetic") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Kinetic)
+end
 game:GetService("ReplicatedStorage").KineticExpl:FireServer(game.Players.LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 wait(2.7)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Dominance" do
@@ -3917,4 +3936,6 @@ Tab:AddButton({
 })
 
 OrionLib:Init()
+elseif game.PlaceId == 9431156611 then
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles")))()
 end
