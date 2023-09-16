@@ -341,7 +341,6 @@ Tab4:AddButton({
 	Name = "Get Glove Kinetic [ ~10 Mins ]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" then
-local StunCounter = 0
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i = 1,150 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
@@ -796,13 +795,14 @@ Tab4:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	    getgenv().autobob = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while getgenv().autobob do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 task.wait(0.45)
 game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
 task.wait(0.1)
@@ -811,6 +811,9 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 end
 task.wait()
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped"})
 end
 	end    
 })
@@ -1580,12 +1583,16 @@ Tab11:AddToggle({
 	Name = "Rhythm Note Spam + Auto Press [ Equip Rhythm ]",
 	Default = false,
 	Callback = function(Value)
-		_G.RhythmNoteSpam = Value
-while _G.RhythmNoteSpam do
+		RhythmNoteSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" then
+while RhythmNoteSpam do
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
 game.Players.LocalPlayer.Character.Rhythm:Activate()
 task.wait()
+end
+elseif RhythmNoteSpam == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Rhythm equipped"})
 end
 	end    
 })
@@ -2314,6 +2321,7 @@ Tab11:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		PingPongOrbit = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
 Orbit = "0"
 PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
@@ -2341,6 +2349,9 @@ break
                 end
 end
 task.wait(0.01)
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Ping Pong equipped"})
 end
 	end    
 })
@@ -2902,6 +2913,10 @@ wait(7.3)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Thor" do
 game:GetService("ReplicatedStorage").ThorAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Meteor" do
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
 task.wait()
 end
 	end    
