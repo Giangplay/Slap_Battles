@@ -38,7 +38,7 @@ shared.createBed()
 ---Transparency---
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.5 then
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.05
 end
 end
@@ -662,9 +662,9 @@ Tab7:AddSlider({
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "WalkSpeed",
-	Callback = function(WS)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = WS
-        WS1 = WS
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+Walkspeed = Value
 	end    
 })
 
@@ -674,16 +674,13 @@ Tab7:AddToggle({
 	Save = true,
     Flag = "WalkSpeedSet",
 	Callback = function(Value)
-		autoSet1 = Value
-        if Value == true then
-            while autoSet1 do
-                task.wait()
-                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.WalkSpeed ~= WS1 then
-                    Character:FindFirstChild("Humanoid").WalkSpeed = WS1
+		KeepWalkspeed = Value
+            while KeepWalkspeed do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
                 end
+task.wait()
             end
-        end
 	end    
 })
 
@@ -695,9 +692,9 @@ Tab7:AddSlider({
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "JumpPower",
-	Callback = function(JP)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = JP
-        WS2 = JP
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+Jumppower = Value
 	end    
 })
 
@@ -707,16 +704,13 @@ Tab7:AddToggle({
 	Save = true,
     Flag = "JumppowerSet",
 	Callback = function(Value)
-		autoSet2 = Value
-        if Value == true then
-            while autoSet2 do
-                task.wait()
-                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.JumpPower ~= WS2 then
-                    Character:FindFirstChild("Humanoid").JumpPower = WS2
+		KeepJumppower = Value
+            while KeepJumppower do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Jumppower then
+                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
                 end
+task.wait()
             end
-        end
 	end    
 })
 
@@ -728,9 +722,9 @@ Tab7:AddSlider({
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Hip Height",
-	Callback = function(HT)
-		game.Players.LocalPlayer.Character.Humanoid.HipHeight = HT
-        WS3 = HT
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+        WS3 = Value
 	end    
 })
 
@@ -962,12 +956,12 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Get Bagde Jet Orb [ Jet Spawn 10% ]",
+	Name = "Jet Farm",
 	Default = false,
 	Callback = function(Value)
 Jetfarm = Value
 while Jetfarm do
-for i,v in pairs(workspace:GetChildren()) do
+for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "JetOrb" and v:FindFirstChild("TouchInterest") then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
@@ -979,12 +973,12 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Get Bagde Phase Orb [ Jet Spawn 5% ]",
+	Name = "Phase Farm",
 	Default = false,
 	Callback = function(Value)
 Phasefarm = Value
 while Phasefarm do
-for i,v in pairs(workspace:GetChildren()) do
+for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "PhaseOrb" and v:FindFirstChild("TouchInterest") then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
@@ -996,16 +990,17 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Get Bagde Mitten [ Other Spawn Gift 1/100 ]",
+	Name = "Auto Pick Up Mitten",
 	Default = false,
 	Callback = function(Value)
 Giftfarm = Value
 while Giftfarm do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "Gift" then
-v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-end
-end
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
+                    end
+                end
 task.wait()
 end
 	end    
@@ -1456,10 +1451,23 @@ end)
   	end    
 })
 
+Tab11:AddSlider({
+	Name = "Time Give Kill Reaper",
+	Min = 1,
+	Max = 20,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Kill Reaper",
+	Callback = function(Value)
+		_G.GiveKillReaper = Value
+	end    
+})
+
 Tab11:AddButton({
-	Name = "Give others 20 kill Reaper [ Player Slap You ]",
+	Name = "Give Player Kill Reaper",
 	Callback = function()
-for i = 1, 20 do
+for i = 1, _G.GiveKillReaper do
         game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
 end
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -1522,13 +1530,14 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+wait(1)
 game.Players.LocalPlayer.Character.Head.Transparency = 0.5
 game.Players.LocalPlayer.Character.Torso.Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 else
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You need to be in lobby and have 666+ slaps"})
 end
