@@ -42,6 +42,12 @@ if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.05
 end
 end
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
+v.BackgroundTransparency = 1
+end
+end
+gethui().Orion.Name = "OrionEdited"
 
 ---SafeSpot---
 
@@ -1006,27 +1012,6 @@ end
 	end    
 })
 
-Tab4:AddToggle({
-	Name = "Auto Get Glove Potato [ Other Spawn Bubble ]",
-	Default = false,
-	Callback = function(Value)
-AutoGetPotato = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and AutoGetPotato and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
-while AutoGetPotato do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "BubbleObject" then
-v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-end
-end
-task.wait()
-end
-elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Reverse equipped"})
-end
-	end    
-})
-
 Tab10:AddToggle({
 	Name = "Auto Enter Arena",
 	Default = false,
@@ -1416,25 +1401,25 @@ Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.Replicate
 Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
 Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
 Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-if string.lower(msg) == "/e Floss" or string.lower(msg) == "/e floss" then
+if string.lower(msg) == "/e floss" then
 Floss:Play()
-elseif string.lower(msg) == "/e Groove" or string.lower(msg) == "/e groove" then
+elseif string.lower(msg) == "/e groove" then
 Groove:Play()
-elseif string.lower(msg) == "/e Headless" or string.lower(msg) == "/e headless" then
+elseif string.lower(msg) == "/e headless" then
 Headless:Play()
-elseif string.lower(msg) == "/e Helicopter" or string.lower(msg) == "/e helicopter" then
+elseif string.lower(msg) == "/e helicopter" then
 Helicopter:Play()
-elseif string.lower(msg) == "/e Kick" or string.lower(msg) == "/e kick" then
+elseif string.lower(msg) == "/e kick" then
 Kick:Play()
-elseif string.lower(msg) == "/e L" or string.lower(msg) == "/e l" then
+elseif string.lower(msg) == "/e l" then
 L:Play()
-elseif string.lower(msg) == "/e Laugh" or string.lower(msg) == "/e laugh" then
+elseif string.lower(msg) == "/e laugh" then
 Laugh:Play()
-elseif string.lower(msg) == "/e Parker" or string.lower(msg) == "/e parker" then
+elseif string.lower(msg) == "/e parker" then
 Parker:Play()
-elseif string.lower(msg) == "/e Spasm" or string.lower(msg) == "/e spasm" then
+elseif string.lower(msg) == "/e spasm" then
 Spasm:Play()
-elseif string.lower(msg) == "/e Thriller" or string.lower(msg) == "/e thriller" then
+elseif string.lower(msg) == "/e thriller" then
 Thriller:Play()
 end
 EP = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
@@ -1542,6 +1527,43 @@ else
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You need to be in lobby and have 666+ slaps"})
 end
   	end    
+})
+
+Tab11:AddToggle({
+	Name = "Glove ESP",
+	Default = false,
+	Callback = function(Value)
+GloveESP = Value
+if GloveESP == false then
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") then
+ v.Character.Head.GloveEsp:Destroy()
+                end
+            end
+end
+while GloveESP do
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("GloveEsp") == nil then
+GloveEsp = Instance.new("BillboardGui", v.Character.Head)
+GloveEsp.Adornee = v.Character.Head
+GloveEsp.Name = "GloveEsp"
+GloveEsp.Size = UDim2.new(0, 100, 0, 150)
+GloveEsp.StudsOffset = Vector3.new(0, 1, 0)
+GloveEsp.AlwaysOnTop = true
+GloveEsp.StudsOffset = Vector3.new(0, 3, 0)
+GloveEspText = Instance.new("TextLabel", GloveEsp)
+GloveEspText.BackgroundTransparency = 1
+GloveEspText.Size = UDim2.new(0, 100, 0, 100)
+GloveEspText.TextSize = 25
+GloveEspText.Font = Enum.Font.SourceSansSemibold
+GloveEspText.TextColor3 = Color3.new(255, 255, 255)
+GloveEspText.TextStrokeTransparency = 0
+GloveEspText.Text = v.leaderstats.Glove.Value
+                end
+            end
+task.wait()
+end
+	end    
 })
 
 Tab11:AddToggle({
@@ -3858,28 +3880,6 @@ _G.Dame = Value
 while _G.Dame do
 game.workspace.bobBoss.DamageEvent:FireServer()
 task.wait(0.1)
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Anti Ragdoll",
-	Default = false,
-	Save = true,
-	Flag = "AntiRagdoll",
-	Callback = function(Value)
-antiRagdoll = Value
-while antiRagdoll do
-local Character = game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
-Character:WaitForChild("Ragdollballsocket").Changed:Connect(function()
-if antiRagdoll == true and Character:WaitForChild("Ragdollballsocket").Value == true then
-repeat task.wait()
-Character:FindFirstChild("Torso").Anchored = true
-until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdollballsocket").Value == false
-Character:FindFirstChild("Torso").Anchored = false
-end
-end)
-task.wait()
 end
 	end    
 })
