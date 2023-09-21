@@ -11,17 +11,17 @@ local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()
 
 ---anti cheat bypass---
 
-local Namecall
-Namecall = hookmetamethod(game, '__namecall', function(self, ...)
-   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
-       return
-   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
-       return
-   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
-       return
-   end
-   return Namecall(self, ...)
-end)
+local bypass;
+    bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+        if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
+            return
+        end
+        return bypass(method, ...)
+    end)
 
 ---setfpscap---
 
@@ -68,7 +68,7 @@ local Farm = Instance.new("Part")
 Farm.Transparency = 0.5
 Farm.Anchored = true
 Farm.Name = "default"
-Farm.Size = Vector3.new(9,3,9)
+Farm.Size = Vector3.new(90,3,90)
 Farm.Parent = game.Workspace
 Farm.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
 Farm.Rotation = Vector3.new(0,0,0)
@@ -813,7 +813,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 task.wait(0.45)
 game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
-task.wait(0.1)
+task.wait(1)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -1163,7 +1163,7 @@ end
 
 Tab11:AddDropdown({
 	Name = "Godmode",
-	Default = "1",
+	Default = "",
 	Options = {"Godmode", "Godmode + Invisibility"},
 	Callback = function(Value)
 if Value == "Godmode" then
@@ -1638,6 +1638,26 @@ task.wait()
 end
 elseif RhythmNoteSpam == true then
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Rhythm equipped"})
+end
+	end    
+})
+
+Tab11:AddColorpicker({
+	Name = "Set Color Skin",
+	Default = Color3.fromRGB(255, 0, 0),
+	Callback = function(Value)
+		_G.skinColor = Value
+	end	  
+})
+
+Tab11:AddToggle({
+	Name = "Auto Color Skin [ Glove gold ]",
+	Default = false,
+	Callback = function(Value)
+		_G.GoldColor = Value
+while _G.GoldColor do
+game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, BrickColor.new(_G.skinColor))
+task.wait()
 end
 	end    
 })
@@ -2804,7 +2824,8 @@ game:GetService("ReplicatedStorage").STOP:FireServer(true)
 wait(4.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" do
-game:GetService("ReplicatedStorage").QuakeQuake:FireServer({["start"] = true})
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Track" do
@@ -2937,7 +2958,7 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Phase" do
 game:GetService("ReplicatedStorage").PhaseA:FireServer()
-task.wait(8.2)
+wait(5.475)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sparky" do
 game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
