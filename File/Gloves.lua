@@ -77,7 +77,7 @@
     ["Reverse"] = game.ReplicatedStorage.ReverseHit,
     ["Shukuchi"] = game.ReplicatedStorage.ShukuchiHit,
     ["Duelist"] = game.ReplicatedStorage.DuelistHit,
-    ["Woah"] = game.ReplicatedStorage.woahHit,
+    ["woah"] = game.ReplicatedStorage.woahHit,
     ["Ice"] = game.ReplicatedStorage.IceHit,
     ["Adios"] = game.ReplicatedStorage.hitAdios,
     ["Blocked"] = game.ReplicatedStorage.BlockedHit,
