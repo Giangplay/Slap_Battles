@@ -44,6 +44,7 @@
     ["Lure"] = game.ReplicatedStorage.GeneralHit,
     ["Jebaited"] = game.ReplicatedStorage.GeneralHit,
     ["Meteor"] = game.ReplicatedStorage.GeneralHit,
+    ["Tinkerer"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
