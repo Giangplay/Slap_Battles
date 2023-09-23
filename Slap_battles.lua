@@ -11,17 +11,22 @@ local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()
 
 ---anti cheat bypass---
 
-local bypass;
-    bypass = hookmetamethod(game, "__namecall", function(method, ...) 
-        if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
-            return
-        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
-            return
-        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
-            return
-        end
-        return bypass(method, ...)
-    end)
+local Namecall
+Namecall = hookmetamethod(game, '__namecall', function(self, ...)
+   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+       return
+   end
+   return Namecall(self, ...)
+end)
+
+---GetTime---
+
+TimeGhost = 0
+TimeMegarock = 0
 
 ---setfpscap---
 
@@ -68,6 +73,7 @@ local Farm = Instance.new("Part")
 Farm.Transparency = 0.5
 Farm.Anchored = true
 Farm.Name = "default"
+Farm.Material = "ForceField"
 Farm.Size = Vector3.new(90,3,90)
 Farm.Parent = game.Workspace
 Farm.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
@@ -356,7 +362,7 @@ Tab4:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i = 1,150 do
+for i = 1,100 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.05)
 end
@@ -754,20 +760,19 @@ Tab7:AddToggle({
 })
 
 Tab19:AddToggle({
-	Name = "Time Diamond [ Get Megarock ]",
+	Name = "Get Megarock",
 	Default = false,
 	Callback = function(Value)
-	Time = 0
 	_G.AutoTime = Value
 while _G.AutoTime do
-task.wait(3600)
+task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-Time = Time + 1
+TimeMegarock = TimeMegarock + 1
 OrionLib:MakeNotification({
-	Name = "Time Diamond : "..Time.." / 10H",
-	Content = "Until Get Megarock",
+	Name = "Time Diamond : "..TimeMegarock,
+	Content = "Error",
 	Image = "rbxassetid://7743873443",
-	Time = 1
+	Time = 0.9
 })
 else
 Time = 0
@@ -806,17 +811,13 @@ Tab4:AddToggle({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while getgenv().autobob do
 repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-task.wait(0.45)
 game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
-task.wait(1)
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-end
 end
 task.wait()
 end
@@ -827,84 +828,58 @@ end
 })
 
 Tab19:AddToggle({
-	Name = "Time ZZZZZZZ [ Get Fish ]",
+	Name = "Get Fish",
 	Default = false,
 	Callback = function(Value)
-	
-        fishFarm = Value
-    
-        if Value == true then
-            
-        if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-            
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
-            
-            task.wait(.5)
-            
-            game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-            
-        else
-            
-        OrionLib:MakeNotification({
-	        Name = "FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY",
-	        Content = "You Tp bed",
-	        Time = 5
-	    })
-        
-        end
-        
-        task.wait()
-        
-            while fishFarm and task.wait() do
-        
-                if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") then
-                
-                    if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("Ragdolled").Value then
-                    
-                        task.wait(1)
-                    
-                        Time += 1
-                        
-                            OrionLib:MakeNotification({
-	                            Name = "[ ZZZZZZZ ] : "..Time.." / Afk then Kick you",
-	                            Image = "rbxassetid://7743873443",
-	                            Content = "Until Bagde Fish",
-	                            Time = 1
-	                         })
-                    
-                    else
-                    
-                    Time = 0
-                    
-                    end
-                
-                end
-
-            end
-    
-        else
-        
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-        
-        end
+fishFarm = Value
+if Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
+game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+else
+OrionLib:MakeNotification({
+Name = "FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY",
+Content = "You Tp bed",
+Time = 5
+})
+end
+task.wait()
+while fishFarm and task.wait() do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") then
+if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("Ragdolled").Value then
+task.wait(1)
+Time += 1
+OrionLib:MakeNotification({
+Name = "Time ZZZZZZZ : "..Time,
+Image = "rbxassetid://7743873443",
+Content = "Error",
+Time = 0.9
+})
+else
+Time = 0
+end
+end
+end
+else
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end
 	end    
 })
 
 Tab19:AddToggle({
-	Name = "Time Ghost [ Get Voodoo ]",
+	Name = "Get Voodoo",
 	Default = false,
 	Callback = function(Value)
-	Time = 0
 	_G.AutoTimeGhost = Value
 while _G.AutoTimeGhost do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-Time = Time + 1
+TimeGhost = TimeGhost + 1
 OrionLib:MakeNotification({
-	Name = "Time Ghost : "..Time.." / Until Get Voodoo",
-	Content = "You TP SafeSpot the Farm",
+	Name = "Time Ghost : "..TimeGhost,
+	Content = "Error",
 	Image = "rbxassetid://7743873443",
-	Time = 1
+	Time = 0.9
 })
 else
 Time = 0
@@ -919,12 +894,12 @@ Tab4:AddToggle({
 	Callback = function(Value)
 		_G.SlapBaller = Value
 while _G.SlapBaller do
-task.wait()
 for _, v in ipairs(workspace:GetChildren()) do
 if string.sub(v.Name, 3, 8) == "Baller" then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"))
 end
 end
+task.wait()
 end
 	end    
 })
@@ -935,12 +910,12 @@ Tab4:AddToggle({
 	Callback = function(Value)
 _G.SlapReplica = Value
 while _G.SlapReplica do
-task.wait()
 for _, replica in pairs(workspace:GetChildren()) do
 if string.find(replica.Name, "Å") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(replica:WaitForChild("HumanoidRootPart"))
 end
 end
+task.wait()
 end
 	end    
 })
@@ -951,12 +926,12 @@ Tab4:AddToggle({
 	Callback = function(Value)
 _G.SlapDefaultReplica = Value
 while _G.SlapDefaultReplica do
-task.wait()
 for _, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") then
 game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("HumanoidRootPart"))
 end
 end
+task.wait()
 end
 	end    
 })
@@ -1264,6 +1239,15 @@ end
 	end	  
 })
 
+Tab11:AddTextbox({
+	Name = "Make Player Teleport [ You Have Recall ]",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+TeleportPlayer = Value
+	end	  
+})
+
 Tab11:AddDropdown({
 	Name = "Retro Ability",
 	Default = "Rocket Launcher",
@@ -1301,7 +1285,20 @@ end
 })
 
 Tab11:AddButton({
-	Name = "Auto Keypad [ Auto Serverhop, Not Server Keypad ]",
+	Name = "Teleport Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].HumanoidRootPart.CFrame
+task.wait(1.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+  	end    
+})
+
+Tab11:AddButton({
+	Name = "Auto Keypad",
 	Callback = function()
 if not game:IsLoaded() then
 	game.Loaded:Wait()
@@ -1346,10 +1343,8 @@ end
   	end    
 })
 
-Tab11:AddBind({
-	Name = "Kick Player [ Glove Za Hanh ]",
-	Default = Enum.KeyCode.Z,
-	Hold = false,
+Tab11:AddButton({
+	Name = "Kick Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -1373,11 +1368,11 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 else
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Za Hando equipped"})
 end
-	end    
+  	end    
 })
 
 Tab11:AddButton({
-	Name = "Script All Animations [ You chat /e Name Animation]",
+	Name = "Free All Animations [ You chat /e Name Animation]",
 	Callback = function()
 Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
 Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
@@ -1468,13 +1463,13 @@ Tab11:AddButton({
 	Name = "Destroy All Tycoon [ others and You ]",
 	Callback = function()
 for _, tycoon in pairs(workspace:GetChildren()) do
-        if string.find(tycoon.Name, "ÅTycoon") then
-            for i = 0,100 do
-                fireclickdetector(tycoon.Destruct.ClickDetector, 0)
-                fireclickdetector(tycoon.Destruct.ClickDetector, 1)
-            end
-        end
-    end
+if string.find(tycoon.Name, "ÅTycoon") then
+for i = 0,100 do
+fireclickdetector(tycoon.Destruct.ClickDetector, 0)
+fireclickdetector(tycoon.Destruct.ClickDetector, 1)
+end
+end
+end
   	end    
 })
 
@@ -1571,8 +1566,8 @@ Tab11:AddToggle({
 	Default = false,
 	Callback = function(Value)
 FullKineticSpam = Value
-while FullKineticSpam do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while FullKineticSpam do
 local args = {
     [1] = {
         ["Force"] = 0,
@@ -1583,6 +1578,8 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(unpack(args))
 task.wait()
 end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You Have Glove Kinetic"})
 end
 	end    
 })
@@ -1643,7 +1640,7 @@ end
 })
 
 Tab11:AddColorpicker({
-	Name = "Set Color Skin",
+	Name = "Set Color Skin [ You Have Glove Gold ]",
 	Default = Color3.fromRGB(255, 0, 0),
 	Callback = function(Value)
 		_G.skinColor = Value
@@ -1835,82 +1832,49 @@ end
 })
 
 Tab13:AddToggle({
-	Name = "All Glove AutoFarm Slap [ You make banned ]",
+	Name = "All Glove AutoFarm Slap",
 	Default = false,
 	Callback = function(Value)
-		
-            allFarming = Value
-
-                if Value == true then
-                    
-                    if setfpscap then
-                        
-                        setfpscap(50)
-                    
-                    end
-                    
-                    workspace.DEATHBARRIER.CanTouch = false
-                    workspace.DEATHBARRIER2.CanTouch = false
-                    workspace.dedBarrier.CanTouch = false
-            
-                    task.wait()
-
-                    while allFarming do
-
-                        task.wait()
-                        
-                        pcall(function()
-                        
-                        for Index, Human in next, game.Players:GetPlayers() do
-                            
-                            if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-                                
-                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                
-                                task.wait(.1)
-                                
-                                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-2,6)
-                                        
-                                        task.wait()
-                                        
-                                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-                                    
-                                        wait(.25)
-                                        
-                                    shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("Torso"))
-                                        
-                                        wait(.25)
-                                    
-                                    end
-                                end
-                        end
-                        
-                        end)
-                        
-                        end
-                    
-                    
-                    else
-                    
-                    if setfpscap then
-                    
-                    setfpscap(1269)
-                    
-                    end
-                    
-                    workspace.DEATHBARRIER.CanTouch = true
-                    workspace.DEATHBARRIER2.CanTouch = true
-                    workspace.dedBarrier.CanTouch = true
-                    
-                    if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-                        
-                        task.wait(3)
-                        
-                        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-                        
-                    end
-                    
-                end
+allFarming = Value
+if Value == true then
+if setfpscap then
+setfpscap(50)
+end
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+if v.ClassName == "Part" and v.Name == "BLOCK" then
+v.CanTouch = false
+end
+end
+task.wait()
+while allFarming do
+task.wait()
+pcall(function()
+for _, Human in pairs(game.Players:GetPlayers()) do
+if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+task.wait(.1)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(0,-20,0)
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("Torso"))
+wait(.25)
+end
+end
+end
+end)
+end
+else
+if setfpscap then
+setfpscap(1269)
+end
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+if v.ClassName == "Part" and v.Name == "BLOCK" then
+v.CanTouch = true
+end
+end
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
 	end    
 })
 
@@ -2036,75 +2000,42 @@ end
 })
 
 Tab13:AddToggle({
-	Name = "Ghost Autofarm Slap [ You make banned ]",
+	Name = "Ghost AutoFarm Slap",
 	Default = false,
 	Callback = function(Value)
 		Farming = Value
-
-                if Value == true then
-                    
-                    game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-                    
-                    if setfpscap then
-                        
-                        setfpscap(50)
-                        
-                    end
-                    
-                    while Farming do
-
-                        wait()
-                        
-                        pcall(function()
-                            
-                        for Index, Human in next, game.Players:GetPlayers() do
-                                
-                            if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-                                
-                                if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                                
-                                task.wait(.1)
-                                
-                                if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-
-                                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame * CFrame.new(6,-2,6)
-                                        
-                                        task.wait()
-                                        
-                                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-                                    
-                                        wait(.25)
-                                        
-                                    game.ReplicatedStorage.GhostHit:FireServer(Human.Character:WaitForChild(toHit))
-                                    
-                                        wait(.25)
-                                    
-                                    end
-                                end
-                            end
-                        end
-                        end)
-                    end
-                    
-                else
-                    
-                game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-                
-                    if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-                        
-                        task.wait(3)
-                        
-                        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-                        
-                    end
-
-                if setfpscap then
-                    
-                    setfpscap(1269)
-                    
-                end
-                
-                end
+if Value == true then
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+if setfpscap then
+setfpscap(50)
+end
+while Farming do
+task.wait()
+pcall(function()
+for _, Human in pairs(game.Players:GetPlayers()) do
+if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+task.wait(.1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame * CFrame.new(0,-20,0)
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
+wait(.25)
+end
+end
+end
+end
+end)
+end
+else
+game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+if setfpscap then
+setfpscap(1269)
+end
+end
 	end    
 })
 
@@ -2552,7 +2483,7 @@ end
 })
 
 Tab12:AddButton({
-	Name = "View Testing Server [ Good for glove leaking ]",
+	Name = "View Testing Server [ Good for glove leaking ] [ You Have Banned ]",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
