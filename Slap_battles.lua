@@ -58,26 +58,25 @@ gethui().Orion.Name = "OrionEdited"
 
 if workspace:FindFirstChild("Spot") == nil then
 local SafeSpot = Instance.new("Part", workspace)
-SafeSpot.Position = Vector3.new(-1500,100,-1500)
+SafeSpot.Position = Vector3.new(math.random(-25000,-2500),100,math.random(-25000,-2500))
 SafeSpot.Name = "Spot"
 SafeSpot.Parent = game.Workspace
 SafeSpot.Size = Vector3.new(500,1,500)
 SafeSpot.Anchored = true
-SafeSpot.Transparency = .7
+SafeSpot.Transparency = .5
 end
 
 ---Part Go Deep Into The Ground---
 
 if workspace:FindFirstChild("default") == nil then
-local Farm = Instance.new("Part")
-Farm.Transparency = 0.5
-Farm.Anchored = true
-Farm.Name = "default"
-Farm.Material = "ForceField"
-Farm.Size = Vector3.new(90,3,90)
-Farm.Parent = game.Workspace
-Farm.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
-Farm.Rotation = Vector3.new(0,0,0)
+local myPart = Instance.new("Part")
+myPart.Transparency = 0.5
+myPart.Anchored = true
+myPart.Name = "default"
+myPart.Material = "ForceField"
+myPart.Size = Vector3.new(90,3,90)
+myPart.Parent = game.Workspace
+myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
 end
 
 ---anti void---
@@ -91,14 +90,14 @@ AntiVoid.Anchored = true
 AntiVoid.Material = "ForceField"
 AntiVoid.Transparency = 1
 
-local arenaVoid = Instance.new("Part", workspace)
-arenaVoid.Name = "100Void"
-arenaVoid.Size = Vector3.new(798, 1, 1290)
-arenaVoid.Position = Vector3.new(3450, 59.009, 68)
-arenaVoid.CanCollide = false
-arenaVoid.Anchored = true
-arenaVoid.Material = "ForceField"
-arenaVoid.Transparency = 1
+local TournamentAntiVoid = Instance.new("Part", workspace)
+TournamentAntiVoid.Name = "TAntiVoid"
+TournamentAntiVoid.Size = Vector3.new(798, 1, 1290)
+TournamentAntiVoid.Position = Vector3.new(3450, 59.009, 68)
+TournamentAntiVoid.CanCollide = false
+TournamentAntiVoid.Anchored = true
+TournamentAntiVoid.Material = "ForceField"
+TournamentAntiVoid.Transparency = 1
 
 ---Anti Obby---
 
@@ -216,14 +215,14 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "Your name is "..Player,
-	Content = "Name is "..Player,
+	Name = "Hello "..Player,
+	Content = "ERROR",
 	Time = 17
 })
 
 OrionLib:MakeNotification({
 	Name = "Loading...",
-	Content = "loading game...",
+	Content = "ERROR",
 	Time = 5
 })
 
@@ -329,7 +328,7 @@ end
 
 Tab4:AddDropdown({
 	Name = "Teleport",
-	Default = "1",
+	Default = "",
 	Options = {"SafeSpot", "Bed", "Go Deep Into The Ground"},
 	Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
@@ -644,24 +643,18 @@ end
   	end 
 })
 
-Tab4:AddBind({
-	Name = "Get Toolbox [ You On Keyboard ]",
-	Default = Enum.KeyCode.H,
-	Hold = false,
-	Callback = function()
-if not workspace:FindFirstChild("Toolbox") then
-OrionLib:MakeNotification({
-	Name = "People not Spam Toolbox",
-	Content = "Don't You Spam Toolbox 😃",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
+Tab4:AddToggle({
+	Name = "Auto Get Hammer",
+	Default = false,
+	Callback = function(Value)
+_G.AutoToolBox = Value
+while _G.AutoToolBox do
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector)
+end
 end
 task.wait()
-for i,v in pairs(workspace.Toolbox:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
-end
 end
 	end    
 })
@@ -730,13 +723,13 @@ Tab7:AddSlider({
 	Name = "Hip Height",
 	Min = 0,
 	Max = 100,
-	Default = 1,
+	Default = 0,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Hip Height",
 	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
-        WS3 = Value
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+WS3 = Value
 	end    
 })
 
@@ -772,7 +765,7 @@ OrionLib:MakeNotification({
 	Name = "Time Diamond : "..TimeMegarock,
 	Content = "Error",
 	Image = "rbxassetid://7743873443",
-	Time = 0.9
+	Time = 0.5
 })
 else
 Time = 0
@@ -853,7 +846,7 @@ OrionLib:MakeNotification({
 Name = "Time ZZZZZZZ : "..Time,
 Image = "rbxassetid://7743873443",
 Content = "Error",
-Time = 0.9
+Time = 0.5
 })
 else
 Time = 0
@@ -879,7 +872,7 @@ OrionLib:MakeNotification({
 	Name = "Time Ghost : "..TimeGhost,
 	Content = "Error",
 	Image = "rbxassetid://7743873443",
-	Time = 0.9
+	Time = 0.5
 })
 else
 Time = 0
@@ -896,7 +889,7 @@ Tab4:AddToggle({
 while _G.SlapBaller do
 for _, v in ipairs(workspace:GetChildren()) do
 if string.sub(v.Name, 3, 8) == "Baller" then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"))
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"),true)
 end
 end
 task.wait()
@@ -912,7 +905,7 @@ _G.SlapReplica = Value
 while _G.SlapReplica do
 for _, replica in pairs(workspace:GetChildren()) do
 if string.find(replica.Name, "Å") then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(replica:WaitForChild("HumanoidRootPart"))
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(replica:WaitForChild("HumanoidRootPart"),true)
 end
 end
 task.wait()
@@ -928,7 +921,7 @@ _G.SlapDefaultReplica = Value
 while _G.SlapDefaultReplica do
 for _, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") then
-game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("HumanoidRootPart"))
+game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("HumanoidRootPart"),true)
 end
 end
 task.wait()
@@ -1028,22 +1021,22 @@ Tab10:AddToggle({
 })
 
 Tab2:AddToggle({
-	Name = "100 Slaps Fight Arena [ Can't Lose ]",
+	Name = "Tournament Anti Void",
 	Default = false,
 	Save = true,
-    Flag = "AntiVoid100Slap",
+    Flag = "TournamentAntiVoid",
 	Callback = function(bool)
-arenaVoid.CanCollide = bool
+TournamentAntiVoid.CanCollide = bool
 if bool then
-arenaVoid.Transparency = 0.5
+TournamentAntiVoid.Transparency = 0.5
 else
-arenaVoid.Transparency = 1
+TournamentAntiVoid.Transparency = 1
 end
 	end    
 })
 
 Tab2:AddToggle({
-	Name = "Normal Arena Anti-Void",
+	Name = "Anti Void",
 	Default = false,
 	Save = true,
     Flag = "AntiVoid",
@@ -1201,7 +1194,7 @@ end
 
 Tab11:AddDropdown({
 	Name = "Teleport",
-	Default = "1",
+	Default = "",
 	Options = {"Arena", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
@@ -1222,6 +1215,37 @@ elseif Value == "Island 2" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8.17191315, -5.14452887, -205.249741, -0.98216176, -3.48867246e-09, -0.188037917, -4.19987778e-09, 1, 3.38382322e-09, 0.188037917, 4.11319823e-09, -0.98216176)
 elseif Value == "Island 3" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6.66747713, -5.06731462, 213.575378, 0.945777893, 2.52095178e-10, 0.324814111, -3.7823856e-08, 1, 1.09357536e-07, -0.324814111, -1.15713661e-07, 0.945777893)
+end
+	end    
+})
+
+Tab11:AddDropdown({
+	Name = "Animation Combat",
+	Default = "",
+	Options = {"Skukuchi Attacker", "Skukuchi Target", "Bomb Throw", "Bubble Shoot", "Revolver", "Ban Hammer", "Bomb", "Rocket Launcher", "Rojo", "Rojo Recoil", "Thor"},
+	Callback = function(Value)
+if Value == "Skukuchi Attacker" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.CutsceneAttacker, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Skukuchi Target" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.CutsceneTarget, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Bomb Throw" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.bombthrow, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Bubble Shoot" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.bubbleshoot, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Revolver" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Hitman.RevolverAnim, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Ban Hammer" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations["Ban Hammer"], game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Bomb" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations.Bomb, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Rocket Launcher" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations["Rocket Launcher"], game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Rojo" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Rojo Recoil" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.AnimationRecoil, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Thor" then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Thor.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
 end
 	end    
 })
@@ -1291,7 +1315,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].HumanoidRootPart.CFrame
-task.wait(1.1)
+task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
   	end    
@@ -1460,7 +1484,7 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 })
 
 Tab11:AddButton({
-	Name = "Destroy All Tycoon [ others and You ]",
+	Name = "Destroy All Tycoon",
 	Callback = function()
 for _, tycoon in pairs(workspace:GetChildren()) do
 if string.find(tycoon.Name, "ÅTycoon") then
@@ -1782,6 +1806,24 @@ end
 })
 
 Tab11:AddToggle({
+	Name = "Anti Bus",
+	Default = false,
+	Save = true,
+    Flag = "AntiBus",
+	Callback = function(Value)
+		AntiBus = Value
+while AntiBus do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "BusModel" then
+                        v.CanTouch = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
 	Save = true,
@@ -1904,9 +1946,23 @@ Tab11:AddToggle({
     Flag = "AntiConveyor",
 	Callback = function(Value)
 	if Value == true then
-          game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = true
+        game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = true
     else
-          game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Enabled = true
+        game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Enabled = true
+    end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Nightmare",
+	Default = false,
+	Save = true,
+    Flag = "AntiNightmare",
+	Callback = function(Value)
+	if Value == true then
+        game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Lighting
+    else
+        game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Players.LocalPlayer.PlayerScripts.VFXListener
     end
 	end    
 })
@@ -2254,30 +2310,17 @@ Tab11:AddToggle({
 	Name = "Invisible Reverse [ FE ]",
 	Default = false,
 	Callback = function(Value)
-		
-        Invis_Reverse = Value
-        
-        if Value == true then
-        
-        while Invis_Reverse do
-        
-            repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
-
-            game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
-
-            for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-    
-                if v.Name == "SelectionBox" then
-                
-                v:Destroy()
-        
-                end
-            
-            end
-        
-        end
-        
-        end
+		Invis_Reverse = Value
+while Invis_Reverse do
+repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
+game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v.Name == "SelectionBox" then
+v:Destroy()
+end
+end
+task.wait()
+end
 	end    
 })
 
@@ -2285,30 +2328,14 @@ Tab11:AddToggle({
 	Name = "Infinite Reverse",
 	Default = false,
 	Callback = function(Value)
-		
-	    autoReverse = Value
-	    
-	    if Value == true then
-		
-	    while autoReverse do
-	       
-	    task.wait()
-	    
-	    local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-	    
-	    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and Character:FindFirstChild("entered") then
-	        
-            task.wait(5.7)
-            
-            game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
-
-        
-	        
-	    end
-
-	    end
-	    
-        end
+	    InfReverse= Value
+while InfReverse do
+local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and Character:FindFirstChild("entered") then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+end
+task.wait(5.7)
+end
 	end    
 })
 
@@ -2441,44 +2468,9 @@ Tab12:AddButton({
       		local InfiniteJumpEnabled = true
 game:GetService("UserInputService").JumpRequest:connect(function()
 	if InfiniteJumpEnabled then
-		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
 	end
 end)
-  	end    
-})
-
-Tab12:AddButton({
-	Name = "Tool Click Tp",
-	Callback = function()
-local plr = game:GetService("Players").LocalPlayer
-local mouse = plr:GetMouse()
-
-local tool = Instance.new("Tool")
-tool.RequiresHandle = false
-tool.Name = "Click Teleport"
-
-tool.Activated:Connect(function()
-local root = plr.Character.HumanoidRootPart
-local pos = mouse.Hit.Position+Vector3.new(0,2.5,0)
-local offset = pos-root.Position
-root.CFrame = root.CFrame+offset
-end)
-
-tool.Parent = plr.Backpack
-  	end    
-})
-
-Tab12:AddButton({
-	Name = "Glove make block",
-	Callback = function()
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if v:IsA("Tool") then
-if v.Glove.Mesh or v.Glove.Cuff.Mesh then
-v.Glove.Mesh:Destroy()
-v.Glove.Cuff.Mesh:Destroy()
-end
-end
-end
   	end    
 })
 
