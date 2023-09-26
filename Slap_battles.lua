@@ -99,19 +99,7 @@ TournamentAntiVoid.Anchored = true
 TournamentAntiVoid.Material = "ForceField"
 TournamentAntiVoid.Transparency = 1
 
----Anti Obby---
-
-function disable(username, cantouch)
-    warn(username)
-    if workspace:FindFirstChild("ObbyItem"..username.."LavaBlock") then
-       warn("ObbyItem"..username.."LavaBlock")
-       workspace:FindFirstChild("ObbyItem"..username.."LavaBlock").CanTouch = cantouch
-    elseif workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner") then
-    warn("ObbyItem"..username.."LavaSpinner")
-    workspace:FindFirstChild("ObbyItem"..username.."LavaSpinner").CanTouch = cantouch
- end
-end
-
+--Tab
 local Tab = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://4483345998",
@@ -643,20 +631,19 @@ end
   	end 
 })
 
-Tab4:AddToggle({
-	Name = "Auto Get Hammer",
-	Default = false,
-	Callback = function(Value)
-_G.AutoToolBox = Value
-while _G.AutoToolBox do
-for i,v in pairs(game.Workspace:GetDescendants()) do
+Tab4:AddButton({
+	Name = "Get Hammer",
+	Callback = function()
+if not workspace:FindFirstChild("Toolbox") then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "Not have player spawn toolbox"})
+end
+task.wait()
+for i,v in pairs(game.Workspace.Toolbox:GetDescendants()) do
 if v:FindFirstChild("ClickDetector") then
 fireclickdetector(v.ClickDetector)
 end
 end
-task.wait()
-end
-	end    
+  	end 
 })
 
 Tab7:AddSlider({
@@ -800,9 +787,9 @@ Tab4:AddToggle({
 	Name = "Get bob 2.0 [ You Epin Replica ]",
 	Default = false,
 	Callback = function(Value)
-	    getgenv().autobob = Value
+	    AutoFarmbob = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-while getgenv().autobob do
+while AutoFarmbob do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -1767,18 +1754,18 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiObby",
 	Callback = function(Value)
-		getgenv().disable = Value
-if getgenv().disable == false then
-for i,v in pairs(game.Players:GetChildren()) do
-if v.leaderstats.Glove.Value == "Obby" then
-disable(v.Name, true)
+		AntiObby = Value
+if AntiObby == false then
+for _, v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+v.CanTouch = true
 end
 end
 end
-while getgenv().disable do
-for i,v in pairs(game.Players:GetChildren()) do
-if v.leaderstats.Glove.Value == "Obby" then
-disable(v.Name, false)
+while AntiObby do
+for _, v in pairs(game.Workspace:GetChildren()) do
+if string.find(Name, "LavaSpinner") or string.find(Name, "LavaBlock") then
+v.CanTouch = false
 end
 end
 task.wait()
@@ -2051,6 +2038,24 @@ else
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                 end
+end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Ice",
+	Default = false,
+	Save = true,
+    Flag = "AntiIce",
+	Callback = function(Value)
+    _G.AntiIce = Value
+while _G.AntiIce do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if Name == "Icecube" then
+v:Destroy()
+end
+end
+task.wait()
 end
 	end    
 })
