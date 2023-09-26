@@ -1536,6 +1536,42 @@ end
 })
 
 Tab11:AddToggle({
+	Name = "Slap Arua [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+		SlapAura = Value
+                while SlapAura do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachSlapArua >= Magnitude then
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+                    end
+end
+end
+end
+                end
+task.wait()
+end
+	end    
+})
+
+Tab11:AddSlider({
+	Name = "Reach Slap Arua",
+	Min = 10,
+	Max = 50,
+	Default = 25,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachSlapArua = Value
+	end    
+})
+
+Tab11:AddToggle({
 	Name = "Glove ESP",
 	Default = false,
 	Callback = function(Value)
@@ -1688,31 +1724,8 @@ end
 	end    
 })
 
-Tab13:AddToggle({
-	Name = "Slap Arua [ All Glove ] [ You kick and banned ]",
-	Default = false,
-	Callback = function(Value)
-		SlapAura = Value
-                while SlapAura do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        if 25 >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-                    end
-end
-end
-end
-                end
-task.wait()
-end
-	end    
-})
-
 Tab11:AddToggle({
-	Name = "Anti Admin [ Kick you the Admin / Mod Join ]",
+	Name = "Anti Admin",
 	Default = false,
 	Save = true,
     Flag = "AntiAdmin",
