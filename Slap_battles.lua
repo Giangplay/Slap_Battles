@@ -1777,7 +1777,7 @@ end
 end
 while AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(Name, "LavaSpinner") or string.find(Name, "LavaBlock") then
+if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
 v.CanTouch = false
 end
 end
@@ -2051,24 +2051,6 @@ else
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                 end
-end
-	end    
-})
-
-Tab11:AddToggle({
-	Name = "Anti Ice",
-	Default = false,
-	Save = true,
-    Flag = "AntiIce",
-	Callback = function(Value)
-    _G.AntiIce = Value
-while _G.AntiIce do
-for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-if Name == "Icecube" then
-v:Destroy()
-end
-end
-task.wait()
 end
 	end    
 })
