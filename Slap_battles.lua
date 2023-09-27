@@ -1725,7 +1725,7 @@ end
 })
 
 Tab11:AddToggle({
-	Name = "Anti Admin",
+	Name = "Anti Admin [ Kick you the Admin / Mod Join ]",
 	Default = false,
 	Save = true,
     Flag = "AntiAdmin",
@@ -1777,7 +1777,7 @@ end
 end
 while AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+if string.find(Name, "LavaSpinner") or string.find(Name, "LavaBlock") then
 v.CanTouch = false
 end
 end
@@ -2051,6 +2051,24 @@ else
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                 end
+end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Ice",
+	Default = false,
+	Save = true,
+    Flag = "AntiIce",
+	Callback = function(Value)
+    _G.AntiIce = Value
+while _G.AntiIce do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if Name == "Icecube" then
+v:Destroy()
+end
+end
+task.wait()
 end
 	end    
 })
@@ -3808,6 +3826,27 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Gia
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
+---Transparency---
+
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+v.BackgroundTransparency = 0.05
+end
+end
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
+v.BackgroundTransparency = 1
+end
+end
+gethui().Orion.Name = "OrionEdited"
+
+---GloveHitBobClone---
+
+shared.gloveHitBob = {
+	["Killstreak"] = game.ReplicatedStorage.KSHit,
+	["Reaper"] = game.ReplicatedStorage.ReaperHit,
+}
+
 local Tab = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://4483345998",
@@ -3829,10 +3868,24 @@ end
 })
 
 Tab:AddToggle({
+	Name = "Auto Slap BobClone",
+	Default = false,
+	Save = true,
+	Flag = "AutoSlapBobClone",
+	Callback = function(Value)
+_G.AutoSlapBobClone = Value
+while _G.AutoSlapBobClone do
+shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.Torso)
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
 	Save = true,
-	Flag = "Auto Tycoon",
+	Flag = "AutoTycoon",
 	Callback = function(Value)
 		_G.AutoTycoon = Value
     for i,v in pairs(workspace:GetDescendants()) do
@@ -3868,11 +3921,11 @@ Tab:AddButton({
 })
 
 Tab:AddToggle({
-	Name = "Auto spam Rob [ You Is Get Boss Phase 6 ]",
+	Name = "Auto Spawn Rob",
 	Default = false,
 	Callback = function(Value)
-		_G.RobSpam = Value
-while _G.RobSpam do
+		On = Value
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
