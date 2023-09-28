@@ -1044,6 +1044,7 @@ Tab2:AddToggle({
     Flag = "AntiVoid2.0",
 	Callback = function(Value)
         if Value == true then
+game.Workspace.dedBarrier.Position =  Vector3.new(15, -17, 41.5)
 for i,v in pairs(game.Workspace:GetDescendants()) do
 if v.Name == "dedBarrier" or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
 if v.CanCollide == false then
@@ -1182,7 +1183,7 @@ end
 Tab11:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"Arena", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Island 1", "Island 2", "Island 3"},
+	Options = {"Arena", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
@@ -1196,6 +1197,8 @@ elseif Value == "Tournament" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
 elseif Value == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(215, -15.5, 0.5)
+elseif Value == "Default Arena" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120,360,-3)
 elseif Value == "Island 1" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-211.210846, -5.27827597, 4.13719559, -0.0225322824, 1.83683113e-08, -0.999746144, -1.83560154e-08, 1, 1.87866842e-08, 0.999746144, 1.87746618e-08, -0.0225322824)
 elseif Value == "Island 2" then
@@ -1992,14 +1995,14 @@ Tab11:AddToggle({
     Flag = "SlapAntiNull",
 	Callback = function(Value)
 AntiNull = Value
-                while AntiNull do
+while AntiNull do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Imp" then
+if v.Name == "Imp" then
 if v:FindFirstChild("Body") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
 end
 end
-                end
+end
 task.wait()
 end
 	end    
@@ -2638,14 +2641,15 @@ game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(C
 wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
-local LocalPlayer = game.Players.LocalPlayer
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
-wait(0.01)
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Head:FindFirstChild("RedEye") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+end
+game:GetService("ReplicatedStorage").SM:FireServer(Target)
+wait(0.05)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
 game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
@@ -2707,13 +2711,11 @@ game:GetService("ReplicatedStorage").PusherWall:FireServer()
 wait(5.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jet" do
-local LocalPlayer = game.Players.LocalPlayer
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").AirStrike:FireServer(PersonToKill.Character)
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil
+Target = RandomPlayer
+game:GetService("ReplicatedStorage").AirStrike:FireServer(Target.Character)
 wait(5.1)
 end
 while game.Players.LocalPlayer.leaderstats.Glove.Value == "Tableflip" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Shield" and On do
