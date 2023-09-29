@@ -1476,11 +1476,10 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 Tab11:AddButton({
 	Name = "Destroy All Tycoon",
 	Callback = function()
-for _, tycoon in pairs(workspace:GetChildren()) do
-if string.find(tycoon.Name, "ÅTycoon") then
+for i,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
 for i = 0,100 do
-fireclickdetector(tycoon.Destruct.ClickDetector, 0)
-fireclickdetector(tycoon.Destruct.ClickDetector, 1)
+fireclickdetector(v.ClickDetector)
 end
 end
 end
@@ -1603,7 +1602,7 @@ GloveEspText.TextSize = 25
 GloveEspText.Font = Enum.Font.SourceSansSemibold
 GloveEspText.TextColor3 = Color3.new(255, 255, 255)
 GloveEspText.TextStrokeTransparency = 0
-GloveEspText.Text = v.leaderstats.Glove.Value
+GloveEspText.Text = "Glove: "..v.leaderstats.Glove.Value
                 end
             end
 task.wait()
@@ -2823,14 +2822,14 @@ for i = 1,100 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.05)
 end
-wait(1.5)
+wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Kinetic") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Kinetic)
 end
 game:GetService("ReplicatedStorage").KineticExpl:FireServer(game.Players.LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-wait(2.7)
+wait(2.2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Dominance" do
 game:GetService("ReplicatedStorage").DominanceAc:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
