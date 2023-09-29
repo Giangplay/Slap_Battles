@@ -1254,11 +1254,20 @@ end
 })
 
 Tab11:AddTextbox({
-	Name = "Make Player Teleport [ You Have Recall ]",
+	Name = "Make Player Teleport [ Glove Recall ]",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
 TeleportPlayer = Value
+	end	  
+})
+
+Tab11:AddTextbox({
+	Name = "Save The Player [ Glove Guardian Angel ]",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+SaveThePlayer = Value
 	end	  
 })
 
@@ -1268,6 +1277,22 @@ Tab11:AddDropdown({
 	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
 	Callback = function(Value)
 RetroAbility = Value
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Auto Spam Guardian Angel",
+	Default = false,
+	Callback = function(Value)
+GuardianAngelSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
+while GuardianAngelSpam do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[SaveThePlayer])
+task.wait()
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Guardian Angel equipped"})
+end
 	end    
 })
 
@@ -1899,6 +1924,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 task.wait(.1)
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+task.wait(.1)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("Torso"))
 wait(.25)
 end
@@ -2077,6 +2103,7 @@ task.wait(.1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+task.wait(.1)
 game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
 wait(.25)
 end
