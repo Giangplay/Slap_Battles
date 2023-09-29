@@ -890,9 +890,9 @@ Tab4:AddToggle({
 	Callback = function(Value)
 _G.SlapReplica = Value
 while _G.SlapReplica do
-for _, replica in pairs(workspace:GetChildren()) do
-if string.find(replica.Name, "Å") then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(replica:WaitForChild("HumanoidRootPart"),true)
+for _, d in pairs(workspace:GetChildren()) do
+if string.find(d.Name, "Å") then
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(d:WaitForChild("HumanoidRootPart"),true)
 end
 end
 task.wait()
@@ -1897,7 +1897,7 @@ for _, Human in pairs(game.Players:GetPlayers()) do
 if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 task.wait(.1)
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(0,-20,0)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("Torso"))
 wait(.25)
@@ -2075,7 +2075,7 @@ if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:Fin
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 task.wait(.1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame * CFrame.new(0,-20,0)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
 game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
 wait(.25)
