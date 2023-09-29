@@ -1,5 +1,5 @@
-    shared.gloveHits = {
-    
+shared.gloveHits = {
+
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
     
@@ -45,6 +45,8 @@
     ["Jebaited"] = game.ReplicatedStorage.GeneralHit,
     ["Meteor"] = game.ReplicatedStorage.GeneralHit,
     ["Tinkerer"] = game.ReplicatedStorage.GeneralHit,
+	["Guardian Angel"] = game.ReplicatedStorage.GeneralHit,
+    ["Sun"] = game.ReplicatedStorage.GeneralHit,
     
     ----------------------------------------
     
@@ -155,5 +157,4 @@
     ["The Flex"] = game.ReplicatedStorage.FlexHit,
     ["God's Hand"] = game.ReplicatedStorage.Godshand,
     ["Error"] = game.ReplicatedStorage.Errorhit
-    
 }
