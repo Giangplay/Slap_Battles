@@ -23,6 +23,37 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
    return Namecall(self, ...)
 end)
 
+---AntiRecord---
+
+for i,p in pairs(game.Players:GetChildren()) do
+if p ~= game.Players.LocalPlayer then
+p.Chatted:Connect(function(message)
+Words = message:split(" ")
+if AntiRecord == true then
+for i, v in pairs(Words) do
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
+_G.AntiKick = false
+game.Players.LocalPlayer:Kick("Player Recording Detected.".." ("..p.Name..")")
+end
+end
+end
+end)
+end
+end
+game.Players.PlayerAdded:Connect(function(Player)
+Player.Chatted:Connect(function(message)
+Words = message:split(" ")
+if AntiRecord == true then
+for i, p in pairs(Words) do
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
+_G.AntiKick = false
+game.Players.LocalPlayer:Kick("Player Recording Detected.".." ("..Player.Name..")")
+end
+end
+end
+end)
+end)
+
 ---GetTime---
 
 TimeGhost = 0
@@ -1761,6 +1792,7 @@ AntiAdmins = Value
 while AntiAdmins do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v:GetRankInGroup(9950771) >= 2 then
+_G.AntiKick = false
                         game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
                         break
                     end
@@ -2048,6 +2080,16 @@ for i,v in pairs(game.Workspace:GetChildren()) do
                 end
 task.wait()
 end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Record",
+	Default = false,
+	Save = true,
+    Flag = "AntiRecord",
+	Callback = function(Value)
+AntiRecord = Value
 	end    
 })
 
