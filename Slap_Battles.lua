@@ -1957,7 +1957,7 @@ task.wait(.1)
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
 task.wait(.1)
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("Torso"))
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
 wait(.25)
 end
 end
@@ -3899,8 +3899,27 @@ shared.gloveHitBob = {
 	["Reaper"] = game.ReplicatedStorage.ReaperHit,
 }
 
+---AntiVoid---
+
+if workspace:FindFirstChild("WalkVoid") == nil then
+local AntiVoid = Instance.new("Part", workspace)
+AntiVoid.Name = "WalkVoid"
+AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
+AntiVoid.CFrame = CFrame.new(-0.651832581, -3.5, -39.9848366, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+AntiVoid.CanCollide = false
+AntiVoid.Anchored = true
+AntiVoid.Material = "ForceField"
+AntiVoid.Transparency = 1
+end
+
 local Tab = Window:MakeTab({
-	Name = "Main",
+	Name = "Combat",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab1 = Window:MakeTab({
+	Name = "Anti Void",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -3911,10 +3930,10 @@ Tab:AddToggle({
 	Save = true,
 	Flag = "DameBoss",
 	Callback = function(Value)
-_G.Dame = Value
-while _G.Dame do
+_G.DameBossBob = Value
+while _G.DameBossBob do
 game.workspace.bobBoss.DamageEvent:FireServer()
-task.wait(0.1)
+task.wait()
 end
 	end    
 })
@@ -3940,20 +3959,73 @@ Tab:AddToggle({
 	Flag = "AutoTycoon",
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-    for i,v in pairs(workspace:GetDescendants()) do
-        if v.Name == "End" and v.ClassName == "Part" then
-            v.Size = Vector3.new(28, 0.3, 4)
-        end
-    end
 while _G.AutoTycoon do
-    for i,v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
-            fireclickdetector(v.ClickDetector)
-        end
-    end
-    wait()
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if string.find(v.Name, "ÅTycoon") then
+if v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
+end
+end
+end
+wait()
 end
 	end    
+})
+
+Tab:AddToggle({
+	Name = "Click Button Tycoon Big",
+	Default = false,
+	Callback = function(Value)
+if Value == true then
+for i,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Click" then
+v.Size = Vector3.new(80, 80, 80)
+end
+end
+else
+for i,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Click" then
+v.Size = Vector3.new(1, 1, 1)
+end
+end
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Spawn Rob",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoSpawnRob = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" then
+while _G.AutoSpawnRob do
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(15)
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You have Ethernal BOB boss fight phase 6"})
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Glove Not Cooldown Speed",
+	Callback = function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+
+while character.Humanoid.Health ~= 0 do
+local localscript = tool:FindFirstChildOfClass("LocalScript")
+local localscriptclone = localscript:Clone()
+localscriptclone = localscript:Clone()
+localscriptclone:Clone()
+localscript:Destroy()
+localscriptclone.Parent = tool
+wait(0.1)
+end
+  	end    
 })
 
 Tab:AddLabel("Script OP")
@@ -3972,25 +4044,17 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddToggle({
-	Name = "Auto Spawn Rob",
+Tab1:AddToggle({
+	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
-		On = Value
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" do
-game:GetService("ReplicatedStorage").rob:FireServer()
-wait(15)
+AntiVoid.CanCollide = Value
+if Value == true then
+AntiVoid.Transparency = 0.5
+else
+AntiVoid.Transparency = 1
 end
 	end    
-})
-
-Tab:AddLabel("Destroy Gui")
-
-Tab:AddButton({
-	Name = "Destroy GUI",
-	Callback = function()
-      		OrionLib:Destroy()
-  	end 
 })
 
 OrionLib:Init()
