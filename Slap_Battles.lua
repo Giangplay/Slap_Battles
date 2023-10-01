@@ -3078,6 +3078,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Meteor" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sun" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Cast")
+task.wait()
+end
 	end    
 })
 
