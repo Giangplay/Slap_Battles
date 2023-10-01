@@ -2359,7 +2359,7 @@ Tab11:AddToggle({
 	Callback = function(Value)
         antiRagdoll = Value
 if Value == true then
-game.Players.LocalPlayer.Character.Humanoid.Health = 0
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 task.wait()
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 local Character = game.Workspace[game.Players.LocalPlayer.Name]
@@ -2400,12 +2400,16 @@ Tab11:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	    InfReverse= Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 while InfReverse do
 local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and Character:FindFirstChild("entered") then
+if Character:FindFirstChild("entered") then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
 task.wait(5.7)
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Reverse equipped"})
 end
 	end    
 })
@@ -3902,14 +3906,14 @@ shared.gloveHitBob = {
 ---AntiVoid---
 
 if workspace:FindFirstChild("WalkVoid") == nil then
-local AntiVoid = Instance.new("Part", workspace)
-AntiVoid.Name = "WalkVoid"
-AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
-AntiVoid.CFrame = CFrame.new(-0.651832581, -3.5, -39.9848366, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-AntiVoid.CanCollide = false
-AntiVoid.Anchored = true
-AntiVoid.Material = "ForceField"
-AntiVoid.Transparency = 1
+local AntiVoidDame = Instance.new("Part", workspace)
+AntiVoidDame.Name = "WalkVoid"
+AntiVoidDame.Size = Vector3.new(2047, 0.009, 2019)
+AntiVoidDame.CFrame = CFrame.new(-0.651832581, -3.5, -39.9848366, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+AntiVoidDame.CanCollide = false
+AntiVoidDame.Anchored = true
+AntiVoidDame.Material = "ForceField"
+AntiVoidDame.Transparency = 1
 end
 
 local Tab = Window:MakeTab({
@@ -4048,11 +4052,11 @@ Tab1:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
-AntiVoid.CanCollide = Value
-if Value == true then
-AntiVoid.Transparency = 0.5
+AntiVoidDame.CanCollide = Value
+if Value then
+AntiVoidDame.Transparency = 0.5
 else
-AntiVoid.Transparency = 1
+AntiVoidDame.Transparency = 1
 end
 	end    
 })
