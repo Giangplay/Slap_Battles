@@ -31,7 +31,7 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") then
 _G.AntiKick = false
 game.Players.LocalPlayer:Kick("Player Recording Detected.".." ("..p.Name..")")
 end
@@ -2357,19 +2357,15 @@ Tab11:AddToggle({
 	Save = true,
     Flag = "AntiRagdoll",
 	Callback = function(Value)
-        antiRagdoll = Value
-if Value == true then
-game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-task.wait()
+        AntiRagdoll = Value
+if AntiRagdoll then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
-local Character = game.Workspace[game.Players.LocalPlayer.Name]
-task.wait()
-Character:WaitForChild("Ragdolled").Changed:Connect(function()
-if Character:WaitForChild("Ragdolled").Value == true and antiRagdoll == true then
-repeat task.wait()
-Character.Torso.Anchored = true
-until Character:FindFirstChild("Torso") == nil or Character:WaitForChild("Ragdolled").Value == false
-Character.Torso.Anchored = false
+game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and AntiRagdoll then
+repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
 end)
 end)
@@ -2399,7 +2395,7 @@ Tab11:AddToggle({
 	Name = "Infinite Reverse",
 	Default = false,
 	Callback = function(Value)
-	    InfReverse= Value
+	    InfReverse = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 while InfReverse do
 local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
