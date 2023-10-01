@@ -23,177 +23,6 @@ Namecall = hookmetamethod(game, '__namecall', function(self, ...)
    return Namecall(self, ...)
 end)
 
----AntiRecord---
-
-for i,p in pairs(game.Players:GetChildren()) do
-if p ~= game.Players.LocalPlayer then
-p.Chatted:Connect(function(message)
-Words = message:split(" ")
-if AntiRecord == true then
-for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") then
-AntiKick(false)
-game.Players.LocalPlayer:Kick("Player Recording Detected.".." ("..p.Name..")")
-end
-end
-end
-end)
-end
-end
-game.Players.PlayerAdded:Connect(function(Player)
-Player.Chatted:Connect(function(message)
-Words = message:split(" ")
-if AntiRecord == true then
-for i, p in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
-AntiKick:Set(false)
-game.Players.LocalPlayer:Kick("Player Recording Detected.".." ("..Player.Name..")")
-end
-end
-end
-end)
-end)
-
----GetAllToggle---
-
-if game.Workspace:FindFirstChild("Value") == nil then
-local NoChanged = Instance.new("BoolValue", workspace)
-end
-
-game.Workspace.Value.Changed:Connect(function()
-AntiAdmin:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.05)
-AntiKick:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.1)
-AntiObby:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.15)
-AntiRock:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.20)
-AntiBus:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.25)
-AntiMail:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.30)
-AntiHallow:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.35)
-AntiBooster:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.35)
-AntiSquid:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.40)
-AntiConveyor:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.45)
-AntiNightmare:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.50)
-AntiTimeStop:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.55)
-AntiNull:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.60)
-AntiBrick:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.65)
-AntiRecord:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.70)
-AntiREDACTED:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.75)
-AntiBrazil:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.80)
-AntiZaHando:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.85)
-AntiReaper:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.90)
-AntiPusher:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(.95)
-AntiBarrier:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1)
-AntiBubble:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1.05)
-AntiStun:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1.10)
-AntiCOD:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1.15)
-AntiDeath:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1.20)
-AutoRemoveName:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-wait(1.25)
-AntiRagdoll:Set(game.Workspace.Value.Value)
-end)
-
 ---GetTime---
 
 TimeGhost = 0
@@ -1922,6 +1751,9 @@ end
 	end    
 })
 
+if game.Workspace:FindFirstChild("Value") == nil then
+local NoChanged = Instance.new("BoolValue", workspace)
+end
 Tab11:AddToggle({
 	Name = "Toggle All Anti",
 	Default = false,
@@ -2211,6 +2043,34 @@ AntiRecord = Tab11:AddToggle({
 AntiRecord = Value
 	end    
 })
+for i,p in pairs(game.Players:GetChildren()) do
+if p ~= game.Players.LocalPlayer then
+p.Chatted:Connect(function(message)
+Words = message:split(" ")
+if AntiRecord == true then
+for i, v in pairs(Words) do
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") then
+AntiKick:Set(false)
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
+end
+end
+end
+end)
+end
+end
+game.Players.PlayerAdded:Connect(function(Player)
+Player.Chatted:Connect(function(message)
+Words = message:split(" ")
+if AntiRecord == true then
+for i, v in pairs(Words) do
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
+AntiKick:Set(false)
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
+end
+end
+end
+end)
+end)
 
 AntiREDACTED = Tab11:AddToggle({
 	Name = "Anti [REDACTED]",
@@ -3920,6 +3780,140 @@ Tab17:AddButton({
 })
 
 OrionLib:Init()
+
+game.Workspace.Value.Changed:Connect(function()
+AntiAdmin:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.05)
+AntiKick:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.1)
+AntiObby:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.15)
+AntiRock:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.20)
+AntiBus:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.25)
+AntiMail:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.30)
+AntiHallow:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.35)
+AntiBooster:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.35)
+AntiSquid:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.40)
+AntiConveyor:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.45)
+AntiNightmare:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.50)
+AntiTimeStop:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.55)
+AntiNull:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.60)
+AntiBrick:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.65)
+AntiRecord:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.70)
+AntiREDACTED:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.75)
+AntiBrazil:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.80)
+AntiZaHando:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.85)
+AntiReaper:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.90)
+AntiPusher:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(.95)
+AntiBarrier:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1)
+AntiBubble:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1.05)
+AntiStun:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1.10)
+AntiCOD:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1.15)
+AntiDeath:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1.20)
+AutoRemoveName:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+wait(1.25)
+AntiRagdoll:Set(game.Workspace.Value.Value)
+end)
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
