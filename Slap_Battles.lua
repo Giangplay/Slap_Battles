@@ -328,6 +328,25 @@ end
 	end    
 })
 
+Tab:AddToggle({
+	Name = "Autofarm Candy",
+	Default = false,
+	Save = true,
+    Flag = "AutoFarmCandy",
+	Callback = function(Value)
+	    CandyCornsFarm = Value
+while CandyCornsFarm do
+for i, v in pairs(workspace.CandyCorns:GetChildren()) do
+                if v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                end
+            end
+task.wait()
+end
+	end    
+})
+
 Tab4:AddDropdown({
 	Name = "Teleport",
 	Default = "",
@@ -1287,7 +1306,11 @@ Tab11:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+SaveThePlayer = game.Players.LocalPlayer.Name
+else
 SaveThePlayer = Value
+end
 	end	  
 })
 
@@ -1304,6 +1327,9 @@ Tab11:AddToggle({
 	Name = "Auto Spam Guardian Angel",
 	Default = false,
 	Callback = function(Value)
+if SaveThePlayer == nil then
+SaveThePlayer = game.Players.LocalPlayer.Name
+end
 GuardianAngelSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
 while GuardianAngelSpam do
@@ -1583,7 +1609,7 @@ end
 })
 
 Tab11:AddToggle({
-	Name = "Slap Arua [ All Glove ]",
+	Name = "Slap Aura [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
@@ -3909,6 +3935,12 @@ AntiVoidDame.Material = "ForceField"
 AntiVoidDame.Transparency = 1
 end
 
+---GetLocal---
+
+local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local Glove = character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+
+--Tab
 local Tab = Window:MakeTab({
 	Name = "Combat",
 	Icon = "rbxassetid://4483345998",
@@ -3942,9 +3974,13 @@ Tab:AddToggle({
 	Flag = "AutoSlapBobClone",
 	Callback = function(Value)
 _G.AutoSlapBobClone = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killtreak" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Reaper" then
 while _G.AutoSlapBobClone do
 shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.Torso)
 task.wait()
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You Have Glove Killtreak or Reaper"})
 end
 	end    
 })
@@ -4006,23 +4042,21 @@ end
 	end    
 })
 
-Tab:AddButton({
-	Name = "Glove Not Cooldown Speed",
-	Callback = function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
-
-while character.Humanoid.Health ~= 0 do
-local localscript = tool:FindFirstChildOfClass("LocalScript")
-local localscriptclone = localscript:Clone()
-localscriptclone = localscript:Clone()
-localscriptclone:Clone()
-localscript:Destroy()
-localscriptclone.Parent = tool
+Tab:AddToggle({
+	Name = "Auto Spawn Rob",
+	Default = false,
+	Callback = function(Value)
+	_G.NoCooldownSpeed = Value
+while _G.NoCooldownSpeed  do
+local LocalScript = Glove:FindFirstChildOfClass("LocalScript")
+local LocalScriptClone = LocalScript:Clone()
+LocalScriptClone = LocalScript:Clone()
+LocalScriptClone:Clone()
+LocalScript:Destroy()
+localscriptclone.Parent = Glove
 wait(0.1)
 end
-  	end    
+	end    
 })
 
 Tab:AddLabel("Script OP")
