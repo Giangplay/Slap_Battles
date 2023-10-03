@@ -4043,7 +4043,7 @@ end
 })
 
 Tab:AddToggle({
-	Name = "Auto Spawn Rob",
+	Name = "Anti Cooldown Speed",
 	Default = false,
 	Callback = function(Value)
 	_G.NoCooldownSpeed = Value
