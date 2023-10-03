@@ -68,12 +68,73 @@ end
 end
 gethui().Orion.Name = "OrionEdited"
 
+---SafeSpotBox---
+
+if workspace:FindFirstChild("SafeBox") == nil then
+local S = Instance.new("Part")
+S.Name = "SafeBox"
+S.Anchored = true
+S.CanCollide = true
+S.Transparency = .5
+S.Position = Vector3.new(-5500, -5000, -5000)
+S.Size = Vector3.new(21, 5, 21)
+S.Parent = workspace
+
+local S1 = Instance.new("Part")
+S1.Name = "S1"
+S1.Anchored = true
+S1.CanCollide = true
+S1.Transparency = .5
+S1.Position = Vector3.new(-5499.91, -4991.5, -4989.09)
+S1.Size = Vector3.new(20, 13, 2)
+S1.Parent = workspace:FindFirstChild("SafeBox")
+
+local S2 = Instance.new("Part")
+S2.Name = "S2"
+S2.Anchored = true
+S2.CanCollide = true
+S2.Transparency = .5
+S2.Position = Vector3.new(-5510.27979, -4991.5, -5000.08984, -4.47034836e-07, 0, 0.999999881, 0, 1, 0, -0.999999881, 0, -3.69319451e-07)
+S2.Size = Vector3.new(21, 14, 2)
+S2.Rotation = Vector3.new(0, -90, 0)
+S2.Parent = workspace:FindFirstChild("SafeBox")
+
+local S3 = Instance.new("Part")
+S3.Name = "S3"
+S3.Anchored = true
+S3.CanCollide = true
+S3.Transparency = .5
+S3.Position = Vector3.new(-5499.3, -4991.5, -5011.12)
+S3.Size = Vector3.new(21, 13, 2)
+S3.Parent = workspace:FindFirstChild("SafeBox")
+
+local S4 = Instance.new("Part")
+S4.Name = "S4"
+S4.Anchored = true
+S4.CanCollide = true
+S4.Transparency = .5
+S4.Position = Vector3.new(-5489.97559, -4991.5, -4999.52637, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08)
+S4.Size = Vector3.new(22, 13, 2)
+S4.Rotation = Vector3.new(0, -90, 0)
+S4.Parent = workspace:FindFirstChild("SafeBox")
+
+local S5 = Instance.new("Part")
+S5.Name = "S5"
+S5.Anchored = true
+S5.CanCollide = true
+S5.Transparency = .5
+S5.Position = Vector3.new(-5499.39, -4984, -5000.07)
+S5.Size = Vector3.new(24, 3, 24)
+S5.Parent = workspace:FindFirstChild("SafeBox")
+end
+
 ---SafeSpot---
 
 if workspace:FindFirstChild("Spot") == nil then
 local SafeSpot = Instance.new("Part", workspace)
 SafeSpot.Position = Vector3.new(math.random(-25000,-2500),100,math.random(-25000,-2500))
 SafeSpot.Name = "Spot"
+SafeSpot.CanCollide = true
 SafeSpot.Parent = game.Workspace
 SafeSpot.Size = Vector3.new(500,1,500)
 SafeSpot.Anchored = true
@@ -85,6 +146,7 @@ end
 if workspace:FindFirstChild("default") == nil then
 local myPart = Instance.new("Part")
 myPart.Transparency = 0.5
+myPart.CanCollide = true
 myPart.Anchored = true
 myPart.Name = "default"
 myPart.Material = "ForceField"
@@ -350,10 +412,12 @@ end
 Tab4:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"SafeSpot", "Bed", "Go Deep Into The Ground"},
+	Options = {"SafeSpotBox", "SafeSpot", "Bed", "Go Deep Into The Ground"},
 	Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if Value == "SafeSpot" then
+if Value == "SafeSpotBox" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif Value == "SafeSpot" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,10,0)
 elseif Value == "Bed" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
