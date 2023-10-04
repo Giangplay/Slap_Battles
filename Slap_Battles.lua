@@ -1229,7 +1229,7 @@ Tab4:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	   _G.AutoTpPlate = Value
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayer() >= 7 then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
 while _G.AutoTpPlate do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
 task.wait()
