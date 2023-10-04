@@ -9,7 +9,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Gia
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
----anti cheat bypass---
+---AntiBypass---
 
 local Namecall
 Namecall = hookmetamethod(game, '__namecall', function(self, ...)
@@ -135,7 +135,6 @@ local SafeSpot = Instance.new("Part", workspace)
 SafeSpot.Position = Vector3.new(math.random(-25000,-2500),100,math.random(-25000,-2500))
 SafeSpot.Name = "Spot"
 SafeSpot.CanCollide = true
-SafeSpot.Parent = game.Workspace
 SafeSpot.Size = Vector3.new(500,1,500)
 SafeSpot.Anchored = true
 SafeSpot.Transparency = .5
@@ -151,11 +150,10 @@ myPart.Anchored = true
 myPart.Name = "default"
 myPart.Material = "ForceField"
 myPart.Size = Vector3.new(90,3,90)
-myPart.Parent = game.Workspace
 myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
 end
 
----anti void---
+---Anti Void---
 
 local AntiVoid = Instance.new("Part", workspace)
 AntiVoid.Name = "WalkVoid"
@@ -418,11 +416,11 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 if Value == "SafeSpotBox" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 elseif Value == "SafeSpot" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Spot.CFrame * CFrame.new(0,10,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Spot"].CFrame * CFrame.new(0,10,0)
 elseif Value == "Bed" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
 elseif Value == "Go Deep Into The Ground" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.default.CFrame * CFrame.new(0,5,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["default"].CFrame * CFrame.new(0,5,0)
 game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
 for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
 if v.ClassName == "Part" and v.Name == "BLOCK" then
@@ -752,7 +750,7 @@ end
 Tab4:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
-if not workspace:FindFirstChild("Toolbox") then
+if workspace:FindFirstChild("Toolbox") == nil then
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "Not have player spawn toolbox"})
 end
 task.wait()
@@ -933,7 +931,7 @@ Tab19:AddToggle({
 fishFarm = Value
 if Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 else
 OrionLib:MakeNotification({
@@ -1033,7 +1031,7 @@ end
 while _G.ReplicaFarm do
 for _, c in pairs(workspace:GetChildren()) do
                  if string.find(c.Name, "Å") then
-game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("HumanoidRootPart"),true)
+game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("Head"),true)
                  end
              end
 task.wait()
@@ -1231,9 +1229,9 @@ Tab4:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	   _G.AutoTpPlate = Value
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayer() >= 7 then
 while _G.AutoTpPlate do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
 task.wait()
 end
 elseif Value == true then
@@ -1880,6 +1878,27 @@ local args = {
 
 game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
 task.wait(0.075)
+end
+	end    
+})
+
+Tab11:AddToggle({
+	Name = "Anti Portal",
+	Default = false,
+	Save = true,
+    Flag = "AntiPortal",
+	Callback = function(Value)
+AntiPortal = Value
+if AntiPortal == true then
+workspace.Lobby.Teleport2.CanTouch = false
+workspace.Lobby.Teleport3.CanTouch = false
+workspace.Lobby.Teleport4.CanTouch = false
+workspace.Lobby.Teleport6.CanTouch = false
+else
+workspace.Lobby.Teleport2.CanTouch = true
+workspace.Lobby.Teleport3.CanTouch = true
+workspace.Lobby.Teleport4.CanTouch = true
+workspace.Lobby.Teleport6.CanTouch = true
 end
 	end    
 })
