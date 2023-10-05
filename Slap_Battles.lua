@@ -187,7 +187,7 @@ local Tab1 = Window:MakeTab({
 })
 
 local Tab2 = Window:MakeTab({
-	Name = "Anti void",
+	Name = "Anti",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -1130,67 +1130,6 @@ Tab10:AddToggle({
 	end    
 })
 
-Tab2:AddToggle({
-	Name = "Tournament Anti Void",
-	Default = false,
-	Save = true,
-    Flag = "TournamentAntiVoid",
-	Callback = function(bool)
-TournamentAntiVoid.CanCollide = bool
-if bool then
-TournamentAntiVoid.Transparency = 0.5
-else
-TournamentAntiVoid.Transparency = 1
-end
-	end    
-})
-
-Tab2:AddToggle({
-	Name = "Anti Void",
-	Default = false,
-	Save = true,
-    Flag = "AntiVoid",
-	Callback = function(bool)
-AntiVoid.CanCollide = bool
-if bool then
-AntiVoid.Transparency = 0.5
-else
-AntiVoid.Transparency = 1
-end
-	end    
-})
-
-Tab2:AddToggle({
-	Name = "Anti Void 2.0",
-	Default = false,
-	Save = true,
-    Flag = "AntiVoid2.0",
-	Callback = function(Value)
-        if Value == true then
-game.Workspace.dedBarrier.Position =  Vector3.new(15, -17, 41.5)
-for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.Name == "dedBarrier" or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
-if v.CanCollide == false then
-v.CanCollide = true
-v.Material = "ForceField"
-v.Color = Color3.new(255,255,255)
-v.Transparency = .9
-end
-end
-end
-else
-for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.Name == "dedBarrier" or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
-if v.CanCollide == true then
-v.CanCollide = false
-v.Transparency = 1
-end
-end
-end
-end
-	end    
-})
-
 Tab4:AddToggle({
 	Name = "Autofram Brick 1.0",
 	Default = false,
@@ -1882,7 +1821,37 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
+	Name = "Anti Void",
+	Default = false,
+	Save = true,
+    Flag = "AntiVoid",
+	Callback = function(Value)
+AntiVoid.CanCollide = Value
+if Value then
+AntiVoid.Transparency = 0.5
+else
+AntiVoid.Transparency = 1
+end
+	end    
+})
+
+Tab2:AddToggle({
+	Name = "Tournament Anti Void",
+	Default = false,
+	Save = true,
+    Flag = "TournamentAntiVoid",
+	Callback = function(Value)
+TournamentAntiVoid.CanCollide = Value
+if Value then
+TournamentAntiVoid.Transparency = 0.5
+else
+TournamentAntiVoid.Transparency = 1
+end
+	end    
+})
+
+Tab2:AddToggle({
 	Name = "Anti Portal",
 	Default = false,
 	Save = true,
@@ -1903,7 +1872,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Admin",
 	Default = false,
 	Save = true,
@@ -1923,7 +1892,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Kick",
 	Default = false,
 	Save = true,
@@ -1941,7 +1910,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
 	Save = true,
@@ -1966,7 +1935,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Megarock / Custom",
 	Default = false,
 	Save = true,
@@ -1985,7 +1954,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Bus",
 	Default = false,
 	Save = true,
@@ -2003,7 +1972,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
 	Save = true,
@@ -2020,7 +1989,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
 	Save = true,
@@ -2030,7 +1999,7 @@ game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Booster",
 	Default = false,
 	Save = true,
@@ -2096,7 +2065,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Squid",
 	Default = false,
 	Save = true,
@@ -2115,7 +2084,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Conveyor",
 	Default = false,
 	Save = true,
@@ -2125,7 +2094,7 @@ game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Nightmare",
 	Default = false,
 	Save = true,
@@ -2139,7 +2108,7 @@ Tab11:AddToggle({
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Time Stop",
 	Default = false,
 	Save = true,
@@ -2157,7 +2126,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Null",
 	Default = false,
 	Save = true,
@@ -2177,7 +2146,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Brick",
 	Default = false,
 	Save = true,
@@ -2195,7 +2164,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Record",
 	Default = false,
 	Save = true,
@@ -2210,7 +2179,7 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") then
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") then
 _G.AntiKick = false
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
 end
@@ -2233,7 +2202,7 @@ end
 end)
 end)
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti [REDACTED]",
 	Default = false,
 	Save = true,
@@ -2243,7 +2212,7 @@ game.Players.LocalPlayer.PlayerScripts.Well.Disabled = Value
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Brazil",
 	Default = false,
 	Save = true,
@@ -2302,7 +2271,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
 	Save = true,
@@ -2320,7 +2289,7 @@ task.wait()
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Reaper",
 	Default = false,
 	Save = true,
@@ -2339,7 +2308,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Pusher",
 	Default = false,
 	Save = true,
@@ -2357,7 +2326,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Barrier",
 	Default = false,
 	Save = true,
@@ -2382,7 +2351,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
 	Save = true,
@@ -2402,7 +2371,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Stun",
 	Default = false,
 	Save = true,
@@ -2418,7 +2387,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Cube Of Death",
 	Default = false,
 	Save = true,
@@ -2436,7 +2405,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Death Barriers",
 	Default = false,
 	Save = true,
@@ -2468,7 +2437,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = " Auto Remove nametag",
 	Default = false,
 	Save = true,
@@ -2487,7 +2456,7 @@ repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Name
 	end    
 })
 
-Tab11:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Save = true,
@@ -2998,7 +2967,7 @@ wait(5.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Gravity" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-task.wait(20)
+task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bubble" do
 game:GetService("ReplicatedStorage").BubbleThrow:FireServer()
@@ -3121,6 +3090,10 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sun" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Cast")
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Whirlwind" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 	end    
