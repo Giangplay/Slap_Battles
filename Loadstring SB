@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/Slap_Battles.lua"))()
