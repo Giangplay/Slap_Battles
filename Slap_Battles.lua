@@ -440,10 +440,10 @@ Tab:AddToggle({
 	Callback = function(Value)
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
-for i, v in pairs(workspace.CandyCorns:GetChildren()) do
+for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
                 end
             end
 task.wait()
@@ -873,10 +873,17 @@ Tab19:AddToggle({
 	Name = "Get Megarock",
 	Default = false,
 	Callback = function(Value)
-	_G.AutoTime = Value
-while _G.AutoTime do
-task.wait(1)
+	_G.AutoTimeDiamond = Value
+if Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
+end
+end
+task.wait()
+while _G.AutoTimeDiamond do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+task.wait(1)
 TimeMegarock = TimeMegarock + 1
 OrionLib:MakeNotification({
 	Name = "Time Diamond : "..TimeMegarock,
@@ -949,8 +956,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 else
 OrionLib:MakeNotification({
-Name = "FAILED TO TELEPORT TO SAFE SPOT PLEASE DO IT MANUALLY",
-Content = "You Tp bed",
+Name = "Error",
+Content = "You Have Enter Arena",
 Time = 5
 })
 end
@@ -991,7 +998,6 @@ end
 task.wait()
 while _G.AutoTimeGhost do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-
 task.wait(1)
 TimeGhost = TimeGhost + 1
 OrionLib:MakeNotification({
@@ -1050,6 +1056,7 @@ _G.ReplicaFarm = Value
 if _G.ReplicaFarm == true then
 coroutine.wrap(ReplicaFarm)()
 end
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.ReplicaFarm do
 for _, c in pairs(workspace:GetChildren()) do
                  if string.find(c.Name, "Å") then
@@ -1057,6 +1064,9 @@ game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("Head"),true)
                  end
              end
 task.wait()
+end
+elseif Value == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped"})
 end
 	end    
 })
@@ -2770,7 +2780,7 @@ game:GetService'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = target.
 Tab14:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
-	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman"},
+	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman", "Error Death [ All Glove ]"},
 	Callback = function(Value)
 GloveSound = Value
 	end    
@@ -2802,15 +2812,7 @@ while GloveSoundSpam and GloveSound == "Hitman" do
 game:GetService("ReplicatedStorage"):WaitForChild("HitmanAbility"):FireServer("ReplicateGoldenRevolver",{0})
 task.wait()
 end
-	end    
-})
-
-Tab14:AddToggle({
-	Name = "Spam Error Death Sound",
-	Default = false,
-	Callback = function(Value)
-		 _G.ErrorDeath = Value
-while _G.ErrorDeath do
+while GloveSoundSpam and GloveSound == "Error Death [ All Glove ]" do
 game.ReplicatedStorage.ErrorDeath:FireServer()
 task.wait()
 end
@@ -3121,676 +3123,27 @@ end
 	end    
 })
 
-Tab15:AddToggle({
-	Name = "Auto Spam Ping Pong",
-	Default = false,
+Tab15:AddDropdown({
+	Name = "Ability Spam All Glove",
+	Default = "Null",
+	Options = {"Null", "Rhythm Explosion"},
 	Callback = function(Value)
-		_G.PingPongSpam = Value
-while _G.PingPongSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(8)
-end
+AbilitySpamAllGlove= Value
 	end    
 })
 
 Tab15:AddToggle({
-	Name = "Auto Spam Null [ All Glove ]",
+	Name = "Spam Ability All Glove",
 	Default = false,
 	Callback = function(Value)
-		_G.NullSpam = Value
-while _G.NullSpam do
+SpamAbility = Value
+while SpamAbility and AbilitySpamAllGlove == "Null" do
 game:GetService("ReplicatedStorage").NullAbility:FireServer()
-wait(0.01)
+wait(0.1)
 end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Recall",
-	Default = false,
-	Callback = function(Value)
-		_G.RecallVFXSpam = Value
-while _G.RecallVFXSpam do
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Coil",
-	Default = false,
-	Callback = function(Value)
-		_G.CoilSpam = Value
-while _G.CoilSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
-wait(3.1)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Slicer [ No Sword ]",
-	Default = false,
-	Callback = function(Value)
-		_G.SlicerSpam = Value
-while _G.SlicerSpam do
-game:GetService("ReplicatedStorage").Slicer:FireServer("slash", CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position) * CFrame.Angles(-5.66729e-11, 0.000832287, -1.10219e-10), Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation))
-wait(5.1)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Shukuchi [ Remdom peole ]",
-	Default = false,
-	Callback = function(Value)
-		_G.ShukuchiSpam = Value
-while _G.ShukuchiSpam do
-local LocalPlayer = game.Players.LocalPlayer
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").SM:FireServer(PersonToKill)
-wait(0.01)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Bus",
-	Default = false,
-	Callback = function(Value)
-		_G.BusSpam = Value
-while _G.BusSpam do
-game:GetService("ReplicatedStorage").busmoment:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Detonator",
-	Default = false,
-	Callback = function(Value)
-		_G.DetonatorSpam = Value
-while _G.DetonatorSpam do
-game:GetService("ReplicatedStorage").Fart:FireServer()
-task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Fort",
-	Default = false,
-	Callback = function(Value)
-		_G.FortSpam = Value
-while _G.FortSpam do
-game:GetService("ReplicatedStorage").Fortlol:FireServer()
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto Spam Kraken",
-	Default = false,
-	Callback = function(Value)
-		_G.KrakenSpam = Value
-while _G.KrakenSpam do
-game:GetService("ReplicatedStorage").KrakenArm:FireServer()
-wait(5)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto Spam Counter",
-	Default = false,
-	Callback = function(Value)
-		_G.CounterSpam = Value
-while _G.CounterSpam do
-game:GetService("ReplicatedStorage").Counter:FireServer()
-wait(6.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto Spam Psycho",
-	Default = false,
-	Callback = function(Value)
-		_G.PsychoSpam = Value
-while _G.PsychoSpam do
-game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer({["grabEnabled"] = true})
-task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Defense",
-	Default = false,
-	Callback = function(Value)
-		_G.DefenseSpam = Value
-while _G.DefenseSpam do
-game:GetService("ReplicatedStorage").Barrier:FireServer()
-wait(0.25)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Home Run Max",
-	Default = false,
-	Callback = function(Value)
-		_G.HomeRunMaxSpam = Value
-while _G.HomeRunMaxSpam do
-local args = {
-    [1] = {
-        ["start"] = true
-    }
-}
-game:GetService("ReplicatedStorage").HomeRun:FireServer(unpack(args))
-task.wait(3.05)
-end 
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Bomb",
-	Default = false,
-	Callback = function(Value)
-		_G.BombSpam = Value
-while _G.BombSpam do
-game:GetService("ReplicatedStorage").BombThrow:FireServer()
-wait(2.5)
-game:GetService("ReplicatedStorage").BombThrow:FireServer()
-wait(4.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Voodoo",
-	Default = false,
-	Callback = function(Value)
-		_G.VoodooSpam = Value
-while _G.VoodooSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-task.wait(6.27)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Phase",
-	Default = false,
-	Callback = function(Value)
-		_G.PhaseSpam = Value
-while _G.PhaseSpam do
-game:GetService("ReplicatedStorage").PhaseA:FireServer()
-task.wait(8.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Rob",
-	Default = false,
-	Callback = function(Value)
-		_G.RobSpam = Value
-while _G.RobSpam do
-game:GetService("ReplicatedStorage").rob:FireServer()
-wait(15)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Sparky",
-	Default = false,
-	Callback = function(Value)
-		_G.SparkySpam = Value
-while _G.SparkySpam do
-game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
-task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Replica",
-	Default = false,
-	Callback = function(Value)
-		_G.ReplicaSpam = Value
-while _G.ReplicaSpam do
-game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Shard",
-	Default = false,
-	Callback = function(Value)
-		_G.ShardsSpam = Value
-while _G.ShardsSpam do
-game:GetService("ReplicatedStorage").Shards:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Pusher",
-	Default = false,
-	Callback = function(Value)
-		_G.PusherSpam = Value
-while _G.PusherSpam do
-game:GetService("ReplicatedStorage").PusherWall:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Rhythm Explosion Spam [ All Gloves ]",
-	Default = false,
-	Callback = function(Value)
-		_G.RhythmSpam = Value
-while _G.RhythmSpam do
+while SpamAbility and AbilitySpamAllGlove == "Rhythm Explosion" do
 game:GetService("ReplicatedStorage").rhythmevent:FireServer("AoeExplosion",0)
 task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Mitten",
-	Default = false,
-	Callback = function(Value)
-		_G.MittenSpam = Value
-while _G.MittenSpam do
-game:GetService("ReplicatedStorage").MittenA:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Adios",
-	Default = false,
-	Callback = function(Value)
-		_G.AdiosSpam = Value
-while _G.AdiosSpam do
-game:GetService("ReplicatedStorage").AdiosActivated:FireServer()
-wait(8.3)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Jet",
-	Default = false,
-	Callback = function(Value)
-		_G.JetSpam = Value
-while _G.JetSpam do
-local LocalPlayer = game.Players.LocalPlayer
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").AirStrike:FireServer(PersonToKill.Character)
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Tableflip",
-	Default = false,
-	Callback = function(Value)
-		_G.TableflipSpam = Value
-while _G.TableflipSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Balloony",
-	Default = false,
-	Callback = function(Value)
-		_G.BalloonySpam = Value
-while _G.BalloonySpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Balloony)
-task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Pop Balloon",
-	Default = false,
-	Callback = function(Value)
-		_G.BalloonySpam = Value
-while _G.BalloonySpam do
-game:GetService("ReplicatedStorage").Events.PopBalloon:FireServer()
-task.wait()
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Rocky",
-	Default = false,
-	Callback = function(Value)
-		_G.RockySpam = Value
-while _G.RockySpam do
-game:GetService("ReplicatedStorage").RockyShoot:FireServer()
-wait(6.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Berserk",
-	Default = false,
-	Callback = function(Value)
-		_G.BerserkSpam = Value
-while _G.BerserkSpam do
-game:GetService("ReplicatedStorage").BerserkCharge:FireServer(game:GetService("Players").LocalPlayer.Character.Berserk)
-wait(2.1)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Timstop",
-	Default = false,
-	Callback = function(Value)
-		_G.TimestopSpam = Value
-while _G.TimestopSpam do
-game:GetService("ReplicatedStorage").TimestopJump:FireServer()
-game:GetService("ReplicatedStorage").Timestopchoir:FireServer()
-game:GetService("ReplicatedStorage").Timestop:FireServer()
-wait(50.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Za Hando",
-	Default = false,
-	Callback = function(Value)
-		_G.ZahandoSpam = Value
-while _G.ZahandoSpam do
-game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Baller",
-	Default = false,
-	Callback = function(Value)
-		_G.BallerSpam = Value
-while _G.BallerSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(4.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Stun",
-	Default = false,
-	Callback = function(Value)
-		_G.StunSpam = Value
-while _G.StunSpam do
-game:GetService("ReplicatedStorage").StunR:FireServer(game:GetService("Players").LocalPlayer.Character.Stun)
-wait(10.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Glitch",
-	Default = false,
-	Callback = function(Value)
-		_G.GlitchSpam = Value
-while _G.GlitchSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(4.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Kinetic",
-	Default = false,
-	Callback = function(Value)
-		_G.KineticSpam = Value
-while _G.KineticSpam do
-game:GetService("ReplicatedStorage").KineticExpl:FireServer(game:GetService("Players").LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
-wait(9.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Engineer",
-	Default = false,
-	Callback = function(Value)
-		_G.EngineerSpam = Value
-while _G.EngineerSpam do
-game:GetService("ReplicatedStorage").Sentry:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Stop",
-	Default = false,
-	Callback = function(Value)
-		_G.StopSpam = Value
-while _G.StopSpam do
-game:GetService("ReplicatedStorage").STOP:FireServer(true)
-wait(4.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Track",
-	Default = false,
-	Callback = function(Value)
-		_G.TrackSpam = Value
-while _G.TrackSpam do
-local LocalPlayer = game.Players.LocalPlayer
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PersonToKill.Character)
-wait(10.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Track Orbit",
-	Default = false,
-	Callback = function(Value)
-		_G.TrackSpam = Value
-while _G.TrackSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character)
-wait(10.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Mail",
-	Default = false,
-	Callback = function(Value)
-		_G.MailSpam = Value
-while _G.MailSpam do
-game:GetService("ReplicatedStorage").MailSend:FireServer()
-wait(3.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Shard",
-	Default = false,
-	Callback = function(Value)
-		_G.ShardSpam = Value
-while _G.ShardSpam do
-game:GetService("ReplicatedStorage").Shards:FireServer()
-wait(4.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Swapper",
-	Default = false,
-	Callback = function(Value)
-		_G.SwapperSpam = Value
-while _G.SwapperSpam do
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Bubble",
-	Default = false,
-	Callback = function(Value)
-		_G.BubbleSpam = Value
-while _G.BubbleSpam do
-game:GetService("ReplicatedStorage").BubbleThrow:FireServer()
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Slapple",
-	Default = false,
-	Callback = function(Value)
-		_G.SlappleSpam = Value
-while _G.SlappleSpam do
-game:GetService("ReplicatedStorage").funnyTree:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Dominance",
-	Default = false,
-	Callback = function(Value)
-		_G.DominanceSpam = Value
-while _G.DominanceSpam do
-game:GetService("ReplicatedStorage").DominanceAc:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Shield",
-	Default = false,
-	Callback = function(Value)
-		_G.ShieldSpam = Value
-while _G.ShieldSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Redacted",
-	Default = false,
-	Callback = function(Value)
-		_G.RedactedSpam = Value
-while _G.RedactedSpam do
-game:GetService("ReplicatedStorage").Well:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Duelist",
-	Default = false,
-	Callback = function(Value)
-		_G.DuelistSpam = Value
-while _G.DuelistSpam do
-game:GetService("ReplicatedStorage").DuelistAbility:FireServer()
-wait(5.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Sentry",
-	Default = false,
-	Callback = function(Value)
-		_G.SentrySpam = Value
-while _G.SentrySpam do
-game:GetService("ReplicatedStorage").Sentry:FireServer()
-wait(5.2)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Brick",
-	Default = false,
-	Callback = function(Value)
-		_G.BrickSpam = Value
-while _G.BrickSpam do
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
-wait(1.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Trap",
-	Default = false,
-	Callback = function(Value)
-		_G.TrapSpam = Value
-while _G.TrapSpam do
-game:GetService("ReplicatedStorage").funnyhilariousbeartrap:FireServer()
-wait(3.05)
-end
-	end    
-})
-
-Tab15:AddToggle({
-	Name = "Auto spam Woah",
-	Default = false,
-	Callback = function(Value)
-		_G.WoahSpam = Value
-while _G.WoahSpam do
-game:GetService("ReplicatedStorage").VineThud:FireServer()
-wait(5.2)
 end
 	end    
 })
