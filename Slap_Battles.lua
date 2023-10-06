@@ -36,7 +36,6 @@ end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Bed.lua"))()
-local Player = game.Players.LocalPlayer.Character.Name
 
 shared.createBed()
 
@@ -277,7 +276,7 @@ OrionLib:MakeNotification({
 })
 
 OrionLib:MakeNotification({
-	Name = "Hello "..Player,
+	Name = "Hello "..game.Players.LocalPlayer.Character.Name,
 	Content = "ERROR",
 	Time = 17
 })
@@ -1021,7 +1020,7 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Replica [ Glove Lobby Default ]",
+	Name = "Auto Slap Replica [ Work In The Island Default ]",
 	Default = false,
 	Callback = function(Value)
 _G.ReplicaFarm = Value
@@ -4278,24 +4277,6 @@ shared.gloveHitBob = {
 	["Reaper"] = game.ReplicatedStorage.ReaperHit,
 }
 
----AntiVoid---
-
-if workspace:FindFirstChild("WalkVoid") == nil then
-local AntiVoidDame = Instance.new("Part", workspace)
-AntiVoidDame.Name = "WalkVoid"
-AntiVoidDame.Size = Vector3.new(2047, 0.009, 2019)
-AntiVoidDame.CFrame = CFrame.new(-0.651832581, -3.5, -39.9848366, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-AntiVoidDame.CanCollide = false
-AntiVoidDame.Anchored = true
-AntiVoidDame.Material = "ForceField"
-AntiVoidDame.Transparency = 1
-end
-
----GetLocal---
-
-local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local Glove = character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
-
 --Tab
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -4330,13 +4311,9 @@ Tab:AddToggle({
 	Flag = "AutoSlapBobClone",
 	Callback = function(Value)
 _G.AutoSlapBobClone = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killtreak" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Reaper" then
 while _G.AutoSlapBobClone do
 shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.Torso)
 task.wait()
-end
-elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You Have Glove Killtreak or Reaper"})
 end
 	end    
 })
@@ -4398,23 +4375,6 @@ end
 	end    
 })
 
-Tab:AddToggle({
-	Name = "Anti Cooldown Speed",
-	Default = false,
-	Callback = function(Value)
-	_G.NoCooldownSpeed = Value
-while _G.NoCooldownSpeed  do
-local LocalScript = Glove:FindFirstChildOfClass("LocalScript")
-local LocalScriptClone = LocalScript:Clone()
-LocalScriptClone = LocalScript:Clone()
-LocalScriptClone:Clone()
-LocalScript:Destroy()
-localscriptclone.Parent = Glove
-wait(0.1)
-end
-	end    
-})
-
 Tab:AddLabel("Script OP")
 
 Tab:AddButton({
@@ -4436,19 +4396,6 @@ Tab:AddButton({
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
   	end    
-})
-
-Tab1:AddToggle({
-	Name = "Anti Void",
-	Default = false,
-	Callback = function(Value)
-AntiVoidDame.CanCollide = Value
-if Value then
-AntiVoidDame.Transparency = 0.5
-else
-AntiVoidDame.Transparency = 1
-end
-	end    
 })
 
 OrionLib:Init()
