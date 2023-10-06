@@ -129,14 +129,59 @@ end
 
 ---SafeSpot---
 
-if workspace:FindFirstChild("Spot") == nil then
-local SafeSpot = Instance.new("Part", workspace)
-SafeSpot.Position = Vector3.new(math.random(-25000,-2500),100,math.random(-25000,-2500))
-SafeSpot.Name = "Spot"
-SafeSpot.CanCollide = true
-SafeSpot.Size = Vector3.new(500,1,500)
-SafeSpot.Anchored = true
-SafeSpot.Transparency = .5
+if workspace:FindFirstChild("Safespot") == nil then
+local Safespot = Instance.new("Part",workspace)
+Safespot.Name = "Safespot"
+Safespot.Position = Vector3.new(10000,-50,10000)
+Safespot.Size = Vector3.new(500,10,500)
+Safespot.Anchored = true
+Safespot.CanCollide = true
+Safespot.Transparency = .5
+
+local Safespot1 = Instance.new("Part",workspace)
+Safespot1.Name = "DefendPart"
+Safespot1.Position = Vector3.new(10000.2, 13, 9752.45)
+Safespot1.Size = Vector3.new(500, 117, 5)
+Safespot1.Anchored = true
+Safespot1.CanCollide = true
+Safespot1.Transparency = .5
+Safespot1.Parent = game.workspace.Safespot
+
+local Safespot2 = Instance.new("Part",workspace)
+Safespot2.Name = "DefendPart1"
+Safespot2.Position = Vector3.new(10248.2, 13, 10002.4)
+Safespot2.Size = Vector3.new(5, 117, 496)
+Safespot2.Anchored = true
+Safespot2.CanCollide = true
+Safespot2.Transparency = .5
+Safespot2.Parent = game.workspace.Safespot
+
+local Safespot3 = Instance.new("Part",workspace)
+Safespot3.Name = "DefendPart2"
+Safespot3.Position = Vector3.new(9998.13, 13, 10247.2)
+Safespot3.Size = Vector3.new(497, 117, 6)
+Safespot3.Anchored = true
+Safespot3.CanCollide = true
+Safespot3.Transparency = .5
+Safespot3.Parent = game.workspace.Safespot
+
+local Safespot4 = Instance.new("Part",workspace)
+Safespot4.Name = "DefendPart3"
+Safespot4.Position = Vector3.new(9752.71, 13, 9999.28)
+Safespot4.Size = Vector3.new(7, 117, 490)
+Safespot4.Anchored = true
+Safespot4.CanCollide = true
+Safespot4.Transparency = .5
+Safespot4.Parent = game.workspace.Safespot
+
+local Safespot5 = Instance.new("Part",workspace)
+Safespot5.Name = "DefendPart4"
+Safespot5.Position = Vector3.new(10001.1, 76, 9999.66)
+Safespot5.Size = Vector3.new(491, 10, 491)
+Safespot5.Anchored = true
+Safespot5.CanCollide = true
+Safespot5.Transparency = .5
+Safespot5.Parent = game.workspace.Safespot
 end
 
 ---Part Go Deep Into The Ground---
@@ -409,13 +454,13 @@ end
 Tab4:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"SafeSpotBox", "SafeSpot", "Bed", "Go Deep Into The Ground"},
+	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed", "Go Deep Into The Ground"},
 	Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if Value == "SafeSpotBox" then
+if Value == "SafeSpotBox 1.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-elseif Value == "SafeSpot" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Spot"].CFrame * CFrame.new(0,10,0)
+elseif Value == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 elseif Value == "Bed" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
 elseif Value == "Go Deep Into The Ground" then
@@ -699,42 +744,12 @@ end
 })
 
 Tab4:AddButton({
-	Name = "Get Duck Bagde",
+	Name = "Get Duck and Orange and Knife Bagde",
 	Callback = function()
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
-     fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
-else
-OrionLib:MakeNotification({
-	Name = "You Have Owner Bagde",
-	Content = "Not Click",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
-end
-  	end 
-})
-
-Tab4:AddButton({
-	Name = "Get Orange Bagde",
-	Callback = function()
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) then
-    fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector)
-else
-OrionLib:MakeNotification({
-	Name = "You Have Owner Bagde",
-	Content = "Not Click",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
-end
-  	end 
-})
-
-Tab4:AddButton({
-	Name = "Get Knife Bagde",
-	Callback = function()
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) then
-    fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
+fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
+fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector) 
+fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
 else
 OrionLib:MakeNotification({
 	Name = "You Have Owner Bagde",
@@ -753,9 +768,9 @@ if workspace:FindFirstChild("Toolbox") == nil then
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "Not have player spawn toolbox"})
 end
 task.wait()
-for i,v in pairs(game.Workspace.Toolbox:GetDescendants()) do
-if v:FindFirstChild("ClickDetector") then
-fireclickdetector(v.ClickDetector)
+for i,v in pairs(workspace.Toolbox:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
 end
 end
   	end 
@@ -967,9 +982,17 @@ Tab19:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	_G.AutoTimeGhost = Value
+if Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+end
+end
+task.wait()
 while _G.AutoTimeGhost do
-task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+
+task.wait(1)
 TimeGhost = TimeGhost + 1
 OrionLib:MakeNotification({
 	Name = "Time Ghost : "..TimeGhost,
