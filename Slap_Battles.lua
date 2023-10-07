@@ -3150,7 +3150,7 @@ wait(5.475)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Hallow Jack" do
 game:GetService("ReplicatedStorage"):WaitForChild("Hallow"):FireServer()
-wait(2.2)
+wait(4.2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sparky" do
 game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
