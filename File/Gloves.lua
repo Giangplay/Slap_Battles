@@ -22,7 +22,7 @@ shared.gloveHits = {
     ["Glitch"] = game.ReplicatedStorage.GeneralHit,
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
-    ["🗿"] = game.ReplicatedStorage.GeneralHit,
+    [""] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
@@ -47,7 +47,7 @@ shared.gloveHits = {
     ["Tinkerer"] = game.ReplicatedStorage.GeneralHit,
 	["Guardian Angel"] = game.ReplicatedStorage.GeneralHit,
     ["Sun"] = game.ReplicatedStorage.GeneralHit,
-    
+    ["Necromancer"] = game.ReplicatedStorage.GeneralHit,
     ----------------------------------------
     
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
