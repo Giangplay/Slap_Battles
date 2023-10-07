@@ -46,10 +46,14 @@ wait(30.05)
 end
 end
 
-function ReplicaFarm()
-while _G.ReplicaFarm do
-game.ReplicatedStorage.Duplicate:FireServer(true)
-wait(20.05)
+function SpamReplica()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
+while ReplicaFarm do
+game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
+wait(19.9)
+end
+elseif ReplicaFarm == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped, or you aren't in the Default arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
 
@@ -442,8 +446,7 @@ Tab:AddToggle({
 while CandyCornsFarm do
 for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
+                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
 task.wait()
@@ -1039,8 +1042,8 @@ Tab4:AddToggle({
 _G.ReplicaFarmAll = Value
 while _G.ReplicaFarmAll do
 for _, v in pairs(workspace:GetChildren()) do
-                 if string.find(v.Name, "Å") then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("Head"),true)
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                 end
             end
 task.wait()
@@ -1049,24 +1052,24 @@ end
 })
 
 Tab4:AddToggle({
-	Name = "Auto Slap Replica [ Work In The Island Default ]",
+	Name = "Auto Slap Replica",
 	Default = false,
 	Callback = function(Value)
-_G.ReplicaFarm = Value
-if _G.ReplicaFarm == true then
-coroutine.wrap(ReplicaFarm)()
+ReplicaFarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
+if ReplicaFarm == true then
+coroutine.wrap(SpamReplica)()
 end
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-while _G.ReplicaFarm do
-for _, c in pairs(workspace:GetChildren()) do
-                 if string.find(c.Name, "Å") then
-game:GetService("ReplicatedStorage").b:FireServer(c:WaitForChild("Head"),true)
-                 end
-             end
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
 task.wait()
 end
-elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped"})
+elseif ReplicaFarm == true then
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped, or Work In Island Default"})
 end
 	end    
 })
@@ -1369,6 +1372,15 @@ end
 	end	  
 })
 
+Tab11:AddTextbox({
+	Name = "Make Punish Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PunishPlayer = Value
+	end	  
+})
+
 Tab11:AddDropdown({
 	Name = "Retro Ability",
 	Default = "Rocket Launcher",
@@ -1422,6 +1434,60 @@ game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Rel
 task.wait()
 end
 	end    
+})
+
+Cancel = false
+Tab11:AddButton({
+	Name = "Get Punish Player",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+AntiVoid.CanCollide = true
+Timer = 0
+repeat
+if Cancel == true then
+break
+end
+if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-50000,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+end
+NewDistance = math.huge
+for i,v in pairs(game.Players:GetChildren()) do
+	if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+		Distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).magnitude
+if Distance < NewDistance then
+	NewDistance = Distance
+	Closest = v
+end
+end
+end
+task.wait(0.01)
+if Timer < 1 then
+Timer = Timer + 0.01
+end
+until workspace[_G.PunishPlayer].Ragdolled.Value == false and workspace[Value]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and Closest == game.Players[Value] and Timer >= 1
+if Cancel == false then
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+end
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+AntiVoid.CanCollide = false
+if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+else
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Swapper equipped"})
+end
+  	end    
+})
+
+Tab11:AddButton({
+	Name = "Cancel Punish Player",
+	Callback = function()
+Cancel = true
+wait(0.1)
+Cancel = false
+  	end    
 })
 
 Tab11:AddButton({
@@ -2211,7 +2277,7 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") then
+if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
 _G.AntiKick = false
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
 end
@@ -3081,6 +3147,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Phase" do
 game:GetService("ReplicatedStorage").PhaseA:FireServer()
 wait(5.475)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Hallow Jack" do
+game:GetService("ReplicatedStorage"):WaitForChild("Hallow"):FireServer()
+wait(2.2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sparky" do
 game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
