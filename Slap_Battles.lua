@@ -1465,7 +1465,7 @@ task.wait(0.01)
 if Timer < 1 then
 Timer = Timer + 0.01
 end
-until workspace[_G.PunishPlayer].Ragdolled.Value == false and workspace[Value]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and Closest == game.Players[Value] and Timer >= 1
+until workspace[_G.PunishPlayer].Ragdolled.Value == false and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and Closest == game.Players[_G.PunishPlayer] and Timer >= 1
 if Cancel == false then
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
