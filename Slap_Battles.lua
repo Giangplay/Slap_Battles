@@ -5,19 +5,19 @@ end
 game:GetService("GuiService"):ClearError()
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
+local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---AntiBypass---
 
 local Namecall
-Namecall = hookmetamethod(game, '__namecall', function(self, ...)
-   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
        return
-   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
        return
-   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
        return
    end
    return Namecall(self, ...)
@@ -50,7 +50,7 @@ function SpamReplica()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
 while ReplicaFarm do
 game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
-wait(19.9)
+wait(20)
 end
 elseif ReplicaFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped, or you aren't in the Default arena.",Image = "rbxassetid://7733658504",Time = 5})
@@ -196,6 +196,7 @@ myPart.Transparency = 0.5
 myPart.CanCollide = true
 myPart.Anchored = true
 myPart.Name = "default"
+myPart.Parent = game.workspace
 myPart.Material = "ForceField"
 myPart.Size = Vector3.new(90,3,90)
 myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
@@ -221,7 +222,7 @@ TournamentAntiVoid.Anchored = true
 TournamentAntiVoid.Material = "ForceField"
 TournamentAntiVoid.Transparency = 1
 
---Tab
+--Tab1 - 15
 local Tab = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://4483345998",
@@ -240,79 +241,79 @@ local Tab2 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab4 = Window:MakeTab({
+local Tab3 = Window:MakeTab({
 	Name = "Bagdes",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab19 = Window:MakeTab({
+local Tab4 = Window:MakeTab({
 	Name = "Bagdes Time",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab7 = Window:MakeTab({
+local Tab5 = Window:MakeTab({
 	Name = "Local",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab10 = Window:MakeTab({
+local Tab6 = Window:MakeTab({
 	Name = "Auto Enter Lobby",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab11 = Window:MakeTab({
+local Tab7 = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab12 = Window:MakeTab({
+local Tab8 = Window:MakeTab({
 	Name = "Game",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab18 = Window:MakeTab({
+local Tab9 = Window:MakeTab({
 	Name = "Auto Epin Glove",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab13 = Window:MakeTab({
+local Tab10 = Window:MakeTab({
 	Name = "Autofram",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab14 = Window:MakeTab({
+local Tab11 = Window:MakeTab({
 	Name = "Troller Sever",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab21 = Window:MakeTab({
+local Tab12 = Window:MakeTab({
 	Name = "Player",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab15 = Window:MakeTab({
+local Tab13 = Window:MakeTab({
 	Name = "Ability Spams",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab16 = Window:MakeTab({
+local Tab14 = Window:MakeTab({
 	Name = "Auto Join Game",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab17 = Window:MakeTab({
+local Tab15 = Window:MakeTab({
 	Name = "Cradit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
@@ -454,7 +455,7 @@ end
 	end    
 })
 
-Tab4:AddDropdown({
+Tab3:AddDropdown({
 	Name = "Teleport",
 	Default = "",
 	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed", "Go Deep Into The Ground"},
@@ -479,15 +480,15 @@ end
 	end    
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Reset Player",
 	Callback = function()
          game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
   	end    
 })
 
-Tab4:AddButton({
-	Name = "Get Glove Kinetic [ ~10 Mins ]",
+Tab3:AddButton({
+	Name = "Get Glove Kinetic",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -510,12 +511,11 @@ wait(9.9)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Stun equipped"})
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "And Teleport Safe"})
 end
   	end 
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Get Chain [ Needs 1k slaps ]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
@@ -701,7 +701,7 @@ end
   	end    
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Get Elude",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -721,7 +721,7 @@ game:GetService("TeleportService"):Teleport(11828384869)
   	end    
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Get [Redacted] [ 5000 Slap ]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
@@ -746,7 +746,7 @@ end
   	end    
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Get Duck and Orange and Knife Bagde",
 	Callback = function()
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
@@ -764,7 +764,7 @@ end
   	end 
 })
 
-Tab4:AddButton({
+Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
 if workspace:FindFirstChild("Toolbox") == nil then
@@ -779,7 +779,7 @@ end
   	end 
 })
 
-Tab7:AddSlider({
+Tab5:AddSlider({
 	Name = "WalkSpeed",
 	Min = 20,
 	Max = 1000,
@@ -793,7 +793,7 @@ Walkspeed = Value
 	end    
 })
 
-Tab7:AddToggle({
+Tab5:AddToggle({
 	Name = "Walkspeed Set Auto",
 	Default = false,
 	Save = true,
@@ -809,7 +809,7 @@ task.wait()
 	end    
 })
 
-Tab7:AddSlider({
+Tab5:AddSlider({
 	Name = "JumpPower",
 	Min = 50,
 	Max = 1000,
@@ -823,7 +823,7 @@ Jumppower = Value
 	end    
 })
 
-Tab7:AddToggle({
+Tab5:AddToggle({
 	Name = "Jumppower Set Auto",
 	Default = false,
 	Save = true,
@@ -839,7 +839,7 @@ task.wait()
 	end    
 })
 
-Tab7:AddSlider({
+Tab5:AddSlider({
 	Name = "Hip Height",
 	Min = 0,
 	Max = 100,
@@ -853,7 +853,7 @@ WS3 = Value
 	end    
 })
 
-Tab7:AddToggle({
+Tab5:AddToggle({
 	Name = "Hip Height Set Auto",
 	Default = false,
 	Save = true,
@@ -872,7 +872,7 @@ Tab7:AddToggle({
 	end    
 })
 
-Tab19:AddToggle({
+Tab4:AddToggle({
 	Name = "Get Megarock",
 	Default = false,
 	Callback = function(Value)
@@ -901,7 +901,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Get bob 1.0 [ You Epin Replica ]",
 	Default = false,
 	Callback = function(Value)
@@ -923,7 +923,7 @@ Tab4:AddToggle({
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Get bob 2.0 [ You Epin Replica ]",
 	Default = false,
 	Callback = function(Value)
@@ -948,7 +948,7 @@ end
 	end    
 })
 
-Tab19:AddToggle({
+Tab4:AddToggle({
 	Name = "Get Fish",
 	Default = false,
 	Callback = function(Value)
@@ -987,7 +987,7 @@ end
 	end    
 })
 
-Tab19:AddToggle({
+Tab4:AddToggle({
 	Name = "Get Voodoo",
 	Default = false,
 	Callback = function(Value)
@@ -1016,7 +1016,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Autofarm Slap Baller [ Farm All Glove ]",
 	Default = false,
 	Callback = function(Value)
@@ -1026,7 +1026,7 @@ coroutine.wrap(SpamBaller)()
 end
 while BallerFarm do
 for i, v in pairs(workspace:GetChildren()) do
-                if string.find(v.Name, "Baller") then
+                if string.find(v.Name, "Baller") and v:FindFirstChild("Head") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("Head"),true)
                 end
             end
@@ -1035,7 +1035,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Auto Slap Replica [ Other Spawn Replica ] [ All Glove Farm ]",
 	Default = false,
 	Callback = function(Value)
@@ -1051,7 +1051,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Auto Slap Replica",
 	Default = false,
 	Callback = function(Value)
@@ -1074,7 +1074,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Jet Farm",
 	Default = false,
 	Callback = function(Value)
@@ -1091,7 +1091,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Phase Farm",
 	Default = false,
 	Callback = function(Value)
@@ -1108,7 +1108,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Auto Pick Up Mitten",
 	Default = false,
 	Callback = function(Value)
@@ -1125,7 +1125,7 @@ end
 	end    
 })
 
-Tab10:AddToggle({
+Tab6:AddToggle({
 	Name = "Auto Enter Arena",
 	Default = false,
 	Callback = function(Value)		
@@ -1145,7 +1145,7 @@ Tab10:AddToggle({
 	end    
 })
 
-Tab10:AddToggle({
+Tab6:AddToggle({
 	Name = "Auto Enter Default Only Arena",
 	Default = false,
 	Callback = function(Value)
@@ -1165,7 +1165,7 @@ Tab10:AddToggle({
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Autofram Brick 1.0",
 	Default = false,
 	Callback = function(Value)
@@ -1181,7 +1181,7 @@ end
 	end    
 })   
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "AutoFarm Brick 2.0",
 	Default = false,
 	Callback = function(Value)
@@ -1198,7 +1198,7 @@ end
 	end    
 })
 
-Tab4:AddToggle({
+Tab3:AddToggle({
 	Name = "Get Tycoon",
 	Default = false,
 	Callback = function(Value)
@@ -1214,7 +1214,7 @@ end
 	end    
 })
 
-Tab11:AddDropdown({
+Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "",
 	Options = {"Godmode", "Godmode + Invisibility"},
@@ -1277,7 +1277,7 @@ end
 	end    
 })
 
-Tab11:AddDropdown({
+Tab7:AddDropdown({
 	Name = "Teleport",
 	Default = "",
 	Options = {"Arena", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
@@ -1306,7 +1306,7 @@ end
 	end    
 })
 
-Tab11:AddDropdown({
+Tab7:AddDropdown({
 	Name = "Animation Combat",
 	Default = "",
 	Options = {"Skukuchi Attacker", "Skukuchi Target", "Bomb Throw", "Bubble Shoot", "Revolver", "Ban Hammer", "Bomb", "Rocket Launcher", "Rojo", "Rojo Recoil", "Thor"},
@@ -1337,7 +1337,7 @@ end
 	end    
 })
 
-Tab11:AddTextbox({
+Tab7:AddTextbox({
 	Name = "Make Player Spam Rojo",
 	Default = "Username",
 	TextDisappear = false,
@@ -1350,7 +1350,7 @@ end
 	end	  
 })
 
-Tab11:AddTextbox({
+Tab7:AddTextbox({
 	Name = "Make Player Teleport [ Glove Recall ]",
 	Default = "Username",
 	TextDisappear = false,
@@ -1359,7 +1359,7 @@ TeleportPlayer = Value
 	end	  
 })
 
-Tab11:AddTextbox({
+Tab7:AddTextbox({
 	Name = "Save The Player [ Glove Guardian Angel ]",
 	Default = "Username",
 	TextDisappear = false,
@@ -1372,7 +1372,7 @@ end
 	end	  
 })
 
-Tab11:AddTextbox({
+Tab7:AddTextbox({
 	Name = "Make Punish Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -1381,7 +1381,7 @@ _G.PunishPlayer = Value
 	end	  
 })
 
-Tab11:AddDropdown({
+Tab7:AddDropdown({
 	Name = "Retro Ability",
 	Default = "Rocket Launcher",
 	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
@@ -1390,7 +1390,7 @@ RetroAbility = Value
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Spam Guardian Angel",
 	Default = false,
 	Callback = function(Value)
@@ -1409,7 +1409,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Spam Retro [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
@@ -1421,7 +1421,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Spam Rojo [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
@@ -1437,7 +1437,7 @@ end
 })
 
 Cancel = false
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Get Punish Player",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
@@ -1481,7 +1481,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Cancel Punish Player",
 	Callback = function()
 Cancel = true
@@ -1490,7 +1490,7 @@ Cancel = false
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
@@ -1504,7 +1504,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
 if not game:IsLoaded() then
@@ -1514,7 +1514,6 @@ wait(1.5)
 if not workspace:FindFirstChild("Keypad") then
 	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
     	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-        	wait(2.5)
         	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
     	end
 	end
@@ -1550,7 +1549,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Kick Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
@@ -1578,7 +1577,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Free All Animations [ You chat /e Name Animation]",
 	Callback = function()
 Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
@@ -1638,7 +1637,7 @@ end)
   	end    
 })
 
-Tab11:AddSlider({
+Tab7:AddSlider({
 	Name = "Time Give Kill Reaper",
 	Min = 1,
 	Max = 20,
@@ -1651,7 +1650,7 @@ Tab11:AddSlider({
 	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Give Player Kill Reaper",
 	Callback = function()
 for i = 1, _G.GiveKillReaper do
@@ -1666,7 +1665,7 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Destroy All Tycoon",
 	Callback = function()
 for i,v in pairs(workspace:GetDescendants()) do
@@ -1679,7 +1678,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Destroy Light",
 	Callback = function()
 for _, v in pairs(game.Lighting:GetChildren()) do
@@ -1690,7 +1689,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Glove No Cooldown Speed",
 	Callback = function()
 local player = game.Players.LocalPlayer
@@ -1709,7 +1708,7 @@ end
   	end    
 })
 
-Tab11:AddButton({
+Tab7:AddButton({
 	Name = "Infinite Invisibility [ All Glove ]",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
@@ -1718,8 +1717,8 @@ fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 wait(1)
-game.Players.LocalPlayer.Character.Head.Transparency = 0.5
-game.Players.LocalPlayer.Character.Torso.Transparency = 0.5
+game.Players.LocalPlayer.Character.["Head"].Transparency = 0.5
+game.Players.LocalPlayer.Character.["Torso"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
@@ -1730,7 +1729,7 @@ end
   	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Slap Aura [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
@@ -1753,7 +1752,7 @@ end
 	end    
 })
 
-Tab11:AddSlider({
+Tab7:AddSlider({
 	Name = "Reach Slap Arua",
 	Min = 10,
 	Max = 50,
@@ -1766,7 +1765,7 @@ Tab11:AddSlider({
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Glove ESP",
 	Default = false,
 	Callback = function(Value)
@@ -1803,7 +1802,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
 	Callback = function(Value)
@@ -1826,7 +1825,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Click Destroy Tycoon",
 	Default = false,
 	Callback = function(Value)
@@ -1842,7 +1841,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
 	Callback = function(Value)
@@ -1863,7 +1862,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Rhythm Note Spam + Auto Press [ Equip Rhythm ]",
 	Default = false,
 	Callback = function(Value)
@@ -1881,7 +1880,7 @@ end
 	end    
 })
 
-Tab11:AddColorpicker({
+Tab7:AddColorpicker({
 	Name = "Set Color Skin [ You Have Glove Gold ]",
 	Default = Color3.fromRGB(255, 0, 0),
 	Callback = function(Value)
@@ -1889,7 +1888,7 @@ Tab11:AddColorpicker({
 	end	  
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Color Skin [ Glove gold ]",
 	Default = false,
 	Callback = function(Value)
@@ -1901,7 +1900,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto Rainbow [ Glove gold ]",
 	Default = false,
 	Callback = function(Value)
@@ -2080,7 +2079,7 @@ game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = Value
 AntiMail = Value
 while AntiMail do
 if game.Players.LocalPlayer.Character:FindFirstChild("YouHaveGotMail") then
-        game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = true
+game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = true
 end
 task.wait()
 end
@@ -2115,15 +2114,12 @@ end
 	end    
 })
 
-Tab13:AddToggle({
+Tab10:AddToggle({
 	Name = "All Glove AutoFarm Slap",
 	Default = false,
 	Callback = function(Value)
 allFarming = Value
 if Value == true then
-if setfpscap then
-setfpscap(50)
-end
 for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
 if v.ClassName == "Part" and v.Name == "BLOCK" then
 v.CanTouch = false
@@ -2131,13 +2127,12 @@ end
 end
 task.wait()
 while allFarming do
-task.wait()
 pcall(function()
 for _, Human in pairs(game.Players:GetPlayers()) do
 if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 task.wait(.1)
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Right Leg").CFrame
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
 task.wait(.1)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
@@ -2146,11 +2141,9 @@ end
 end
 end
 end)
+task.wait()
 end
 else
-if setfpscap then
-setfpscap(1269)
-end
 for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
 if v.ClassName == "Part" and v.Name == "BLOCK" then
 v.CanTouch = true
@@ -2328,25 +2321,21 @@ end
 	end    
 })
 
-Tab13:AddToggle({
+Tab10:AddToggle({
 	Name = "Ghost AutoFarm Slap",
 	Default = false,
 	Callback = function(Value)
 		Farming = Value
 if Value == true then
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-if setfpscap then
-setfpscap(50)
-end
 while Farming do
-task.wait()
 pcall(function()
 for _, Human in pairs(game.Players:GetPlayers()) do
 if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 task.wait(.1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Torso").CFrame
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
 task.wait(.1)
 game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
@@ -2356,14 +2345,12 @@ end
 end
 end
 end)
+task.wait()
 end
 else
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-if setfpscap then
-setfpscap(1269)
 end
 end
 	end    
@@ -2576,7 +2563,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Invisible Reverse [ FE ]",
 	Default = false,
 	Callback = function(Value)
@@ -2594,7 +2581,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Infinite Reverse",
 	Default = false,
 	Callback = function(Value)
@@ -2613,7 +2600,7 @@ end
 	end    
 })
 
-Tab11:AddToggle({
+Tab7:AddToggle({
 	Name = "Ping Pong Orbit",
 	Default = false,
 	Callback = function(Value)
@@ -2653,7 +2640,7 @@ end
 	end    
 })
 
-Tab11:AddSlider({
+Tab7:AddSlider({
 	Name = "Ping Pong Orbit Speed",
 	Min = 0,
 	Max = 100,
@@ -2736,7 +2723,7 @@ Tab1:AddButton({
   	end    
 })
 
-Tab12:AddButton({
+Tab8:AddButton({
 	Name = "Inf Jump",
 	Callback = function()
       		local InfiniteJumpEnabled = true
@@ -2748,7 +2735,7 @@ end)
   	end    
 })
 
-Tab12:AddButton({
+Tab8:AddButton({
 	Name = "View Testing Server [ Good for glove leaking ] [ You Have Banned ]",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -2768,7 +2755,7 @@ game:GetService("TeleportService"):Teleport(9020359053)
   	end    
 })
 
-Tab12:AddButton({
+Tab8:AddButton({
 	Name = "View Testing Slap Royale Server",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -2788,7 +2775,7 @@ game:GetService("TeleportService"):Teleport(9412268818)
   	end    
 })
 
-Tab21:AddTextbox({
+Tab12:AddTextbox({
 	Name = "Player",
 	Default = "",
 	TextDisappear = false,
@@ -2797,7 +2784,7 @@ Tab21:AddTextbox({
 	end	  
 })
 
-Tab21:AddButton({
+Tab12:AddButton({
 	Name = "TP Player",
 	Callback = function()
 local lplayer = game:GetService('Players').LocalPlayer
@@ -2843,7 +2830,7 @@ game:GetService'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = target.
   	end    
 })
 
-Tab14:AddDropdown({
+Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
 	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman", "Error Death [ All Glove ]"},
@@ -2852,7 +2839,7 @@ GloveSound = Value
 	end    
 })
 
-Tab14:AddToggle({
+Tab11:AddToggle({
 	Name = "Auto Spam Glove Sound",
 	Default = false,
 	Callback = function(Value)
@@ -2885,7 +2872,7 @@ end
 	end    
 })
 
-Tab15:AddToggle({
+Tab13:AddToggle({
 	Name = "Auto Spam Ability",
 	Default = false,
 	Callback = function(Value)
@@ -3193,7 +3180,7 @@ end
 	end    
 })
 
-Tab15:AddDropdown({
+Tab13:AddDropdown({
 	Name = "Ability Spam All Glove",
 	Default = "Null",
 	Options = {"Null", "Rhythm Explosion"},
@@ -3202,7 +3189,7 @@ AbilitySpamAllGlove= Value
 	end    
 })
 
-Tab15:AddToggle({
+Tab13:AddToggle({
 	Name = "Spam Ability All Glove",
 	Default = false,
 	Callback = function(Value)
@@ -3218,7 +3205,7 @@ end
 	end    
 })
 
-Tab16:AddButton({
+Tab14:AddButton({
 	Name = "Slap Royela",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
@@ -3227,28 +3214,28 @@ end
   	end    
 })
 
-Tab16:AddButton({
+Tab14:AddButton({
 	Name = "Slap Battles [ Only Killstreak ]",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(11520107397)
   	end    
 })
 
-Tab16:AddButton({
+Tab14:AddButton({
 	Name = "Slap Battles [ NO ONE SHOT GLOVE ]",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(9015014224)
   	end    
 })
 
-Tab16:AddButton({
+Tab14:AddButton({
 	Name = "Slap Battles",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
   	end    
 })
 
-Tab16:AddButton({
+Tab14:AddButton({
 	Name = "Serverhop",
 	Callback = function()
 for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
@@ -3259,7 +3246,7 @@ end
 	end
 })
 
-Tab18:AddTextbox({
+Tab9:AddTextbox({
 	Name = "Glove",
 	Default = "Glove Name",
 	TextDisappear = false,
@@ -3268,7 +3255,7 @@ Tab18:AddTextbox({
 	end	  
 })
 
-Tab18:AddButton({
+Tab9:AddButton({
 	Name = "Epin Glove",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
@@ -3277,84 +3264,44 @@ end
   	end    
 })
 
-Tab17:AddLabel("Creating Script Giang")
+Tab15:AddLabel("Owner Credits Script By Giang")
 
-Tab17:AddButton({
-	Name = "Copy anakinn#3568",
+Tab15:AddButton({
+	Name = "Copy Guy that exists",
 	Callback = function()
-        if setclipboard then
-            setclipboard("anakinn#3568")
-            OrionLib:MakeNotification({
-                 Name = "Copy Success",
-                 Content = "Join in friends",
-                 Image = "rbxassetid://7733734762",
-                 Time = 5
-            })
-        end
-  	end    
-})
-
-Tab17:AddButton({
-	Name = "Copy Guy that exists#1915",
-	Callback = function()
-        if setclipboard then
             setclipboard("Guy that exists#1915")
-            OrionLib:MakeNotification({
-                 Name = "Copy Success",
-                 Content = "Join in friends",
-                 Image = "rbxassetid://7733734762",
-                 Time = 5
-            })
-        end
   	end    
 })
 
-Tab17:AddButton({
+Tab15:AddButton({
 	Name = "Copy Join Discord R2O",
 	Callback = function()
-      	if setclipboard then
             setclipboard("https://discord.gg/zty372wma5")
-            OrionLib:MakeNotification({
-                 Name = "Copy Success",
-                 Content = "Join the discord",
-                 Image = "rbxassetid://7733734762",
-                 Time = 5
-            })
-        end
   	end    
 })
 
-Tab17:AddButton({
+Tab15:AddButton({
 	Name = "Copy Join Discord Mundion Exploits",
 	Callback = function()
-      	if setclipboard then
             setclipboard("https://discord.gg/jZFEk7Vn")
-            OrionLib:MakeNotification({
-                 Name = "Copy Success",
-                 Content = "Join the discord",
-                 Image = "rbxassetid://7733734762",
-                 Time = 5
-            })
-        end
   	end    
 })
 
-Tab17:AddButton({
+Tab15:AddButton({
 	Name = "Copy Subscribe Mundion Exploits",
 	Callback = function()
-      	if setclipboard then
             setclipboard("www.youtube.com/@MundionExploits")
-            OrionLib:MakeNotification({
-                 Name = "Copy Success",
-                 Content = "Join the Youtube",
-                 Image = "rbxassetid://7733734762",
-                 Time = 5
-            })
-        end
   	end    
 })
 
-Tab17:AddButton({
+Tab15:AddButton({
+	Name = "Copy thanhdat4461",
+	Callback = function()
+            setclipboard("thanhdat4461#1232")
+  	end    
+})
+
+Tab15:AddButton({
 	Name = "Destroy GUI",
 	Callback = function()
       		OrionLib:Destroy()
