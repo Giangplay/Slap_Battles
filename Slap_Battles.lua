@@ -290,13 +290,7 @@ local Tab10 = Window:MakeTab({
 })
 
 local Tab11 = Window:MakeTab({
-	Name = "Troller Sever",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab12 = Window:MakeTab({
-	Name = "Player",
+	Name = "Troller",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -510,7 +504,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(9.9)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Stun equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -737,9 +731,9 @@ end
 end
 else
 OrionLib:MakeNotification({
-	Name = "You Have 5K Slap",
-	Content = "Or Then Owner Bagde",
-	Image = "rbxassetid://4483345998",
+	Name = "Error",
+	Content = "You Have 5K Slap Or Then Owner Bagde",
+	Image = "rbxassetid://7733658504",
 	Time = 5
 })
 end
@@ -757,7 +751,7 @@ else
 OrionLib:MakeNotification({
 	Name = "You Have Owner Bagde",
 	Content = "Not Click",
-	Image = "rbxassetid://4483345998",
+	Image = "rbxassetid://7733658504",
 	Time = 5
 })
 end
@@ -768,7 +762,7 @@ Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
 if workspace:FindFirstChild("Toolbox") == nil then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "Not have player spawn toolbox"})
+OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 5})
 end
 task.wait()
 for i,v in pairs(workspace.Toolbox:GetDescendants()) do
@@ -943,7 +937,7 @@ end
 task.wait()
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -960,7 +954,8 @@ game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 else
 OrionLib:MakeNotification({
 Name = "Error",
-Content = "You Have Enter Arena",
+Image = "rbxassetid://7733658504",
+Content = "You Have Equipped Glove Sleep and Enter Arena",
 Time = 5
 })
 end
@@ -1069,7 +1064,7 @@ game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
 task.wait()
 end
 elseif ReplicaFarm == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Replica equipped, or Work In Island Default"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped and enter Island Default",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -1176,7 +1171,7 @@ game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
 task.wait(5.05)
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Brick equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })   
@@ -1193,7 +1188,7 @@ game:GetService("ReplicatedStorage").lbrick:FireServer()
 task.wait(2.1)
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Brick equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -1209,7 +1204,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Aren
 task.wait()
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You Enter Lobby"})
+OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane and 7 people the server",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -1271,7 +1266,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 end 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
 else
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You need 666+ slaps"})
+OrionLib:MakeNotification({Name = "Error",Content = "You need 666+ slaps",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
 	end    
@@ -1360,6 +1355,15 @@ TeleportPlayer = Value
 })
 
 Tab7:AddTextbox({
+	Name = "Player Teleport",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PlayerTeleport = Value
+	end	  
+})
+
+Tab7:AddTextbox({
 	Name = "Save The Player [ Glove Guardian Angel ]",
 	Default = "Username",
 	TextDisappear = false,
@@ -1442,7 +1446,7 @@ Tab7:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-AntiVoid.CanCollide = true
+game.Workspace.VoidPart.CanCollide = true
 Timer = 0
 repeat
 if Cancel == true then
@@ -1458,6 +1462,7 @@ for i,v in pairs(game.Players:GetChildren()) do
 if Distance < NewDistance then
 	NewDistance = Distance
 	Closest = v
+task.wait()
 end
 end
 end
@@ -1465,18 +1470,18 @@ task.wait(0.01)
 if Timer < 1 then
 Timer = Timer + 0.01
 end
-until workspace[_G.PunishPlayer].Ragdolled.Value == false and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and Closest == game.Players[_G.PunishPlayer] and Timer >= 1
+until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Closest == game.Players[_G.PunishPlayer] and Timer >= 1
 if Cancel == false then
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid.CanCollide = false
+game.Workspace.VoidPart.CanCollide = false
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 else
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Swapper equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1493,11 +1498,18 @@ Cancel = false
 Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerTeleport].Character.HumanoidRootPart.CFrame
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "Player Teleport",
+	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
 end
@@ -1572,7 +1584,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                 end
 else
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Za Hando equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1717,14 +1729,14 @@ fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 wait(1)
-game.Players.LocalPlayer.Character.["Head"].Transparency = 0.5
-game.Players.LocalPlayer.Character.["Torso"].Transparency = 0.5
+game.Players.LocalPlayer.Character["Head"].Transparency = 0.5
+game.Players.LocalPlayer.Character["Torso"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
 else
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You need to be in lobby and have 666+ slaps"})
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1875,7 +1887,7 @@ game.Players.LocalPlayer.Character.Rhythm:Activate()
 task.wait()
 end
 elseif RhythmNoteSpam == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Rhythm equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -2775,61 +2787,6 @@ game:GetService("TeleportService"):Teleport(9412268818)
   	end    
 })
 
-Tab12:AddTextbox({
-	Name = "Player",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
-		PlayerTP = Value
-	end	  
-})
-
-Tab12:AddButton({
-	Name = "TP Player",
-	Callback = function()
-local lplayer = game:GetService('Players').LocalPlayer
- 
-local yeeting = false
-function GetPlayer(String)
-local Found = {}
-local strl = String:lower()
-if strl == "all" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-table.insert(Found,v)
-end
-elseif strl == "Random" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= lplayer.Name then
-table.insert(Found,v)
-end
-end 
-elseif strl == "me" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name == lplayer.Name then
-table.insert(Found,v)
-end
-end 
-else
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name:lower():sub(1, #String) == String:lower() then
-table.insert(Found,v)
-end
-end 
-end
-return Found 
-end
-function ahh(thing)
-local asd = {'yeet','gui','yeet gui'}
-local f = string.upper(asd[math.random(1,#asd)])
-return f
-end
-
-local target = unpack(GetPlayer(PlayerTP)).Character
- 
-game:GetService'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Head.CFrame;coin.Location = target.Head.Position game["Run Service"].Heartbeat:wait()
-  	end    
-})
-
 Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
@@ -2867,6 +2824,10 @@ task.wait()
 end
 while GloveSoundSpam and GloveSound == "Error Death [ All Glove ]" do
 game.ReplicatedStorage.ErrorDeath:FireServer()
+task.wait()
+end
+while GloveSoundSpam and GloveSound == "Zombie [ All Glove ]" do
+game:GetService("ReplicatedStorage").b:FireServer("ReplicateSound_Zombie")
 task.wait()
 end
 	end    
@@ -3295,7 +3256,7 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "Copy thanhdat4461",
+	Name = "Copy thanhdat4461 [ Baconscripter ]",
 	Callback = function()
             setclipboard("thanhdat4461#1232")
   	end    
