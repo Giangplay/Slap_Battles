@@ -759,6 +759,39 @@ end
 })
 
 Tab3:AddButton({
+	Name = "Notification Spawn Tomb Hallow",
+	Callback = function()
+repeat task.wait() until game.Workspace:FindFirstChild("Gravestone")
+OrionLib:MakeNotification({
+	Name = "Error",
+	Content = "Server Spawn Tomb Hallow",
+	Image = "rbxassetid://7733658504",
+	Time = 5
+})
+  	end 
+})
+
+Tab3:AddButton({
+	Name = "Get Hallow Jack",
+	Callback = function()
+if workspace:FindFirstChild("Gravestone") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
+OrionLib:MakeNotification({
+	Name = "Error",
+	Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",
+	Image = "rbxassetid://7733658504",
+	Time = 5
+})
+end
+task.wait()
+for i,v in pairs(workspace.Gravestone:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
+end
+end
+  	end 
+})
+
+Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
 if workspace:FindFirstChild("Toolbox") == nil then
