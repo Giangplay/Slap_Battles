@@ -722,9 +722,9 @@ if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
 Door = 0
 for i = 1, 10 do
 Door = Door + 1
-        if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
-        else
-        firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
+if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
+else
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
 wait(4)
 end
@@ -758,31 +758,16 @@ end
   	end 
 })
 
-Tab3:AddButton({
-	Name = "Notification Spawn Tomb Hallow",
-	Callback = function()
-repeat task.wait() until game.Workspace:FindFirstChild("Gravestone")
-OrionLib:MakeNotification({
-	Name = "Error",
-	Content = "Server Spawn Tomb Hallow",
-	Image = "rbxassetid://7733658504",
-	Time = 5
-})
-  	end 
-})
 
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if workspace:FindFirstChild("Gravestone") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
-OrionLib:MakeNotification({
-	Name = "Error",
-	Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",
-	Image = "rbxassetid://7733658504",
-	Time = 5
-})
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") == nil and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
+OrionLib:MakeNotification({Name = "Glove Killstreak",Content = "You Don't Have 10 Kill",Image = "rbxassetid://7733658504",Time = 5})
 end
 task.wait()
+OrionLib:MakeNotification({Name = "Error",Content = "Until Spawn Tomb Hallow",Image = "rbxassetid://7733658504",Time = 5})
+repeat task.wait() until game.Workspace:FindFirstChild("Gravestone")
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -794,10 +779,8 @@ end
 Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
-if workspace:FindFirstChild("Toolbox") == nil then
-OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 5})
-end
-task.wait()
+OrionLib:MakeNotification({Name = "Error",Content = "Until People spawn toolbox",Image = "rbxassetid://7733658504",Time = 5})
+repeat task.wait() until game.Workspace:FindFirstChild("Toolbox")
 for i,v in pairs(workspace.Toolbox:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -2158,48 +2141,6 @@ end
 	end    
 })
 
-Tab10:AddToggle({
-	Name = "All Glove AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-allFarming = Value
-if Value == true then
-for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-if v.ClassName == "Part" and v.Name == "BLOCK" then
-v.CanTouch = false
-end
-end
-task.wait()
-while allFarming do
-pcall(function()
-for _, Human in pairs(game.Players:GetPlayers()) do
-if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-task.wait(.1)
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-task.wait(.1)
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
-wait(.25)
-end
-end
-end
-end)
-task.wait()
-end
-else
-for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-if v.ClassName == "Part" and v.Name == "BLOCK" then
-v.CanTouch = true
-end
-end
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-	end    
-})
-
 Tab2:AddToggle({
 	Name = "Anti Squid",
 	Default = false,
@@ -2361,41 +2302,6 @@ else
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
                         v.CanTouch = true
                 end
-end
-	end    
-})
-
-Tab10:AddToggle({
-	Name = "Ghost AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-		Farming = Value
-if Value == true then
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-while Farming do
-pcall(function()
-for _, Human in pairs(game.Players:GetPlayers()) do
-if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-task.wait(.1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-task.wait(.1)
-game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
-wait(.25)
-end
-end
-end
-end
-end)
-task.wait()
-end
-else
-game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
 end
 	end    
 })
@@ -2694,6 +2600,83 @@ Tab7:AddSlider({
 	ValueName = "Speed",
 	Callback = function(Value)
 		OrbitSpeed = Value
+	end    
+})
+
+Tab10:AddToggle({
+	Name = "All Glove AutoFarm Slap",
+	Default = false,
+	Callback = function(Value)
+AllGloveFarm = Value
+if Value == true then
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+if v.ClassName == "Part" and v.Name == "BLOCK" then
+v.CanTouch = false
+end
+end
+task.wait()
+while AllGloveFarm do
+pcall(function()
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and v.Character and not v.Character:FindFirstChild("isParticipating") and v.Character:FindFirstChild("Torso") and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+task.wait(.1)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,-8,0)
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+task.wait(.1)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:FindFirstChild("HumanoidRootPart"))
+task.wait(.26)
+end
+end
+end
+end)
+task.wait()
+end
+else
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+if v.ClassName == "Part" and v.Name == "BLOCK" then
+v.CanTouch = true
+end
+end
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+	end    
+})
+
+Tab10:AddToggle({
+	Name = "Ghost AutoFarm Slap",
+	Default = false,
+	Callback = function(Value)
+		_G.GhostSlap = Value
+if Value == true then
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+while _G.GhostSlap do
+pcall(function()
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.Head:FindFirstChild("UnoReverseCard") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+task.wait(.1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,-8,0)
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+task.wait(.1)
+game.ReplicatedStorage.GhostHit:FireServer(v.Character:FindFirstChild("HumanoidRootPart"))
+task.wait(.26)
+end
+end
+end
+end
+end)
+task.wait()
+end
+else
+game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
 	end    
 })
 
@@ -3231,10 +3214,16 @@ Tab14:AddButton({
 Tab14:AddButton({
 	Name = "Serverhop",
 	Callback = function()
-for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-    if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
-    end
+local serverList = {}
+for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+		serverList[#serverList + 1] = v.id
+	end
+end
+if #serverList > 0 then
+	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
+else
+    error("No servers found")
 end
 	end
 })
