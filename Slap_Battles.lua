@@ -831,7 +831,7 @@ end
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if not workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" not game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and not game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
+if not workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and not game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and not game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
 OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",Image = "rbxassetid://7733658504",Time = 2})
 end
 task.wait()
@@ -1493,7 +1493,7 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[Save
 task.wait()
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Guardian Angel equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Guardian Angel equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -1550,7 +1550,7 @@ game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid.CanCollide = true
+AntiVoid.CanCollide = false
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -1906,7 +1906,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(un
 task.wait()
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You Have Glove Kinetic"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -3688,15 +3688,12 @@ Tab:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-for i,v in pairs(game.Workspace:GetDescendants()) do
-if string.find(v.Name, "ÅTycoon") then
-if v:FindFirstChild("Click") then
-fireclickdetector(v.Click.ClickDetector, 0)
-fireclickdetector(v.Click.ClickDetector, 1)
-end
-end
-end
-wait()
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+    wait()
 end
 	end    
 })
@@ -3732,7 +3729,7 @@ game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You have Ethernal BOB boss fight phase 6"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
