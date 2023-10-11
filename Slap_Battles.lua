@@ -349,55 +349,6 @@ Tab:AddButton({
   	end    
 })
 
-Tab1:AddButton({
-	Name = "Synapse X [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Krnl [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Knrl.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Animation [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Arceus x [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Arceus_X_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Kill Player [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Slap battles new R2O",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/6403373529.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "CherryUi's SB GUI",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomScriptr3/gggggggg/main/lolez.txt", true))()
-  	end    
-})
-
 Tab:AddButton({
 	Name = "inf yield [ PE ]",
 	Callback = function()
@@ -447,6 +398,125 @@ for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChi
 task.wait()
 end
 	end    
+})
+
+Tab1:AddButton({
+	Name = "Synapse X [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Krnl [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Knrl.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Animation [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Arceus x [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Arceus_X_V3.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Kill Player [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Slap battles new R2O",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/6403373529.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "CherryUi's SB GUI",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomScriptr3/gggggggg/main/lolez.txt", true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "drippy hub",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/ZombieGamesYT/DrippyHub-1.1/main/DrippyHub%201.2"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Fe fly V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "MoonUI v10",
+	Callback = function()
+      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/MoonUI-v10-/main/MoonUI%20v10'))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Cheesy UI",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Cheesy-Ui.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Btool Cute",
+	Callback = function()
+      		loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Dex V2",
+	Callback = function()
+      		loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Dex V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "TP gui player",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/TP_Player.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Turies Spy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Reamsrpy.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Simple Spy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua", true))()
+  	end    
 })
 
 Tab3:AddDropdown({
@@ -761,13 +831,8 @@ end
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if workspace:FindFirstChild("Gravestone") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") == nil and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
-OrionLib:MakeNotification({
-	Name = "Error",
-	Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",
-	Image = "rbxassetid://7733658504",
-	Time = 5
-})
+if not workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" not game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and not game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
+OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",Image = "rbxassetid://7733658504",Time = 2})
 end
 task.wait()
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
@@ -781,8 +846,8 @@ end
 Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
-if workspace:FindFirstChild("Toolbox") == nil then
-OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 5})
+if not workspace:FindFirstChild("Toolbox") then
+OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 2})
 end
 task.wait()
 for i,v in pairs(workspace.Toolbox:GetDescendants()) do
@@ -2259,9 +2324,9 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
+if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
 _G.AntiKick = false
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible Player Eecording Detected.".." ("..p.Name..")".." ("..message..")")
 end
 end
 end
@@ -2273,9 +2338,9 @@ Player.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match("rec") or v:lower():match("record") or v:lower():match("disco") or v:lower():match("disc")  then
+if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
 _G.AntiKick = false
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible Player Recording Detected.".." ("..Player.Name..")".." ("..message..")")
 end
 end
 end
@@ -2549,7 +2614,7 @@ end
 task.wait(5.7)
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Reverse equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -2589,7 +2654,7 @@ end
 task.wait(0.01)
 end
 elseif Value == true then
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Duration = 5,Text = "You don't have Ping Pong equipped"})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
@@ -2680,76 +2745,6 @@ game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 end
 	end    
-})
-
-Tab1:AddButton({
-	Name = "drippy hub",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/ZombieGamesYT/DrippyHub-1.1/main/DrippyHub%201.2"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Fe fly V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "MoonUI v10",
-	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/MoonUI-v10-/main/MoonUI%20v10'))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Cheesy UI",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Cheesy-Ui.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Btool Cute",
-	Callback = function()
-      		loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Dex V2",
-	Callback = function()
-      		loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Dex V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "TP gui player",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/TP_Player.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Turies Spy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Reamsrpy.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Simple Spy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua", true))()
-  	end    
 })
 
 Tab8:AddButton({
@@ -3216,10 +3211,16 @@ Tab14:AddButton({
 Tab14:AddButton({
 	Name = "Serverhop",
 	Callback = function()
-for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-    if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
-    end
+local serverList = {}
+for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+		serverList[#serverList + 1] = v.id
+	end
+end
+if #serverList > 0 then
+	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
+else
+    error("No servers found")
 end
 	end
 })
