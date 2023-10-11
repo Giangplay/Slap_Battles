@@ -1532,35 +1532,25 @@ Tab7:AddButton({
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 AntiVoid.CanCollide = true
+Timer = 0
 repeat
 if Cancel == true then
 break
 end
 if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-50000,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
-end
-NewDistance = math.huge
-for i,v in pairs(game.Players:GetChildren()) do
-	if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-		Distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).magnitude
-if Distance < NewDistance then
-	NewDistance = Distance
-	Closest = v
-task.wait()
-end
-end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49999,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
 end
 task.wait(0.01)
 if Timer < 1 then
 Timer = Timer + 0.01
 end
-until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Closest == game.Players[_G.PunishPlayer] and Timer >= 1
+until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Timer >= 1
 if Cancel == false then
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid.CanCollide = false
+AntiVoid.CanCollide = true
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
