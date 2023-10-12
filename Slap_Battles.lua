@@ -2123,6 +2123,8 @@ AntiKickServerhop = Tab2:AddToggle({
 if Value == true then
 AntiKick:Set(false)
 while _G.AntiKickServerhop do
+for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+if v.Name == "ErrorPrompt" then
 local serverList = {}
 for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
 	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
@@ -2132,6 +2134,8 @@ end
 if #serverList > 0 then
 	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
 end
+                    end
+                end
 task.wait()
 end
 end
