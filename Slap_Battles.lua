@@ -2120,7 +2120,7 @@ AntiKickServerhop = Tab2:AddToggle({
     Flag = "AntiKickServerhop",
 	Callback = function(Value)
 	_G.AntiKickServerhop = Value
-if Value == true do
+if Value == true then
 AntiKick:Set(false)
 while _G.AntiKickServerhop do
 local serverList = {}
