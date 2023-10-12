@@ -1211,19 +1211,17 @@ Tab6:AddToggle({
 	Name = "Auto Enter Arena",
 	Default = false,
 	Callback = function(Value)		
-        getgenv().autoJoin = Value
-            if Value == true then
-                while getgenv().autoJoin do
-                    wait()                       
-                        repeat task.wait() until game.Players.LocalPlayer.Character                   
-                        if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then                            
-                            repeat task.wait(.005)                               
-                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)                          
-                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-                            until game.Players.LocalPlayer.Character:FindFirstChild("entered")                          
-                        end                
-                end                
-            end
+        _G.AutoEnter = Value
+while _G.AutoEnter do
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait(.005)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait()
+end
 	end    
 })
 
@@ -1232,18 +1230,16 @@ Tab6:AddToggle({
 	Default = false,
 	Callback = function(Value)
         getgenv().autoJoin = Value
-            if Value == true then
-                while getgenv().autoJoin do
-                    wait()                     
-                        repeat task.wait() until game.Players.LocalPlayer.Character
-                        if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                            repeat task.wait(.005)
-                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-                            firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-                            until game.Players.LocalPlayer.Character:FindFirstChild("entered")                         
-                        end                
-                end                
-            end
+while getgenv().autoJoin do           
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait(.005)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait()
+end
 	end    
 })
 
@@ -2066,24 +2062,45 @@ Tab2:AddToggle({
 AntiAdmins = Value
 while AntiAdmins do
 for i,v in pairs(game.Players:GetChildren()) do
-                    if v:GetRankInGroup(9950771) >= 2 then
+if v:GetRankInGroup(9950771) >= 2 then
 _G.AntiKick = false
-                        game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
-                        break
-                    end
-                end
+_G.AntiKickServerhop = false
+game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
+break
+end
+end
 task.wait()
 end
 	end    
 })
 
 Tab2:AddToggle({
+	Name = "Anti Afk",
+	Default = false,
+	Save = true,
+    Flag = "AntiAfk",
+	Callback = function(Value)
+	_G.AntiAfk = Value
+while _G.AntiAfk do
+if getconnections then
+for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
+v:Disable()
+end
+end
+task.wait()
+end
+	end    
+})
+
+AntiKick = Tab2:AddToggle({
 	Name = "Anti Kick",
 	Default = false,
 	Save = true,
     Flag = "AntiKick",
 	Callback = function(Value)
 	_G.AntiKick = Value
+if Value == true then
+AntiKickServerhop:Set(false)
 while _G.AntiKick do
 for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
                     if v.Name == "ErrorPrompt" then
@@ -2091,6 +2108,32 @@ game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.Jo
                     end
                 end
 task.wait()
+end
+end
+	end    
+})
+
+AntiKickServerhop = Tab2:AddToggle({
+	Name = "Anti Kick Serverhop",
+	Default = false,
+	Save = true,
+    Flag = "AntiKickServerhop",
+	Callback = function(Value)
+	_G.AntiKickServerhop = Value
+if Value == true do
+AntiKick:Set(false)
+while _G.AntiKickServerhop do
+local serverList = {}
+for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+		serverList[#serverList + 1] = v.id
+	end
+end
+if #serverList > 0 then
+	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
+end
+task.wait()
+end
 end
 	end    
 })
@@ -2794,7 +2837,7 @@ game:GetService("TeleportService"):Teleport(9412268818)
 Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
-	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman", "Error Death [ All Glove ]"},
+	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
 	Callback = function(Value)
 GloveSound = Value
 	end    
