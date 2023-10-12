@@ -389,6 +389,7 @@ Tab:AddToggle({
     Flag = "AutoFarmCandy",
 	Callback = function(Value)
 	    CandyCornsFarm = Value
+OrionLib:MakeNotification({Name = "Error",Content = "ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
 while CandyCornsFarm do
 for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
@@ -831,14 +832,15 @@ end
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if not workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and not game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and not game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
-OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow Or You Don't have 10 Kill",Image = "rbxassetid://7733658504",Time = 2})
-end
-task.wait()
+if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "10" then
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
 end
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow and Glove Killstreak and 10 kill",Image = "rbxassetid://7733658504",Time = 2})
+OrionLib:MakeNotification({Name = "Error",Content = " ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
 end
   	end 
 })
@@ -846,14 +848,14 @@ end
 Tab3:AddButton({
 	Name = "Get Hammer",
 	Callback = function()
-if not workspace:FindFirstChild("Toolbox") then
-OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 2})
-end
-task.wait()
+if workspace:FindFirstChild("Toolbox") then
 for i,v in pairs(workspace.Toolbox:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
 end
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 2})
 end
   	end 
 })
