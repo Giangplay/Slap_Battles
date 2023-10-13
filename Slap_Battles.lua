@@ -389,7 +389,6 @@ Tab:AddToggle({
     Flag = "AutoFarmCandy",
 	Callback = function(Value)
 	    CandyCornsFarm = Value
-OrionLib:MakeNotification({Name = "Error",Content = "ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
 while CandyCornsFarm do
 for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
@@ -969,12 +968,7 @@ while _G.AutoTimeDiamond do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 task.wait(1)
 TimeMegarock = TimeMegarock + 1
-OrionLib:MakeNotification({
-	Name = "Time Diamond : "..TimeMegarock,
-	Content = "Error",
-	Image = "rbxassetid://7743873443",
-	Time = 0.5
-})
+OrionLib:MakeNotification({Name = "Time Diamond : "..TimeMegarock,Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 Time = 0
 end
@@ -1018,7 +1012,6 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
-task.wait(0.99)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1048,23 +1041,16 @@ Time = 5
 end
 task.wait()
 while fishFarm and task.wait() do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") then
-if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("Ragdolled").Value then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
 Time += 1
-OrionLib:MakeNotification({
-Name = "Time ZZZZZZZ : "..Time,
-Image = "rbxassetid://7743873443",
-Content = "Error",
-Time = 0.5
-})
+OrionLib:MakeNotification({Name = "Time ZZZZZZZ : "..Time,Image = "rbxassetid://7743873443",Content = "Error",Time = 0.5})
 else
 Time = 0
 end
 end
 end
-else
-game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
 	end    
 })
@@ -1085,12 +1071,7 @@ while _G.AutoTimeGhost do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
 task.wait(1)
 TimeGhost = TimeGhost + 1
-OrionLib:MakeNotification({
-	Name = "Time Ghost : "..TimeGhost,
-	Content = "Error",
-	Image = "rbxassetid://7743873443",
-	Time = 0.5
-})
+OrionLib:MakeNotification({Name = "Time Ghost : "..TimeGhost,Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 Time = 0
 end
@@ -1580,7 +1561,7 @@ Tab7:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2)
+task.wait(3.67)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
