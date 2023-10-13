@@ -47,7 +47,7 @@ shared.gloveHits = {
     ["Tinkerer"] = game.ReplicatedStorage.GeneralHit,
 	   ["Guardian Angel"] = game.ReplicatedStorage.GeneralHit,
     ["Sun"] = game.ReplicatedStorage.GeneralHit,
-    ["Necromancer"] = game.ReplicatedStorage.GeneralHit,
+["Necromancer"] = game.ReplicatedStorage.GeneralHit,
     ["Zombie"] = game.ReplicatedStorage.GeneralHit,
     ["Dual"] = game.ReplicatedStorage.GeneralHit,
     
