@@ -1800,6 +1800,19 @@ end
   	end    
 })
 
+Tab7:AddSlider({
+	Name = "Reach Slap Arua",
+	Min = 10,
+	Max = 50,
+	Default = 25,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachSlapArua = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Slap Aura [ All Glove ]",
 	Default = false,
@@ -1824,15 +1837,42 @@ end
 })
 
 Tab7:AddSlider({
-	Name = "Reach Slap Arua",
-	Min = 10,
-	Max = 50,
-	Default = 25,
+	Name = "Reach Shukuchi",
+	Min = 1,
+	Max = 130,
+	Default = 50,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Reach",
 	Callback = function(Value)
-		_G.ReachSlapArua = Value
+		_G.ReachShukuchi = Value
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Shukuchi",
+	Default = false,
+	Callback = function(Value)
+_G.AutoShukuchi = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
+while _G.AutoShukuchi do
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if _G.ReachShukuchi >= Magnitude then
+game.ReplicatedStorage.SM:FireServer(v)
+end
+end
+end
+end
+end
+task.wait()
+end
+elseif _G.AutoShukuchi == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end    
 })
 
@@ -2351,7 +2391,8 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
-_G.AntiKick = false
+AntiKick:Set(false)
+AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible Player Eecording Detected.".." ("..p.Name..")".." ("..message..")")
 end
 end
@@ -2365,7 +2406,8 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
-_G.AntiKick = false
+AntiKick:Set(false)
+AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible Player Recording Detected.".." ("..Player.Name..")".." ("..message..")")
 end
 end
