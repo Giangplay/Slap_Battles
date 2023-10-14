@@ -12,7 +12,7 @@ for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChi
 task.wait()  
 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0) 
 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1) 
-task.wait(0.99)  
+task.wait(0.11)  
 for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do  
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then  
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)  
