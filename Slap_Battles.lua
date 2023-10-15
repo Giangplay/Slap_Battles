@@ -35,9 +35,6 @@ if setfpscap then
 end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
-local Beds = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Bed.lua"))()
-
-shared.createBed()
 
 function SpamBaller()
 while BallerFarm do
@@ -129,6 +126,57 @@ S5.Transparency = .5
 S5.Position = Vector3.new(-5499.39, -4984, -5000.07)
 S5.Size = Vector3.new(24, 3, 24)
 S5.Parent = workspace:FindFirstChild("SafeBox")
+end
+
+---Bed---
+
+if workspace:FindFirstChild("Bed") == nil then
+local Bed = Instance.new("Part")
+Bed.Name = "Bed"
+Bed.Anchored = true
+Bed.Position = Vector3.new(-100019.5, 104, -1500)
+Bed.Size = Vector3.new(0.01, 0.01, 10)
+Bed.Parent = workspace
+
+local B1 = Instance.new("Part")
+B1.Name = "Bed1"
+B1.Anchored = true
+B1.Position = Vector3.new(-100025, 104, -1500)
+B1.Size = Vector3.new(1, 6, 7)
+B1.BrickColor = BrickColor.new("Burnt Sienna")
+B1.Parent = workspace:FindFirstChild("Bed")
+
+local B2 = Instance.new("Part")
+B2.Name = "Bed2"
+B2.Anchored = true
+B2.Position = Vector3.new(-100023, 104.5, -1500)
+B2.Size = Vector3.new(2, 1, 6)
+B2.BrickColor = BrickColor.new("Mid gray")
+B2.Parent = workspace:FindFirstChild("Bed")
+
+local B3 = Instance.new("Part")
+B3.Name = "Bed3"
+B3.Anchored = true
+B3.Position = Vector3.new(-100019, 104, -1500)
+B3.Size = Vector3.new(11, 1, 7)
+B3.BrickColor = BrickColor.new("Crimson")
+B3.Parent = workspace:FindFirstChild("Bed")
+
+local B4 = Instance.new("Part")
+B4.Name = "Bed4"
+B4.Anchored = true
+B4.Position = Vector3.new(-100013, 104, -1500)
+B4.Size = Vector3.new(1, 6, 7)
+B4.BrickColor = BrickColor.new("Burnt Sienna")
+B4.Parent = workspace:FindFirstChild("Bed")
+
+local B5 = Instance.new("Part")
+B5.Name = "Bed5"
+B5.Anchored = true
+B5.Position = Vector3.new(-100019, 103, -1500)
+B5.Size = Vector3.new(11, 1, 7)
+B5.BrickColor = BrickColor.new("Dark orange")
+B5.Parent = workspace:FindFirstChild("Bed")
 end
 
 ---SafeSpot---
@@ -837,7 +885,7 @@ end
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= 10 then
+if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -935,7 +983,7 @@ Tab5:AddSlider({
 	ValueName = "Hip Height",
 	Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
-WS3 = Value
+HipHeight = Value
 	end    
 })
 
@@ -945,16 +993,13 @@ Tab5:AddToggle({
 	Save = true,
     Flag = "HipHeightset",
 	Callback = function(Value)
-		autoSet3 = Value
-        if Value == true then
-            while autoSet3 do
-                task.wait()
-                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.HipHeight ~= WS3 then
-                    Character:FindFirstChild("Humanoid").HipHeight  = WS3
-                end
-            end
-        end
+		KeepHipHeight = Value
+           while KeepHipHeight do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
+                  game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
+              end
+task.wait()
+         end
 	end    
 })
 
@@ -974,7 +1019,7 @@ while _G.AutoTimeDiamond do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 task.wait(1)
 TimeMegarock = TimeMegarock + 1
-OrionLib:MakeNotification({Name = "Time Diamond : "..TimeMegarock,Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+OrionLib:MakeNotification({Name = "Error",Content = "You Have The Rock For: "..TimeMegarock.." Second. You Have "..(3600000 - TimeMegarock).." Second left",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 Time = 0
 end
@@ -1017,7 +1062,7 @@ repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1032,29 +1077,22 @@ Tab4:AddToggle({
 	Name = "Get Fish",
 	Default = false,
 	Callback = function(Value)
-fishFarm = Value
+_G.FishFarm = Value
 if Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 else
-OrionLib:MakeNotification({
-Name = "Error",
-Image = "rbxassetid://7733658504",
-Content = "You Have Equipped Glove Sleep and Enter Arena",
-Time = 5
-})
+OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Sleep and Enter Arena",Time = 5})
 end
 task.wait()
-while fishFarm and task.wait() do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
+while _G.FishFarm and task.wait() do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
 Time += 1
-OrionLib:MakeNotification({Name = "Time ZZZZZZZ : "..Time,Image = "rbxassetid://7743873443",Content = "Error",Time = 0.5})
+OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7743873443",Content = "You Have Been Sleep For: " ..Time.. " Second. You Have: " ..(3600 - Time).. " Second Left",Time = 0.5})
 else
 Time = 0
-end
 end
 end
 end
@@ -1077,7 +1115,7 @@ while _G.AutoTimeGhost do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
 task.wait(1)
 TimeGhost = TimeGhost + 1
-OrionLib:MakeNotification({Name = "Time Ghost : "..TimeGhost,Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+OrionLib:MakeNotification({Name = "Error",Content = "You Have The Invisibility For: "..TimeGhost.." Second. You Have "..(3600 - TimeGhost).." Second left",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 Time = 0
 end
@@ -1237,7 +1275,7 @@ Tab3:AddToggle({
 	    Brickfarm = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" then
 while Brickfarm do
-game:GetService('VirtualInputManager'):SendKeyEvent(true,'E',false,x)
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(5.05)
 end
 elseif Value == true then
@@ -1853,21 +1891,21 @@ Tab7:AddToggle({
 	Name = "Auto Shukuchi",
 	Default = false,
 	Callback = function(Value)
-_G.AutoShukuchi = Value
+         _G.AutoShukuchi = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
-while _G.AutoShukuchi do
+                while _G.AutoShukuchi do
 for i,v in pairs(game.Players:GetPlayers()) do
-if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-if _G.ReachShukuchi >= Magnitude then
-game.ReplicatedStorage.SM:FireServer(v)
+                        if _G.ReachShukuchi >= Magnitude then
+game:GetService("ReplicatedStorage").SM:FireServer(v)
+                     end
 end
 end
 end
-end
-end
+                 end
 task.wait()
 end
 elseif _G.AutoShukuchi == true then
@@ -1923,7 +1961,7 @@ while FullKineticSpam do
 local args = {
     [1] = {
         ["Force"] = 0,
-        ["Direction"] = Vector3.new(1, 1.5, 0)
+        ["Direction"] = Vector3.new(0, 0.1, 0)
     }
 }
 
@@ -2499,10 +2537,10 @@ end
 })
 
 Tab2:AddToggle({
-	Name = "Anti Barrier",
+	Name = "Anti Defend",
 	Default = false,
 	Save = true,
-    Flag = "AntiBarrier",
+    Flag = "AntiDefend",
 	Callback = function(Value)
 	_G.NoclipBarrier = Value
 if _G.NoclipBarrier == false then
