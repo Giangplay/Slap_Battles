@@ -46,7 +46,7 @@ end
 function SpamReplica()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
 while ReplicaFarm do
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
+game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 wait(20)
 end
 end
