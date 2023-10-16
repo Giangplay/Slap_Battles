@@ -1027,30 +1027,26 @@ end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Get bob 1.0 [ You Epin Replica ]",
+GetBob = Tab3:AddToggle({
+	Name = "Get bob 1.0",
 	Default = false,
 	Callback = function(Value)
-	    bobFarm = Value
-        if Value == true then
-            while bobFarm do
-                task.wait()
-                    if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and bobFarm and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
-                    game.ReplicatedStorage.Duplicate:FireServer(true)
-                    task.wait()
-                    tick = os.time()
-                    repeat task.wait()
-                    until os.time() - tick >= 5.2
-                    end
-            end
-            else
-            task.wait(10.2)
-        end
+_G.AutoFarmBob = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
+while _G.AutoFarmBob do
+game.ReplicatedStorage.Duplicate:FireServer(true)
+wait(5.1)
+end
+elseif _G.AutoFarmBob == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+GetBob:Set(false)
+end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Get bob 2.0 [ You Epin Replica ]",
+FarmBob = Tab3:AddToggle({
+	Name = "Get bob 2.0",
 	Default = false,
 	Callback = function(Value)
 	    AutoFarmbob = Value
@@ -1069,6 +1065,8 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+FarmBob:Set(false)
 end
 	end    
 })
@@ -1158,7 +1156,7 @@ end
 	end    
 })
 
-Tab3:AddToggle({
+FarmReplica = Tab3:AddToggle({
 	Name = "Auto Slap Replica",
 	Default = false,
 	Callback = function(Value)
@@ -1177,6 +1175,8 @@ task.wait()
 end
 elseif ReplicaFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped and enter Island Default",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+FarmReplica:Set(false)
 end
 	end    
 })
@@ -1268,7 +1268,7 @@ end
 	end    
 })
 
-Tab3:AddToggle({
+AutoFarmBrick1 = Tab3:AddToggle({
 	Name = "Autofram Brick 1.0",
 	Default = false,
 	Callback = function(Value)
@@ -1280,11 +1280,13 @@ task.wait(5.05)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+AutoFarmBrick1:Set(false)
 end
 	end    
 })   
 
-Tab3:AddToggle({
+AutoFarmBrick2 = Tab3:AddToggle({
 	Name = "AutoFarm Brick 2.0",
 	Default = false,
 	Callback = function(Value)
@@ -1297,11 +1299,13 @@ task.wait(2.1)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+AutoFarmBrick2:Set(false)
 end
 	end    
 })
 
-Tab3:AddToggle({
+AutoTycoon = Tab3:AddToggle({
 	Name = "Get Tycoon",
 	Default = false,
 	Callback = function(Value)
@@ -1313,6 +1317,8 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane and 7 people the server",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+AutoTycoon:Set(false)
 end
 	end    
 })
@@ -1502,7 +1508,7 @@ RetroAbility = Value
 	end    
 })
 
-Tab7:AddToggle({
+SavePlayer = Tab7:AddToggle({
 	Name = "Auto Spam Guardian Angel",
 	Default = false,
 	Callback = function(Value)
@@ -1517,6 +1523,8 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Guardian Angel equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+SavePlayer:Set(false)
 end
 	end    
 })
@@ -1887,7 +1895,7 @@ Tab7:AddSlider({
 	end    
 })
 
-Tab7:AddToggle({
+AutoShukuchi = Tab7:AddToggle({
 	Name = "Auto Shukuchi",
 	Default = false,
 	Callback = function(Value)
@@ -1910,6 +1918,8 @@ task.wait()
 end
 elseif _G.AutoShukuchi == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+AutoShukuchi:Set(false)
 end
 	end    
 })
@@ -1951,7 +1961,7 @@ end
 	end    
 })
 
-Tab7:AddToggle({
+FullKinetic = Tab7:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
 	Callback = function(Value)
@@ -1970,6 +1980,8 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+FullKinetic:Set(false)
 end
 	end    
 })
@@ -2011,7 +2023,7 @@ end
 	end    
 })
 
-Tab7:AddToggle({
+RhythmNote = Tab7:AddToggle({
 	Name = "Rhythm Note Spam + Auto Press [ Equip Rhythm ]",
 	Default = false,
 	Callback = function(Value)
@@ -2025,6 +2037,8 @@ task.wait()
 end
 elseif RhythmNoteSpam == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+RhythmNote:Set(false)
 end
 	end    
 })
@@ -2037,23 +2051,30 @@ Tab7:AddColorpicker({
 	end	  
 })
 
-Tab7:AddToggle({
+ColorSkin = Tab7:AddToggle({
 	Name = "Auto Color Skin [ Glove gold ]",
 	Default = false,
 	Callback = function(Value)
 		_G.GoldColor = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while _G.GoldColor do
 game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, BrickColor.new(_G.skinColor))
 task.wait()
 end
+elseif _G.GoldColor == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+ColorSkin:Set(false)
+end
 	end    
 })
 
-Tab7:AddToggle({
+RainBox = Tab7:AddToggle({
 	Name = "Auto Rainbow [ Glove gold ]",
 	Default = false,
 	Callback = function(Value)
 		_G.Rainbow = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while _G.Rainbow do
 local randomnumber = math.random(1004, 1032)
 local args = {
@@ -2063,6 +2084,11 @@ local args = {
 
 game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
 task.wait(0.075)
+end
+elseif _G.Rainbow == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+RainBox:Set(false)
 end
 	end    
 })
@@ -2428,10 +2454,10 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
+if v:lower():match("recording") or v:lower():match(" rec ") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco ") or v:lower():match(" disc ") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds ") or v:lower():match(" dc ") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip ") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
 AntiKickServerhop:Set(false)
-game.Players.LocalPlayer:Kick("Possible Player Eecording Detected.".." ("..p.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
 end
 end
 end
@@ -2443,10 +2469,10 @@ Player.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match("disco") or v:lower():match("disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match("clip") or v:lower():match("proof") or v:lower():match("evidence") then
+if v:lower():match("recording") or v:lower():match(" rec ") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco ") or v:lower():match(" disc ") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds ") or v:lower():match(" dc ") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip ") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
 AntiKickServerhop:Set(false)
-game.Players.LocalPlayer:Kick("Possible Player Recording Detected.".." ("..Player.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
 end
 end
 end
@@ -2706,7 +2732,7 @@ end
 	end    
 })
 
-Tab7:AddToggle({
+InfRever = Tab7:AddToggle({
 	Name = "Infinite Reverse",
 	Default = false,
 	Callback = function(Value)
@@ -2721,11 +2747,13 @@ task.wait(5.7)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+InfRever:Set(false)
 end
 	end    
 })
 
-Tab7:AddToggle({
+PingPong = Tab7:AddToggle({
 	Name = "Ping Pong Orbit",
 	Default = false,
 	Callback = function(Value)
@@ -2761,6 +2789,8 @@ task.wait(0.01)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+PingPong:Set(false)
 end
 	end    
 })
@@ -3216,7 +3246,7 @@ wait(5.475)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Hallow Jack" do
 game:GetService("ReplicatedStorage"):WaitForChild("Hallow"):FireServer()
-wait(4.2)
+wait(3.2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sparky" do
 game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
@@ -3325,8 +3355,6 @@ for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("
 end
 if #serverList > 0 then
 	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
-else
-    error("No servers found")
 end
 	end
 })
