@@ -46,11 +46,9 @@ end
 function SpamReplica()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
 while ReplicaFarm do
-game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 end
-elseif ReplicaFarm == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped, or you aren't in the Default arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
 
@@ -3247,6 +3245,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Hallow Jack" do
 game:GetService("ReplicatedStorage"):WaitForChild("Hallow"):FireServer()
 wait(3.2)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Phantom" do
+game:GetService("ReplicatedStorage").PhantomDash:InvokeServer(workspace[game.Players.LocalPlayer.Name].Phantom) 
+wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sparky" do
 game:GetService("ReplicatedStorage").Sparky:FireServer(game:GetService("Players").LocalPlayer.Character.Sparky)
