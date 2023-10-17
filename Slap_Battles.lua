@@ -1793,6 +1793,33 @@ end
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Make Kill Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.KillerPlayer = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Get Kill Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+wait(4.2)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait(0.12)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 Tab7:AddButton({
 	Name = "Kill Player Random",
 	Callback = function()
@@ -2117,8 +2144,6 @@ end
 Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
-	Save = true,
-    Flag = "AntiVoid",
 	Callback = function(Value)
 AntiVoid.CanCollide = Value
 if Value then
@@ -2132,8 +2157,6 @@ end
 Tab2:AddToggle({
 	Name = "Tournament Anti Void",
 	Default = false,
-	Save = true,
-    Flag = "TournamentAntiVoid",
 	Callback = function(Value)
 TournamentAntiVoid.CanCollide = Value
 if Value then
@@ -3446,7 +3469,6 @@ Tab15:AddButton({
   	end 
 })
 
-OrionLib:Init()
 elseif game.PlaceId == 11828384869 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
