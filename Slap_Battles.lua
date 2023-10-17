@@ -418,8 +418,6 @@ Tab:AddButton({
 Tab:AddToggle({
 	Name = "Autofarm Slapples",
 	Default = false,
-	Save = true,
-    Flag = "AutoFarmSlapples",
 	Callback = function(Value)
 	    SlappleFarm = Value
 while SlappleFarm do
@@ -437,8 +435,6 @@ end
 Tab:AddToggle({
 	Name = "Autofarm Candy",
 	Default = false,
-	Save = true,
-    Flag = "AutoFarmCandy",
 	Callback = function(Value)
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
@@ -928,8 +924,6 @@ Walkspeed = Value
 Tab5:AddToggle({
 	Name = "Walkspeed Set Auto",
 	Default = false,
-	Save = true,
-    Flag = "WalkSpeedSet",
 	Callback = function(Value)
 		KeepWalkspeed = Value
             while KeepWalkspeed do
@@ -958,8 +952,6 @@ Jumppower = Value
 Tab5:AddToggle({
 	Name = "Jumppower Set Auto",
 	Default = false,
-	Save = true,
-    Flag = "JumppowerSet",
 	Callback = function(Value)
 		KeepJumppower = Value
             while KeepJumppower do
@@ -988,8 +980,6 @@ HipHeight = Value
 Tab5:AddToggle({
 	Name = "Hip Height Set Auto",
 	Default = false,
-	Save = true,
-    Flag = "HipHeightset",
 	Callback = function(Value)
 		KeepHipHeight = Value
            while KeepHipHeight do
@@ -2141,7 +2131,18 @@ end
 	end    
 })
 
+if game.Workspace:FindFirstChild("Value") == nil then
+local NoChanged = Instance.new("BoolValue", workspace)
+end
 Tab2:AddToggle({
+	Name = "All Toggle",
+	Default = false,
+	Callback = function(Value)
+game.Workspace.Value.Value = Value
+	end    
+})
+
+AntiVoid = Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
@@ -2154,7 +2155,7 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiVoidTourn =  Tab2:AddToggle({
 	Name = "Tournament Anti Void",
 	Default = false,
 	Callback = function(Value)
@@ -2167,11 +2168,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiPortal = Tab2:AddToggle({
 	Name = "Anti Portal",
 	Default = false,
-	Save = true,
-    Flag = "AntiPortal",
 	Callback = function(Value)
 AntiPortal = Value
 if AntiPortal == true then
@@ -2188,11 +2187,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiAdmin = Tab2:AddToggle({
 	Name = "Anti Admin",
 	Default = false,
-	Save = true,
-    Flag = "AntiAdmin",
 	Callback = function(Value)
 AntiAdmins = Value
 while AntiAdmins do
@@ -2209,11 +2206,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiAfk = Tab2:AddToggle({
 	Name = "Anti Afk",
 	Default = false,
-	Save = true,
-    Flag = "AntiAfk",
 	Callback = function(Value)
 	_G.AntiAfk = Value
 while _G.AntiAfk do
@@ -2230,8 +2225,6 @@ end
 AntiKick = Tab2:AddToggle({
 	Name = "Anti Kick",
 	Default = false,
-	Save = true,
-    Flag = "AntiKick",
 	Callback = function(Value)
 	_G.AntiKick = Value
 if Value == true then
@@ -2251,8 +2244,6 @@ end
 AntiKickServerhop = Tab2:AddToggle({
 	Name = "Anti Kick Serverhop",
 	Default = false,
-	Save = true,
-    Flag = "AntiKickServerhop",
 	Callback = function(Value)
 	_G.AntiKickServerhop = Value
 if Value == true then
@@ -2277,11 +2268,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiObby = Tab2:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
-	Save = true,
-    Flag = "AntiObby",
 	Callback = function(Value)
 		AntiObby = Value
 if AntiObby == false then
@@ -2302,11 +2291,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiRock = Tab2:AddToggle({
 	Name = "Anti Megarock / Custom",
 	Default = false,
-	Save = true,
-    Flag = "AntiRock",
 	Callback = function(Value)
 		AntiRock = Value
 while AntiRock do
@@ -2321,11 +2308,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiBus = Tab2:AddToggle({
 	Name = "Anti Bus",
 	Default = false,
-	Save = true,
-    Flag = "AntiBus",
 	Callback = function(Value)
 		AntiBus = Value
 while AntiBus do
@@ -2339,11 +2324,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
-	Save = true,
-    Flag = "AntiMail",
 	Callback = function(Value)
 game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = Value
 AntiMail = Value
@@ -2356,21 +2339,17 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiJack = Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
-	Save = true,
-    Flag = "AntiHallow",
 	Callback = function(Value)
 game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
 	end    
 })
 
-Tab2:AddToggle({
+AntiBooster = Tab2:AddToggle({
 	Name = "Anti Booster",
 	Default = false,
-	Save = true,
-    Flag = "AntiBooster",
 	Callback = function(Value)
 		_G.AntiBooster = Value
 while _G.AntiBooster do
@@ -2384,11 +2363,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiSquid = Tab2:AddToggle({
 	Name = "Anti Squid",
 	Default = false,
-	Save = true,
-    Flag = "AntiSquid",
 	Callback = function(Value)
 	_G.AntiSquid = Value
 if _G.AntiSquid == false then
@@ -2403,21 +2380,17 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiConveyor = Tab2:AddToggle({
 	Name = "Anti Conveyor",
 	Default = false,
-	Save = true,
-    Flag = "AntiConveyor",
 	Callback = function(Value)
 game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
 	end    
 })
 
-Tab2:AddToggle({
+AntiNightmare = Tab2:AddToggle({
 	Name = "Anti Nightmare",
 	Default = false,
-	Save = true,
-    Flag = "AntiNightmare",
 	Callback = function(Value)
 	if Value == true then
         game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Lighting
@@ -2427,11 +2400,9 @@ Tab2:AddToggle({
 	end    
 })
 
-Tab2:AddToggle({
+AntiTime = Tab2:AddToggle({
 	Name = "Anti Time Stop",
 	Default = false,
-	Save = true,
-    Flag = "AntiTimeStop",
 	Callback = function(Value)
 	_G.AntiTimestop = Value
 while _G.AntiTimestop do
@@ -2445,11 +2416,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiNull = Tab2:AddToggle({
 	Name = "Anti Null",
 	Default = false,
-	Save = true,
-    Flag = "AntiNull",
 	Callback = function(Value)
 AntiNull = Value
 while AntiNull do
@@ -2465,11 +2434,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiBrick = Tab2:AddToggle({
 	Name = "Anti Brick",
 	Default = false,
-	Save = true,
-    Flag = "AntiBrick",
 	Callback = function(Value)
 _G.AntiBrick = Value
 while _G.AntiBrick do
@@ -2483,11 +2450,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiRecord = Tab2:AddToggle({
 	Name = "Anti Record",
 	Default = false,
-	Save = true,
-    Flag = "AntiRecord",
 	Callback = function(Value)
 AntiRecord = Value
 	end    
@@ -2523,21 +2488,17 @@ end
 end)
 end)
 
-Tab2:AddToggle({
+AntiReda = Tab2:AddToggle({
 	Name = "Anti [REDACTED]",
 	Default = false,
-	Save = true,
-    Flag = "Anti[REDECTED]",
 	Callback = function(Value)
 game.Players.LocalPlayer.PlayerScripts.Well.Disabled = Value
 	end    
 })
 
-Tab2:AddToggle({
+AntiBrazil = Tab2:AddToggle({
 	Name = "Anti Brazil",
 	Default = false,
-	Save = true,
-    Flag = "AntiBrazil",
 	Callback = function(Value)
 	if Value == true then
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
@@ -2551,11 +2512,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiZa = Tab2:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
-	Save = true,
-    Flag = "AntiZaHando",
 	Callback = function(Value)
 	AntiZaHando = Value
             while AntiZaHando do
@@ -2569,11 +2528,9 @@ task.wait()
 	end    
 })
 
-Tab2:AddToggle({
+AntiReaper = Tab2:AddToggle({
 	Name = "Anti Reaper",
 	Default = false,
-	Save = true,
-    Flag = "AntiReaper",
 	Callback = function(Value)
 	AntiReaper = Value
             while AntiReaper do
@@ -2588,11 +2545,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiPusher = Tab2:AddToggle({
 	Name = "Anti Pusher",
 	Default = false,
-	Save = true,
-    Flag = "AntiPusher",
 	Callback = function(Value)
 		AntiPusher = Value
 while AntiPusher do
@@ -2606,11 +2561,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiDefend = Tab2:AddToggle({
 	Name = "Anti Defend",
 	Default = false,
-	Save = true,
-    Flag = "AntiDefend",
 	Callback = function(Value)
 	_G.NoclipBarrier = Value
 if _G.NoclipBarrier == false then
@@ -2631,11 +2584,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiBubble = Tab2:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
-	Save = true,
-    Flag = "AntiBubble",
 	Callback = function(Value)
 		 _G.AntiBubble = Value
 while _G.AntiBubble do
@@ -2651,11 +2602,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiStun = Tab2:AddToggle({
 	Name = "Anti Stun",
 	Default = false,
-	Save = true,
-    Flag = "AntiStun",
 	Callback = function(Value)
 		AntiStun = Value
 while AntiStun do
@@ -2667,11 +2616,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiCOD = Tab2:AddToggle({
 	Name = "Anti Cube Of Death",
 	Default = false,
-	Save = true,
-    Flag = "AntiCOD",
 	Callback = function(Value)
 		if Value == true then
 if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
@@ -2685,11 +2632,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiDeath = Tab2:AddToggle({
 	Name = "Anti Death Barriers",
 	Default = false,
-	Save = true,
-    Flag = "AntiDeathBarriers",
 	Callback = function(Value)
 		if Value == true then
 for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
@@ -2717,11 +2662,9 @@ end
 	end    
 })
 
-Tab2:AddToggle({
+AntiName = Tab2:AddToggle({
 	Name = " Auto Remove nametag",
 	Default = false,
-	Save = true,
-    Flag = "AutoRemoveName",
 	Callback = function(Value)
 	AutoRemoveNameTag = Value
         if AutoRemoveNameTag and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
@@ -2736,11 +2679,9 @@ repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Name
 	end    
 })
 
-Tab2:AddToggle({
+AntiRagdoll = Tab2:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
-	Save = true,
-    Flag = "AntiRagdoll",
 	Callback = function(Value)
         AntiRagdoll = Value
 if AntiRagdoll then
@@ -3468,6 +3409,127 @@ Tab15:AddButton({
       		OrionLib:Destroy()
   	end 
 })
+
+---AllAnti---
+game.Workspace.Value.Changed:Connect(function()
+AntiVoid:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiVoidTourn:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiPortal:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiAdmin:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiAfk:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiObby:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiRock:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiBus:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiMail:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiJack:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiBooster:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiSquid:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiConveyor:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiNightmare:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiTime:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiNull:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiBrick:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiRecord:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiReda:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiBrazil:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiZa:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiReaper:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiPusher:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiDefend:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiBubble:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiStun:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiCOD:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiDeath:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiName:Set(game.Workspace.Value.Value)
+end)
+
+game.Workspace.Value.Changed:Connect(function()
+AntiRagdoll:Set(game.Workspace.Value.Value)
+end)
 
 elseif game.PlaceId == 11828384869 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
