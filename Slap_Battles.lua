@@ -362,23 +362,17 @@ local Tab15 = Window:MakeTab({
 OrionLib:MakeNotification({
 	Name = "Script slap battles.",
 	Content = "ID Game [ "..game.PlaceId.." ]",
-	Time = 17
+	Time = 5
 })
 
 OrionLib:MakeNotification({
 	Name = "Hello [ "..game.Players.LocalPlayer.Character.Name.." ]",
 	Content = "ERROR",
-	Time = 17
+	Time = 5
 })
 
 OrionLib:MakeNotification({
 	Name = "Age You [ "..game.Players.LocalPlayer.AccountAge.." ]",
-	Content = "ERROR",
-	Time = 17
-})
-
-OrionLib:MakeNotification({
-	Name = "Loading...",
 	Content = "ERROR",
 	Time = 5
 })
@@ -1801,7 +1795,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-0.6)
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
@@ -1824,7 +1818,7 @@ repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Chara
 Target = RandomPlayer
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-0.6)
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
@@ -3361,7 +3355,9 @@ Tab9:AddButton({
 	Name = "Epin Glove",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-  fireclickdetector(game.Workspace.Lobby[EpinGlove].ClickDetector)
+fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
