@@ -52,6 +52,33 @@ end
 end
 end
 
+function SpamReplicaBaller()
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+while ReplicaBallerFarm do
+if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
+wait(0.25)
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.25)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
+wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.25)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(20)
+game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+end
+end
+
 ---Transparency---
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
@@ -1103,22 +1130,28 @@ end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Autofarm Slap Baller [ Farm All Glove ]",
+ReplicaAndBallerFarm = Tab3:AddToggle({
+	Name = "Replica & Baller Slap Farm",
 	Default = false,
 	Callback = function(Value)
-		BallerFarm = Value
-if BallerFarm == true then
-coroutine.wrap(SpamBaller)()
+		ReplicaBallerFarm = Value 
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" then 
+if ReplicaBallerFarm == true then 
+coroutine.wrap(SpamReplicaBaller)() 
 end
-while BallerFarm do
-for i, v in pairs(workspace:GetChildren()) do
-                if string.find(v.Name, "Baller") and v:FindFirstChild("Head") then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("Head"),true)
-                end
-            end
+while ReplicaBallerFarm do 
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                 end
+end
 task.wait()
-end
+                       end
+elseif ReplicaBallerFarm == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndBallerFarm:Set(false) 
+end 
 	end    
 })
 
