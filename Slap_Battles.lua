@@ -1015,21 +1015,24 @@ Tab4:AddToggle({
 	Name = "Get Megarock",
 	Default = false,
 	Callback = function(Value)
-	_G.AutoTimeDiamond = Value
+	_G.TimeMegarock = Value
 if Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
-end
-task.wait()
-while _G.AutoTimeDiamond do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+task.wait(0.05)
+while _G.TimeMegarock do
 task.wait(1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock = TimeMegarock + 1
-OrionLib:MakeNotification({Name = "Error",Content = "You Have The Rock For: "..TimeMegarock.." Second. You Have "..(3600000 - TimeMegarock).." Second left",Image = "rbxassetid://7743873443",Time = 0.5})
+OrionLib:MakeNotification({
+	Name = "Time Diamond [ "..TimeMegarock.." ]",
+	Content = "Error",
+	Image = "rbxassetid://7743873443",
+	Time = 0.5
+})
 else
-Time = 0
+TimeMegarock = 0
 end
 end
 	end    
@@ -1047,7 +1050,7 @@ wait(5.1)
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 GetBob:Set(false)
 end
 	end    
@@ -1073,7 +1076,7 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 FarmBob:Set(false)
 end
 	end    
@@ -1095,10 +1098,10 @@ task.wait()
 while _G.FishFarm and task.wait() do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
-Time += 1
+SleepTime += 1
 OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7743873443",Content = "You Have Been Sleep For: " ..Time.. " Second. You Have: " ..(3600 - Time).. " Second Left",Time = 0.5})
 else
-Time = 0
+SleepTime = 0
 end
 end
 end
@@ -1114,16 +1117,23 @@ if Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-end
-end
-task.wait()
-while _G.AutoTimeGhost do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-task.wait(1)
-TimeGhost = TimeGhost + 1
-OrionLib:MakeNotification({Name = "Error",Content = "You Have The Invisibility For: "..TimeGhost.." Second. You Have "..(3600 - TimeGhost).." Second left",Image = "rbxassetid://7743873443",Time = 0.5})
 else
-Time = 0
+OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Ghost and Enter Arena",Time = 5})
+end
+end
+task.wait(0.05)
+while _G.AutoTimeGhost do
+task.wait(1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+TimeGhost = TimeGhost + 1
+OrionLib:MakeNotification({
+	Name = "Time Ghost [ "..TimeGhost.." ]",
+	Content = "Error",
+	Image = "rbxassetid://7743873443",
+	Time = 0.5
+})
+else
+TimeGhost = 0
 end
 end
 	end    
@@ -1155,11 +1165,11 @@ end
 })
 
 Tab3:AddToggle({
-	Name = "Auto Slap Replica [ Other Spawn Replica ] [ All Glove Farm ]",
+	Name = "Auto Slap Baller [ All Glove Farm ]",
 	Default = false,
 	Callback = function(Value)
-_G.ReplicaFarmAll = Value
-while _G.ReplicaFarmAll do
+_G.BallerFarmAll = Value
+while _G.BallerFarmAll do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"),true)
@@ -1189,7 +1199,7 @@ task.wait()
 end
 elseif ReplicaFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped and enter Island Default",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 FarmReplica:Set(false)
 end
 	end    
@@ -1294,7 +1304,7 @@ task.wait(5.05)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 AutoFarmBrick1:Set(false)
 end
 	end    
@@ -1313,7 +1323,7 @@ task.wait(2.1)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 AutoFarmBrick2:Set(false)
 end
 	end    
@@ -1331,7 +1341,7 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane and 7 people the server",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 AutoTycoon:Set(false)
 end
 	end    
@@ -1539,7 +1549,7 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Guardian Angel equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 SavePlayer:Set(false)
 end
 	end    
@@ -1633,6 +1643,8 @@ task.wait(3.67)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1984,7 +1996,7 @@ task.wait()
 end
 elseif _G.AutoShukuchi == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 AutoShukuchi:Set(false)
 end
 	end    
@@ -2046,7 +2058,7 @@ task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 FullKinetic:Set(false)
 end
 	end    
@@ -2103,7 +2115,7 @@ task.wait()
 end
 elseif RhythmNoteSpam == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 RhythmNote:Set(false)
 end
 	end    
@@ -2129,7 +2141,7 @@ task.wait()
 end
 elseif _G.GoldColor == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 ColorSkin:Set(false)
 end
 	end    
@@ -2153,7 +2165,7 @@ task.wait(0.075)
 end
 elseif _G.Rainbow == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 RainBox:Set(false)
 end
 	end    
@@ -2760,7 +2772,7 @@ task.wait(5.7)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 InfRever:Set(false)
 end
 	end    
@@ -2802,7 +2814,7 @@ task.wait(0.01)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.5)
+wait(0.05)
 PingPong:Set(false)
 end
 	end    
