@@ -66,15 +66,16 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+wait(0.25)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
 wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
-game:GetService("ReplicatedStorage").Duplicate:FireServer()
+game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
-wait(3.75)
+wait(3.85)
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
@@ -593,7 +594,6 @@ Tab3:AddDropdown({
 	Default = "",
 	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed", "Go Deep Into The Ground"},
 	Callback = function(Value)
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 if Value == "SafeSpotBox 1.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 elseif Value == "SafeSpotBox 2.0" then
@@ -606,7 +606,6 @@ game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
 for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
 if v.ClassName == "Part" and v.Name == "BLOCK" then
 v.CanTouch = false
-end
 end
 end
 end
@@ -1404,10 +1403,12 @@ end
 Tab7:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"Arena", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
+elseif Value == "Lobby" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-800,328,-2.5)
 elseif Value == "Brazil" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
 elseif Value == "Island Slapple" then
