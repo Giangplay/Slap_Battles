@@ -899,7 +899,7 @@ end
 Tab3:AddButton({
 	Name = "Get Hallow Jack",
 	Callback = function()
-if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
+if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -907,7 +907,7 @@ end
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow and Glove Killstreak and 10 kill",Image = "rbxassetid://7733658504",Time = 2})
-OrionLib:MakeNotification({Name = "Error",Content = " ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
+OrionLib:MakeNotification({Name = "Error",Content = "ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
 end
   	end 
 })
@@ -1035,6 +1035,7 @@ else
 TimeMegarock = 0
 end
 end
+end
 	end    
 })
 
@@ -1070,6 +1071,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+task.wait(0.06)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1856,7 +1858,7 @@ Tab7:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(4.2)
+wait(3.05)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
@@ -1904,7 +1906,7 @@ end
 })
 
 Tab7:AddButton({
-	Name = "Infinite Invisibility [ All Glove ]",
+	Name = "Infinite Invisibility",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
@@ -1938,7 +1940,7 @@ Tab7:AddSlider({
 })
 
 Tab7:AddToggle({
-	Name = "Slap Aura [ All Glove ]",
+	Name = "Slap Aura",
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
@@ -1998,6 +2000,44 @@ elseif _G.AutoShukuchi == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoShukuchi:Set(false)
+end
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Reach HitBox",
+	Min = 10,
+	Max = 20,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitbox = Value
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Hitbox Player",
+	Default = false,
+	Callback = function(Value)
+_G.HitboxPlayer = Value
+if _G.HitboxPlayer == false then
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+                        v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
+end
+while _G.HitboxPlayer do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
+                        v.Character.HumanoidRootPart.Transparency = 0.75
+                    end
+                end
+task.wait()
 end
 	end    
 })
@@ -3018,7 +3058,7 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" do
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-wait(2)
+task.wait(4.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
