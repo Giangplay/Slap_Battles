@@ -648,6 +648,42 @@ end
 })
 
 Tab3:AddButton({
+	Name = "Get Glove Alchemist",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" and #game.Players:GetChildren() >= 13 then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+task.wait()
+repeat
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+wait(0.20)
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if 25 >= Magnitude then
+game.ReplicatedStorage.PlagueHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
+end
+end
+end
+end
+end
+task.wait(0.33)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+task.wait(0.22)
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2153473254)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped or don't have server player 13",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab3:AddButton({
 	Name = "Get Chain [ Needs 1k slaps ]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
@@ -2022,14 +2058,6 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.HitboxPlayer = Value
-if _G.HitboxPlayer == false then
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                        v.Character.HumanoidRootPart.Transparency = 1
-                    end
-                end
-end
 while _G.HitboxPlayer do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer then
@@ -2038,6 +2066,14 @@ for i,v in pairs(game.Players:GetChildren()) do
                     end
                 end
 task.wait()
+end
+if _G.HitboxPlayer == false then
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+                        v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
 end
 	end    
 })
