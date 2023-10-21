@@ -1,10 +1,7 @@
 shared.gloveHits = {
-
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    
     ----------------------------------------
-     
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -51,9 +48,8 @@ shared.gloveHits = {
     ["Necromancer"] = game.ReplicatedStorage.GeneralHit,
     ["Zombie"] = game.ReplicatedStorage.GeneralHit,
     ["Dual"] = game.ReplicatedStorage.GeneralHit,
-    
+    ["Alchemist"] = game.ReplicatedStorage.GeneralHit,
     ----------------------------------------
-    
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -129,9 +125,7 @@ shared.gloveHits = {
     ["Null"] = game.ReplicatedStorage.NullHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
     ["spin"] = game.ReplicatedStorage.spinhit,
-    
     ----------------------------------------
-
     ["Kinetic"] = game.ReplicatedStorage.HtStun,
     ["Recall"] = game.ReplicatedStorage.HtStun,
     ["Balloony"] = game.ReplicatedStorage.HtStun,
@@ -139,24 +133,16 @@ shared.gloveHits = {
     ["Boogie"] = game.ReplicatedStorage.HtStun,
     ["Stun"] = game.ReplicatedStorage.HtStun,
     ["Coil"] = game.ReplicatedStorage.HtStun,
-
     ----------------------------------------
-    
     ["Diamond"] = game.ReplicatedStorage.DiamondHit,
     ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    
     ----------------------------------------
-    
     ["Moon"] = game.ReplicatedStorage.CelestialHit,
     ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
-    
     ----------------------------------------
-    
     ["Mitten"] = game.ReplicatedStorage.MittenHit,
     ["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
-
     ----------------------------------------
-    
     ["OVERKILL"] = game.ReplicatedStorage.Overkillhit,
     ["The Flex"] = game.ReplicatedStorage.FlexHit,
     ["God's Hand"] = game.ReplicatedStorage.Godshand,
