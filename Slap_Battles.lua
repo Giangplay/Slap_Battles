@@ -1482,7 +1482,7 @@ end
 Tab7:AddDropdown({
 	Name = "Animation Combat",
 	Default = "",
-	Options = {"Skukuchi Attacker", "Skukuchi Target", "Bomb Throw", "Bubble Shoot", "Revolver", "Ban Hammer", "Bomb", "Rocket Launcher", "Rojo", "Rojo Recoil", "Thor"},
+	Options = {"Skukuchi Attacker", "Skukuchi Target", "Bomb Throw", "Bubble Shoot", "Revolver", "Ban Hammer", "Bomb", "Rocket Launcher", "Rojo", "Rojo Recoil", "Thor", "Rob"},
 	Callback = function(Value)
 if Value == "Skukuchi Attacker" then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.CutsceneAttacker, game.Players.LocalPlayer.Character.Humanoid):Play()
@@ -1506,6 +1506,14 @@ elseif Value == "Rojo Recoil" then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.AnimationRecoil, game.Players.LocalPlayer.Character.Humanoid):Play()
 elseif Value == "Thor" then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Thor.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
+elseif Value == "Rob" then
+if not game.ReplicatedStorage:FindFirstChild("summonPortal") then
+local robAnim = Instance.new("Animation")
+robAnim.AnimationId = "rbxassetid://13675136513"
+robAnim.Parent = game.ReplicatedStorage
+robAnim.Name = "summonPortal"
+end
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.summonPortal, game.Players.LocalPlayer.Character.Humanoid):Play()
 end
 	end    
 })
@@ -1859,6 +1867,39 @@ end
 end
 end
   	end    
+})
+
+GetAllAlchemist = Tab7:AddToggle({
+	Name = "Get All Alchemist Ingredients",
+	Default = false,
+	Callback = function(Value)
+		AlchemistIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while AlchemistIngredients do
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Winter Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dark Root")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Autumn Sprout")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Elder Wood")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Hazel Lily")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Wild Vine")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Jade Stone")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Lamp Grass")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
+task.wait()
+end
+elseif AlchemistIngredients == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+task.wait()
+GetAllAlchemist:Set(false)
+end
+	end    
 })
 
 Tab7:AddTextbox({
@@ -3389,6 +3430,10 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Whirlwind" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" do
+game.ReplicatedStorage.GeneralAbility:FireServer(game.Players.LocalPlayer)
 task.wait()
 end
 	end    
