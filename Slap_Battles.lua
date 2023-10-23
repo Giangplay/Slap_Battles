@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---AntiBypass---
 
@@ -3743,7 +3743,7 @@ end)
 elseif game.PlaceId == 11828384869 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
 local Tab = Window:MakeTab({
@@ -4019,7 +4019,7 @@ OrionLib:Init()
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
