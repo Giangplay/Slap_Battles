@@ -1910,7 +1910,7 @@ _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed do
 game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity = game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity * _G.SetSpeedCloud
-wait(0.05)
+task.wait(0.10)
 end
 elseif _G.CloudSpeed == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
