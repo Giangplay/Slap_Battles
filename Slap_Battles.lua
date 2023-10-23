@@ -1902,6 +1902,37 @@ end
 	end    
 })
 
+CloudSpeed = Tab7:AddToggle({
+	Name = "Cloud Speed",
+	Default = false,
+	Callback = function(Value)
+_G.CloudSpeed = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
+while _G.CloudSpeed do
+game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity = game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity * _G.SetSpeedCloud
+wait(0.05)
+end
+elseif _G.CloudSpeed == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+CloudSpeed:Set(false)
+end
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Speed Cloud",
+	Min = 0.1,
+	Max = 1.2,
+	Default = 0.5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 0.1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		_G.SetSpeedCloud = Value
+	end    
+})
+
 Tab7:AddTextbox({
 	Name = "Make Kill Player",
 	Default = "Username",
