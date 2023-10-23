@@ -2181,6 +2181,44 @@ end
 	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Auto Change Nametag",
+	Default = "Nametag",
+	TextDisappear = false,
+	Callback = function(Value)
+workspace.NametagChanged.Value = Value
+	end	  
+})
+
+if game.Workspace:FindFirstChild("NametagChanged") == nil then
+local NametagChanged = Instance.new("StringValue", workspace)
+NametagChanged.Name = "NametagChanged"
+NametagChanged.Value = ""
+end
+Tab7:AddToggle({
+	Name = " Auto Change Nametag",
+	Default = false,
+	Callback = function(Value)
+	AutoChangeNameTag = Value
+        if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
+print(workspace.NametagChanged.Value)
+        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+end
+workspace.NametagChanged.Changed:Connect(function()
+        if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
+print(workspace.NametagChanged.Value)
+        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+end
+end)
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                if AutoChangeNameTag == true then
+repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true)
+                game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+                end
+            end)
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Auto Click Destroy Tycoon",
 	Default = false,
@@ -2288,14 +2326,15 @@ end
 	end    
 })
 
-if game.Workspace:FindFirstChild("Value") == nil then
+if game.Workspace:FindFirstChild("NoChanged") == nil then
 local NoChanged = Instance.new("BoolValue", workspace)
+NoChanged.Name = "NoChanged"
 end
 Tab2:AddToggle({
 	Name = "All Toggle",
 	Default = false,
 	Callback = function(Value)
-game.Workspace.Value.Value = Value
+game.Workspace.NoChanged.Value = Value
 	end    
 })
 
@@ -2816,23 +2855,6 @@ workspace.dedBarrier.CanTouch = true
 workspace.ArenaBarrier.CanTouch = true
 workspace.AntiDefaultArena.CanTouch = true
 end
-	end    
-})
-
-AntiName = Tab2:AddToggle({
-	Name = " Auto Remove nametag",
-	Default = false,
-	Callback = function(Value)
-	AutoRemoveNameTag = Value
-        if AutoRemoveNameTag and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
-        game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
-end
-            game.Players.LocalPlayer.CharacterAdded:Connect(function()
-                if AutoRemoveNameTag then
-repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true)
-                game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
-                end
-            end)
 	end    
 })
 
@@ -3574,124 +3596,148 @@ Tab15:AddButton({
 })
 
 ---AllAnti---
-game.Workspace.Value.Changed:Connect(function()
-AntiVoid:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiVoid:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiVoidTourn:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.05)
+AntiVoidTourn:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiPortal:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.1)
+AntiPortal:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiAdmin:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.15)
+AntiAdmin:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiAfk:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.2)
+AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiObby:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.25)
+AntiObby:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiRock:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.3)
+AntiRock:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiBus:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.35)
+AntiBus:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiMail:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.40)
+AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiJack:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.45)
+AntiJack:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiBooster:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.5)
+AntiBooster:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiSquid:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.55)
+AntiSquid:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiConveyor:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.6)
+AntiConveyor:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiNightmare:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.65)
+AntiNightmare:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiTime:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.7)
+AntiTime:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiNull:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.75)
+AntiNull:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiBrick:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.8)
+AntiBrick:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiRecord:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.85)
+AntiRecord:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiReda:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(0.9)
+AntiReda:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiBrazil:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1)
+AntiBrazil:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiZa:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.05)
+AntiZa:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiReaper:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.1)
+AntiReaper:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiPusher:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.15)
+AntiPusher:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiDefend:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.2)
+AntiDefend:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiBubble:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.25)
+AntiBubble:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiStun:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.3)
+AntiStun:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiCOD:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.35)
+AntiCOD:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiDeath:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.4)
+AntiDeath:Set(game.Workspace.NoChanged.Value)
 end)
 
-game.Workspace.Value.Changed:Connect(function()
-AntiName:Set(game.Workspace.Value.Value)
-end)
-
-game.Workspace.Value.Changed:Connect(function()
-AntiRagdoll:Set(game.Workspace.Value.Value)
+game.Workspace.NoChanged.Changed:Connect(function()
+wait(1.45)
+AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 
 elseif game.PlaceId == 11828384869 then
