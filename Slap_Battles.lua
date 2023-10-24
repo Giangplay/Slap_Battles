@@ -2369,7 +2369,7 @@ game.Workspace.NoChanged.Value = Value
 	end    
 })
 
-AntiVoid = Tab2:AddToggle({
+AntiVoidArena = Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
@@ -3628,7 +3628,7 @@ Tab15:AddButton({
 
 ---AllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiVoid:Set(game.Workspace.NoChanged.Value)
+AntiVoidArena:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
