@@ -1909,7 +1909,11 @@ CloudSpeed = Tab7:AddToggle({
 _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed do
-game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity = game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_Cloud").BodyVelocity.Velocity * _G.SetSpeedCloud
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
+v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
+end
+end
 task.wait(0.10)
 end
 elseif _G.CloudSpeed == true then
