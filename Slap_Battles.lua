@@ -388,7 +388,6 @@ local Tab15 = Window:MakeTab({
 })
 
 local InfoServer = Tab:AddSection({Name = "Info"})
-
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
@@ -3620,13 +3619,7 @@ Tab15:AddButton({
 --GetRun--
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-end)
-
-game:GetService("RunService").RenderStepped:Connect(function()
 ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." ]")
-end)
-
-game:GetService("RunService").RenderStepped:Connect(function()
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 end)
 
@@ -3792,6 +3785,10 @@ local Tab1 = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
+
+local Fps = Tab:AddSection({Name = "Fps You"})
+CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 
 Tab:AddButton({
 	Name = "Get Elude",
@@ -4050,6 +4047,11 @@ game:GetService("TeleportService"):Teleport(9412268818)
   	end    
 })
 
+---GetRun---
+game:GetService("RunService").RenderStepped:Connect(function()
+CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+end)
+
 OrionLib:Init()
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
@@ -4148,6 +4150,12 @@ local Tab1 = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
+
+local InfoServer = Tab:AddSection({Name = "Info"})
+CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
+
+local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
 	Name = "Dame Boss",
@@ -4253,6 +4261,11 @@ Tab:AddButton({
       		game:GetService("TeleportService"):Teleport(6403373529)
   	end    
 })
+
+---GetRun---
+game:GetService("RunService").RenderStepped:Connect(function()
+CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+end)
 
 OrionLib:Init()
 elseif game.PlaceId == 9431156611 then
