@@ -387,27 +387,14 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-OrionLib:MakeNotification({
-	Name = "Script slap battles.",
-	Content = "ID Game [ "..game.PlaceId.." ]",
-	Time = 5
-})
+local InfoServer = Tab:AddSection({Name = "Info"})
 
-OrionLib:MakeNotification({
-	Name = "Hello [ "..game.Players.LocalPlayer.Character.Name.." ]",
-	Content = "ERROR",
-	Time = 5
-})
+CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
+AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 
-OrionLib:MakeNotification({
-	Name = "Age You [ "..game.Players.LocalPlayer.AccountAge.." ]",
-	Content = "ERROR",
-	Time = 5
-})
-
-local Section = Tab:AddSection({
-	Name = "Main"
-})
+local MainScript = Tab:AddSection({Name = "Main"})
 
 Tab:AddButton({
 	Name = "Keyboard [ PE ]",
@@ -3629,6 +3616,19 @@ Tab15:AddButton({
       		OrionLib:Destroy()
   	end 
 })
+
+--GetRun--
+game:GetService("RunService").RenderStepped:Connect(function()
+CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." ]")
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+end)
 
 ---AllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
