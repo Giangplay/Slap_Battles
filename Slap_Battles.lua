@@ -29,10 +29,6 @@ TimeGhost = 0
 TimeMegarock = 0
 
 ---GetThe---
-
-if setfpscap then
-    setfpscap(12569)
-end
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 
@@ -389,6 +385,7 @@ local Tab15 = Window:MakeTab({
 
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
@@ -1293,7 +1290,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait()
+task.wait()
 end
 	end    
 })
@@ -1311,7 +1308,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait()
+task.wait()
 end
 	end    
 })
@@ -1343,7 +1340,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" then
 while Brickfarm do
 game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
 game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(2.1)
+task.wait(1.10)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2037,6 +2034,32 @@ Tab7:AddSlider({
 	end    
 })
 
+Tab7:AddSlider({
+	Name = "Reach HitBox",
+	Min = 10,
+	Max = 20,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitbox = Value
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Reach Shukuchi",
+	Min = 1,
+	Max = 130,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachShukuchi = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
@@ -2057,19 +2080,6 @@ end
                 end
 task.wait()
 end
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Reach Shukuchi",
-	Min = 1,
-	Max = 130,
-	Default = 50,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Reach",
-	Callback = function(Value)
-		_G.ReachShukuchi = Value
 	end    
 })
 
@@ -2102,19 +2112,6 @@ end
 	end    
 })
 
-Tab7:AddSlider({
-	Name = "Reach HitBox",
-	Min = 10,
-	Max = 20,
-	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Reach",
-	Callback = function(Value)
-		_G.ReachHitbox = Value
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "Hitbox Player",
 	Default = false,
@@ -2141,7 +2138,7 @@ end
 })
 
 Tab7:AddToggle({
-	Name = "Glove ESP",
+	Name = "ESP Glove",
 	Default = false,
 	Callback = function(Value)
 GloveESP = Value
@@ -3620,6 +3617,7 @@ Tab15:AddButton({
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." ]")
+CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 end)
 
