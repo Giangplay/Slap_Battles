@@ -2120,17 +2120,25 @@ _G.HitboxPlayer = Value
 while _G.HitboxPlayer do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer then
+                    if v.Character then
+                  if v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
                         v.Character.HumanoidRootPart.Transparency = 0.75
                     end
+                    end
+                end
                 end
 task.wait()
 end
 if _G.HitboxPlayer == false then
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer then
+                    if v.Character then
+                  if v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
                         v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                    end
                     end
                 end
 end
