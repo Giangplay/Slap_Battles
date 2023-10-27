@@ -2189,14 +2189,7 @@ FullKinetic = Tab7:AddToggle({
 FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while FullKineticSpam do
-local args = {
-    [1] = {
-        ["Force"] = 0,
-        ["Direction"] = Vector3.new(0, 0.1, 0)
-    }
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(unpack(args))
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
 end
 elseif Value == true then
