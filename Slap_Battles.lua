@@ -3477,6 +3477,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel
 game.ReplicatedStorage.GeneralAbility:FireServer(game.Players.LocalPlayer)
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Parry" do
+game.ReplicatedStorage.GeneralAbility:FireServer()
+wait()
+end
 	end    
 })
 
