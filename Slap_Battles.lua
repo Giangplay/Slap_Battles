@@ -1852,6 +1852,33 @@ end
   	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Ingredient",
+	Default = "",
+	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose"},
+	Callback = function(Value)
+AlchemistIngredientsGet = Value
+	end    
+})
+
+GetAlchemist = Tab7:AddToggle({
+	Name = "Get Alchemist Ingredients",
+	Default = false,
+	Callback = function(Value)
+		AlchemistIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while AlchemistIngredients do
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
+task.wait()
+end
+elseif AlchemistIngredients == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+task.wait()
+GetAlchemist:Set(false)
+end
+	end    
+})
+
 GetAllAlchemist = Tab7:AddToggle({
 	Name = "Get All Alchemist Ingredients",
 	Default = false,
