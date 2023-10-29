@@ -1952,7 +1952,11 @@ Tab7:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
+if game.Players[Value].Character:FindFirstChild("entered") then
 _G.KillerPlayer = Value
+else
+OrionLib:MakeNotification({Name = "Error",Content = "People not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -1965,8 +1969,28 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer then
+if v.Character then
+if v.Character:FindFirstChild("HumanoidRootPart") then
+v.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
+v.Character.HumanoidRootPart.Transparency = 1
+end
+end
+end
+end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.25)
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer then
+if v.Character then
+if v.Character:FindFirstChild("HumanoidRootPart") then
+v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+v.Character.HumanoidRootPart.Transparency = 1
+end
+end
+end
+end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -1986,13 +2010,35 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer then
+if v.Character then
+if v.Character:FindFirstChild("HumanoidRootPart") then
+v.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
+v.Character.HumanoidRootPart.Transparency = 1
+end
+end
+end
+end
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 task.wait(0.25)
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer then
+if v.Character then
+if v.Character:FindFirstChild("HumanoidRootPart") then
+v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+v.Character.HumanoidRootPart.Transparency = 1
+end
+end
+end
+end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end 
 })
@@ -2201,9 +2247,87 @@ GloveEspText.TextSize = 20
 GloveEspText.Font = Enum.Font.SourceSansSemibold
 GloveEspText.TextColor3 = Color3.new(255, 255, 255)
 GloveEspText.TextStrokeTransparency = 0
-GloveEspText.Text = "Glove: "..v.leaderstats.Glove.Value
+GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
                 end
             end
+task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "ESP Munber Brick",
+	Default = false,
+	Callback = function(Value)
+BrickESP = Value
+if BrickESP == false then
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("BrickESP") then
+ v.Character.Head.BrickESP:Destroy()
+                end
+            end
+end
+while BrickESP do
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("BrickESP") == nil and v.leaderstats.Glove.Value == "Brick" then
+BrickESP = Instance.new("BillboardGui", v.Character.Head)
+BrickESP.Adornee = v.Character.Head
+BrickESP.Name = "BrickESP"
+BrickESP.Size = UDim2.new(0, 100, 0, 150)
+BrickESP.StudsOffset = Vector3.new(0, 1, 0)
+BrickESP.AlwaysOnTop = true
+BrickESP.StudsOffset = Vector3.new(0, 3, 0)
+BrickESPText = Instance.new("TextLabel", BrickESP)
+BrickESPText.BackgroundTransparency = 1
+BrickESPText.Size = UDim2.new(0, 100, 0, 100)
+BrickESPText.TextSize = 20
+BrickESPText.Font = Enum.Font.SourceSansSemibold
+BrickESPText.TextColor3 = Color3.new(255, 255, 255)
+BrickESPText.TextStrokeTransparency = 0
+game:GetService("RunService").RenderStepped:Connect(function()
+BrickESPText.Text = "Munber Brick [ "..v.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text.." ]"
+                   end)
+               end
+           end
+task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "ESP Munber Kill",
+	Default = false,
+	Callback = function(Value)
+KillESP = Value
+if KillESP == false then
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("KillESP") then
+ v.Character.Head.KillESP:Destroy()
+                end
+            end
+end
+while KillESP do
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("KillESP") == nil and v.leaderstats.Glove.Value == "Killstreak" and v.PlayerGui:FindFirstChild("Kills") then
+KillESP = Instance.new("BillboardGui", v.Character.Head)
+KillESP.Adornee = v.Character.Head
+KillESP.Name = "KillESP"
+KillESP.Size = UDim2.new(0, 100, 0, 150)
+KillESP.StudsOffset = Vector3.new(0, 1, 0)
+KillESP.AlwaysOnTop = true
+KillESP.StudsOffset = Vector3.new(0, 3, 0)
+KillESPText = Instance.new("TextLabel", KillESP)
+KillESPText.BackgroundTransparency = 1
+KillESPText.Size = UDim2.new(0, 100, 0, 100)
+KillESPText.TextSize = 20
+KillESPText.Font = Enum.Font.SourceSansSemibold
+KillESPText.TextColor3 = Color3.new(255, 255, 255)
+KillESPText.TextStrokeTransparency = 0
+game:GetService("RunService").RenderStepped:Connect(function()
+KillESPText.Text = "Munber Kill [ "..v.PlayerGui.Kills.Frame.TextLabel.Text.." ]"
+                   end)
+               end
+           end
 task.wait()
 end
 	end    
