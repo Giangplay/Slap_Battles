@@ -1959,7 +1959,7 @@ _G.KillerPlayer = Value
 Tab7:AddButton({
 	Name = "Get Kill Player",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players[_G.KillerPlayer].Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
@@ -1969,7 +1969,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.Kil
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped or people not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -2010,14 +2010,17 @@ end
   	end    
 })
 
-Tab7:AddButton({
-	Name = "Glove No Cooldown Speed",
-	Callback = function()
+Tab7:AddToggle({
+	Name = "Anti Cooldown",
+	Default = false,
+	Callback = function(Value)
+AntiCooldown = Value
+game:GetService("RunService").RenderStepped:Connect(function()
+if AntiCooldown then
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
 
-while character.Humanoid.Health ~= 0 do
 local localscript = tool:FindFirstChildOfClass("LocalScript")
 local localscriptclone = localscript:Clone()
 localscriptclone = localscript:Clone()
@@ -2026,7 +2029,8 @@ localscript:Destroy()
 localscriptclone.Parent = tool
 wait(0.1)
 end
-  	end    
+end)
+	end    
 })
 
 Tab7:AddButton({
