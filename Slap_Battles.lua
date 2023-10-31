@@ -1920,7 +1920,7 @@ _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
+if string.find(v.Name, "_Cluod") and v:FindFirstChild("BodyVelocity") then
 v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
 end
 end
@@ -2027,7 +2027,6 @@ localscriptclone = localscript:Clone()
 localscriptclone:Clone()
 localscript:Destroy()
 localscriptclone.Parent = tool
-wait(0.1)
 end
 end)
 	end    
@@ -2041,7 +2040,6 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-wait(1)
 game.Players.LocalPlayer.Character["Head"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Torso"].Transparency = 0.5
 game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
@@ -2253,7 +2251,6 @@ Tab7:AddToggle({
 	Callback = function(Value)
 	AutoChangeNameTag = Value
         if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
-print(workspace.NametagChanged.Value)
         game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
 end
 workspace.NametagChanged.Changed:Connect(function()
@@ -3092,6 +3089,38 @@ task.wait(.10)
 end
 else
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+	end    
+})
+
+Tab10:AddToggle({
+	Name = "Default AutoFarm Slap",
+	Default = false,
+	Callback = function(Value)
+		Farming = Value
+if Value == true then
+while Farming do
+pcall(function()
+for _, Human in pairs(game.Players:GetPlayers()) do
+if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+task.wait(.1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
+task.wait(.1)
+game.ReplicatedStorage.b:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
+end
+end
+end
+end
+end)
+task.wait(.10)
+end
+else
 if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
