@@ -1920,7 +1920,7 @@ _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "_Cluod") and v:FindFirstChild("BodyVelocity") then
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
 v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
 end
 end
