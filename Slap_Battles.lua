@@ -873,26 +873,21 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
-	Name = "Get [Redacted] [ 5000 Slap ]",
+	Name = "Get [Redacted]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
 Door = 0
 for i = 1, 10 do
 Door = Door + 1
-        if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
-        else
-        firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
+if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
+else
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
 wait(4)
 end
 end
 else
-OrionLib:MakeNotification({
-	Name = "Error",
-	Content = "You Have 5K Slap Or Then Owner Bagde",
-	Image = "rbxassetid://7733658504",
-	Time = 5
-})
+OrionLib:MakeNotification({Name = "Error",Content = "You Have 5K Slap Or Then Owner Bagde",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -905,45 +900,54 @@ fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
 fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector) 
 fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
 else
-OrionLib:MakeNotification({
-	Name = "You Have Owner Bagde",
-	Content = "Not Click",
-	Image = "rbxassetid://7733658504",
-	Time = 5
-})
+OrionLib:MakeNotification({Name = "You Have Owner Bagde",Content = "Not Click",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
 
-Tab3:AddButton({
-	Name = "Get Hallow Jack",
-	Callback = function()
+GetJack = Tab3:AddToggle({
+	Name = "Auto Get Hallow Jack",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoHallowJack = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoHallowJack then
 if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
 for i,v in pairs(workspace.Gravestone:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
 end
 end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Server Not Spawn Tomb Hallow and Glove Killstreak and 10 kill",Image = "rbxassetid://7733658504",Time = 2})
-OrionLib:MakeNotification({Name = "Error",Content = "ONLY OBTAINABLE DURING HALLOWEEN",Image = "rbxassetid://7733658504",Time = 2})
 end
-  	end 
+end
+end)
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have glove Killstreak",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You can get have 10 kill or buy kill 29 robux",Image = "rbxassetid://7733658504",Time = 5})
+task.wait(0.05)
+GetJack:Set(false)
+end
+	end    
 })
 
-Tab3:AddButton({
-	Name = "Get Hammer",
-	Callback = function()
+Tab3:AddToggle({
+	Name = "Auto Get Hammer [ Other Spawn ToolBox ]",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoHammer = Value
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoHammer then
 if workspace:FindFirstChild("Toolbox") then
 for i,v in pairs(workspace.Toolbox:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
 end
 end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "People not the spawn toolbox ☹️",Image = "rbxassetid://7733658504",Time = 2})
 end
-  	end 
+end
+end)
+	end    
 })
 
 Tab5:AddSlider({
@@ -1852,6 +1856,61 @@ end
   	end    
 })
 
+PingPong = Tab7:AddToggle({
+	Name = "Ping Pong Orbit",
+	Default = false,
+	Callback = function(Value)
+		PingPongOrbit = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
+Orbit = "0"
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
+while PingPongOrbit do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+Orbit = Orbit + OrbitSpeed
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
+if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
+                    end
+                end
+for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
+                    end
+                end
+elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.Parent = game.Players.LocalPlayer.Character.Torso.RadioPart
+break
+                    end
+                end
+end
+task.wait(0.01)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PingPong:Set(false)
+end
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Ping Pong Orbit Speed",
+	Min = 0,
+	Max = 100,
+	Default = 10,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+OrbitSpeed = Value
+	end    
+})
+
 Tab7:AddDropdown({
 	Name = "Ingredient",
 	Default = "",
@@ -2255,7 +2314,6 @@ Tab7:AddToggle({
 end
 workspace.NametagChanged.Changed:Connect(function()
         if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
-print(workspace.NametagChanged.Value)
         game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
 end
 end)
@@ -2966,61 +3024,6 @@ end
 	end    
 })
 
-PingPong = Tab7:AddToggle({
-	Name = "Ping Pong Orbit",
-	Default = false,
-	Callback = function(Value)
-		PingPongOrbit = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
-game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
-Orbit = "0"
-PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
-while PingPongOrbit do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-Orbit = Orbit + OrbitSpeed
-game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
-if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
-                    end
-                end
-for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
-                    end
-                end
-elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.Parent = game.Players.LocalPlayer.Character.Torso.RadioPart
-break
-                    end
-                end
-end
-task.wait(0.01)
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-PingPong:Set(false)
-end
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Ping Pong Orbit Speed",
-	Min = 0,
-	Max = 100,
-	Default = 10,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Speed",
-	Callback = function(Value)
-		OrbitSpeed = Value
-	end    
-})
-
 Tab10:AddToggle({
 	Name = "All Glove AutoFarm Slap",
 	Default = false,
@@ -3423,9 +3426,9 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-for i = 1,100 do
+for i = 1,200 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-wait(0.05)
+task.wait()
 end
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
