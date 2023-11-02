@@ -28,6 +28,26 @@ end)
 TimeGhost = 0
 TimeMegarock = 0
 
+---Potion---
+
+_G.GetPotion = {
+	["Grug"] = {"Mushroom"},
+	["Nightmare"] = {"Dark Roots","Dark Roots","Dark Roots"},
+	["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
+	["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
+	["Paralyzing"] = {"Plane Flower","Plane Flower"},
+	["Haste"] = {"Autumn Sprout","Jade Stone"},
+	["Invisibility"] = {"Hazel Lily","Hazel Lily","Blue Crystal"},
+	["Explosion"] = {"Red Crystal","Fire Flower","Fire Flower"},
+	["Invincible"] = {"Elder Wood","Mushroom","Mushroom"},
+	["Toxic"] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
+	["Freeze"] = {"Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
+	["Feather"] = {"Mushroom","Hazel Lily"},
+	["Speed"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
+	["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
+	["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
+}
+
 ---GetThe---
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
@@ -622,7 +642,7 @@ Tab3:AddButton({
 Tab3:AddButton({
 	Name = "Get Retro",
 	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
   	end    
 })
 
@@ -935,6 +955,7 @@ GetJack = Tab3:AddToggle({
 	Callback = function(Value)
 		_G.AutoHallowJack = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
+OrionLib:MakeNotification({Name = "Error",Content = "Ok You have 10 kill 😃👍",Image = "rbxassetid://7733658504",Time = 5})
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoHallowJack then
 if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
@@ -948,7 +969,6 @@ end
 end)
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have glove Killstreak",Image = "rbxassetid://7733658504",Time = 5})
-OrionLib:MakeNotification({Name = "Error",Content = "You can get have 10 kill or buy kill 29 robux",Image = "rbxassetid://7733658504",Time = 5})
 task.wait(0.05)
 GetJack:Set(false)
 end
@@ -1876,6 +1896,52 @@ for i = 0,100 do
 fireclickdetector(v.ClickDetector)
 end
 end
+end
+  	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Make Potion",
+	Default = "Name Potion",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.MakePotion = Value
+	end	  
+})
+
+Tab7:AddSlider({
+	Name = "Give Potion",
+	Min = 1,
+	Max = 30,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Potion",
+	Callback = function(Value)
+		_G.GivePotion = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Take Potions",
+	Callback = function()
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+for b = 1, _G.GivePotion do
+repeat
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+end
+until #_G.GetPotion
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+task.wait(.2)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
