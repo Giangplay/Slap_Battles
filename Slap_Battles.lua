@@ -272,6 +272,17 @@ myPart.Size = Vector3.new(90,3,90)
 myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
 end
 
+---AntiVoidBagde---
+
+local Psycho = Instance.new("Part", workspace)
+Psycho.Name = "AntiVoidPsycho"
+Psycho.Size = Vector3.new(2000, 1, 1000)
+Psycho.Transparency = 1
+Psycho.CanCollide = false
+Psycho.Anchored = true
+Psycho.Material = "ForceField"
+Psycho.Position = Vector3.new(17800.9082, 2947, -226.017517, -0.248515129, 0.00487846136, -0.968615651, 0.966844261, -0.0594091415, -0.248359889, -0.0587562323, -0.998221755, 0.0100474358)
+
 ---Anti Void---
 
 local AntiVoid = Instance.new("Part", workspace)
@@ -307,6 +318,12 @@ local Tab1 = Window:MakeTab({
 
 local Tab2 = Window:MakeTab({
 	Name = "Anti",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab12 = Window:MakeTab({
+	Name = "Anti Void Bagde",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -599,6 +616,13 @@ Tab3:AddButton({
 	Name = "Reset Player",
 	Callback = function()
          game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Get Retro",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
   	end    
 })
 
@@ -1864,7 +1888,6 @@ PingPong = Tab7:AddToggle({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
 Orbit = "0"
-PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
 while PingPongOrbit do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 Orbit = Orbit + OrbitSpeed
@@ -2024,8 +2047,10 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
+game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.25)
+game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2045,11 +2070,13 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
+Target.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
 if Target ~= game.Players.LocalPlayer then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 task.wait(0.25)
+Target.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2079,7 +2106,6 @@ if AntiCooldown then
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
-
 local localscript = tool:FindFirstChildOfClass("LocalScript")
 local localscriptclone = localscript:Clone()
 localscriptclone = localscript:Clone()
@@ -2126,8 +2152,8 @@ Tab7:AddSlider({
 
 Tab7:AddSlider({
 	Name = "Reach HitBox",
-	Min = 10,
-	Max = 20,
+	Min = 2,
+	Max = 30,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -2429,6 +2455,19 @@ elseif _G.Rainbow == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 RainBox:Set(false)
+end
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "Anti Void Pyscho",
+	Default = false,
+	Callback = function(Value)
+Psycho.CanCollide = Value
+if Value then
+Psycho.Transparency = 0.5
+else
+Psycho.Transparency = 1
 end
 	end    
 })
@@ -3253,10 +3292,9 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Head:FindFirstChild("RedEye") == nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-end
 game:GetService("ReplicatedStorage").SM:FireServer(Target)
 wait(0.05)
+end
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
 game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
