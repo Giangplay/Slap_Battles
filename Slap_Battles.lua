@@ -1888,6 +1888,7 @@ PingPong = Tab7:AddToggle({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
 Orbit = "0"
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
 while PingPongOrbit do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 Orbit = Orbit + OrbitSpeed
