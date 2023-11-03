@@ -4273,8 +4273,6 @@ end)
 
 OrionLib:Init()
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
-local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
