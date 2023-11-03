@@ -41,11 +41,12 @@ _G.GetPotion = {
 	["Explosion"] = {"Red Crystal","Fire Flower","Fire Flower"},
 	["Invincible"] = {"Elder Wood","Mushroom","Mushroom"},
 	["Toxic"] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
-	["Freeze"] = {"Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
+	["Freeze"] = {"Winter Rose","Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
 	["Feather"] = {"Mushroom","Hazel Lily"},
 	["Speed"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
 	["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
 	["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
+	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flowers","Plane Flowers","Elder Wood"}
 }
 
 ---GetThe---
@@ -1900,19 +1901,19 @@ end
   	end    
 })
 
-Tab7:AddTextbox({
-	Name = "Make Potion",
-	Default = "Name Potion",
-	TextDisappear = false,
+Tab7:AddDropdown({
+	Name = "Potion",
+	Default = "",
+	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin"},
 	Callback = function(Value)
 _G.MakePotion = Value
-	end	  
+	end    
 })
 
 Tab7:AddSlider({
 	Name = "Give Potion",
 	Min = 1,
-	Max = 30,
+	Max = 100,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -1923,14 +1924,46 @@ Tab7:AddSlider({
 })
 
 Tab7:AddButton({
-	Name = "Take Potions",
+	Name = "Get Potions",
 	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-task.wait()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 for b = 1, _G.GivePotion do
+repeat
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait(.03)
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+end
+until #_G.GetPotion
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+task.wait(.1)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Potion",
+	Default = false,
+	Callback = function(Value)
+_G.AutoGetPotion = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+while _G.AutoGetPotion do
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait(.03)
 repeat
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
@@ -1938,12 +1971,12 @@ game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixIte
 end
 until #_G.GetPotion
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-task.wait(.2)
+task.wait(.1)
 end
-else
+elseif _G.AutoGetPotion == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
-  	end    
+	end    
 })
 
 PingPong = Tab7:AddToggle({
@@ -2010,8 +2043,19 @@ AlchemistIngredientsGet = Value
 	end    
 })
 
-GetAlchemist = Tab7:AddToggle({
+Tab7:AddButton({
 	Name = "Get Alchemist Ingredients",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+GetAlchemist = Tab7:AddToggle({
+	Name = "Auto Get Alchemist Ingredients",
 	Default = false,
 	Callback = function(Value)
 		AlchemistIngredients = Value
@@ -2192,12 +2236,11 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-game.Players.LocalPlayer.Character["Head"].Transparency = 0.5
-game.Players.LocalPlayer.Character["Torso"].Transparency = 0.5
-game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
-game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
-game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
-game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.ClassName == "Part" then
+v.Transparency = 0.5
+end
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2872,7 +2915,7 @@ p.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match(" rec ") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco ") or v:lower():match(" disc ") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds ") or v:lower():match(" dc ") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip ") or v:lower():match("proof") or v:lower():match("evidence") then
+if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
 AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
@@ -2887,7 +2930,7 @@ Player.Chatted:Connect(function(message)
 Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
-if v:lower():match("recording") or v:lower():match(" rec ") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco ") or v:lower():match(" disc ") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds ") or v:lower():match(" dc ") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip ") or v:lower():match("proof") or v:lower():match("evidence") then
+if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
 AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
@@ -3599,7 +3642,7 @@ wait(5.475)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Hallow Jack" do
 game:GetService("ReplicatedStorage"):WaitForChild("Hallow"):FireServer()
-wait(3.2)
+wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Phantom" do
 game:GetService("ReplicatedStorage").PhantomDash:InvokeServer(workspace[game.Players.LocalPlayer.Name].Phantom) 
@@ -3650,6 +3693,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Parry" do
 game.ReplicatedStorage.GeneralAbility:FireServer()
 wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cheeky" do
+game:GetService("ReplicatedStorage").Spherify:FireServer()
+task.wait()
 end
 	end    
 })
@@ -4311,6 +4358,17 @@ shared.gloveHitBob = {
 	["Reaper"] = game.ReplicatedStorage.ReaperHit,
 }
 
+---AntiVoid---
+
+local AntiVoid = Instance.new("Part", workspace)
+AntiVoid.Name = "Anti Void Bob"
+AntiVoid.Size = Vector3.new(2500, 16, 1140)
+AntiVoid.Transparency = 1
+AntiVoid.CanCollide = false
+AntiVoid.Anchored = true
+AntiVoid.Material = "ForceField"
+AntiVoid.Position = Vector3.new(0, -8, -43, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
 --Tab
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -4392,6 +4450,21 @@ if v.Name == "Click" then
 v.Size = Vector3.new(1, 1, 1)
 end
 end
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Anti Void",
+	Default = false,
+	Save = true,
+	Flag = "AntiVoid",
+	Callback = function(Value)
+AntiVoid.CanCollide = Value
+if Value then
+AntiVoid.Transparency = 0.5
+else
+AntiVoid.Transparency = 1
 end
 	end    
 })
