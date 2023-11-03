@@ -4,9 +4,9 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---AntiBypass---
@@ -3792,6 +3792,7 @@ end
 })
 
 Tab15:AddLabel("Owner Credits Script By Giang")
+Tab15:AddLabel("All Discord or github Help My credits Script")
 
 Tab15:AddButton({
 	Name = "Copy Guy that exists",
@@ -3989,8 +3990,6 @@ AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 
 elseif game.PlaceId == 11828384869 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
-local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
@@ -4333,8 +4332,6 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 
 OrionLib:Init()
 elseif game.PlaceId == 13833961666 then
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua')))()
-local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---Transparency---
