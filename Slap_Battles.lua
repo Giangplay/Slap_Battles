@@ -971,6 +971,7 @@ end
 end)
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have glove Killstreak",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "until Slap battles update Halloween 👍",Image = "rbxassetid://7733658504",Time = 5})
 task.wait(0.05)
 GetJack:Set(false)
 end
@@ -1914,7 +1915,7 @@ _G.MakePotion = Value
 Tab7:AddSlider({
 	Name = "Give Potion",
 	Min = 1,
-	Max = 100,
+	Max = 200,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -1927,7 +1928,7 @@ Tab7:AddSlider({
 Tab7:AddButton({
 	Name = "Get Potions",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
@@ -1946,17 +1947,17 @@ game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPo
 task.wait(.1)
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
 
-Tab7:AddToggle({
+PotionAuto = Tab7:AddToggle({
 	Name = "Auto Potion",
 	Default = false,
 	Callback = function(Value)
 _G.AutoGetPotion = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
@@ -1976,6 +1977,8 @@ task.wait(.1)
 end
 elseif _G.AutoGetPotion == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PotionAuto:Set(false)
 end
 	end    
 })
@@ -2025,7 +2028,7 @@ end
 Tab7:AddSlider({
 	Name = "Ping Pong Orbit Speed",
 	Min = 0,
-	Max = 100,
+	Max = 500,
 	Default = 10,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -3160,8 +3163,7 @@ InfRever = Tab7:AddToggle({
 	    InfReverse = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 while InfReverse do
-local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
-if Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
 task.wait(5.7)
@@ -3732,7 +3734,7 @@ end
 })
 
 Tab14:AddButton({
-	Name = "Slap Royela",
+	Name = "Slap Royale",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
 game:GetService("TeleportService"):Teleport(9426795465)
