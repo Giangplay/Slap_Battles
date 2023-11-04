@@ -50,6 +50,7 @@ shared.gloveHits = {
     ["Dual"] = game.ReplicatedStorage.GeneralHit,
     ["Alchemist"] = game.ReplicatedStorage.GeneralHit,
     ["Parry"] = game.ReplicatedStorage.GeneralHit,
+    ["Druid"] = game.ReplicatedStorage.GeneralHit,
     ----------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
