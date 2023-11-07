@@ -54,6 +54,13 @@ _G.GetPotion = {
     
 local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 
+if not game.ReplicatedStorage:FindFirstChild("robAnimation") then
+local robAnim = Instance.new("Animation")
+robAnim.AnimationId = "rbxassetid://13675136513"
+robAnim.Parent = game.ReplicatedStorage
+robAnim.Name = "robAnimation"
+end
+
 function SpamBaller()
 while BallerFarm do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -102,7 +109,7 @@ end
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.05
+v.BackgroundTransparency = .005
 end
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
@@ -280,25 +287,11 @@ Safespot5.Transparency = .5
 Safespot5.Parent = game.workspace.Safespot
 end
 
----Part Go Deep Into The Ground---
-
-if workspace:FindFirstChild("default") == nil then
-local myPart = Instance.new("Part")
-myPart.Transparency = 0.5
-myPart.CanCollide = true
-myPart.Anchored = true
-myPart.Name = "default"
-myPart.Parent = game.workspace
-myPart.Material = "ForceField"
-myPart.Size = Vector3.new(90,3,90)
-myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
-end
-
 ---AntiVoidBagde---
 
-local Psycho = Instance.new("Part", workspace)
+local Psycho = Instance.new("Part")
 Psycho.Name = "AntiVoidPsycho"
-Psycho.Size = Vector3.new(2000, 1, 1000)
+Psycho.Size = Vector3.new(2000, 1, 2000)
 Psycho.Transparency = 1
 Psycho.CanCollide = false
 Psycho.Anchored = true
@@ -307,18 +300,18 @@ Psycho.Position = Vector3.new(17800.9082, 2947, -226.017517, -0.248515129, 0.004
 
 ---Anti Void---
 
-local AntiVoid = Instance.new("Part", workspace)
+local AntiVoid = Instance.new("Part")
 AntiVoid.Name = "WalkVoid"
-AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
+AntiVoid.Size = Vector3.new(2049, 1, 2021)
 AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
 AntiVoid.CanCollide = false
 AntiVoid.Anchored = true
 AntiVoid.Material = "ForceField"
 AntiVoid.Transparency = 1
 
-local TournamentAntiVoid = Instance.new("Part", workspace)
+local TournamentAntiVoid = Instance.new("Part")
 TournamentAntiVoid.Name = "TAntiVoid"
-TournamentAntiVoid.Size = Vector3.new(798, 1, 1290)
+TournamentAntiVoid.Size = Vector3.new(800, 1, 1292)
 TournamentAntiVoid.Position = Vector3.new(3450, 59.009, 68)
 TournamentAntiVoid.CanCollide = false
 TournamentAntiVoid.Anchored = true
@@ -370,12 +363,6 @@ local Tab7 = Window:MakeTab({
 
 local Tab8 = Window:MakeTab({
 	Name = "Game",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab9 = Window:MakeTab({
-	Name = "Auto Epin Glove",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -602,7 +589,7 @@ Tab1:AddButton({
 Tab3:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed", "Go Deep Into The Ground"},
+	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed"},
 	Callback = function(Value)
 if Value == "SafeSpotBox 1.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
@@ -610,14 +597,6 @@ elseif Value == "SafeSpotBox 2.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 elseif Value == "Bed" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Bed"].Bed3.CFrame * CFrame.new(0,0,-1)
-elseif Value == "Go Deep Into The Ground" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["default"].CFrame * CFrame.new(0,5,0)
-game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
-for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-if v.ClassName == "Part" and v.Name == "BLOCK" then
-v.CanTouch = false
-end
-end
 end
 	end    
 })
@@ -1465,13 +1444,7 @@ game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage
 elseif Value == "Thor" then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Thor.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
 elseif Value == "Rob" then
-if not game.ReplicatedStorage:FindFirstChild("summonPortal") then
-local robAnim = Instance.new("Animation")
-robAnim.AnimationId = "rbxassetid://13675136513"
-robAnim.Parent = game.ReplicatedStorage
-robAnim.Name = "summonPortal"
-end
-game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.summonPortal, game.Players.LocalPlayer.Character.Humanoid):Play()
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.robAnimation, game.Players.LocalPlayer.Character.Humanoid):Play()
 end
 	end    
 })
@@ -1599,7 +1572,7 @@ if Cancel == true then
 break
 end
 if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49999,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49969,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
 end
 task.wait(0.01)
 if Timer < 1 then
@@ -2211,6 +2184,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+wait(0.1)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v.ClassName == "Part" then
@@ -2586,8 +2560,9 @@ Tab12:AddToggle({
 	Name = "Anti Void Pyscho",
 	Default = false,
 	Callback = function(Value)
+AntiVoidLimbo = Value
 Psycho.CanCollide = Value
-if Value then
+if AntiVoidLimbo == true then
 Psycho.Transparency = 0.5
 else
 Psycho.Transparency = 1
@@ -2612,7 +2587,7 @@ AntiVoidArena = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 AntiVoid.CanCollide = Value
-if Value then
+if Value == true then
 AntiVoid.Transparency = 0.5
 else
 AntiVoid.Transparency = 1
@@ -2625,7 +2600,7 @@ AntiVoidTourn =  Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 TournamentAntiVoid.CanCollide = Value
-if Value then
+if Value == true then
 TournamentAntiVoid.Transparency = 0.5
 else
 TournamentAntiVoid.Transparency = 1
