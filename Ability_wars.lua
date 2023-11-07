@@ -2,9 +2,9 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-if game.PlaceId == 8260276694 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+if game.PlaceId == 8260276694 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "ability ware"})
 
 if workspace:FindFirstChild("AntiVoid") == nil then
@@ -371,6 +371,30 @@ end
 	end    
 })
 
+Tab3:AddToggle({
+	Name = "AutoFarm Punch [ Fast Get Banned ]",
+	Default = false,
+	Callback = function(Value)
+_G.FarmPunch = Value
+while _G.FarmPunch do
+		for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("HumanoidRootPart") then
+if v.Character["Right Arm"]:FindFirstChild("SelectionBox") == nil and v.Character:FindFirstChild("Highlight") == nil then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("Head").CFrame
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if 20 >= Magnitude then
+game:GetService("ReplicatedStorage"):FindFirstChild("Remote Events").Punch:FireServer(v.Character,Vector3.new,0,v.Character:FindFirstChild("Head"))
+                    end
+end
+end
+end
+                end
+wait(1.5)
+end
+	end    
+})
+
 Tab3:AddButton({
 	Name = "Get Portal Mastery [ Use In Arena ]",
 	Callback = function()
@@ -563,8 +587,6 @@ CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsIt
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 end)
 elseif game.PlaceId == 10626447503 then
-local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
-local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "ability ware"})
 
 if workspace:FindFirstChild("AntiVoid") == nil then
