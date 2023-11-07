@@ -356,20 +356,8 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab4 = Window:MakeTab({
-	Name = "Bagdes Time",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 local Tab5 = Window:MakeTab({
 	Name = "Local",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab6 = Window:MakeTab({
-	Name = "Auto Enter Lobby",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -680,8 +668,6 @@ Tab3:AddButton({
 	Name = "Get Glove Alchemist",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" and #game.Players:GetChildren() >= 14 then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-task.wait()
 repeat
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
@@ -695,16 +681,13 @@ if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirs
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-if 25 >= Magnitude then
+if 50 >= Magnitude then
 game.ReplicatedStorage.PlagueHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
 end
 end
 end
 end
 end
-task.wait(0.22)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-task.wait()
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2153473254)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped or don't have server player full",Image = "rbxassetid://7733658504",Time = 5})
@@ -1081,59 +1064,30 @@ task.wait()
 	end    
 })
 
-Tab4:AddToggle({
-	Name = "Get Megarock",
-	Default = false,
+Tab3:AddDropdown({
+	Name = "Farm Bob",
+	Default = "Slow",
+	Options = {"Slow", "Fast", "Super Fast"},
 	Callback = function(Value)
-	_G.TimeMegarock = Value
-if Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
-game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-end
-task.wait(0.05)
-while _G.TimeMegarock do
-task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-TimeMegarock = TimeMegarock + 1
-OrionLib:MakeNotification({
-	Name = "Time Diamond [ "..TimeMegarock.." ]",
-	Content = "Error",
-	Image = "rbxassetid://7743873443",
-	Time = 0.5
-})
-else
-TimeMegarock = 0
-end
-end
-end
+Autobob = Value
 	end    
 })
 
 GetBob = Tab3:AddToggle({
-	Name = "Get bob 1.0",
+	Name = "AutoFarm Bob",
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-while _G.AutoFarmBob do
+while _G.AutoFarmBob and Autobob == "Slow" do
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+task.wait(15.1)
+end
+while _G.AutoFarmBob and Autobob == "Fast" do
 game.ReplicatedStorage.Duplicate:FireServer(true)
-wait(5.1)
+task.wait(5.3)
 end
-elseif _G.AutoFarmBob == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
-end
-	end    
-})
-
-FarmBob = Tab3:AddToggle({
-	Name = "Get bob 2.0",
-	Default = false,
-	Callback = function(Value)
-	    AutoFarmbob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-while AutoFarmbob do
+while _G.AutoFarmBob and Autobob == "Super Fast" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -1146,67 +1100,10 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 task.wait()
 end
-elseif Value == true then
+elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
-FarmBob:Set(false)
-end
-	end    
-})
-
-Tab4:AddToggle({
-	Name = "Get Fish",
-	Default = false,
-	Callback = function(Value)
-_G.FishFarm = Value
-if Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-else
-OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Sleep and Enter Arena",Time = 5})
-end
-task.wait()
-while _G.FishFarm and task.wait() do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
-task.wait(1)
-SleepTime += 1
-OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7743873443",Content = "You Have Been Sleep For: " ..Time.. " Second. You Have: " ..(3600 - Time).. " Second Left",Time = 0.5})
-else
-SleepTime = 0
-end
-end
-end
-	end    
-})
-
-Tab4:AddToggle({
-	Name = "Get Voodoo",
-	Default = false,
-	Callback = function(Value)
-	_G.AutoTimeGhost = Value
-if Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-else
-OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Ghost and Enter Arena",Time = 5})
-end
-end
-task.wait(0.05)
-while _G.AutoTimeGhost do
-task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-TimeGhost = TimeGhost + 1
-OrionLib:MakeNotification({
-	Name = "Time Ghost [ "..TimeGhost.." ]",
-	Content = "Error",
-	Image = "rbxassetid://7743873443",
-	Time = 0.5
-})
-else
-TimeGhost = 0
-end
+GetBob:Set(false)
 end
 	end    
 })
@@ -1328,75 +1225,102 @@ end
 	end    
 })
 
-Tab6:AddToggle({
-	Name = "Auto Enter Arena",
-	Default = false,
-	Callback = function(Value)		
-        _G.AutoEnter = Value
-while _G.AutoEnter do
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait(.005)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-task.wait()
-end
+Tab3:AddDropdown({
+	Name = "Farm Time",
+	Default = "Slow",
+	Options = {"Fish", "Voodoo", "MegaRock"},
+	Callback = function(Value)
+AutoTime = Value
 	end    
 })
 
-Tab6:AddToggle({
-	Name = "Auto Enter Default Only Arena",
+Tab3:AddToggle({
+	Name = "AutoFarm Time",
 	Default = false,
 	Callback = function(Value)
-        getgenv().autoJoin = Value
-while getgenv().autoJoin do           
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait(.005)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+_G.AutoTimeGet = Value
+if AutoTime == "Fish" and Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+else
+OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Sleep and Enter Arena",Time = 5})
 end
 task.wait()
+while _G.AutoTimeGet and AutoTime == "Fish" and task.wait() do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
+task.wait(1)
+SleepTime += 1
+OrionLib:MakeNotification({Name = "Time Sleep [ "..SleepTime.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+else
+SleepTime = 0
+end
+end
+end
+if AutoTime == "Voodoo" and Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+else
+OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Ghost and Enter Arena",Time = 5})
+end
+end
+task.wait()
+while _G.AutoTimeGet and AutoTime == "Voodoo" do
+task.wait(1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+TimeGhost += 1
+OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+else
+TimeGhost = 0
+end
+end
+if AutoTime == "MegaRock" and Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
+game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
+end
+task.wait()
+while _G.AutoTimeGet and AutoTime == "MegaRock" do
+task.wait(1)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+TimeMegarock = TimeMegarock + 1
+OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+else
+TimeMegarock = 0
+end
+end
 end
 	end    
 })
 
-AutoFarmBrick1 = Tab3:AddToggle({
-	Name = "Autofram Brick 1.0",
+Tab3:AddDropdown({
+	Name = "Farm Brick",
+	Default = "Slow",
+	Options = {"Slow", "Fast"},
+	Callback = function(Value)
+AutoBrick = Value
+	end    
+})
+
+AutoFarmBrick = Tab3:AddToggle({
+	Name = "AutoFram Brick",
 	Default = false,
 	Callback = function(Value)
 	    Brickfarm = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" then
-while Brickfarm do
+while Brickfarm and AutoBrick == "Slow" do
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(5.05)
 end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoFarmBrick1:Set(false)
-end
-	end    
-})   
-
-AutoFarmBrick2 = Tab3:AddToggle({
-	Name = "AutoFarm Brick 2.0",
-	Default = false,
-	Callback = function(Value)
-Brickfarm = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" then
-while Brickfarm do
-game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
+while Brickfarm and AutoBrick == "Fast" do
 game:GetService("ReplicatedStorage").lbrick:FireServer()
+game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
 task.wait(1.10)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
-AutoFarmBrick2:Set(false)
+AutoFarmBrick:Set(false)
 end
 	end    
 })
@@ -1782,8 +1706,8 @@ OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-                        v.CanTouch = false
-                end
+v.CanTouch = false
+end
 game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
@@ -1794,10 +1718,38 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-                        v.CanTouch = true
-                end
+v.CanTouch = true
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "Kick Player V2",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2211,6 +2163,26 @@ end
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Glove",
+	Default = "Glove Name",
+	TextDisappear = false,
+	Callback = function(Value)
+		EpinGlove = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Epin Glove",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
 Tab7:AddToggle({
 	Name = "Anti Cooldown",
 	Default = false,
@@ -2249,6 +2221,43 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Enter",
+	Default = "Arena",
+	Options = {"Arena", "Arena Default"},
+	Callback = function(Value)
+AutoEnter = Value
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Enter",
+	Default = false,
+	Callback = function(Value)		
+        _G.AutoEnter = Value
+while _G.AutoEnter and AutoEnter == "Arena" do
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait(.005)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+task.wait()
+end
+while _G.AutoEnter and AutoEnter == "Arena Default" do
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait(.005)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+task.wait()
+end
+	end    
 })
 
 Tab7:AddSlider({
@@ -2322,7 +2331,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
                 while _G.AutoShukuchi do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachShukuchi >= Magnitude then
@@ -3476,7 +3485,7 @@ Target = RandomPlayer
 game:GetService("ReplicatedStorage").AirStrike:FireServer(Target.Character)
 wait(5.1)
 end
-while game.Players.LocalPlayer.leaderstats.Glove.Value == "Tableflip" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Shield" and On do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Tableflip" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Shield" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(3.1)
 end
@@ -3661,7 +3670,7 @@ wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Coil" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
 wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
@@ -3776,26 +3785,6 @@ if #serverList > 0 then
 	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
 end
 	end
-})
-
-Tab9:AddTextbox({
-	Name = "Glove",
-	Default = "Glove Name",
-	TextDisappear = false,
-	Callback = function(Value)
-		EpinGlove = Value
-	end	  
-})
-
-Tab9:AddButton({
-	Name = "Epin Glove",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
 })
 
 Tab15:AddLabel("Owner Credits Script By Giang")
