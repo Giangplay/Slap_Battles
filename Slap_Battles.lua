@@ -1671,6 +1671,58 @@ end
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Make Ragdoll Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.RagdollPlayer = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Get Ragdoll Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+if workspace[_G.RagdollPlayer]:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.RagdollPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+task.wait(0.18)
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." not enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or don't have enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab7:AddButton({
+	Name = "Get Ragdoll Player Random",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+task.wait(0.18)
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or don't have enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
 Tab7:AddButton({
 	Name = "Kick Player",
 	Callback = function()
