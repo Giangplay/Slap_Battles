@@ -9,7 +9,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
----AntiBypass---
+---Bypass---
 
 local Namecall
 Namecall = hookmetamethod(game, "__namecall", function(self, ...)
@@ -22,11 +22,6 @@ Namecall = hookmetamethod(game, "__namecall", function(self, ...)
    end
    return Namecall(self, ...)
 end)
-
----GetTime---
-
-TimeGhost = 0
-TimeMegarock = 0
 
 ---Potion---
 
@@ -289,34 +284,39 @@ end
 
 ---AntiVoidBagde---
 
-local Psycho = Instance.new("Part")
-Psycho.Name = "AntiVoidPsycho"
+if workspace:FindFirstChild("Psycho") == nil then
+local Psycho = Instance.new("Part", workspace)
+Psycho.Position = Vector3.new(17800.9082, 2947, -226.017517, -0.248515129, 0.00487846136, -0.968615651, 0.966844261, -0.0594091415, -0.248359889, -0.0587562323, -0.998221755, 0.0100474358)
+Psycho.Name = "Psycho"
 Psycho.Size = Vector3.new(2000, 1, 2000)
+Psycho.Material = "ForceField"
+Psycho.Anchored = true
 Psycho.Transparency = 1
 Psycho.CanCollide = false
-Psycho.Anchored = true
-Psycho.Material = "ForceField"
-Psycho.Position = Vector3.new(17800.9082, 2947, -226.017517, -0.248515129, 0.00487846136, -0.968615651, 0.966844261, -0.0594091415, -0.248359889, -0.0587562323, -0.998221755, 0.0100474358)
+end
 
 ---Anti Void---
 
-local AntiVoid = Instance.new("Part")
-AntiVoid.Name = "WalkVoid"
-AntiVoid.Size = Vector3.new(2049, 1, 2021)
-AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
-AntiVoid.CanCollide = false
-AntiVoid.Anchored = true
-AntiVoid.Material = "ForceField"
-AntiVoid.Transparency = 1
+if workspace:FindFirstChild("VoidPart") == nil then
+local VoidPart = Instance.new("Part", workspace)
+VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
+VoidPart.Name = "VoidPart"
+VoidPart.Size = Vector3.new(2048, 1, 2021)
+VoidPart.Material = "ForceField"
+VoidPart.Anchored = true
+VoidPart.Transparency = 1
+VoidPart.CanCollide = false
+end
 
-local TournamentAntiVoid = Instance.new("Part")
+if workspace:FindFirstChild("TAntiVoid") == nil then
+local TournamentAntiVoid = Instance.new("Part", workspace)
 TournamentAntiVoid.Name = "TAntiVoid"
-TournamentAntiVoid.Size = Vector3.new(800, 1, 1292)
+TournamentAntiVoid.Size = Vector3.new(2048, 15, 2048)
 TournamentAntiVoid.Position = Vector3.new(3450, 59.009, 68)
-TournamentAntiVoid.CanCollide = false
 TournamentAntiVoid.Anchored = true
-TournamentAntiVoid.Material = "ForceField"
 TournamentAntiVoid.Transparency = 1
+TournamentAntiVoid.CanCollide = false
+end
 
 --Tab1 - 15
 local Tab = Window:MakeTab({
@@ -1252,6 +1252,7 @@ TimeGhost += 1
 OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 TimeGhost = 0
+game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 end
 end
 if AutoTime == "MegaRock" and Value == true then
@@ -1262,10 +1263,11 @@ task.wait()
 while _G.AutoTimeGet and AutoTime == "MegaRock" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-TimeMegarock = TimeMegarock + 1
+TimeMegarock += 1
 OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 else
 TimeMegarock = 0
+game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 end
 end
@@ -1565,7 +1567,7 @@ Tab7:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-AntiVoid.CanCollide = true
+AntiVoid:Set(true)
 Timer = 0
 repeat
 if Cancel == true then
@@ -1576,7 +1578,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspac
 end
 task.wait(0.01)
 if Timer < 1 then
-Timer = Timer + 0.01
+Timer = Timer + 0.1
 end
 until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Timer >= 1
 if Cancel == false then
@@ -1584,7 +1586,7 @@ game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid.CanCollide = false
+AntiVoid:Set(false)
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -1692,10 +1694,10 @@ game:GetService("ReplicatedStorage").lbrick:FireServer()
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
 else
-OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." not enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or don't have enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1717,7 +1719,7 @@ game:GetService("ReplicatedStorage").lbrick:FireServer()
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or don't have enter Arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
   	end 
@@ -1751,30 +1753,74 @@ end
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Make Kick Player V2",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.KickPlayerHehe = Value
+	end	  
+})
+
 Tab7:AddButton({
 	Name = "Kick Player V2",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and workspace[_G.KickPlayerHehe]:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KickPlayerHehe].Character.HumanoidRootPart.CFrame
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or player ".._G.KickPlayerHehe.." aren't in Arena or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "Kick Player Random V2",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end    
 })
@@ -2612,12 +2658,11 @@ Tab12:AddToggle({
 	Name = "Anti Void Pyscho",
 	Default = false,
 	Callback = function(Value)
-AntiVoidLimbo = Value
-Psycho.CanCollide = Value
-if AntiVoidLimbo == true then
-Psycho.Transparency = 0.5
+game.Workspace.Psycho.CanCollide = Value
+if Value == true then
+game.Workspace.Psycho.Transparency = 0.5
 else
-Psycho.Transparency = 1
+game.Workspace.Psycho.Transparency = 1
 end
 	end    
 })
@@ -2634,28 +2679,18 @@ game.Workspace.NoChanged.Value = Value
 	end    
 })
 
-AntiVoidArena = Tab2:AddToggle({
+AntiVoid = Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
-AntiVoid.CanCollide = Value
+game.Workspace.VoidPart.CanCollide = Value
+game.Workspace.TAntiVoid.CanCollide = Value
 if Value == true then
-AntiVoid.Transparency = 0.5
+game.Workspace.VoidPart.Transparency = 0.5
+game.Workspace.TAntiVoid.Transparency = 0.5
 else
-AntiVoid.Transparency = 1
-end
-	end    
-})
-
-AntiVoidTourn =  Tab2:AddToggle({
-	Name = "Tournament Anti Void",
-	Default = false,
-	Callback = function(Value)
-TournamentAntiVoid.CanCollide = Value
-if Value == true then
-TournamentAntiVoid.Transparency = 0.5
-else
-TournamentAntiVoid.Transparency = 1
+game.Workspace.VoidPart.Transparency = 1
+game.Workspace.TAntiVoid.Transparency = 1
 end
 	end    
 })
@@ -3869,12 +3904,7 @@ end)
 
 ---AllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiVoidArena:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.05)
-AntiVoidTourn:Set(game.Workspace.NoChanged.Value)
+AntiVoid:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -4387,7 +4417,6 @@ AntiVoid.Anchored = true
 AntiVoid.Material = "ForceField"
 AntiVoid.Position = Vector3.new(0, -8, -43, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
---Tab
 local Tab = Window:MakeTab({
 	Name = "Combat",
 	Icon = "rbxassetid://4483345998",
@@ -4403,7 +4432,6 @@ local Tab1 = Window:MakeTab({
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-
 local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
