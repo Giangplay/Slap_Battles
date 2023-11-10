@@ -361,18 +361,6 @@ local Tab7 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab8 = Window:MakeTab({
-	Name = "Game",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab10 = Window:MakeTab({
-	Name = "Autofram",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 local Tab11 = Window:MakeTab({
 	Name = "Troller",
 	Icon = "rbxassetid://4483345998",
@@ -381,12 +369,6 @@ local Tab11 = Window:MakeTab({
 
 local Tab13 = Window:MakeTab({
 	Name = "Ability Spams",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab14 = Window:MakeTab({
-	Name = "Auto Join Game",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -403,7 +385,6 @@ CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.Se
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-
 local MainScript = Tab:AddSection({Name = "Main"})
 
 Tab:AddButton({
@@ -1324,6 +1305,46 @@ end
 	end    
 })
 
+Tab7:AddButton({
+	Name = "View Testing Server glove leaking",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+        game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("GuiService"):ClearError()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9020359053)
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "View Testing Slap Royale Server",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+        game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("GuiService"):ClearError()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9412268818)
+  	end    
+})
+
 Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "",
@@ -1631,10 +1652,6 @@ end
 Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
-if not game:IsLoaded() then
-	game.Loaded:Wait()
-end
-wait(1.5)
 if not workspace:FindFirstChild("Keypad") then
 	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
     	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
@@ -1924,6 +1941,28 @@ end
 end
 end
   	end    
+})
+
+Tab7:AddButton({
+	Name = "Slap Battles",
+	Callback = function()
+      		game:GetService("TeleportService"):Teleport(6403373529)
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "Serverhop",
+	Callback = function()
+local serverList = {}
+for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+		serverList[#serverList + 1] = v.id
+	end
+end
+if #serverList > 0 then
+	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
+end
+	end
 })
 
 Tab7:AddDropdown({
@@ -2333,7 +2372,7 @@ end
 })
 
 Tab7:AddSlider({
-	Name = "Reach Slap Arua",
+	Name = "Reach Slap Aura",
 	Min = 10,
 	Max = 50,
 	Default = 25,
@@ -2456,6 +2495,46 @@ end
 	end    
 })
 
+InfRever = Tab7:AddToggle({
+	Name = "Infinite Reverse",
+	Default = false,
+	Callback = function(Value)
+	    InfReverse = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+while InfReverse do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+end
+task.wait(5.7)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+InfRever:Set(false)
+end
+	end    
+})
+
+InfGoldens = Tab7:AddToggle({
+	Name = "Godmode Golden",
+	Default = false,
+	Callback = function(Value)
+	    InfGolden = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
+while InfGolden do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+end
+task.wait()
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+InfGoldens:Set(false)
+end
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "ESP Glove",
 	Default = false,
@@ -2500,8 +2579,10 @@ FullKinetic = Tab7:AddToggle({
 FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while FullKineticSpam do
+if not game.Players.LocalPlayer.Character:WaitForChild("KineticCharge").Value >= 50 then
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
+end
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2721,7 +2802,7 @@ AntiAdmin = Tab2:AddToggle({
 AntiAdmins = Value
 while AntiAdmins do
 for i,v in pairs(game.Players:GetChildren()) do
-if v:GetRankInGroup(9950771) >= 2 then
+if v:GetRankInGroup(9950771) >= 2  then
 _G.AntiKick = false
 _G.AntiKickServerhop = false
 game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
@@ -2950,10 +3031,8 @@ AntiNull = Tab2:AddToggle({
 AntiNull = Value
 while AntiNull do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Imp" then
-if v:FindFirstChild("Body") then
+if v.Name == "Imp" and v:FindFirstChild("Body") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
-end
 end
 end
 task.wait()
@@ -3118,10 +3197,8 @@ AntiBubble = Tab2:AddToggle({
 		 _G.AntiBubble = Value
 while _G.AntiBubble do
 for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "BubbleObject" then
-if v:FindFirstChild("Weld") then
+if v.Name == "BubbleObject" and v:FindFirstChild("Weld") then
 v:FindFirstChild("Weld"):Destroy()
-end
 end
 end
 task.wait()
@@ -3225,185 +3302,6 @@ end
 task.wait()
 end
 	end    
-})
-
-InfRever = Tab7:AddToggle({
-	Name = "Infinite Reverse",
-	Default = false,
-	Callback = function(Value)
-	    InfReverse = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
-while InfReverse do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
-end
-task.wait(5.7)
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-InfRever:Set(false)
-end
-	end    
-})
-
-Tab10:AddToggle({
-	Name = "All Glove AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-allFarming = Value
-if Value == true then
-for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-if v.ClassName == "Part" and v.Name == "BLOCK" then
-v.CanTouch = false
-end
-end
-task.wait()
-while allFarming do
-pcall(function()
-for _, Human in pairs(game.Players:GetPlayers()) do
-if Human ~= game.Players.LocalPlayer and Human.Character and not Human.Character:FindFirstChild("isParticipating") and Human.Character:FindFirstChild("Torso") and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-task.wait(.1)
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-task.wait(.1)
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
-end
-end
-end
-end)
-task.wait(.10)
-end
-else
-for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-if v.ClassName == "Part" and v.Name == "BLOCK" then
-v.CanTouch = true
-end
-end
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-	end    
-})
-
-Tab10:AddToggle({
-	Name = "Ghost AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-		Farming = Value
-if Value == true then
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-while Farming do
-pcall(function()
-for _, Human in pairs(game.Players:GetPlayers()) do
-if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-task.wait(.1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-task.wait(.1)
-game.ReplicatedStorage.GhostHit:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
-end
-end
-end
-end
-end)
-task.wait(.10)
-end
-else
-game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-	end    
-})
-
-Tab10:AddToggle({
-	Name = "Default AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-		Farming = Value
-if Value == true then
-while Farming do
-pcall(function()
-for _, Human in pairs(game.Players:GetPlayers()) do
-if Human ~= game.Players.LocalPlayer and Human.Character and Human.Character:FindFirstChild("Head") and Human.Character:FindFirstChild("entered") and Human.Character.Head:FindFirstChild("UnoReverseCard") == nil and Human.Character:FindFirstChild("rock") == nil and Human.Character.Ragdolled.Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-task.wait(.1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = Human.Character:FindFirstChild("Head").CFrame
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = true
-task.wait(.1)
-game.ReplicatedStorage.b:FireServer(Human.Character:FindFirstChild("HumanoidRootPart"))
-end
-end
-end
-end
-end)
-task.wait(.10)
-end
-else
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-	end    
-})
-
-Tab8:AddButton({
-	Name = "Inf Jump",
-	Callback = function()
-      		local InfiniteJumpEnabled = true
-game:GetService("UserInputService").JumpRequest:connect(function()
-	if InfiniteJumpEnabled then
-		game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-	end
-end)
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "View Testing Server [ Good for glove leaking ] [ You Have Banned ]",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9020359053)
-  	end    
-})
-
-Tab8:AddButton({
-	Name = "View Testing Slap Royale Server",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9412268818)
-  	end    
 })
 
 Tab11:AddDropdown({
@@ -3802,51 +3700,6 @@ game:GetService("ReplicatedStorage").rhythmevent:FireServer("AoeExplosion",0)
 task.wait()
 end
 	end    
-})
-
-Tab14:AddButton({
-	Name = "Slap Royale",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
-game:GetService("TeleportService"):Teleport(9426795465)
-end
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Slap Battles [ Only Killstreak ]",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(11520107397)
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Slap Battles [ NO ONE SHOT GLOVE ]",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(9015014224)
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Slap Battles",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(6403373529)
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Serverhop",
-	Callback = function()
-local serverList = {}
-for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
-		serverList[#serverList + 1] = v.id
-	end
-end
-if #serverList > 0 then
-	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
-end
-	end
 })
 
 Tab15:AddLabel("Owner Credits Script By Giang")
