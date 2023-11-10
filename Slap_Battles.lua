@@ -2502,10 +2502,10 @@ InfRever = Tab7:AddToggle({
 	    InfReverse = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 while InfReverse do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
-task.wait(5.7)
+task.wait(0.3)
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2516,7 +2516,7 @@ end
 })
 
 InfGoldens = Tab7:AddToggle({
-	Name = "Godmode Golden",
+	Name = "Auto Godmode Golden",
 	Default = false,
 	Callback = function(Value)
 	    InfGolden = Value
