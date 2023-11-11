@@ -1084,7 +1084,7 @@ game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
                  end
 end
 task.wait()
-                       end
+end
 elseif ReplicaBallerFarm == true then 
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
@@ -2513,7 +2513,7 @@ end
 	end    
 })
 
-AutoGetGodmode = Tab7:AddDropdown({
+Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "Glove Golden",
 	Options = {"Glove Reverse","Glove Golden"},
@@ -2532,13 +2532,12 @@ while AutoGodmode and SetGodmode == "Glove Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
-task.wait(0.3)
+task.wait(0.05)
 end
 elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
+wait(0.09)
 AutoGodmodes:Set(false)
-AutoGetGodmode:Set("Glove Golden")
 end
 if SetGodmode == "Glove Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while AutoGodmode and SetGodmode == "Glove Golden" do
@@ -2551,7 +2550,6 @@ elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoGodmodes:Set(false)
-AutoGetGodmode:Set("Glove Reverse")
 end
 	end    
 })
@@ -2600,10 +2598,8 @@ FullKinetic = Tab7:AddToggle({
 FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while FullKineticSpam do
-if not game.Players.LocalPlayer.Character:WaitForChild("KineticCharge").Value >= 50 then
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
-end
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2687,7 +2683,7 @@ end
 })
 
 RhythmNote = Tab7:AddToggle({
-	Name = "Rhythm Note Spam + Auto Press [ Equip Rhythm ]",
+	Name = "Infinite Rhythm",
 	Default = false,
 	Callback = function(Value)
 		RhythmNoteSpam = Value
@@ -3707,7 +3703,7 @@ Tab13:AddDropdown({
 	Default = "Null",
 	Options = {"Null", "Rhythm Explosion"},
 	Callback = function(Value)
-AbilitySpamAllGlove= Value
+AbilitySpamAllGlove = Value
 	end    
 })
 
