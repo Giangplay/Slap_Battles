@@ -2045,6 +2045,26 @@ end
 	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Make Oven Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.OvenPlayer = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Get Oven Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Oven equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 PingPong = Tab7:AddToggle({
 	Name = "Ping Pong Orbit",
 	Default = false,
@@ -2132,7 +2152,7 @@ task.wait()
 end
 elseif AlchemistIngredients == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
-task.wait()
+wait(0.05)
 GetAlchemist:Set(false)
 end
 	end    
@@ -2165,7 +2185,7 @@ task.wait()
 end
 elseif AlchemistIngredients == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
-task.wait()
+wait(0.05)
 GetAllAlchemist:Set(false)
 end
 	end    
@@ -2324,9 +2344,7 @@ game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 wait(0.1)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if v.ClassName == "Part" then
 v.Transparency = 0.5
-end
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2495,42 +2513,45 @@ end
 	end    
 })
 
-InfRever = Tab7:AddToggle({
-	Name = "Infinite Reverse",
+AutoGetGodmode = Tab7:AddDropdown({
+	Name = "Godmode",
+	Default = "Glove Golden",
+	Options = {"Glove Reverse","Glove Golden"},
+	Callback = function(Value)
+SetGodmode = Value
+	end    
+})
+
+AutoGodmodes = Tab7:AddToggle({
+	Name = "Auto Godmode",
 	Default = false,
 	Callback = function(Value)
-	    InfReverse = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
-while InfReverse do
+	    AutoGodmode = Value
+if SetGodmode == "Glove Reverse" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+while AutoGodmode and SetGodmode == "Glove Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
 task.wait(0.3)
 end
-elseif Value == true then
+elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
-InfRever:Set(false)
+AutoGodmodes:Set(false)
+AutoGetGodmode:Set("Glove Golden")
 end
-	end    
-})
-
-InfGoldens = Tab7:AddToggle({
-	Name = "Auto Godmode Golden",
-	Default = false,
-	Callback = function(Value)
-	    InfGolden = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while InfGolden do
+if SetGodmode == "Glove Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
+while AutoGodmode and SetGodmode == "Glove Golden" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
 game:GetService("ReplicatedStorage").Goldify:FireServer(true)
 end
 task.wait()
 end
-elseif Value == true then
+elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
-InfGoldens:Set(false)
+AutoGodmodes:Set(false)
+AutoGetGodmode:Set("Glove Reverse")
 end
 	end    
 })
@@ -2802,7 +2823,7 @@ AntiAdmin = Tab2:AddToggle({
 AntiAdmins = Value
 while AntiAdmins do
 for i,v in pairs(game.Players:GetChildren()) do
-if v:GetRankInGroup(9950771) >= 2  then
+if v:GetRankInGroup(9950771) >= 2 then
 _G.AntiKick = false
 _G.AntiKickServerhop = false
 game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
@@ -3673,6 +3694,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Druid" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+wait()
 end
 	end    
 })
