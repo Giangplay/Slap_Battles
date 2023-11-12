@@ -3,7 +3,8 @@ if not game:IsLoaded() then
 end
 
 game:GetService("GuiService"):ClearError()
-
+game:GetService("ReplicatedStorage")._NETWORK.ClaimDailyReward:InvokeServer()
+task.wait(0.23)
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -2054,15 +2055,33 @@ _G.OvenPlayer = Value
 	end	  
 })
 
-Tab7:AddButton({
-	Name = "Get Oven Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" then
+Tab7:AddToggle({
+	Name = "Auto Oven Player",
+	Default = false,
+	Callback = function(Value)
+_G.OvenPlayerAuto = Value
+while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Oven equipped.",Image = "rbxassetid://7733658504",Time = 5})
+task.wait()
 end
-  	end 
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Oven Player Random",
+	Default = false,
+	Callback = function(Value)
+_G.OvenPlayerAutoRandom = Value
+while _G.OvenPlayerAutoRandom and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
+task.wait()
+end
+	end    
 })
 
 PingPong = Tab7:AddToggle({
@@ -2532,11 +2551,11 @@ while AutoGodmode and SetGodmode == "Glove Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
-task.wait(0.05)
+task.wait(0.25)
 end
 elseif AutoGodmode == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.09)
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped and don't ping in lag.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
 AutoGodmodes:Set(false)
 end
 if SetGodmode == "Glove Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
