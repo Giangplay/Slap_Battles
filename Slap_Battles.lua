@@ -362,6 +362,12 @@ local Tab7 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab14 = Window:MakeTab({
+	Name = "Gloves Optional",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Tab11 = Window:MakeTab({
 	Name = "Troller",
 	Icon = "rbxassetid://4483345998",
@@ -1306,6 +1312,822 @@ end
 	end    
 })
 
+Tab14:AddTextbox({
+	Name = "Make Player Spam Rojo",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+Person = game.Players.LocalPlayer.Name
+else
+Person = Value
+end
+	end	  
+})
+
+Tab14:AddTextbox({
+	Name = "Make Player Teleport [ Glove Recall ]",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+TeleportPlayer = Value
+	end	  
+})
+
+Tab14:AddTextbox({
+	Name = "Save The Player [ Glove Guardian Angel ]",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+SaveThePlayer = game.Players.LocalPlayer.Name
+else
+SaveThePlayer = Value
+end
+	end	  
+})
+
+Tab14:AddTextbox({
+	Name = "Make Punish Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PunishPlayer = Value
+	end	  
+})
+
+Tab14:AddDropdown({
+	Name = "Retro Ability",
+	Default = "Rocket Launcher",
+	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
+	Callback = function(Value)
+RetroAbility = Value
+	end    
+})
+
+SavePlayer = Tab14:AddToggle({
+	Name = "Auto Spam Guardian Angel",
+	Default = false,
+	Callback = function(Value)
+if SaveThePlayer == nil then
+SaveThePlayer = game.Players.LocalPlayer.Name
+end
+GuardianAngelSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
+while GuardianAngelSpam do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[SaveThePlayer])
+task.wait()
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Guardian Angel equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+SavePlayer:Set(false)
+end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam Retro [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+RetroSpam = Value
+while RetroSpam do
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(RetroAbility)
+task.wait()
+end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam Rojo [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+if Person == nil then
+Person = game.Players.LocalPlayer.Name
+end
+_G.RojoSpam = Value
+while _G.RojoSpam do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+task.wait()
+end
+	end    
+})
+
+Cancel = false
+Tab14:AddButton({
+	Name = "Get Punish Player",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+AntiVoid:Set(true)
+Timer = 0
+repeat
+if Cancel == true then
+break
+end
+if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49969,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+end
+task.wait(0.01)
+if Timer < 1 then
+Timer = Timer + 0.1
+end
+until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Timer >= 1
+if Cancel == false then
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+end
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+AntiVoid:Set(false)
+if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Cancel Punish Player",
+	Callback = function()
+Cancel = true
+wait(0.1)
+Cancel = false
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Player Teleport",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
+task.wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Make Ragdoll Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.RagdollPlayer = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Get Ragdoll Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+if workspace[_G.RagdollPlayer]:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.RagdollPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+task.wait(0.18)
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab14:AddButton({
+	Name = "Get Ragdoll Player Random",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+task.wait(0.18)
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
+Tab14:AddButton({
+	Name = "Kick Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game:GetService("ReplicatedStorage").Erase:FireServer()
+wait(0.47)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Make Kick Player V2",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.KickPlayerHehe = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Kick Player V2",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and workspace[_G.KickPlayerHehe]:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KickPlayerHehe].Character.HumanoidRootPart.CFrame
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or player ".._G.KickPlayerHehe.." aren't in Arena or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Kick Player Random V2",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(3.67)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Potion",
+	Default = "",
+	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine"},
+	Callback = function(Value)
+_G.MakePotion = Value
+	end    
+})
+
+Tab14:AddSlider({
+	Name = "Give Potion",
+	Min = 1,
+	Max = 200,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Potion",
+	Callback = function(Value)
+		_G.GivePotion = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Get Potions",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for b = 1, _G.GivePotion do
+repeat
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait(.03)
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+end
+until #_G.GetPotion
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+task.wait(.1)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+PotionAuto = Tab14:AddToggle({
+	Name = "Auto Potion",
+	Default = false,
+	Callback = function(Value)
+_G.AutoGetPotion = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+while _G.AutoGetPotion do
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait(.03)
+repeat
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+end
+until #_G.GetPotion
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+task.wait(.1)
+end
+elseif _G.AutoGetPotion == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PotionAuto:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Glove",
+	Default = "Glove Name",
+	TextDisappear = false,
+	Callback = function(Value)
+		EpinGlove = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Epin Glove",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Make Oven Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.OvenPlayer = Value
+	end	  
+})
+
+Tab14:AddToggle({
+	Name = "Auto Oven Player",
+	Default = false,
+	Callback = function(Value)
+_G.OvenPlayerAuto = Value
+while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
+task.wait()
+end
+end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Oven Player Random",
+	Default = false,
+	Callback = function(Value)
+_G.OvenPlayerAutoRandom = Value
+while _G.OvenPlayerAutoRandom and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
+task.wait()
+end
+end
+	end    
+})
+
+PingPong = Tab14:AddToggle({
+	Name = "Ping Pong Orbit",
+	Default = false,
+	Callback = function(Value)
+		PingPongOrbit = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
+Orbit = "0"
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
+while PingPongOrbit do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+Orbit = Orbit + OrbitSpeed
+game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
+if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
+                    end
+                end
+for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
+                    end
+                end
+elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.Parent = game.Players.LocalPlayer.Character.Torso.RadioPart
+break
+                    end
+                end
+end
+task.wait(0.01)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PingPong:Set(false)
+end
+	end    
+})
+
+Tab14:AddSlider({
+	Name = "Ping Pong Orbit Speed",
+	Min = 0,
+	Max = 500,
+	Default = 10,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+OrbitSpeed = Value
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Ingredient",
+	Default = "",
+	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose"},
+	Callback = function(Value)
+AlchemistIngredientsGet = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Get Alchemist Ingredients",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+GetAlchemist = Tab14:AddToggle({
+	Name = "Auto Get Alchemist Ingredients",
+	Default = false,
+	Callback = function(Value)
+		AlchemistIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while AlchemistIngredients do
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
+task.wait()
+end
+elseif AlchemistIngredients == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetAlchemist:Set(false)
+end
+	end    
+})
+
+GetAllAlchemist = Tab14:AddToggle({
+	Name = "Get All Alchemist Ingredients",
+	Default = false,
+	Callback = function(Value)
+		AlchemistIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while AlchemistIngredients do
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Winter Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dark Root")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Autumn Sprout")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Elder Wood")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Hazel Lily")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Wild Vine")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Jade Stone")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Lamp Grass")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
+task.wait()
+end
+elseif AlchemistIngredients == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetAllAlchemist:Set(false)
+end
+	end    
+})
+
+AutoGod = Tab14:AddDropdown({
+	Name = "Godmode",
+	Default = "Golden",
+	Options = {"Reverse","Golden"},
+	Callback = function(Value)
+SetGodmode = Value
+	end    
+})
+
+AutoGodmodes = Tab14:AddToggle({
+	Name = "Auto Godmode",
+	Default = false,
+	Callback = function(Value)
+	    AutoGodmode = Value
+if SetGodmode == "Reverse" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+while AutoGodmode and SetGodmode == "Glove Reverse" do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+end
+task.wait(0.25)
+end
+elseif AutoGodmode == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped and don't ping in lag.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoGodmodes:Set(false)
+AutoGod:Set("Golden")
+end
+if SetGodmode == "Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
+while AutoGodmode and SetGodmode == "Glove Golden" do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+game:GetService("ReplicatedStorage").Goldify:FireServer(true)
+end
+task.wait()
+end
+elseif AutoGodmode == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoGodmodes:Set(false)
+AutoGod:Set("Reverse")
+end
+	end    
+})
+
+CloudSpeed = Tab14:AddToggle({
+	Name = "Cloud Speed",
+	Default = false,
+	Callback = function(Value)
+_G.CloudSpeed = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
+while _G.CloudSpeed do
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
+v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
+end
+end
+task.wait(0.10)
+end
+elseif _G.CloudSpeed == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+CloudSpeed:Set(false)
+end
+	end    
+})
+
+Tab14:AddSlider({
+	Name = "Speed Cloud",
+	Min = 0.1,
+	Max = 1.2,
+	Default = 0.5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 0.1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		_G.SetSpeedCloud = Value
+	end    
+})
+
+FullKinetic = Tab14:AddToggle({
+	Name = "Auto Full Kinetic",
+	Default = false,
+	Callback = function(Value)
+FullKineticSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while FullKineticSpam do
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
+task.wait()
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FullKinetic:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Make Kill Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.KillerPlayer = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Get Kill Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+wait(4.2)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait(0.12)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab14:AddButton({
+	Name = "Kill Player Random",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+wait(3.05)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait(0.12)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
+Tab14:AddButton({
+	Name = "Infinite Invisibility",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
+OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
+fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+wait(0.1)
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+v.Transparency = 0.5
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddColorpicker({
+	Name = "Set Color Skin [ You Have Glove Gold ]",
+	Default = Color3.fromRGB(255, 0, 0),
+	Callback = function(Value)
+		_G.skinColor = Value
+	end	  
+})
+
+ColorSkin = Tab14:AddToggle({
+	Name = "Auto Color Skin [ Glove gold ]",
+	Default = false,
+	Callback = function(Value)
+		_G.GoldColor = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
+while _G.GoldColor do
+game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, BrickColor.new(_G.skinColor))
+task.wait()
+end
+elseif _G.GoldColor == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+ColorSkin:Set(false)
+end
+	end    
+})
+
+RainBox = Tab14:AddToggle({
+	Name = "Auto Rainbow [ Glove gold ]",
+	Default = false,
+	Callback = function(Value)
+		_G.Rainbow = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
+while _G.Rainbow do
+local randomnumber = math.random(1004, 1032)
+local args = {
+    [1] = false,
+    [2] = BrickColor.new(randomnumber)
+}
+
+game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
+task.wait(0.075)
+end
+elseif _G.Rainbow == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+RainBox:Set(false)
+end
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Invisible Reverse [ FE ]",
+	Default = false,
+	Callback = function(Value)
+		Invis_Reverse = Value
+while Invis_Reverse do
+repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
+game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v.Name == "SelectionBox" then
+v:Destroy()
+end
+end
+task.wait()
+end
+	end    
+})
+
 Tab7:AddButton({
 	Name = "View Testing Server glove leaking",
 	Callback = function()
@@ -1474,28 +2296,6 @@ end
 })
 
 Tab7:AddTextbox({
-	Name = "Make Player Spam Rojo",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-Person = game.Players.LocalPlayer.Name
-else
-Person = Value
-end
-	end	  
-})
-
-Tab7:AddTextbox({
-	Name = "Make Player Teleport [ Glove Recall ]",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-TeleportPlayer = Value
-	end	  
-})
-
-Tab7:AddTextbox({
 	Name = "Player Teleport",
 	Default = "Username",
 	TextDisappear = false,
@@ -1504,149 +2304,10 @@ _G.PlayerTeleport = Value
 	end	  
 })
 
-Tab7:AddTextbox({
-	Name = "Save The Player [ Glove Guardian Angel ]",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-SaveThePlayer = game.Players.LocalPlayer.Name
-else
-SaveThePlayer = Value
-end
-	end	  
-})
-
-Tab7:AddTextbox({
-	Name = "Make Punish Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.PunishPlayer = Value
-	end	  
-})
-
-Tab7:AddDropdown({
-	Name = "Retro Ability",
-	Default = "Rocket Launcher",
-	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
-	Callback = function(Value)
-RetroAbility = Value
-	end    
-})
-
-SavePlayer = Tab7:AddToggle({
-	Name = "Auto Spam Guardian Angel",
-	Default = false,
-	Callback = function(Value)
-if SaveThePlayer == nil then
-SaveThePlayer = game.Players.LocalPlayer.Name
-end
-GuardianAngelSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
-while GuardianAngelSpam do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[SaveThePlayer])
-task.wait()
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Guardian Angel equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-SavePlayer:Set(false)
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Auto Spam Retro [ All Glove ]",
-	Default = false,
-	Callback = function(Value)
-RetroSpam = Value
-while RetroSpam do
-game:GetService("ReplicatedStorage").RetroAbility:FireServer(RetroAbility)
-task.wait()
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Auto Spam Rojo [ All Glove ]",
-	Default = false,
-	Callback = function(Value)
-if Person == nil then
-Person = game.Players.LocalPlayer.Name
-end
-_G.RojoSpam = Value
-while _G.RojoSpam do
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
-task.wait()
-end
-	end    
-})
-
-Cancel = false
-Tab7:AddButton({
-	Name = "Get Punish Player",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-AntiVoid:Set(true)
-Timer = 0
-repeat
-if Cancel == true then
-break
-end
-if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49969,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
-end
-task.wait(0.01)
-if Timer < 1 then
-Timer = Timer + 0.1
-end
-until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Timer >= 1
-if Cancel == false then
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-end
-wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid:Set(false)
-if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
-game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "Cancel Punish Player",
-	Callback = function()
-Cancel = true
-wait(0.1)
-Cancel = false
-  	end    
-})
-
 Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerTeleport].Character.HumanoidRootPart.CFrame
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "Player Teleport",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
   	end    
 })
 
@@ -1687,158 +2348,6 @@ else
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
     wait(1)
     fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-end
-  	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Make Ragdoll Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.RagdollPlayer = Value
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Get Ragdoll Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-if workspace[_G.RagdollPlayer]:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.RagdollPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.18)
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
-})
-
-Tab7:AddButton({
-	Name = "Get Ragdoll Player Random",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.18)
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end 
-})
-
-Tab7:AddButton({
-	Name = "Kick Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.47)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Make Kick Player V2",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.KickPlayerHehe = Value
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Kick Player V2",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and workspace[_G.KickPlayerHehe]:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KickPlayerHehe].Character.HumanoidRootPart.CFrame
-wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or player ".._G.KickPlayerHehe.." aren't in Arena or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "Kick Player Random V2",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
-wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
 end
   	end    
 })
@@ -1966,341 +2475,6 @@ end
 	end
 })
 
-Tab7:AddDropdown({
-	Name = "Potion",
-	Default = "",
-	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine"},
-	Callback = function(Value)
-_G.MakePotion = Value
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Give Potion",
-	Min = 1,
-	Max = 200,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Potion",
-	Callback = function(Value)
-		_G.GivePotion = Value
-	end    
-})
-
-Tab7:AddButton({
-	Name = "Get Potions",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
-for b = 1, _G.GivePotion do
-repeat
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
-task.wait(.03)
-for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
-end
-until #_G.GetPotion
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-task.wait(.1)
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-PotionAuto = Tab7:AddToggle({
-	Name = "Auto Potion",
-	Default = false,
-	Callback = function(Value)
-_G.AutoGetPotion = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
-while _G.AutoGetPotion do
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
-task.wait(.03)
-repeat
-for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
-end
-until #_G.GetPotion
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-task.wait(.1)
-end
-elseif _G.AutoGetPotion == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-PotionAuto:Set(false)
-end
-	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Make Oven Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.OvenPlayer = Value
-	end	  
-})
-
-Tab7:AddToggle({
-	Name = "Auto Oven Player",
-	Default = false,
-	Callback = function(Value)
-_G.OvenPlayerAuto = Value
-while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
-task.wait()
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Auto Oven Player Random",
-	Default = false,
-	Callback = function(Value)
-_G.OvenPlayerAutoRandom = Value
-while _G.OvenPlayerAutoRandom and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
-task.wait()
-end
-	end    
-})
-
-PingPong = Tab7:AddToggle({
-	Name = "Ping Pong Orbit",
-	Default = false,
-	Callback = function(Value)
-		PingPongOrbit = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
-game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
-Orbit = "0"
-PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
-while PingPongOrbit do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-Orbit = Orbit + OrbitSpeed
-game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
-if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
-                    end
-                end
-for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
-                    end
-                end
-elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.Parent = game.Players.LocalPlayer.Character.Torso.RadioPart
-break
-                    end
-                end
-end
-task.wait(0.01)
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-PingPong:Set(false)
-end
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Ping Pong Orbit Speed",
-	Min = 0,
-	Max = 500,
-	Default = 10,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Speed",
-	Callback = function(Value)
-OrbitSpeed = Value
-	end    
-})
-
-Tab7:AddDropdown({
-	Name = "Ingredient",
-	Default = "",
-	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose"},
-	Callback = function(Value)
-AlchemistIngredientsGet = Value
-	end    
-})
-
-Tab7:AddButton({
-	Name = "Get Alchemist Ingredients",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
-})
-
-GetAlchemist = Tab7:AddToggle({
-	Name = "Auto Get Alchemist Ingredients",
-	Default = false,
-	Callback = function(Value)
-		AlchemistIngredients = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-while AlchemistIngredients do
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
-task.wait()
-end
-elseif AlchemistIngredients == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetAlchemist:Set(false)
-end
-	end    
-})
-
-GetAllAlchemist = Tab7:AddToggle({
-	Name = "Get All Alchemist Ingredients",
-	Default = false,
-	Callback = function(Value)
-		AlchemistIngredients = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-while AlchemistIngredients do
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Winter Rose")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dark Root")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dire Flower")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Autumn Sprout")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Elder Wood")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Hazel Lily")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Wild Vine")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Jade Stone")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Lamp Grass")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
-game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
-task.wait()
-end
-elseif AlchemistIngredients == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetAllAlchemist:Set(false)
-end
-	end    
-})
-
-CloudSpeed = Tab7:AddToggle({
-	Name = "Cloud Speed",
-	Default = false,
-	Callback = function(Value)
-_G.CloudSpeed = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
-while _G.CloudSpeed do
-for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
-v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
-end
-end
-task.wait(0.10)
-end
-elseif _G.CloudSpeed == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-CloudSpeed:Set(false)
-end
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Speed Cloud",
-	Min = 0.1,
-	Max = 1.2,
-	Default = 0.5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 0.1,
-	ValueName = "Speed",
-	Callback = function(Value)
-		_G.SetSpeedCloud = Value
-	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Make Kill Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.KillerPlayer = Value
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Get Kill Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(4.2)
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait(0.12)
-game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.25)
-game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
-})
-
-Tab7:AddButton({
-	Name = "Kill Player Random",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(3.05)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-Target.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
-if Target ~= game.Players.LocalPlayer then
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-task.wait(0.25)
-Target.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end 
-})
-
 Tab7:AddButton({
 	Name = "Destroy Light",
 	Callback = function()
@@ -2308,26 +2482,6 @@ for _, v in pairs(game.Lighting:GetChildren()) do
 if v.Name ~= "Sky" then
 v:Destroy()
 end
-end
-  	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Glove",
-	Default = "Glove Name",
-	TextDisappear = false,
-	Callback = function(Value)
-		EpinGlove = Value
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Epin Glove",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2351,24 +2505,6 @@ localscriptclone.Parent = tool
 end
 end)
 	end    
-})
-
-Tab7:AddButton({
-	Name = "Infinite Invisibility",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
-OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-wait(0.1)
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-v.Transparency = 0.5
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
 })
 
 Tab7:AddDropdown({
@@ -2532,47 +2668,6 @@ end
 	end    
 })
 
-Tab7:AddDropdown({
-	Name = "Godmode",
-	Default = "Glove Golden",
-	Options = {"Glove Reverse","Glove Golden"},
-	Callback = function(Value)
-SetGodmode = Value
-	end    
-})
-
-AutoGodmodes = Tab7:AddToggle({
-	Name = "Auto Godmode",
-	Default = false,
-	Callback = function(Value)
-	    AutoGodmode = Value
-if SetGodmode == "Glove Reverse" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
-while AutoGodmode and SetGodmode == "Glove Reverse" do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
-game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
-end
-task.wait(0.25)
-end
-elseif AutoGodmode == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped and don't ping in lag.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoGodmodes:Set(false)
-end
-if SetGodmode == "Glove Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while AutoGodmode and SetGodmode == "Glove Golden" do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
-game:GetService("ReplicatedStorage").Goldify:FireServer(true)
-end
-task.wait()
-end
-elseif AutoGodmode == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoGodmodes:Set(false)
-end
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "ESP Glove",
 	Default = false,
@@ -2606,24 +2701,6 @@ GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
                 end
             end
 task.wait()
-end
-	end    
-})
-
-FullKinetic = Tab7:AddToggle({
-	Name = "Auto Full Kinetic",
-	Default = false,
-	Callback = function(Value)
-FullKineticSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-while FullKineticSpam do
-game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-task.wait()
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-FullKinetic:Set(false)
 end
 	end    
 })
@@ -2717,56 +2794,6 @@ elseif RhythmNoteSpam == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 RhythmNote:Set(false)
-end
-	end    
-})
-
-Tab7:AddColorpicker({
-	Name = "Set Color Skin [ You Have Glove Gold ]",
-	Default = Color3.fromRGB(255, 0, 0),
-	Callback = function(Value)
-		_G.skinColor = Value
-	end	  
-})
-
-ColorSkin = Tab7:AddToggle({
-	Name = "Auto Color Skin [ Glove gold ]",
-	Default = false,
-	Callback = function(Value)
-		_G.GoldColor = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while _G.GoldColor do
-game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, BrickColor.new(_G.skinColor))
-task.wait()
-end
-elseif _G.GoldColor == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-ColorSkin:Set(false)
-end
-	end    
-})
-
-RainBox = Tab7:AddToggle({
-	Name = "Auto Rainbow [ Glove gold ]",
-	Default = false,
-	Callback = function(Value)
-		_G.Rainbow = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while _G.Rainbow do
-local randomnumber = math.random(1004, 1032)
-local args = {
-    [1] = false,
-    [2] = BrickColor.new(randomnumber)
-}
-
-game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
-task.wait(0.075)
-end
-elseif _G.Rainbow == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-RainBox:Set(false)
 end
 	end    
 })
@@ -3318,24 +3345,6 @@ game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
 end)
 end)
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Invisible Reverse [ FE ]",
-	Default = false,
-	Callback = function(Value)
-		Invis_Reverse = Value
-while Invis_Reverse do
-repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
-game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
-for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-if v.Name == "SelectionBox" then
-v:Destroy()
-end
-end
-task.wait()
 end
 	end    
 })
