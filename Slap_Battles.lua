@@ -3,8 +3,7 @@ if not game:IsLoaded() then
 end
 
 game:GetService("GuiService"):ClearError()
-game:GetService("ReplicatedStorage")._NETWORK.ClaimDailyReward:InvokeServer()
-task.wait(0.23)
+
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -58,9 +57,11 @@ robAnim.Name = "robAnimation"
 end
 
 function SpamBaller()
-while BallerFarm do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while _G.BallerFarm do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(30.05)
+end
 end
 end
 
@@ -87,16 +88,15 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
-wait(0.25)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
 wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
-game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
-wait(3.85)
+wait(3.75)
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
@@ -1045,15 +1045,23 @@ GetBob = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
+if Autobob == "Slow" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Slow" do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(15.1)
 end
+end
+end
+if Autobob == "Fast" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Fast" do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
 task.wait(5.3)
 end
+end
+end
+if Autobob == "Super Fast" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Super Fast" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -1066,6 +1074,7 @@ task.wait(0.06)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
+end
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -1100,18 +1109,26 @@ end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Auto Slap Baller [ All Glove Farm ]",
+FarmBaller = Tab3:AddToggle({
+	Name = "Auto Slap Baller",
 	Default = false,
 	Callback = function(Value)
-_G.BallerFarmAll = Value
-while _G.BallerFarmAll do
+_G.BallerFarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if _G.BallerFarm == true then
+coroutine.wrap(SpamBaller)()
+end
+while _G.BallerFarm do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
                 end
             end
 task.wait()
+end
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FarmBaller:Set(false)
 end
 	end    
 })
@@ -1134,7 +1151,7 @@ game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
 task.wait()
 end
 elseif ReplicaFarm == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped and enter Island Default",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 FarmReplica:Set(false)
 end
@@ -1637,7 +1654,7 @@ _G.MakePotion = Value
 Tab14:AddSlider({
 	Name = "Give Potion",
 	Min = 1,
-	Max = 200,
+	Max = 500,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -2969,7 +2986,7 @@ AntiRock = Tab2:AddToggle({
 		AntiRock = Value
 while AntiRock do
 for i,v in pairs(game.Workspace:GetDescendants()) do
-                    if v.Name == "rock" then
+                    if v.Name == "rock" and v.CanTouch == true and v.CanQuery == true then
                         v.CanTouch = false
                         v.CanQuery = false
                     end
@@ -2986,7 +3003,7 @@ AntiBus = Tab2:AddToggle({
 		AntiBus = Value
 while AntiBus do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "BusModel" then
+                    if v.Name == "BusModel" and v.CanTouch == true then
                         v.CanTouch = false
                     end
                 end
@@ -3110,7 +3127,7 @@ AntiBrick = Tab2:AddToggle({
 _G.AntiBrick = Value
 while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Union" then
+                    if v.Name == "Union" and v.CanTouch == true then
                         v.CanTouch = false
                     end
                 end
