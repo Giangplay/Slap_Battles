@@ -1045,23 +1045,19 @@ GetBob = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
-if Autobob == "Slow" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Slow" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(15.1)
 end
 end
-end
-if Autobob == "Fast" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Fast" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
 task.wait(5.3)
 end
 end
-end
-if Autobob == "Super Fast" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Super Fast" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -1074,7 +1070,6 @@ task.wait(0.06)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
-end
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
