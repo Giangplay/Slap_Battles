@@ -82,6 +82,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -96,6 +97,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -893,7 +895,7 @@ fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 10})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 5})
 wait(121)
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
