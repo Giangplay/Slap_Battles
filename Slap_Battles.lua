@@ -77,20 +77,27 @@ end
 function SpamReplicaBaller()
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 while ReplicaBallerFarm do
-if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
-wait(0.25)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 end
+wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2, 1)
-wait(0.25)
+wait(0.37)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+end
+wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
@@ -391,6 +398,7 @@ CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFP
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+AgeAccYou = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local MainScript = Tab:AddSection({Name = "Main"})
 
@@ -663,7 +671,7 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Chain [ Needs 1k slaps ]",
+	Name = "Get Glove Chain",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -844,12 +852,14 @@ game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
 game:GetService("TeleportService"):Teleport(9431156611)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have 1000 slap.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
 
 Tab3:AddButton({
-	Name = "Get Elude",
+	Name = "Get Glove Elude",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
@@ -869,7 +879,35 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
-	Name = "Get [Redacted]",
+	Name = "Get Glove Counter",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+    task.wait(5)
+fireclickdetector(game.Workspace.CounterLever.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 10})
+wait(121)
+for i,v in pairs(workspace.Maze:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
+end
+end
+    ]])
+end
+game:GetService("TeleportService"):Teleport(11828384869)
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Get Glove [Redacted]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
 Door = 0
