@@ -80,8 +80,8 @@ while ReplicaBallerFarm do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -95,8 +95,8 @@ wait(0.37)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -400,7 +400,7 @@ CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFP
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
-AgeAccYou = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local MainScript = Tab:AddSection({Name = "Main"})
 
@@ -3854,6 +3854,7 @@ CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." ]")
 CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 end)
 
 ---AllAnti---
