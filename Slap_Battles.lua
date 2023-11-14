@@ -57,7 +57,7 @@ robAnim.Name = "robAnimation"
 end
 
 function SpamBaller()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while _G.BallerFarm do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(30.05)
@@ -1162,6 +1162,7 @@ game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
             end
 task.wait()
 end
+elseif _G.BallerFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 FarmBaller:Set(false)
