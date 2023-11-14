@@ -57,7 +57,7 @@ robAnim.Name = "robAnimation"
 end
 
 function SpamBaller()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" then
 while _G.BallerFarm do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(30.05)
@@ -88,10 +88,11 @@ wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(0.09)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
-wait(0.37)
+wait(0.35)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -1591,7 +1592,7 @@ game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,0)
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
@@ -1619,20 +1620,16 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and workspace[_G.KickPlayerHehe]:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(3.67)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KickPlayerHehe].Character.HumanoidRootPart.CFrame
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
 end
@@ -1647,12 +1644,10 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(3.67)
@@ -1665,8 +1660,6 @@ if Target ~= game.Players.LocalPlayer then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = OGJP
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
 end
