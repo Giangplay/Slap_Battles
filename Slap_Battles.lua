@@ -1543,7 +1543,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.
 RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 if workspace[_G.RagdollPlayer]:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.RagdollPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.18)
+task.wait(0.09)
 game:GetService("ReplicatedStorage").lbrick:FireServer()
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
@@ -1566,15 +1566,13 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.18)
+task.wait(0.09)
 game:GetService("ReplicatedStorage").lbrick:FireServer()
 task.wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
 end
   	end 
 })
@@ -2784,6 +2782,53 @@ repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Name
                 game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
                 end
             end)
+	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Player Magnet",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+magnetPlayerHe = Value
+	end	  
+})
+
+Tab7:AddToggle({
+	Name = "Player Magnet",
+	Default = false,
+	Callback = function(Value)
+		MagnetPlayer = Value
+while MagnetPlayer do
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame})
+tween:Play()
+end
+end
+task.wait(.1)
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Random Player Magnet",
+	Default = false,
+	Callback = function(Value)
+		MagnetPlayer = Value
+while MagnetPlayer do
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame})
+tween:Play()
+end
+end
+end
+task.wait(.1)
+end
 	end    
 })
 
