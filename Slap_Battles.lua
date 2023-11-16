@@ -896,7 +896,7 @@ fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 5})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 10})
 wait(121)
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
@@ -937,7 +937,7 @@ fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
 fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector) 
 fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
 else
-OrionLib:MakeNotification({Name = "You Have Owner Bagde",Content = "Not Click",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Bagde",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1591,7 +1591,7 @@ game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-726.744, 323.367, 1.89347)
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
@@ -1622,7 +1622,7 @@ OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,-2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-726.744, 323.367, 1.89347)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(3.67)
@@ -1646,7 +1646,7 @@ OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame * CFrame.new(0,3,-2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(3.67)
@@ -1671,7 +1671,7 @@ end
 
 Tab14:AddDropdown({
 	Name = "Potion",
-	Default = "",
+	Default = "Speed",
 	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine"},
 	Callback = function(Value)
 _G.MakePotion = Value
@@ -1750,26 +1750,6 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Glove",
-	Default = "Glove Name",
-	TextDisappear = false,
-	Callback = function(Value)
-		EpinGlove = Value
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Epin Glove",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddTextbox({
 	Name = "Make Oven Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -1786,8 +1766,8 @@ _G.OvenPlayerAuto = Value
 while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
-task.wait()
 end
+task.wait()
 end
 	end    
 })
@@ -1805,8 +1785,8 @@ repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Chara
 Target = RandomPlayer
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
-task.wait()
 end
+task.wait()
 end
 	end    
 })
@@ -2094,10 +2074,11 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 wait(0.1)
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0.5
 end
+wait(0.2)
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2497,6 +2478,26 @@ end
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Glove",
+	Default = "Glove Name",
+	TextDisappear = false,
+	Callback = function(Value)
+		EpinGlove = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Epin Glove",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
 Tab7:AddButton({
 	Name = "Slap Battles",
 	Callback = function()
@@ -2794,6 +2795,19 @@ magnetPlayerHe = Value
 	end	  
 })
 
+Tab7:AddSlider({
+	Name = "Magnet Height",
+	Min = 0,
+	Max = 30,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Height",
+	Callback = function(Value)
+		_G.HeightMagnet= Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Player Magnet",
 	Default = false,
@@ -2802,12 +2816,12 @@ Tab7:AddToggle({
 while MagnetPlayer do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame})
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.1, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
 end
-task.wait(.1)
+task.wait()
 end
 	end    
 })
@@ -2821,13 +2835,13 @@ while MagnetPlayer do
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame})
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.1, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
 end
 end
-task.wait(.1)
+task.wait()
 end
 	end    
 })
@@ -2890,7 +2904,7 @@ end
 })
 
 Tab12:AddToggle({
-	Name = "Anti Void Pyscho",
+	Name = "Anti Void Obby Pyscho",
 	Default = false,
 	Callback = function(Value)
 game.Workspace.Psycho.CanCollide = Value
