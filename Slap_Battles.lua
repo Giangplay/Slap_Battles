@@ -406,28 +406,35 @@ Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local MainScript = Tab:AddSection({Name = "Main"})
 
 Tab:AddButton({
-	Name = "Keyboard [ PE ]",
+	Name = "Keyboard",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
   	end    
 })
 
 Tab:AddButton({
-	Name = "Rejoin game [ PE ]",
+	Name = "Rejoin Game Gui",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
   	end    
 })
 
 Tab:AddButton({
-	Name = "inf yield [ PE ]",
+	Name = "Inf yield Delta",
 	Callback = function()
-      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
   	end    
 })
 
 Tab:AddButton({
-	Name = "Hitbox [ PE ]",
+	Name = "Inf yield",
+	Callback = function()
+      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()	
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Hitbox",
 	Callback = function()
       		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
   	end    
@@ -470,6 +477,27 @@ Tab1:AddButton({
 	Name = "Synapse X [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Codex [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Codex.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Kiwi [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kiwi-Ui.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Krypton [ PE ]",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Krypton.lua"))()
   	end    
 })
 
@@ -612,6 +640,19 @@ Tab3:AddButton({
 	Callback = function()
          game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
   	end    
+})
+
+Tab3:AddDropdown({
+	Name = "Teleport",
+	Default = "",
+	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed"},
+	Callback = function(Value)
+if Value == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif Value == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+	end    
 })
 
 Tab3:AddButton({
@@ -1534,47 +1575,6 @@ Tab14:AddTextbox({
 	Callback = function(Value)
 _G.RagdollPlayer = Value
 	end	  
-})
-
-Tab14:AddButton({
-	Name = "Get Ragdoll Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-if workspace[_G.RagdollPlayer]:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.RagdollPlayer].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.09)
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can have player ".._G.RagdollPlayer.." aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
-})
-
-Tab14:AddButton({
-	Name = "Get Ragdoll Player Random",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-RG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
-task.wait(0.09)
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RG
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped or aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
 })
 
 Tab14:AddButton({
@@ -4549,7 +4549,14 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "inf yield [ PE ]",
+	Name = "Inf Yield Delta",
+	Callback = function()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Inf Yield",
 	Callback = function()
       		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
