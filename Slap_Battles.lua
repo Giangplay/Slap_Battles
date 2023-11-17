@@ -635,22 +635,15 @@ Tab3:AddButton({
   	end    
 })
 
-Tab3:AddButton({
-	Name = "Get Retro",
-	Callback = function()
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
-  	end    
-})
-
 Tab3:AddDropdown({
-	Name = "Teleport",
+	Name = "Retro Obby",
 	Default = "",
-	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed"},
+	Options = {"Get Bagde", "Help Player"},
 	Callback = function(Value)
-if Value == "SafeSpotBox 1.0" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-elseif Value == "SafeSpotBox 2.0" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+if Value == "Get Bagde" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+elseif Value == "Help Player" then
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 end
 	end    
 })
@@ -686,7 +679,7 @@ end
 Tab3:AddButton({
 	Name = "Get Glove Alchemist",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" and #game.Players:GetChildren() >= 14 then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
 repeat
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
@@ -2025,14 +2018,14 @@ _G.KillerPlayer = Value
 Tab14:AddButton({
 	Name = "Get Kill Player",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Workspace[_G.KillerPlayer].Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait(0.12)
+task.wait(0.18)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.25)
+task.wait(0.29)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2057,7 +2050,6 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 task.wait(0.25)
-game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2073,11 +2065,11 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-wait(0.1)
+wait(0.6)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0.5
 end
-wait(0.2)
+wait(0.8)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
