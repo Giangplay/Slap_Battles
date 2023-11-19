@@ -3596,9 +3596,13 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" do
 game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(5.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(4.1)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(5.34)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" do
 game:GetService("ReplicatedStorage").StunR:FireServer(game:GetService("Players").LocalPlayer.Character.Stun)
