@@ -1551,7 +1551,7 @@ Tab14:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
+task.wait(2.34)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
@@ -1575,7 +1575,7 @@ game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(0.47)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-726.744, 323.367, 1.89347)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OGWS
@@ -1585,70 +1585,6 @@ v.CanTouch = true
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Make Kick Player V2",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.KickPlayerHehe = Value
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Kick Player V2",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and workspace[_G.KickPlayerHehe]:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-726.744, 323.367, 1.89347)
-task.wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KickPlayerHehe].Character.HumanoidRootPart.CFrame
-wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or player ".._G.KickPlayerHehe.." aren't in Arena or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Kick Player Random V2",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(3.67)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
-wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or you aren't in Arena",Image = "rbxassetid://7733658504",Time = 5})
-end
 end
   	end    
 })
@@ -2011,7 +1947,9 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Workspace[_G.KillerPlayer].Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("HomeRunBat") == nil then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+end
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
@@ -2029,7 +1967,9 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("HomeRunBat") == nil then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+end
 wait(3.05)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
@@ -2049,6 +1989,66 @@ end
   	end 
 })
 
+Tab14:AddTextbox({
+	Name = "Make Press Into The Ground",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PressIntoTheGround = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Get Press Into The Ground Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+task.wait(0.04)
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
+wait(3.45)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character.Head.CFrame
+task.wait(0.18)
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
+task.wait(0.17)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab14:AddButton({
+	Name = "Press Into The Ground Player Random",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+task.wait(0.04)
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
+wait(4)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.Head.CFrame
+task.wait(0.18)
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
+task.wait(0.17)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
 Tab14:AddButton({
 	Name = "Infinite Invisibility",
 	Callback = function()
@@ -2056,12 +2056,12 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+wait(0.5)
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 wait(0.6)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0.5
 end
-wait(0.8)
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -3596,7 +3596,7 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" do
 game:GetService("ReplicatedStorage").Erase:FireServer()
 wait(5.1)
 end
-while game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and On do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(4.1)
 end
@@ -3641,7 +3641,7 @@ wait(0.01)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Counter" do
 game:GetService("ReplicatedStorage").Counter:FireServer()
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 25
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
 task.wait(6.2)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Voodoo" do
@@ -3679,9 +3679,9 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-for i = 1,200 do
+for i = 1,100 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-task.wait()
+task.wait(0.05)
 end
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -4613,7 +4613,7 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab5:AddSlider({
+Tab:AddSlider({
 	Name = "Reach Slap Aura",
 	Min = 10,
 	Max = 50,
