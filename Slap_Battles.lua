@@ -544,6 +544,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Position Gui",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Position_Gui.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "drippy hub",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/ZombieGamesYT/DrippyHub-1.1/main/DrippyHub%201.2"))()
@@ -628,13 +635,6 @@ end
 	end    
 })
 
-Tab3:AddButton({
-	Name = "Reset Player",
-	Callback = function()
-         game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-  	end    
-})
-
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
@@ -646,6 +646,13 @@ elseif Value == "Help Player" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 end
 	end    
+})
+
+Tab3:AddButton({
+	Name = "Reset Player",
+	Callback = function()
+         game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+  	end    
 })
 
 Tab3:AddButton({
@@ -672,37 +679,6 @@ wait(9.9)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
-})
-
-Tab3:AddButton({
-	Name = "Get Glove Alchemist",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
-repeat
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-wait(0.12)
-for i,v in pairs(game.Players:GetChildren()) do
-if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-if 50 >= Magnitude then
-game.ReplicatedStorage.PlagueHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
-end
-end
-end
-end
-end
-until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2153473254)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped or don't have server player full",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1551,7 +1527,7 @@ Tab14:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.34)
+task.wait(4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
@@ -1565,9 +1541,9 @@ Tab14:AddButton({
 	Name = "Kick Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
