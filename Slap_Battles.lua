@@ -306,6 +306,39 @@ Psycho.Transparency = 1
 Psycho.CanCollide = false
 end
 
+if workspace:FindFirstChild("Retro1") == nil then
+local Retro1 = Instance.new("Part", workspace)
+Retro1.Position = Vector3.new(-16643.62890625, 770.0464477539062, 4707.8193359375)
+Retro1.Name = "Retro1"
+Retro1.Size = Vector3.new(2000, 1, 2000)
+Retro1.Material = "ForceField"
+Retro1.Anchored = true
+Retro1.Transparency = 1
+Retro1.CanCollide = false
+end
+
+if workspace:FindFirstChild("Retro2") == nil then
+local Retro2 = Instance.new("Part", workspace)
+Retro2.Position = Vector3.new(-16862.791015625, -7.879573822021484, 4791.55517578125)
+Retro2.Name = "Retro2"
+Retro2.Size = Vector3.new(2000, 1, 2000)
+Retro2.Material = "ForceField"
+Retro2.Anchored = true
+Retro2.Transparency = 1
+Retro2.CanCollide = false
+end
+
+if workspace:FindFirstChild("Retro3") == nil then
+local Retro3 = Instance.new("Part", workspace)
+Retro3.Position = Vector3.new(-28023.3046875, -219.92381286621094, 4906.6015625)
+Retro3.Name = "Retro3"
+Retro3.Size = Vector3.new(2000, 1, 2000)
+Retro3.Material = "ForceField"
+Retro3.Anchored = true
+Retro3.Transparency = 1
+Retro3.CanCollide = false
+end
+
 ---Anti Void---
 
 if workspace:FindFirstChild("VoidPart") == nil then
@@ -638,12 +671,14 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Bagde", "Help Player"},
+	Options = {"Get Bagde", "Help Player","Spawn"},
 	Callback = function(Value)
 if Value == "Get Bagde" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 elseif Value == "Help Player" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+elseif Value == "Spawn" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
 end
 	end    
 })
@@ -2871,6 +2906,25 @@ if Value == true then
 game.Workspace.Psycho.Transparency = 0.5
 else
 game.Workspace.Psycho.Transparency = 1
+end
+	end    
+})
+
+Tab12:AddToggle({
+	Name = "Anti Void Obby Retro",
+	Default = false,
+	Callback = function(Value)
+game.Workspace.Retro1.CanCollide = Value
+game.Workspace.Retro2.CanCollide = Value
+game.Workspace.Retro3.CanCollide = Value
+if Value == true then
+game.Workspace.Retro1.Transparency = 0.5
+game.Workspace.Retro2.Transparency = 0.5
+game.Workspace.Retro2.Transparency = 0.5
+else
+game.Workspace.Retro1.Transparency = 1
+game.Workspace.Retro2.Transparency = 1
+game.Workspace.Retro3.Transparency = 1
 end
 	end    
 })
