@@ -1958,9 +1958,7 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Workspace[_G.KillerPlayer].Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("HomeRunBat") == nil then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-end
 wait(4.2)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
@@ -1978,9 +1976,7 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-if workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("HomeRunBat") == nil then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-end
 wait(3.05)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
@@ -3062,13 +3058,6 @@ AntiObby = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		AntiObby = Value
-if AntiObby == false then
-for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
-v.CanTouch = true
-end
-end
-end
 while AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
@@ -3076,6 +3065,13 @@ v.CanTouch = false
 end
 end
 task.wait()
+end
+if AntiObby == false then
+for _, v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+v.CanTouch = true
+end
+end
 end
 	end    
 })
@@ -3177,8 +3173,8 @@ game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
 	end    
 })
 
-AntiNightmare = Tab2:AddToggle({
-	Name = "Anti Nightmare",
+AntiNightmareAndPotion = Tab2:AddToggle({
+	Name = "Anti Nightmare & Potion",
 	Default = false,
 	Callback = function(Value)
 	if Value == true then
@@ -3186,6 +3182,25 @@ AntiNightmare = Tab2:AddToggle({
     else
         game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Players.LocalPlayer.PlayerScripts.VFXListener
     end
+	end    
+})
+
+AntiIceAndPotion = Tab2:AddToggle({
+	Name = "Anti Ice & Potion",
+	Default = false,
+	Callback = function(Value)
+_G.AntiIce = Value
+while _G.AntiIce do
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Icecube" then
+                        v:Destroy()
+                    end
+                end
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+task.wait()
+end
 	end    
 })
 
@@ -3200,6 +3215,20 @@ while _G.AntiTimestop do
                         v.Anchored = false
                     end
                 end
+task.wait()
+end
+	end    
+})
+
+AntiSnowAndPotion = Tab2:AddToggle({
+	Name = "Anti Snow & Potion",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiSnow = Value
+while _G.AntiSnow do
+         if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= 20 then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+       end
 task.wait()
 end
 	end    
@@ -3933,137 +3962,118 @@ AntiVoid:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.1)
 AntiPortal:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.15)
 AntiAdmin:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.2)
 AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.25)
 AntiObby:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.3)
 AntiRock:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.35)
 AntiBus:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.40)
 AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.45)
 AntiJack:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.5)
 AntiBooster:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.55)
 AntiSquid:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.6)
 AntiConveyor:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.65)
-AntiNightmare:Set(game.Workspace.NoChanged.Value)
+AntiNightmareAndPotion:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.7)
 AntiTime:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.75)
+AntiIceAndPotion:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiSnowAndPotion:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiNull:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.8)
 AntiBrick:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.85)
 AntiRecord:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(0.9)
 AntiReda:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1)
 AntiBrazil:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.05)
 AntiZa:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.1)
 AntiReaper:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.15)
 AntiPusher:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.2)
 AntiDefend:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.25)
 AntiBubble:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.3)
 AntiStun:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.35)
 AntiCOD:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.4)
 AntiDeath:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-wait(1.45)
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -4431,25 +4441,8 @@ shared.gloveHitBob = {
 	["Reaper"] = game.ReplicatedStorage.ReaperHit,
 }
 
----AntiVoid---
-
-local AntiVoid = Instance.new("Part", workspace)
-AntiVoid.Name = "Anti Void Bob"
-AntiVoid.Size = Vector3.new(2500, 16, 1140)
-AntiVoid.Transparency = 1
-AntiVoid.CanCollide = false
-AntiVoid.Anchored = true
-AntiVoid.Material = "ForceField"
-AntiVoid.Position = Vector3.new(0, -8, -43, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-
 local Tab = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Tab1 = Window:MakeTab({
-	Name = "Anti Void",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -4462,8 +4455,6 @@ local Combat = Tab:AddSection({Name = "Combat"})
 Tab:AddToggle({
 	Name = "Dame Boss",
 	Default = false,
-	Save = true,
-	Flag = "DameBoss",
 	Callback = function(Value)
 _G.DameBossBob = Value
 while _G.DameBossBob do
@@ -4476,12 +4467,10 @@ end
 Tab:AddToggle({
 	Name = "Auto Slap BobClone",
 	Default = false,
-	Save = true,
-	Flag = "AutoSlapBobClone",
 	Callback = function(Value)
 _G.AutoSlapBobClone = Value
 while _G.AutoSlapBobClone do
-shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.Torso)
+shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.HumanoidRootPart)
 task.wait()
 end
 	end    
@@ -4490,52 +4479,14 @@ end
 Tab:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
-	Save = true,
-	Flag = "AutoTycoon",
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-while _G.AutoTycoon do
+while _G.AutoTycoon and wait() do
     for i,v in pairs(workspace:GetDescendants()) do
         if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
             fireclickdetector(v.ClickDetector)
         end
     end
-    wait()
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Click Button Tycoon Big",
-	Default = false,
-	Callback = function(Value)
-if Value == true then
-for i,v in pairs(workspace:GetDescendants()) do
-if v.Name == "Click" then
-v.Size = Vector3.new(80, 80, 80)
-end
-end
-else
-for i,v in pairs(workspace:GetDescendants()) do
-if v.Name == "Click" then
-v.Size = Vector3.new(1, 1, 1)
-end
-end
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Anti Void",
-	Default = false,
-	Save = true,
-	Flag = "AntiVoid",
-	Callback = function(Value)
-AntiVoid.CanCollide = Value
-if Value then
-AntiVoid.Transparency = 0.5
-else
-AntiVoid.Transparency = 1
 end
 	end    
 })
