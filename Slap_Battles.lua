@@ -3809,7 +3809,7 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Druid" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-task.wait()
+task.wait(3.21)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
