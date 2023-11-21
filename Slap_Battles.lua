@@ -4,6 +4,104 @@ end
 
 game:GetService("GuiService"):ClearError()
 
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.Parent = screenGui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 20)
+title.Position = UDim2.new(0, 0, 0, -20)
+title.Text = "Slap Battles Key System"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.BackgroundColor3 = Color3.new(0, 0, 0)
+title.Parent = frame
+
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+title.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+title.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+title.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+        dragInput = nil
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+local KeySystem = Instance.new("TextBox")
+KeySystem.Size = UDim2.new(1, 0, 0.5, 0)
+KeySystem.Position = UDim2.new(0, 0, 0, 0)
+KeySystem.Text = "Enter the Key"
+KeySystem.TextColor3 = Color3.new(0, 0, 0)
+KeySystem.BackgroundTransparency = 0.5
+KeySystem.BackgroundColor3 = Color3.new(1, 1, 1)
+KeySystem.TextWrapped = true
+KeySystem.Parent = frame
+
+local SubmitButton = Instance.new("TextButton")
+SubmitButton.Size = UDim2.new(0.5, 0, 0.5, 0)
+SubmitButton.Position = UDim2.new(0, 0, 0.5, 0)
+SubmitButton.Text = "Submit"
+SubmitButton.Parent = frame
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Position = UDim2.new(1, -20, 0, 0)
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
+CloseButton.Parent = frame
+
+CloseButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+local GetKeyButton = Instance.new("TextButton")
+GetKeyButton.Size = UDim2.new(0.5, 0, 0.5, 0)
+GetKeyButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+GetKeyButton.Text = "Get Key"
+GetKeyButton.Parent = frame
+
+SubmitButton.MouseButton1Click:Connect(function()
+local KeySystem = KeySystem.Text
+if KeySystem == "SlapBattlesScriptGetBannedplsnotBanned" then   
+screenGui:Destroy()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -1527,7 +1625,7 @@ end
 if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49969,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
 end
-task.wait(0.01)
+task.wait()
 if Timer < 1 then
 Timer = Timer + 0.1
 end
@@ -2143,9 +2241,12 @@ end
 	end    
 })
 
+local Bindable = Instance.new("BindableFunction")
 Tab7:AddButton({
-	Name = "View Testing Server glove leaking",
+	Name = "View Testing Server",
 	Callback = function()
+function Callback(answer)
+if answer == "Server Slap Battles" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -2160,12 +2261,7 @@ game:GetService("GuiService"):ClearError()
     ]])
 end
 game:GetService("TeleportService"):Teleport(9020359053)
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "View Testing Slap Royale Server",
-	Callback = function()
+elseif answer == "Server Slap Royale" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -2180,6 +2276,10 @@ game:GetService("GuiService"):ClearError()
     ]])
 end
 game:GetService("TeleportService"):Teleport(9412268818)
+end
+end
+Bindable.OnInvoke = Callback
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server You Choose To Go",Duration = 10,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
   	end    
 })
 
@@ -2806,7 +2906,7 @@ Tab7:AddToggle({
 while MagnetPlayer do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.1, Enum.EasingStyle.Linear)
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
 tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
@@ -2825,7 +2925,7 @@ while MagnetPlayer do
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.1, Enum.EasingStyle.Linear)
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
 tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
@@ -3196,7 +3296,7 @@ while _G.AntiIce do
                         v:Destroy()
                     end
                 end
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true or game.Workspace:FindFirstChild("Shockwave") then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
@@ -3422,7 +3522,7 @@ AntiStun = Tab2:AddToggle({
 	Callback = function(Value)
 		AntiStun = Value
 while AntiStun do
-if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace:FindFirstChild("Shockwave") and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Workspace:FindFirstChild("Shockwave") and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
@@ -5249,3 +5349,9 @@ task.wait()
 
 OrionLib:Init()
 end
+end
+end)
+
+GetKeyButton.MouseButton1Click:Connect(function()
+ setclipboard("https://discord.com/invite/HjeKTzpc") 
+end)
