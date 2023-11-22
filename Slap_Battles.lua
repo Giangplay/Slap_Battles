@@ -2279,7 +2279,7 @@ game:GetService("TeleportService"):Teleport(9412268818)
 end
 end
 Bindable.OnInvoke = Callback
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server You Choose To Go",Duration = 10,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server You Choose To Go",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
   	end    
 })
 
@@ -2888,7 +2888,7 @@ magnetPlayerHe = Value
 Tab7:AddSlider({
 	Name = "Magnet Height",
 	Min = 0,
-	Max = 30,
+	Max = 60,
 	Default = 0,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -3320,11 +3320,11 @@ end
 	end    
 })
 
-AntiSnowAndPotion = Tab2:AddToggle({
-	Name = "Anti Snow & Potion",
+AntiSpeedSnow = Tab2:AddToggle({
+	Name = "Anti Speed Snow",
 	Default = false,
 	Callback = function(Value)
-	_G.AntiSnow = Value
+	_G.AntiSpeedSnow = Value
 while _G.AntiSnow do
          if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= 20 then
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
@@ -3437,6 +3437,22 @@ AntiZa = Tab2:AddToggle({
                 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == "Part" then
                         v:Destroy()
+                    end
+                end
+task.wait()
+            end
+	end    
+})
+
+AntiFort = Tab2:AddToggle({
+	Name = "Anti Fort",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiFort = Value
+            while _G.AntiFort do
+                for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Part" then
+                        v.CanCollide = false
                     end
                 end
 task.wait()
@@ -4118,7 +4134,7 @@ AntiIceAndPotion:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiSnowAndPotion:Set(game.Workspace.NoChanged.Value)
+AntiSpeedSnow:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -5349,6 +5365,8 @@ task.wait()
 
 OrionLib:Init()
 end
+else
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
 end
 end)
 
