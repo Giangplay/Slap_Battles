@@ -67,7 +67,7 @@ end)
 local KeySystem = Instance.new("TextBox")
 KeySystem.Size = UDim2.new(1, 0, 0.5, 0)
 KeySystem.Position = UDim2.new(0, 0, 0, 0)
-KeySystem.Text = "Enter the Key"
+KeySystem.Text = "Enter The Key"
 KeySystem.TextColor3 = Color3.new(0, 0, 0)
 KeySystem.BackgroundTransparency = 0.5
 KeySystem.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -77,7 +77,7 @@ KeySystem.Parent = frame
 local SubmitButton = Instance.new("TextButton")
 SubmitButton.Size = UDim2.new(0.5, 0, 0.5, 0)
 SubmitButton.Position = UDim2.new(0, 0, 0.5, 0)
-SubmitButton.Text = "Submit"
+SubmitButton.Text = "Check Key"
 SubmitButton.Parent = frame
 
 local CloseButton = Instance.new("TextButton")
@@ -678,13 +678,6 @@ Tab1:AddButton({
 	Name = "Position Gui",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Position_Gui.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "drippy hub",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/ZombieGamesYT/DrippyHub-1.1/main/DrippyHub%201.2"))()
   	end    
 })
 
@@ -1373,7 +1366,7 @@ end
 })
 
 Tab3:AddToggle({
-	Name = "Auto Pick Up Mitten",
+	Name = "Auto Pick Up Gift",
 	Default = false,
 	Callback = function(Value)
 Giftfarm = Value
@@ -1710,7 +1703,7 @@ _G.MakePotion = Value
 Tab14:AddSlider({
 	Name = "Give Potion",
 	Min = 1,
-	Max = 500,
+	Max = 200,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -1946,7 +1939,7 @@ end
 	end    
 })
 
-AutoGod = Tab14:AddDropdown({
+Tab14:AddDropdown({
 	Name = "Godmode",
 	Default = "Golden",
 	Options = {"Reverse","Golden"},
@@ -1965,13 +1958,12 @@ while AutoGodmode and SetGodmode == "Glove Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
-task.wait(0.25)
+task.wait(0.56)
 end
 elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped and don't ping in lag.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoGodmodes:Set(false)
-AutoGod:Set("Golden")
 end
 if SetGodmode == "Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while AutoGodmode and SetGodmode == "Glove Golden" do
@@ -1984,7 +1976,6 @@ elseif AutoGodmode == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoGodmodes:Set(false)
-AutoGod:Set("Reverse")
 end
 	end    
 })
@@ -3202,6 +3193,24 @@ while AntiBus do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "BusModel" and v.CanTouch == true then
                         v.CanTouch = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+AntiTableflip = Tab2:AddToggle({
+	Name = "Anti Tableflip",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiTableflip = Value
+while _G.AntiTableflip do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "TableObject" then
+                        v.CanTouch = false
+                        v.CanQuery = false
+                        v.CanCollide = false
                     end
                 end
 task.wait()
@@ -5371,5 +5380,5 @@ end
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
- setclipboard("https://discord.com/invite/HjeKTzpc") 
+setclipboard("https://discord.com/invite/HjeKTzpc") 
 end)
