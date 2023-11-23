@@ -3334,8 +3334,8 @@ AntiSpeedSnow = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	_G.AntiSpeedSnow = Value
-while _G.AntiSnow do
-         if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= 20 then
+while _G.AntiSpeedSnow do
+         if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= 20 then
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
        end
 task.wait()
