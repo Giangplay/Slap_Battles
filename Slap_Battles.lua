@@ -2955,9 +2955,8 @@ Tab7:AddToggle({
     end
 while _G.AutoTycoon do
     for i,v in pairs(game.Workspace:GetChildren()) do
-
         if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-            fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+            fireclickdetector(v.ClickDetector)
         end
     end
     task.wait()
@@ -4607,13 +4606,13 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-while _G.AutoTycoon and task.wait() do
+while _G.AutoTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
-
 if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+fireclickdetector(v.ClickDetector)
 end
 end
+task.wait() 
 end
 	end    
 })
