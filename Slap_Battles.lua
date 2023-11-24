@@ -3999,6 +3999,14 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
 wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability1")
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ferryman" do
+workspace[game.Players.LocalPlayer.Name].FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Strike")
+task.wait()
+end
 	end    
 })
 
