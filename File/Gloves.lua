@@ -52,6 +52,8 @@ shared.gloveHits = {
     ["Parry"] = game.ReplicatedStorage.GeneralHit,
     ["Druid"] = game.ReplicatedStorage.GeneralHit,
     ["Oven"] = game.ReplicatedStorage.GeneralHit,
+    ["Jester"] = game.ReplicatedStorage.GeneralHit,
+    ["Ferryman"] = game.ReplicatedStorage.GeneralHit,
     ----------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -72,7 +74,7 @@ shared.gloveHits = {
     ["Anchor"] = game.ReplicatedStorage.hitAnchor,
     ["Space"] = game.ReplicatedStorage.HtSpace,
     ["Boomerang"] = game.ReplicatedStorage.BoomerangH,
-    ["Dream"] = game.ReplicatedStorage.Dreamhit,
+    ["Speedrun"] = game.ReplicatedStorage.Speedrunhit,
     ["Mail"] = game.ReplicatedStorage.MailHit,
     ["Golden"] = game.ReplicatedStorage.GoldenHit,
     ["Cheeky"] = game.ReplicatedStorage.CheekyHit,
