@@ -738,6 +738,19 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Hydroxide",
+	Callback = function()
+local owner = "Upbolt"
+local branch = "revision"
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+webImport("init")
+webImport("ui/main")
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Simple Spy",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua", true))()
@@ -5448,4 +5461,4 @@ end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
 setclipboard("https://discord.com/invite/HjeKTzpc") 
-end)
+end).
