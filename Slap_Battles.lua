@@ -5461,4 +5461,4 @@ end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
 setclipboard("https://discord.com/invite/HjeKTzpc") 
-end).
+end)
