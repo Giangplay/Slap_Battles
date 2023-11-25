@@ -2161,7 +2161,7 @@ end
 Tab14:AddButton({
 	Name = "Cards Player",
 	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Person])
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2172,14 +2172,14 @@ end
 Tab14:AddButton({
 	Name = "Cards Player Random",
 	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Target])
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",Target)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
