@@ -1000,6 +1000,13 @@ end
 Tab3:AddButton({
 	Name = "Get Glove Elude",
 	Callback = function()
+if not workspace:FindFirstChild("Keypad") then
+	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+    	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+        	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+    	end
+	end
+else
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -1014,12 +1021,20 @@ game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
 game:GetService("TeleportService"):Teleport(11828384869)
+end
   	end    
 })
 
 Tab3:AddButton({
 	Name = "Get Glove Counter",
 	Callback = function()
+if not workspace:FindFirstChild("Keypad") then
+	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+    	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+        	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+    	end
+	end
+else
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -1042,6 +1057,7 @@ end
     ]])
 end
 game:GetService("TeleportService"):Teleport(11828384869)
+end
   	end    
 })
 
