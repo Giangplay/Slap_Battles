@@ -2045,7 +2045,7 @@ _G.KillerPlayer = Value
 Tab14:AddButton({
 	Name = "Get Kill Player",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Workspace[_G.KillerPlayer].Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players[_G.KillerPlayer].Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(4.2)
@@ -2143,6 +2143,47 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipp
 end
 end
   	end 
+})
+
+Tab14:AddTextbox({
+	Name = "Make Player Cards",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+Person = game.Players.LocalPlayer.Name
+else
+Person = Value
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Cards Player",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Gloves.Value == "Jester" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Person])
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Cards Player Random",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Gloves.Value == "Jester" then
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Target])
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
 })
 
 Tab14:AddButton({
