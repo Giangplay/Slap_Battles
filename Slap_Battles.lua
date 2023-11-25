@@ -2180,6 +2180,7 @@ repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Chara
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Target])
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
