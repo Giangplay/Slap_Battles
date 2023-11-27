@@ -4054,7 +4054,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(g
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
 wait(3.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 task.wait()
 end
