@@ -4611,9 +4611,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmo
       end    
 })
 
-Tab7:AddTextbox({
+Tab:AddTextbox({
 	Name = "Speed Freecam",
-	Default = "Speed",
+	Default = "Update Speed",
 	TextDisappear = false,
 	Callback = function(Value)
 speedCamWork = Value
