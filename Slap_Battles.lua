@@ -743,7 +743,7 @@ Tab1:AddButton({
 local owner = "Upbolt"
 local branch = "revision"
 local function webImport(file)
-    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
 end
 webImport("init")
 webImport("ui/main")
@@ -1056,12 +1056,16 @@ if teleportFunc then
         end
         repeat wait() until game.Players.LocalPlayer
     task.wait(5)
+Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait 2 minutes and 1 second to receive.",Icon = "rbxassetid://7733658504",Duration = 10})
-wait(121)
+for i = 1,Time do
+Time = Time - 1
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
+wait(1)
+end
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -2319,6 +2323,7 @@ if teleportFunc then
         repeat wait() until localPlr
         game:GetService("RunService").RenderStepped:Connect(function()
 game:GetService("GuiService"):ClearError()
+game.CoreGui.RobloxLoadingGUI:Destroy()
         end)
     ]])
 end
@@ -2334,6 +2339,7 @@ if teleportFunc then
         repeat wait() until localPlr
         game:GetService("RunService").RenderStepped:Connect(function()
 game:GetService("GuiService"):ClearError()
+game.CoreGui.RobloxLoadingGUI:Destroy()
         end)
     ]])
 end
@@ -2341,7 +2347,7 @@ game:GetService("TeleportService"):Teleport(9412268818)
 end
 end
 Bindable.OnInvoke = Callback
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server You Choose To Go",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
+game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server Leaking Glove",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
   	end    
 })
 
@@ -2593,7 +2599,7 @@ Tab7:AddSlider({
 	Name = "Time Give Kill Reaper",
 	Min = 1,
 	Max = 20,
-	Default = 5,
+	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Kill Reaper",
@@ -2615,6 +2621,28 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     end 
                 end
   	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Give Player Kill Reaper",
+	Default = false,
+	Callback = function(Value)
+_G.AutoGiveKill = Value
+while _G.AutoGiveKill do
+if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
+for i = 1, _G.GiveKillReaper do
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "DeathMark" then
+                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(v)
+                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+                    end 
+                end
+task.wait()
+end
+	end    
 })
 
 Tab7:AddButton({
@@ -3144,7 +3172,7 @@ for i,v in pairs(game.Players:GetChildren()) do
 if v:GetRankInGroup(9950771) >= 2 then
 _G.AntiKick = false
 _G.AntiKickServerhop = false
-game.Players.LocalPlayer:Kick("High Rank Player Detected.".." ("..v.Name..")")
+game.Players.LocalPlayer:Kick("High Rank Player Detected.".." [ "..v.Name.." ]")
 break
 end
 end
@@ -3357,7 +3385,7 @@ AntiNightmareAndPotion = Tab2:AddToggle({
 	Name = "Anti Nightmare & Potion",
 	Default = false,
 	Callback = function(Value)
-	if Value == true then
+        if Value == true then
         game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Lighting
     else
         game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Players.LocalPlayer.PlayerScripts.VFXListener
@@ -3385,7 +3413,7 @@ end
 })
 
 AntiTime = Tab2:AddToggle({
-	Name = "Anti Time Stop",
+	Name = "Anti Time Stop & Stop",
 	Default = false,
 	Callback = function(Value)
 	_G.AntiTimestop = Value
@@ -3437,7 +3465,7 @@ AntiBrick = Tab2:AddToggle({
 _G.AntiBrick = Value
 while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Union" and v.CanTouch == true then
+                    if v.Name == "Union" then
                         v.CanTouch = false
                     end
                 end
@@ -3791,7 +3819,7 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Psycho" do
 game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer({["grabEnabled"] = true})
 task.wait()
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text >= "75" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" do
 game:GetService("ReplicatedStorage").KSABILI:FireServer()
 wait(6.1)
 end
@@ -3997,6 +4025,7 @@ game:GetService("ReplicatedStorage").AdiosActivated:FireServer()
 wait(8.3)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Balloony" do
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Balloony)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Balloony)
 task.wait()
 end
@@ -4022,10 +4051,10 @@ wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Coil" do
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game:GetService("Players").LocalPlayer.Character.Coil)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
 wait(3.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond"do
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 task.wait()
 end
