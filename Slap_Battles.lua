@@ -1433,8 +1433,9 @@ if AutoTime == "Fish" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-else
-OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Sleep and Enter Arena",Time = 5})
+end
+elseif Value == false then
+SleepTime = 0
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Fish" and task.wait() do
@@ -1442,33 +1443,32 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Player
 task.wait(1)
 SleepTime += 1
 OrionLib:MakeNotification({Name = "Time Sleep [ "..SleepTime.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
-else
-SleepTime = 0
-end
 end
 end
 if AutoTime == "Voodoo" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-else
-OrionLib:MakeNotification({Name = "Error",Image = "rbxassetid://7733658504",Content = "You Have Equipped Glove Ghost and Enter Arena",Time = 5})
 end
+elseif Value == false then
+game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+TimeGhost = 0
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Voodoo" do
 task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
 TimeGhost += 1
 OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
-else
-TimeGhost = 0
-game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 end
 end
 if AutoTime == "MegaRock" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
+end
+elseif Value == false then
+game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
+TimeMegarock = 0
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "MegaRock" do
@@ -1476,10 +1476,6 @@ task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
 OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
-else
-TimeMegarock = 0
-game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-end
 end
 end
 	end    
@@ -2130,9 +2126,8 @@ _G.PressIntoTheGround = Value
 Tab14:AddButton({
 	Name = "Get Press Into The Ground Player",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.PressIntoTheGround].Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-task.wait(0.04)
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
@@ -2154,7 +2149,6 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-task.wait(0.04)
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
