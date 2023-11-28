@@ -3041,19 +3041,21 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-    for i,v in pairs(workspace:GetDescendants()) do
+for i,v in pairs(workspace:GetDescendants()) do
         if v.Name == "End" and v.ClassName == "Part" then
-            v.Size = Vector3.new(28, 0.3, 4)
+            v.Size = Vector3.new(28,1,4)
         end
     end
-while _G.AutoTycoon do
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoTycoon then
     for i,v in pairs(game.Workspace:GetChildren()) do
         if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
             fireclickdetector(v.ClickDetector)
         end
     end
-    task.wait()
 end
+    task.wait()
+end)
 	end    
 })
 
@@ -3141,8 +3143,8 @@ AntiPortal = Tab2:AddToggle({
 	Name = "Anti Portal",
 	Default = false,
 	Callback = function(Value)
-AntiPortal = Value
-if AntiPortal == true then
+_G.AntiPortal = Value
+if _G.AntiPortal == true then
 workspace.Lobby.Teleport2.CanTouch = false
 workspace.Lobby.Teleport3.CanTouch = false
 workspace.Lobby.Teleport4.CanTouch = false
@@ -3241,8 +3243,8 @@ AntiObby = Tab2:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
 	Callback = function(Value)
-		AntiObby = Value
-while AntiObby do
+		_G.AntiObby = Value
+while _G.AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
 v.CanTouch = false
@@ -3250,7 +3252,7 @@ end
 end
 task.wait()
 end
-if AntiObby == false then
+if _G.AntiObby == false then
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
 v.CanTouch = true
@@ -3264,8 +3266,8 @@ AntiRock = Tab2:AddToggle({
 	Name = "Anti Megarock / Custom",
 	Default = false,
 	Callback = function(Value)
-		AntiRock = Value
-while AntiRock do
+		_G.AntiRock = Value
+while _G.AntiRock do
 for i,v in pairs(game.Workspace:GetDescendants()) do
                     if v.Name == "rock" and v.CanTouch == true and v.CanQuery == true then
                         v.CanTouch = false
@@ -3281,8 +3283,8 @@ AntiBus = Tab2:AddToggle({
 	Name = "Anti Bus",
 	Default = false,
 	Callback = function(Value)
-		AntiBus = Value
-while AntiBus do
+		_G.AntiBus = Value
+while _G.AntiBus do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "BusModel" and v.CanTouch == true then
                         v.CanTouch = false
@@ -3316,8 +3318,8 @@ AntiMail = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = Value
-AntiMail = Value
-while AntiMail do
+_G.AntiMail = Value
+while _G.AntiMail do
 if game.Players.LocalPlayer.Character:FindFirstChild("YouHaveGotMail") then
 game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = true
 end
@@ -3440,8 +3442,8 @@ AntiNull = Tab2:AddToggle({
 	Name = "Anti Null",
 	Default = false,
 	Callback = function(Value)
-AntiNull = Value
-while AntiNull do
+_G.AntiNull = Value
+while _G.AntiNull do
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Imp" and v:FindFirstChild("Body") then
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
@@ -3472,14 +3474,14 @@ AntiRecord = Tab2:AddToggle({
 	Name = "Anti Record",
 	Default = false,
 	Callback = function(Value)
-AntiRecord = Value
+_G.AntiRecord = Value
 	end    
 })
 for i,p in pairs(game.Players:GetChildren()) do
 if p ~= game.Players.LocalPlayer then
 p.Chatted:Connect(function(message)
 Words = message:split(" ")
-if AntiRecord == true then
+if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
@@ -3494,7 +3496,7 @@ end
 game.Players.PlayerAdded:Connect(function(Player)
 Player.Chatted:Connect(function(message)
 Words = message:split(" ")
-if AntiRecord == true then
+if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
@@ -3534,8 +3536,8 @@ AntiZa = Tab2:AddToggle({
 	Name = "Anti Za Hando",
 	Default = false,
 	Callback = function(Value)
-	AntiZaHando = Value
-            while AntiZaHando do
+	_G.AntiZaHando = Value
+            while _G.AntiZaHando do
                 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == "Part" then
                         v:Destroy()
@@ -3566,8 +3568,8 @@ AntiReaper = Tab2:AddToggle({
 	Name = "Anti Reaper",
 	Default = false,
 	Callback = function(Value)
-	AntiReaper = Value
-            while AntiReaper do
+	_G.AntiReaper = Value
+            while _G.AntiReaper do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
                     if v.Name == "DeathMark" then
                         game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
@@ -3583,8 +3585,8 @@ AntiPusher = Tab2:AddToggle({
 	Name = "Anti Pusher",
 	Default = false,
 	Callback = function(Value)
-		AntiPusher = Value
-while AntiPusher do
+		_G.AntiPusher = Value
+while _G.AntiPusher do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "wall" then
                         v.CanCollide = false
@@ -3638,8 +3640,8 @@ AntiStun = Tab2:AddToggle({
 	Name = "Anti Stun",
 	Default = false,
 	Callback = function(Value)
-		AntiStun = Value
-while AntiStun do
+		_G.AntiStun = Value
+while _G.AntiStun do
 if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Workspace:FindFirstChild("Shockwave") and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
@@ -3698,12 +3700,12 @@ AntiRagdoll = Tab2:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(Value)
-        AntiRagdoll = Value
-if AntiRagdoll then
+        _G.AntiRagdoll = Value
+if _G.AntiRagdoll then
 game.Players.LocalPlayer.Character.Humanoid.Health = 0
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
-if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and AntiRagdoll then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and _G.AntiRagdoll then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
@@ -4213,6 +4215,10 @@ AntiBus:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiTableflip:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -4303,7 +4309,6 @@ end)
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
-
 elseif game.PlaceId == 11828384869 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -4628,7 +4633,10 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 cam.CameraType = Enum.CameraType.Scriptable
 
+game:GetService("RunService").RenderStepped:Connect(function()
 local speed = speedCamWork
+end)
+
 local sens = 2
 
 speed /= 10
@@ -4833,14 +4841,16 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-while _G.AutoTycoon do
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoTycoon then
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
 fireclickdetector(v.ClickDetector)
 end
 end
-task.wait() 
 end
+task.wait() 
+end)
 	end    
 })
 
@@ -4951,6 +4961,18 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+if game.Workspace:FindFirstChild("NoChanged") == nil then
+local NoChanged = Instance.new("BoolValue", workspace)
+NoChanged.Name = "NoChanged"
+end
+Tab:AddToggle({
+	Name = "All Toggle",
+	Default = false,
+	Callback = function(Value)
+game.Workspace.NoChanged.Value = Value
+	end    
+})
+
 Tab:AddSlider({
 	Name = "Reach Slap Aura",
 	Min = 10,
@@ -4972,7 +4994,7 @@ Tab:AddToggle({
                 while SlapAura do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character then
-if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") then
+if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if ReachAura >= Magnitude then
 game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
@@ -4980,12 +5002,12 @@ game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("Humanoid
 end
 end
                 end
-task.wait()
+task.wait(.05)
 end
 	end    
 })
 
-Tab:AddToggle({
+GetItem = Tab:AddToggle({
 	Name = "Auto Get All Item",
 	Default = false,
 	Callback = function(Value)
@@ -5030,7 +5052,7 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 Tab:AddButton({
 	Name = "Inf Power 250 [ 2 True Power ]",
 	Callback = function()
-for i = 1, 2 do
+for i = 1,2 do
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
 game.Players.LocalPlayer.Character["True Power"]:Activate()
 end
@@ -5049,7 +5071,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 	end    
 })
 
-Tab:AddToggle({
+EspGlove = Tab:AddToggle({
 	Name = "Glove Esp",
 	Default = false,
 	Callback = function(Value)
@@ -5479,7 +5501,7 @@ end)
     end    
 })
 
-Tab1:AddToggle({
+AntiZone = Tab1:AddToggle({
 	Name = "Anti Zone",
 	Default = false,
 	Callback = function(Value)
@@ -5492,7 +5514,7 @@ end)
 	end    
 })
 
-Tab1:AddToggle({
+AntiAcid = Tab1:AddToggle({
 	Name = "Anti Acid",
 	Default = false,
 	Callback = function(Value)
@@ -5500,7 +5522,7 @@ AntiAcid.CanCollide = Value
 	end    
 })
 
-Tab1:AddToggle({
+AntiLava = Tab1:AddToggle({
 	Name = "Anti Lava",
 	Default = false,
 	Callback = function(Value)
@@ -5508,7 +5530,7 @@ AntiLava.CanCollide = Value
 	end    
 })
 
-Tab1:AddToggle({
+AntiReco = Tab1:AddToggle({
 	Name = "Anti Record",
 	Default = false,
 	Callback = function(Value)
@@ -5522,7 +5544,6 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-AK:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
 end
 end
@@ -5536,7 +5557,6 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-AK:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
 end
 end
@@ -5558,7 +5578,7 @@ Walkspeed = Value
 	end    
 })
 
-Tab3:AddToggle({
+AutoSetWalkSpeed = Tab3:AddToggle({
 	Name = "Keep Walkspeed",
 	Default = false,
 	Callback = function(Value)
@@ -5586,7 +5606,7 @@ Jumppower = Value
 	end    
 })
 
-Tab3:AddToggle({
+AutoSetJumpPower = Tab3:AddToggle({
 	Name = "Keep Jumppower",
 	Default = false,
 	Callback = function(Value)
@@ -5600,7 +5620,30 @@ task.wait()
 	end    
 })
 
-OrionLib:Init()
+---AllToggle---
+game.Workspace.NoChanged.Changed:Connect(function()
+GetItem:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+EspGlove:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiZone:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiLava:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AutoSetWalkSpeed:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AutoSetJumpPower:Set(game.Workspace.NoChanged.Value)
+end)
 end
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
