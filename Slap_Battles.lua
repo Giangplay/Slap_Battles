@@ -6,6 +6,7 @@ game:GetService("GuiService"):ClearError()
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 200, 0, 100)
@@ -16,7 +17,7 @@ frame.Parent = screenGui
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 20)
 title.Position = UDim2.new(0, 0, 0, -20)
-title.Text = "Slap Battles Key System"
+title.Text = "Slap Battles Key System".." | "..identifyexecutor()
 title.TextColor3 = Color3.new(1, 1, 1)
 title.BackgroundColor3 = Color3.new(0, 0, 0)
 title.Parent = frame
@@ -2313,11 +2314,10 @@ if teleportFunc then
         if not game:IsLoaded() then
             game.Loaded:Wait()
         end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
+        repeat wait() until game.Players.LocalPlayer
         game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-game.CoreGui.RobloxLoadingGUI:Destroy()
+            game:GetService("GuiService"):ClearError()
+            game.CoreGui.RobloxLoadingGUI:Destroy()
         end)
     ]])
 end
@@ -2329,11 +2329,10 @@ if teleportFunc then
         if not game:IsLoaded() then
             game.Loaded:Wait()
         end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
+        repeat wait() until game.Players.LocalPlayer
         game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-game.CoreGui.RobloxLoadingGUI:Destroy()
+            game:GetService("GuiService"):ClearError()
+            game.CoreGui.RobloxLoadingGUI:Destroy()
         end)
     ]])
 end
@@ -2342,6 +2341,26 @@ end
 end
 Bindable.OnInvoke = Callback
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server Leaking Glove",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "View Bob Boss [ Have Kick ]",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+        game:GetService("RunService").RenderStepped:Connect(function()
+            game:GetService("GuiService"):ClearError()
+            game.CoreGui.RobloxLoadingGUI:Destroy()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(13833961666)
   	end    
 })
 
