@@ -1080,6 +1080,49 @@ end
 })
 
 Tab3:AddButton({
+	Name = "Get Glove Counter & Elude",
+	Callback = function()
+if not workspace:FindFirstChild("Keypad") then
+	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+    	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+        	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+    	end
+	end
+else
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+    task.wait(5)
+Time = 120
+fireclickdetector(game.Workspace.CounterLever.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+for i = 1,Time do
+Time = Time - 1
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
+wait(1)
+end
+game:GetService("RunService").RenderStepped:Connect(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
+end)
+for i,v in pairs(workspace.Maze:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
+end
+end
+    ]])
+end
+game:GetService("TeleportService"):Teleport(11828384869)
+end
+  	end    
+})
+
+Tab3:AddButton({
 	Name = "Get Glove [Redacted]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
@@ -1118,7 +1161,6 @@ GetJack = Tab3:AddToggle({
 	Callback = function(Value)
 		_G.AutoHallowJack = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
-OrionLib:MakeNotification({Name = "Error",Content = "Ok You have 10 kill 😃👍",Image = "rbxassetid://7733658504",Time = 5})
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoHallowJack then
 if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
@@ -2624,8 +2666,10 @@ Tab7:AddSlider({
 Tab7:AddButton({
 	Name = "Give Player Kill Reaper",
 	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
 for i = 1, _G.GiveKillReaper do
-        game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
 end
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v.Name == "DeathMark" then
@@ -3061,20 +3105,18 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 for i,v in pairs(workspace:GetDescendants()) do
-        if v.Name == "End" and v.ClassName == "Part" then
-            v.Size = Vector3.new(28,1,4)
-        end
-    end
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoTycoon then
-    for i,v in pairs(game.Workspace:GetChildren()) do
-        if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-            fireclickdetector(v.ClickDetector)
-        end
-    end
+if v.Name == "End" and v.ClassName == "Part" then
+v.Size = Vector3.new(28,1,4)
 end
-    task.wait()
-end)
+end
+while _G.AutoTycoon do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
+fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+end
+end
+task.wait()
+end
 	end    
 })
 
@@ -4860,16 +4902,14 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoTycoon then
+while _G.AutoTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-fireclickdetector(v.ClickDetector)
-end
+fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
 end
 end
 task.wait() 
-end)
+end
 	end    
 })
 
