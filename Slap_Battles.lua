@@ -5666,6 +5666,7 @@ end
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
 end
+end
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
