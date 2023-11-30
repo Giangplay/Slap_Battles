@@ -2060,9 +2060,6 @@ Tab14:AddButton({
 	Name = "Player Teleport Void",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Swapper)
-task.wait(0.5)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 task.wait(0.25)
 repeat task.wait()
@@ -2090,6 +2087,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Player.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
@@ -2166,6 +2164,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(3.05)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Player.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
@@ -2222,6 +2221,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["st
 wait(4)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Player.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
