@@ -106,7 +106,7 @@ screenGui:Destroy()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733954058",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733954058",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -209,7 +209,6 @@ wait(3.75)
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
-
 
 ---Transparency---
 
@@ -546,7 +545,7 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "Rejoin Game Gui",
+	Name = "Rejoin Gui",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
   	end    
@@ -2057,8 +2056,13 @@ _G.VoidPlayer = Value
 Tab14:AddButton({
 	Name = "Player Teleport Void",
 	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Swapper)
+task.wait(0.5)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+task.wait(0.25)
 repeat
 if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
@@ -2068,6 +2072,7 @@ task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2075,14 +2080,19 @@ end
 })
 
 Tab14:AddButton({
-	Name = "Player Teleport Void",
+	Name = "Random Player Teleport Void",
 	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Swapper)
+task.wait(0.5)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+task.wait(0.25)
 repeat
 if Target.Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
@@ -2092,6 +2102,7 @@ task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2553,6 +2564,7 @@ table.insert(Found,v)
 end
 end 
 end
+return Found
 end
 local PlayerT = unpack(GetPlayer(_G.PlayerTeleport))
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerT.Character.HumanoidRootPart.CFrame
@@ -2955,8 +2967,8 @@ for i, v in ipairs(game.Players:GetChildren()) do
             end
 end
 while GloveESP do
-for i, v in ipairs(game.Players:GetChildren()) do
-                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("GloveEsp") == nil then
+for i,v in ipairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("GloveEsp") == nil then
 GloveEsp = Instance.new("BillboardGui", v.Character.Head)
 GloveEsp.Adornee = v.Character.Head
 GloveEsp.Name = "GloveEsp"
@@ -3081,12 +3093,14 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoDestroyTycoon = Value
 while _G.AutoDestroyTycoon do
-    for i,v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
-            fireclickdetector(v.ClickDetector)
-        end
-    end
-    task.wait()
+if string.find(game.Workspace.Name, "Tycoon") then
+for _,v in pairs(game.Workspace:GetChildren()) do
+if v:FindFirstChild("Destruct") and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v:FindFirstChild("Destruct"):FindFirstChildOfClass("ClickDetector"))
+end
+end
+end
+task.wait()
 end
 	end    
 })
@@ -3217,7 +3231,6 @@ while AntiAdmins do
 for i,v in pairs(game.Players:GetChildren()) do
 if v:GetRankInGroup(9950771) >= 2 then
 _G.AntiKick = false
-_G.AntiKickServerhop = false
 game.Players.LocalPlayer:Kick("High Rank Player Detected.".." [ "..v.Name.." ]")
 break
 end
@@ -3248,8 +3261,6 @@ AntiKick = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 	_G.AntiKick = Value
-if Value == true then
-AntiKickServerhop:Set(false)
 while _G.AntiKick do
 for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
                     if v.Name == "ErrorPrompt" then
@@ -3257,34 +3268,6 @@ game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.Jo
                     end
                 end
 task.wait()
-end
-end
-	end    
-})
-
-AntiKickServerhop = Tab2:AddToggle({
-	Name = "Anti Kick Serverhop",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiKickServerhop = Value
-if Value == true then
-AntiKick:Set(false)
-while _G.AntiKickServerhop do
-for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
-if v.Name == "ErrorPrompt" then
-local serverList = {}
-for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
-		serverList[#serverList + 1] = v.id
-	end
-end
-if #serverList > 0 then
-	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
-end
-                    end
-                end
-task.wait()
-end
 end
 	end    
 })
@@ -3408,11 +3391,11 @@ AntiSquid = Tab2:AddToggle({
 	Callback = function(Value)
 	_G.AntiSquid = Value
 if _G.AntiSquid == false then
-        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = true
-        end
+game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = true
+end
 while _G.AntiSquid do
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("SquidInk") then
-        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = false
+game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = false
 end
 task.wait()
 end
@@ -3535,7 +3518,6 @@ if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
-AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
 end
 end
@@ -3550,7 +3532,6 @@ if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
-AntiKickServerhop:Set(false)
 game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
 end
 end
@@ -3570,14 +3551,21 @@ AntiBrazil = Tab2:AddToggle({
 	Name = "Anti Brazil",
 	Default = false,
 	Callback = function(Value)
-	if Value == true then
+_G.AntiBrazil = Value
+while _G.AntiBrazil do
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-                        v.CanTouch = false
-                end
-else
+if v.CanTouch == true then
+v.CanTouch = false
+end
+end
+task.wait()
+end
+if _G.AntiBrazil == false then
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-                        v.CanTouch = true
-                end
+if v.CanTouch == false then
+v.CanTouch = true
+end
+end
 end
 	end    
 })
@@ -4253,6 +4241,10 @@ AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiKick:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiObby:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -4360,7 +4352,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11828384869 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
 local Tab = Window:MakeTab({
@@ -4404,7 +4396,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Get Chain (Needs 1k slaps)",
+	Name = "Get Chain",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -4578,13 +4570,15 @@ task.wait(2)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[third].ClickDetector)
 task.wait(2)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[fourth].ClickDetector)
-task.wait(2)
+task.wait(0.5)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
 task.wait(4.7)
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
 game:GetService("TeleportService"):Teleport(9431156611)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have 1000 slap.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -4642,10 +4636,8 @@ game:GetService("TeleportService"):Teleport(9412268818)
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 end)
-
-OrionLib:Init()
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
@@ -4663,121 +4655,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmo
 Tab:AddButton({
 	Name = "Testing Server Freecam [ Mobile ]",
 	Callback = function()
-local cam = workspace.CurrentCamera
-local UIS = game:GetService("UserInputService")
-local RS = game:GetService("RunService")
-local onMobile = not UIS.KeyboardEnabled
-local keysDown = {}
-local rotating = false
-
-if not game:IsLoaded() then game.Loaded:Wait() end
-
-cam.CameraType = Enum.CameraType.Scriptable
-
-local speed = 40
-
-local sens = 2
-
-speed /= 10
-if onMobile then sens*=2 end
-
-local function renderStepped()
-	if rotating then
-		local delta = UIS:GetMouseDelta()
-		local cf = cam.CFrame
-		local yAngle = cf:ToEulerAngles(Enum.RotationOrder.YZX)
-		local newAmount = math.deg(yAngle)+delta.Y
-		if newAmount > 65 or newAmount < -65 then
-			if not (yAngle<0 and delta.Y<0) and not (yAngle>0 and delta.Y>0) then
-				delta = Vector2.new(delta.X,0)
-			end 
-		end
-		cf *= CFrame.Angles(-math.rad(delta.Y),0,0)
-		cf = CFrame.Angles(0,-math.rad(delta.X),0) * (cf - cf.Position) + cf.Position
-		cf = CFrame.lookAt(cf.Position, cf.Position + cf.LookVector)
-		if delta ~= Vector2.new(0,0) then cam.CFrame = cam.CFrame:Lerp(cf,sens) end
-		UIS.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
-	else
-		UIS.MouseBehavior = Enum.MouseBehavior.Default
-	end
-
-	if keysDown["Enum.KeyCode.W"] then
-		cam.CFrame *= CFrame.new(Vector3.new(0,0,-speed))
-	end
-	if keysDown["Enum.KeyCode.A"] then
-		cam.CFrame *= CFrame.new(Vector3.new(-speed,0,0))
-	end
-	if keysDown["Enum.KeyCode.S"] then
-		cam.CFrame *= CFrame.new(Vector3.new(0,0,speed))
-	end
-	if keysDown["Enum.KeyCode.D"] then
-		cam.CFrame *= CFrame.new(Vector3.new(speed,0,0))
-	end
-end
-
-RS.RenderStepped:Connect(renderStepped)
-
-local validKeys = {"Enum.KeyCode.W","Enum.KeyCode.A","Enum.KeyCode.S","Enum.KeyCode.D"}
-
-UIS.InputBegan:Connect(function(Input)
-	for i, key in pairs(validKeys) do
-		if key == tostring(Input.KeyCode) then
-			keysDown[key] = true
-		end
-	end
-	if Input.UserInputType == Enum.UserInputType.MouseButton2 or (Input.UserInputType == Enum.UserInputType.Touch and UIS:GetMouseLocation().X>(cam.ViewportSize.X/2)) then
-		rotating = true
-	end
-	if Input.UserInputType == Enum.UserInputType.Touch then
-		if Input.Position.X < cam.ViewportSize.X/2 then
-			touchPos = Input.Position
-		end
-	end
-end)
-
-UIS.InputEnded:Connect(function(Input)
-	for key, v in pairs(keysDown) do
-		if key == tostring(Input.KeyCode) then
-			keysDown[key] = false
-		end
-	end
-	if Input.UserInputType == Enum.UserInputType.MouseButton2 or (Input.UserInputType == Enum.UserInputType.Touch and UIS:GetMouseLocation().X>(cam.ViewportSize.X/2)) then
-		rotating = false
-	end
-	if Input.UserInputType == Enum.UserInputType.Touch and touchPos then
-		if Input.Position.X < cam.ViewportSize.X/2 then
-			touchPos = nil
-			keysDown["Enum.KeyCode.W"] = false
-			keysDown["Enum.KeyCode.A"] = false
-			keysDown["Enum.KeyCode.S"] = false
-			keysDown["Enum.KeyCode.D"] = false
-		end
-	end
-end)
-
-UIS.TouchMoved:Connect(function(input)
-	if touchPos then
-		if input.Position.X < cam.ViewportSize.X/2 then
-			if input.Position.Y < touchPos.Y then
-				keysDown["Enum.KeyCode.W"] = true
-				keysDown["Enum.KeyCode.S"] = false
-			else
-				keysDown["Enum.KeyCode.W"] = false
-				keysDown["Enum.KeyCode.S"] = true
-			end
-			if input.Position.X < (touchPos.X-15) then
-				keysDown["Enum.KeyCode.A"] = true
-				keysDown["Enum.KeyCode.D"] = false
-			elseif input.Position.X > (touchPos.X+15) then
-				keysDown["Enum.KeyCode.A"] = false
-				keysDown["Enum.KeyCode.D"] = true
-			else
-				keysDown["Enum.KeyCode.A"] = false
-				keysDown["Enum.KeyCode.D"] = false
-			end
-		end
-	end
-end)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Giangplay/Script/main/Freecam_mobile.lua'))()
        end    
 })
 
@@ -4815,11 +4693,13 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
   	end    
 })
 
-OrionLib:Init()
 elseif game.PlaceId == 13833961666 then
-local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
----Transparency---
+shared.gloveHitBob = {
+	["Killstreak"] = game.ReplicatedStorage.KSHit,
+	["Reaper"] = game.ReplicatedStorage.ReaperHit,
+}
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
@@ -4832,13 +4712,6 @@ v.BackgroundTransparency = 1
 end
 end
 gethui().Orion.Name = "OrionEdited"
-
----GloveHitBobClone---
-
-shared.gloveHitBob = {
-	["Killstreak"] = game.ReplicatedStorage.KSHit,
-	["Reaper"] = game.ReplicatedStorage.ReaperHit,
-}
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -4943,10 +4816,8 @@ Tab:AddButton({
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 end)
-
-OrionLib:Init()
 elseif game.PlaceId == 9431156611 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = true, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Namecall
 Namecall = hookmetamethod(game, "__namecall", function(self, ...)
