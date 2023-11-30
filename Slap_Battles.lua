@@ -2044,6 +2044,35 @@ Tab14:AddSlider({
 	end    
 })
 
+Tab14:AddTextbox({
+	Name = "Make Void Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.VoidPlayer = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Player Teleport Void",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+repeat
+if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-30,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
+end
+until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
+task.wait(0.6)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
 FullKinetic = Tab14:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
@@ -2343,26 +2372,6 @@ game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server Leak
   	end    
 })
 
-Tab7:AddButton({
-	Name = "View Bob Boss [ Have Kick ]",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
-        game:GetService("RunService").RenderStepped:Connect(function()
-            game:GetService("GuiService"):ClearError()
-            game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(13833961666)
-  	end    
-})
-
 Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "",
@@ -2502,7 +2511,25 @@ _G.PlayerTeleport = Value
 Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerTeleport].Character.HumanoidRootPart.CFrame
+function GetPlayer(String)
+local Found = {}
+local strl = String:lower()
+if strl == "Random" then
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name ~= lplayer.Name then
+table.insert(Found,v)
+end
+end
+else
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name:lower():sub(1, #String) == String:lower() then
+table.insert(Found,v)
+end
+end 
+end
+end
+local PlayerT = unpack(GetPlayer(_G.PlayerTeleport))
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerT.Character.HumanoidRootPart.CFrame
   	end    
 })
 
@@ -2510,39 +2537,21 @@ Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
 if not workspace:FindFirstChild("Keypad") then
-	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-    	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-        	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
-    	end
-	end
+for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+end
+end
 else
-	pcall(function()
-		repeat task.wait()
-			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0)
-			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1)
-		until game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil
-	end)
-    fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-    local digits = tostring((#game.Players:GetPlayers() * 25) + 1100 - 7)
-    for i = 1, #digits do
-        wait(.5)
-        local digit = digits:sub(i, i)
-        fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
-    end
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
-    wait(1)
-    fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-    wait(1)
-        fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-    local digits = tostring((#game.Players:GetPlayers() * 25) + 1100 - 7)
-    for i = 1, #digits do
-        wait(.5)
-        local digit = digits:sub(i, i)
-        fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
-    end
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
-    wait(1)
-    fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+local digits = tostring((#game.Players:GetPlayers() * 25 + 1100 - 7))
+for i = 1, #digits do
+wait(.5)
+local digit = digits:sub(i, i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+wait(1)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
 })
@@ -2664,7 +2673,7 @@ Tab7:AddButton({
 	Callback = function()
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
-for i = 0,100 do
+for i = 1,100 do
 fireclickdetector(v.ClickDetector)
 end
 end
@@ -3061,16 +3070,12 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoTycoon = Value
-for i,v in pairs(workspace:GetDescendants()) do
-if v.Name == "End" and v.ClassName == "Part" then
-v.Size = Vector3.new(28,1,4)
-end
-end
 while _G.AutoTycoon do
+if string.find(game.Workspace.Name, "Tycoon") then
 for _,v in pairs(game.Workspace:GetChildren()) do
-
-if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
+if v:FindFirstChild("Click") and v:FindFirstChild("ClickDetector") then
 fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+end
 end
 end
 task.wait()
@@ -4861,13 +4866,14 @@ Tab:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
+if string.find(game.Workspace.Name, "Tycoon") then
 for _,v in pairs(game.Workspace:GetChildren()) do
-
-if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
+if v:FindFirstChild("Click") and v:FindFirstChild("ClickDetector") then
 fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
 end
 end
-task.wait() 
+end
+task.wait()
 end
 	end    
 })
@@ -5669,5 +5675,5 @@ end
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
-setclipboard("https://discord.com/invite/HjeKTzpc") 
+setclipboard("https://discord.com/invite/guGFzBmX") 
 end)
