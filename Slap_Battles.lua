@@ -210,6 +210,7 @@ fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
+
 ---Transparency---
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
@@ -2060,13 +2061,38 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 repeat
 if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-30,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
 end
 until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Player Teleport Void",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer then
+repeat
+if Target.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
+end
+until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
+task.wait(0.6)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -4634,15 +4660,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmo
       end    
 })
 
-Tab:AddTextbox({
-	Name = "Speed Freecam",
-	Default = "Update Speed",
-	TextDisappear = false,
-	Callback = function(Value)
-speedCamWork = Value
-	end	  
-})
-
 Tab:AddButton({
 	Name = "Testing Server Freecam [ Mobile ]",
 	Callback = function()
@@ -4657,9 +4674,7 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 cam.CameraType = Enum.CameraType.Scriptable
 
-game:GetService("RunService").RenderStepped:Connect(function()
-local speed = speedCamWork
-end)
+local speed = 40
 
 local sens = 2
 
