@@ -1645,7 +1645,9 @@ if Cancel == true then
 break
 end
 if workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49969,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49865,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+task.wait(0.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 end
 task.wait()
 if Timer < 1 then
@@ -1657,6 +1659,7 @@ game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 AntiVoid:Set(false)
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
@@ -1887,8 +1890,8 @@ end
 Tab14:AddSlider({
 	Name = "Ping Pong Orbit Speed",
 	Min = 0,
-	Max = 500,
-	Default = 10,
+	Max = 1000,
+	Default = 30,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Speed",
@@ -2056,16 +2059,17 @@ _G.VoidPlayer = Value
 Tab14:AddButton({
 	Name = "Player Teleport Void",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" then
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Swapper)
 task.wait(0.5)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 task.wait(0.25)
-repeat
+repeat task.wait()
 if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
+task.wait(0.27)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 end
 until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
 task.wait(0.6)
@@ -2082,20 +2086,18 @@ end
 Tab14:AddButton({
 	Name = "Random Player Teleport Void",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Swapper)
-task.wait(0.5)
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-task.wait(0.25)
-repeat
+repeat task.wait()
 if Target.Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
+task.wait(0.27)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 end
 until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
 task.wait(0.6)
@@ -2164,7 +2166,6 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 wait(3.05)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
@@ -2221,7 +2222,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["st
 wait(4)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
@@ -2268,7 +2268,6 @@ Tab14:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if Target ~= game.Players.LocalPlayer then
