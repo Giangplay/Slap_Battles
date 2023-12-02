@@ -1682,12 +1682,9 @@ Tab14:AddButton({
 	Name = "Player Teleport",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-OGLC = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGLC
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -1705,7 +1702,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.47)
+wait(0.60)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
@@ -1759,7 +1756,6 @@ task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
-task.wait()
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
@@ -1784,7 +1780,6 @@ task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
-task.wait()
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
@@ -2040,6 +2035,24 @@ Tab14:AddSlider({
 	end    
 })
 
+FullKinetic = Tab14:AddToggle({
+	Name = "Auto Full Kinetic",
+	Default = false,
+	Callback = function(Value)
+FullKineticSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while FullKineticSpam do
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
+task.wait()
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FullKinetic:Set(false)
+end
+	end    
+})
+
 Tab14:AddTextbox({
 	Name = "Make Void Player",
 	Default = "Username",
@@ -2098,24 +2111,6 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
-})
-
-FullKinetic = Tab14:AddToggle({
-	Name = "Auto Full Kinetic",
-	Default = false,
-	Callback = function(Value)
-FullKineticSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-while FullKineticSpam do
-game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-task.wait()
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-FullKinetic:Set(false)
-end
-	end    
 })
 
 Tab14:AddTextbox({
