@@ -141,7 +141,8 @@ _G.GetPotion = {
 	["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
 	["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
 	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flowers","Plane Flowers","Elder Wood"},
-	["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"}
+	["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
+	["Field"] = {"Hazel Lily","Plane Flowers","Plane Flowers"}
 }
 
 ---GetThe---
@@ -1724,7 +1725,7 @@ end
 Tab14:AddDropdown({
 	Name = "Potion",
 	Default = "Speed",
-	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine"},
+	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field"},
 	Callback = function(Value)
 _G.MakePotion = Value
 	end    
@@ -1751,7 +1752,6 @@ if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 for b = 1, _G.GivePotion do
-repeat
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
@@ -1759,8 +1759,8 @@ task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+task.wait()
 end
-until #_G.GetPotion
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
 end
@@ -1776,20 +1776,16 @@ PotionAuto = Tab14:AddToggle({
 	Callback = function(Value)
 _G.AutoGetPotion = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
 while _G.AutoGetPotion do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(.03)
-repeat
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+task.wait()
 end
-until #_G.GetPotion
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
 end
@@ -3744,7 +3740,7 @@ end
 Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
-	Options = {"Ghost", "Thanos", "Space", "Golden", "Hitman", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
+	Options = {"Ghost", "Thanos", "Space", "Scythe", "Golden", "Hitman", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
 	Callback = function(Value)
 GloveSound = Value
 	end    
@@ -3766,6 +3762,10 @@ task.wait()
 end
 while GloveSoundSpam and GloveSound == "Space" do
 game:GetService("ReplicatedStorage").ZeroGSound:FireServer()
+task.wait()
+end
+while GloveSoundSpam and GloveSound == "Scythe" do
+game:GetService("ReplicatedStorage").Scythe:FireServer("ScytheWeapon")
 task.wait()
 end
 while GloveSoundSpam and GloveSound == "Golden" do
@@ -4126,6 +4126,10 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ferryman" do
 workspace[game.Players.LocalPlayer.Name].FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Strike")
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 	end    
