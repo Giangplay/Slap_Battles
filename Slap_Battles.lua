@@ -2906,26 +2906,18 @@ Tab7:AddToggle({
 _G.HitboxPlayer = Value
 while _G.HitboxPlayer do
 for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer then
-                    if v.Character then
-                  if v.Character:FindFirstChild("HumanoidRootPart") then
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
                         v.Character.HumanoidRootPart.Transparency = 0.75
                     end
-                    end
-                end
                 end
 task.wait()
 end
 if _G.HitboxPlayer == false then
 for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer then
-                    if v.Character then
-                  if v.Character:FindFirstChild("HumanoidRootPart") then
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
                         v.Character.HumanoidRootPart.Transparency = 1
-                    end
-                    end
                     end
                 end
 end
@@ -3066,16 +3058,14 @@ end
 })
 
 Tab7:AddToggle({
-	Name = "Auto Click Destroy Tycoon",
+	Name = "Auto Destroy Tycoon",
 	Default = false,
 	Callback = function(Value)
-		_G.AutoDestroyTycoon = Value
-while _G.AutoDestroyTycoon do
-if string.find(game.Workspace.Name, "Tycoon") then
+		_G.AutoTycoon = Value
+while _G.AutoTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
-if v:FindFirstChild("Destruct") and v:FindFirstChild("ClickDetector") then
+if string.find(v.Name, "Tycoon") and v:FindFirstChild("Destruct") then
 fireclickdetector(v:FindFirstChild("Destruct"):FindFirstChildOfClass("ClickDetector"))
-end
 end
 end
 task.wait()
@@ -3089,11 +3079,9 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-if string.find(game.Workspace.Name, "Tycoon") then
 for _,v in pairs(game.Workspace:GetChildren()) do
-if v:FindFirstChild("Click") and v:FindFirstChild("ClickDetector") then
+if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
 fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
-end
 end
 end
 task.wait()
@@ -4744,11 +4732,9 @@ Tab:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-if string.find(game.Workspace.Name, "Tycoon") then
 for _,v in pairs(game.Workspace:GetChildren()) do
-if v:FindFirstChild("Click") and v:FindFirstChild("ClickDetector") then
+if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
 fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
-end
 end
 end
 task.wait()
