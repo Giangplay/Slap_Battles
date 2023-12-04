@@ -5558,5 +5558,6 @@ end
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
-setclipboard("https://discord.com/invite/guGFzBmX") 
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
+setclipboard("https://eu10.proxysite.com/process.php?d=o6LQgpIMKXa%2FPA4FGgOY9bCibv%2BGKvpXJ3eHXrE%3D&b=1") 
 end)
