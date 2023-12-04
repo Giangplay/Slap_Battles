@@ -1533,7 +1533,7 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Make Player Spam Rojo",
+	Name = "Spam Rojo Player",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -1546,7 +1546,7 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Make Player Teleport [ Glove Recall ]",
+	Name = "Player Teleport",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -1555,7 +1555,7 @@ TeleportPlayer = Value
 })
 
 Tab14:AddTextbox({
-	Name = "Save The Player [ Glove Guardian Angel ]",
+	Name = "Godmode Player",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -1586,7 +1586,7 @@ RetroAbility = Value
 })
 
 SavePlayer = Tab14:AddToggle({
-	Name = "Auto Spam Guardian Angel",
+	Name = "Auto Godmode Player",
 	Default = false,
 	Callback = function(Value)
 if SaveThePlayer == nil then
@@ -1658,7 +1658,6 @@ game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 AntiVoid:Set(false)
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
@@ -1679,14 +1678,33 @@ Cancel = false
 })
 
 Tab14:AddButton({
-	Name = "Player Teleport",
+	Name = "Player Teleport Recall",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(4)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
+task.wait(0.5)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Player Teleport Scythe",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
+task.wait(2.78)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Scythe equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1702,7 +1720,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.60)
+wait(0.45)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
@@ -1754,10 +1772,10 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
 end
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("BrewPotion")
 task.wait(.1)
 end
 else
@@ -1778,10 +1796,10 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
 end
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("BrewPotion")
 task.wait(.1)
 end
 elseif _G.AutoGetPotion == true then
@@ -2328,7 +2346,7 @@ end
 })
 
 Tab14:AddToggle({
-	Name = "Invisible Reverse [ FE ]",
+	Name = "Invisible Reverse",
 	Default = false,
 	Callback = function(Value)
 		Invis_Reverse = Value
@@ -3064,8 +3082,9 @@ Tab7:AddToggle({
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "Tycoon") and v:FindFirstChild("Destruct") then
-fireclickdetector(v:FindFirstChild("Destruct"):FindFirstChildOfClass("ClickDetector"))
+if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
+fireclickdetector(v.Destruct.ClickDetector, 0)
+fireclickdetector(v.Destruct.ClickDetector, 1)
 end
 end
 task.wait()
@@ -3079,9 +3098,10 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-for _,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+for _, v in pairs(workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
 end
 end
 task.wait()
@@ -4732,9 +4752,10 @@ Tab:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-for _,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "Tycoon") and v:FindFirstChild("Click") then
-fireclickdetector(v:FindFirstChild("Click"):FindFirstChildOfClass("ClickDetector"))
+for _, v in pairs(workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
 end
 end
 task.wait()
