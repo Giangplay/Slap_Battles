@@ -1042,6 +1042,7 @@ task.wait(0.8)
 local digit = digits:sub(i, i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
+task.wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
@@ -1089,6 +1090,7 @@ task.wait(0.8)
 local digit = digits:sub(i, i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
+task.wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
