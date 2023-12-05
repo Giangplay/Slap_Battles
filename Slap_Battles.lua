@@ -1036,7 +1036,7 @@ game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7))
+local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
 task.wait(0.8)
 local digit = digits:sub(i, i)
@@ -1084,7 +1084,7 @@ end
     ]])
 end
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7))
+local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
 task.wait(0.8)
 local digit = digits:sub(i, i)
