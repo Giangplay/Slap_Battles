@@ -1035,7 +1035,15 @@ if teleportFunc then
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
-game:GetService("TeleportService"):Teleport(11828384869)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7))
+for i = 1, #digits do
+task.wait(0.8)
+local digit = digits:sub(i, i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
 end
   	end    
 })
@@ -1075,7 +1083,15 @@ end
 end
     ]])
 end
-game:GetService("TeleportService"):Teleport(11828384869)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7))
+for i = 1, #digits do
+task.wait(0.8)
+local digit = digits:sub(i, i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
 end
   	end    
 })
@@ -1546,15 +1562,6 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Player Teleport",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-TeleportPlayer = Value
-	end	  
-})
-
-Tab14:AddTextbox({
 	Name = "Godmode Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -1675,6 +1682,15 @@ Cancel = true
 wait(0.1)
 Cancel = false
   	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Player Teleport",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+TeleportPlayer = Value
+	end	  
 })
 
 Tab14:AddButton({
@@ -2181,7 +2197,7 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Make Press Into The Ground",
+	Name = "Make Player Quake",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -2190,7 +2206,7 @@ _G.PressIntoTheGround = Value
 })
 
 Tab14:AddButton({
-	Name = "Get Press Into The Ground Player",
+	Name = "Get Player Quake",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.PressIntoTheGround].Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
@@ -2211,7 +2227,7 @@ end
 })
 
 Tab14:AddButton({
-	Name = "Press Into The Ground Player Random",
+	Name = "Player Quake Random",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
@@ -2224,7 +2240,7 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.Head.CFrame
-task.wait(0.18)
+task.wait(0.13)
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait(0.17)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -2267,9 +2283,7 @@ local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",Target)
-end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2283,9 +2297,9 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-wait(0.5)
+task.wait(0.5)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-wait(0.6)
+task.wait(0.6)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0.5
 end
@@ -2296,7 +2310,7 @@ end
 })
 
 Tab14:AddColorpicker({
-	Name = "Set Color Skin [ You Have Glove Gold ]",
+	Name = "Set Color Skin",
 	Default = Color3.fromRGB(255, 0, 0),
 	Callback = function(Value)
 		_G.skinColor = Value
@@ -2304,7 +2318,7 @@ Tab14:AddColorpicker({
 })
 
 ColorSkin = Tab14:AddToggle({
-	Name = "Auto Color Skin [ Glove gold ]",
+	Name = "Auto Color Skin",
 	Default = false,
 	Callback = function(Value)
 		_G.GoldColor = Value
@@ -2322,7 +2336,7 @@ end
 })
 
 RainBox = Tab14:AddToggle({
-	Name = "Auto Rainbow [ Glove gold ]",
+	Name = "Auto Rainbow",
 	Default = false,
 	Callback = function(Value)
 		_G.Rainbow = Value
@@ -2806,7 +2820,7 @@ Tab7:AddToggle({
 while _G.AutoEnter and AutoEnter == "Arena" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait(.005)
+repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
@@ -2816,7 +2830,7 @@ end
 while _G.AutoEnter and AutoEnter == "Arena Default" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait(.005)
+repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
