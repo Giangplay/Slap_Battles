@@ -1044,7 +1044,6 @@ fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit)
 end
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
-end
   	end    
 })
 
@@ -1091,7 +1090,6 @@ local digit = digits:sub(i, i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-end
 end
   	end    
 })
