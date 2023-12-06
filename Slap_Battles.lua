@@ -464,7 +464,7 @@ end
 
 --Tab1 - 15
 local Tab = Window:MakeTab({
-	Name = "Main",
+	Name = "Info",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -536,75 +536,6 @@ ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]"
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-local MainScript = Tab:AddSection({Name = "Main"})
-
-Tab:AddButton({
-	Name = "Keyboard",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Rejoin Gui",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Inf yield Delta",
-	Callback = function()
-      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Inf yield",
-	Callback = function()
-      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()	
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Hitbox",
-	Callback = function()
-      		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
-  	end    
-})
-
-Tab:AddToggle({
-	Name = "Autofarm Slapples",
-	Default = false,
-	Callback = function(Value)
-	    SlappleFarm = Value
-while SlappleFarm do
-for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
-                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
-                end
-            end
-task.wait()
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Autofarm Candy",
-	Default = false,
-	Callback = function(Value)
-	    CandyCornsFarm = Value
-while CandyCornsFarm do
-for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
-                if v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                end
-            end
-task.wait()
-end
-	end    
-})
 
 Tab1:AddButton({
 	Name = "Synapse X [ PE ]",
@@ -659,6 +590,41 @@ Tab1:AddButton({
 	Name = "Kill Player [ PE ]",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Keyboard",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Rejoin Gui",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Inf yield Delta",
+	Callback = function()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Inf yield",
+	Callback = function()
+      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()	
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Hitbox",
+	Callback = function()
+      		loadstring(game:HttpGet(("https://gist.githubusercontent.com/stellar-4242/430ef3087d8d87eb306ca03e728ffbb8/raw/798429dd908b1f4471a1fa569ff62c5e5a93ec61/SLAP.LUA")))()
   	end    
 })
 
@@ -1416,7 +1382,7 @@ end
 })
 
 Tab3:AddToggle({
-	Name = "Auto Pick Up Gift",
+	Name = "Gift Farm",
 	Default = false,
 	Callback = function(Value)
 Giftfarm = Value
@@ -1681,47 +1647,6 @@ Tab14:AddButton({
 Cancel = true
 wait(0.1)
 Cancel = false
-  	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Player Teleport",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-TeleportPlayer = Value
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Player Teleport Recall",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.5)
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-task.wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Player Teleport Scythe",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-task.wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[TeleportPlayer].Character.HumanoidRootPart.CFrame
-task.wait(2.78)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Scythe equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
   	end    
 })
 
@@ -2008,7 +1933,7 @@ AutoGodmodes = Tab14:AddToggle({
 	Callback = function(Value)
 	    AutoGodmode = Value
 if SetGodmode == "Reverse" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
-while AutoGodmode and SetGodmode == "Glove Reverse" do
+while AutoGodmode and SetGodmode == "Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
@@ -2020,7 +1945,7 @@ wait(0.05)
 AutoGodmodes:Set(false)
 end
 if SetGodmode == "Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while AutoGodmode and SetGodmode == "Glove Golden" do
+while AutoGodmode and SetGodmode == "Golden" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
 game:GetService("ReplicatedStorage").Goldify:FireServer(true)
 end
@@ -2069,6 +1994,31 @@ Tab14:AddSlider({
 	end    
 })
 
+Tab14:AddToggle({
+	Name = "AutoFarm Slap",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoFarmSlap = Value
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+while _G.AutoFarmSlap do
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+wait(.25)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+end
+end
+end
+end
+wait(.25)
+end
+	end    
+})
+
 FullKinetic = Tab14:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
@@ -2105,15 +2055,15 @@ task.wait(0.25)
 repeat task.wait()
 if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
-task.wait(0.27)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+task.wait(0.37)
+game.Players.LocalPlayer.Character.Head.Anchored = true
 end
 until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+game.Players.LocalPlayer.Character.Head.Anchored = false
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2132,15 +2082,15 @@ Target = RandomPlayer
 repeat task.wait()
 if Target.Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
-task.wait(0.27)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+task.wait(0.37)
+game.Players.LocalPlayer.Character.Head.Anchored = true
 end
 until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+game.Players.LocalPlayer.Character.Head.Anchored = false
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2180,7 +2130,7 @@ Tab14:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(3.05)
+wait(4.2)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
@@ -2214,7 +2164,7 @@ game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.B
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
 wait(3.45)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character.Head.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
 task.wait(0.18)
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait(0.17)
@@ -2239,7 +2189,7 @@ local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.Head.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
 task.wait(0.13)
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait(0.17)
@@ -2546,6 +2496,39 @@ end
 	end    
 })
 
+Tab7:AddToggle({
+	Name = "Autofarm Slapples",
+	Default = false,
+	Callback = function(Value)
+	    SlappleFarm = Value
+while SlappleFarm do
+for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                end
+            end
+task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Autofarm Candy",
+	Default = false,
+	Callback = function(Value)
+	    CandyCornsFarm = Value
+while CandyCornsFarm do
+for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
+                if v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                end
+            end
+task.wait()
+end
+	end    
+})
+
 Tab7:AddTextbox({
 	Name = "Player Teleport",
 	Default = "Username",
@@ -2592,7 +2575,7 @@ end
 end
 else
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-local digits = tostring((#game.Players:GetPlayers() * 25 + 1100 - 7))
+local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
 wait(.5)
 local digit = digits:sub(i, i)
@@ -3688,6 +3671,20 @@ end
 	end    
 })
 
+AntiFall = Tab2:AddToggle({
+	Name = "Anti Fall",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiFall = Value
+while _G.AntiFall do
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == false and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+task.wait()
+end
+	end    
+})
+
 AntiCOD = Tab2:AddToggle({
 	Name = "Anti Cube Of Death",
 	Default = false,
@@ -4350,6 +4347,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiStun:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiFall:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -5565,6 +5566,65 @@ end)
 game.Workspace.NoChanged.Changed:Connect(function()
 AutoSetJumpPower:Set(game.Workspace.NoChanged.Value)
 end)
+elseif game.PlaceId == 14422118326 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "Anti Null",
+	Default = false,
+	Callback = function(Value)
+AntiNull = Value
+game:GetService("RunService").RenderStepped:Connect(function()
+if AntiNull then
+for i,v in pairs(game.Workspace.Mobs:GetChildren()) do
+if v.Name == "Imp" and v:FindFirstChild("Body") then
+game:GetService("ReplicatedStorage").b:FireServer(v.Body)
+end
+end
+end
+end)
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Anti Cooldown",
+	Default = false,
+	Callback = function(Value)
+AntiCooldown = Value
+game:GetService("RunService").RenderStepped:Connect(function()
+if AntiCooldown then
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+local localscript = tool:FindFirstChildOfClass("LocalScript")
+local localscriptclone = localscript:Clone()
+localscriptclone = localscript:Clone()
+localscriptclone:Clone()
+localscript:Destroy()
+localscriptclone.Parent = tool
+end
+end)
+	end    
+})
+
+Tab:AddDropdown({
+	Name = "Bagde",
+	Default = "",
+	Options = {"Null", "Tinkever"},
+	Callback = function(Value)
+if Value == "Null" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
+elseif Value == "Tinkever" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5455.59, -195.001, 1857.2)
+end
+	end    
+})
 end
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
