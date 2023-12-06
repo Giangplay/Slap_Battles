@@ -3677,7 +3677,7 @@ AntiFall = Tab2:AddToggle({
 	Callback = function(Value)
 		_G.AntiFall = Value
 while _G.AntiFall do
-if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == false and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
