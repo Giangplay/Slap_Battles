@@ -2062,8 +2062,9 @@ until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFir
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Head.Anchored = false
+task.wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2089,8 +2090,9 @@ until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") a
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players.LocalPlayer.Character.Head.Anchored = false
+task.wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
