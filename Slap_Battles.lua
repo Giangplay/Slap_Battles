@@ -534,7 +534,9 @@ CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFP
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+CodeKeypad = Tab:AddLabel("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 
 Tab1:AddButton({
@@ -726,7 +728,7 @@ Tab1:AddButton({
 })
 
 Tab3:AddDropdown({
-	Name = "Teleport",
+	Name = "Teleport Safe",
 	Default = "",
 	Options = {"SafeSpotBox 1.0", "SafeSpotBox 2.0", "Bed"},
 	Callback = function(Value)
@@ -743,11 +745,11 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Bagde", "Help Player","Spawn"},
+	Options = {"Get Bagde", "Show All","Spawn"},
 	Callback = function(Value)
 if Value == "Get Bagde" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
-elseif Value == "Help Player" then
+elseif Value == "Show All" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 elseif Value == "Spawn" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
@@ -2166,7 +2168,7 @@ game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.B
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
 wait(3.45)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
 task.wait(0.18)
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait(0.17)
@@ -2191,7 +2193,7 @@ local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
 task.wait(0.13)
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
 task.wait(0.17)
@@ -2437,7 +2439,7 @@ end
 Tab7:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Keypad", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
@@ -2451,6 +2453,8 @@ elseif Value == "Plate" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
 elseif Value == "Tournament" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+elseif Value == "Keypad" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 elseif Value == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(215, -15.5, 0.5)
 elseif Value == "Default Arena" then
@@ -2580,7 +2584,34 @@ fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
 wait(.5)
-local digit = digits:sub(i, i)
+local digit = digits:sub(i,i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+wait(1)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
+  	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Easter Egg Code",
+	Default = "",
+	Options = {"911","8008","666","6969","1987"},
+	Callback = function(Value)
+_G.EggCodes = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Easter Egg Keypad",
+	Callback = function()
+if not workspace:FindFirstChild("Keypad") then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+else
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+for i = 1,#_G.EggCodes do
+wait(.3)
+local digit = _G.EggCodes:sub(i,i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
 wait(1)
@@ -2590,7 +2621,7 @@ end
 })
 
 Tab7:AddButton({
-	Name = "Free All Animations [ You chat /e Name Animation]",
+	Name = "Free All Animations",
 	Callback = function()
 Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
 Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
@@ -4227,7 +4258,9 @@ CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." ]")
 CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 end)
 
 ---AllAnti---
@@ -4736,6 +4769,7 @@ local Tab = Window:MakeTab({
 
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 
