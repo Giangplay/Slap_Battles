@@ -4179,6 +4179,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blackhole" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
 	end    
 })
 
