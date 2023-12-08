@@ -723,7 +723,7 @@ webImport("ui/main")
 Tab1:AddButton({
 	Name = "Simple Spy",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua", true))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
   	end    
 })
 
