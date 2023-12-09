@@ -1390,11 +1390,10 @@ Tab3:AddToggle({
 Giftfarm = Value
 while Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
-                    end
-                end
+if v.Name == "Gift" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
 task.wait()
 end
 	end    
@@ -2570,6 +2569,64 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerT.Character.H
   	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Player View",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.ViewPlayer = Value
+	end	  
+})
+
+Tab7:AddToggle({
+	Name = "Auto View Player",
+	Default = false,
+	Callback = function(Value)
+_G.PlayerView = Value
+while _G.PlayerView do
+if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") then
+workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
+end
+task.wait()
+end
+	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Copy Name Player",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.Copyname = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Copy Player",
+	Callback = function()
+function GetPlayer(String)
+local Found = {}
+local strl = String:lower()
+if strl == "Random" then
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name ~= lplayer.Name then
+table.insert(Found,v)
+end
+end
+else
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name:lower():sub(1, #String) == String:lower() then
+table.insert(Found,v)
+end
+end 
+end
+return Found
+end
+local Copy = unpack(GetPlayer(_G.Copyname))
+setclipboard(tostring(Copy))
+  	end    
+})
+
 Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
@@ -2610,7 +2667,7 @@ OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad
 else
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.EggCodes do
-wait(.3)
+wait(.5)
 local digit = _G.EggCodes:sub(i,i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
@@ -3362,6 +3419,23 @@ end
 	end    
 })
 
+AntiShard = Tab2:AddToggle({
+	Name = "Anti Shard",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiShard = Value
+while _G.AntiShard do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "SkyShard" then
+                        v.CanTouch = false
+                        v.CanQuery = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -3697,20 +3771,6 @@ AntiStun = Tab2:AddToggle({
 		_G.AntiStun = Value
 while _G.AntiStun do
 if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Workspace:FindFirstChild("Shockwave") and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-task.wait()
-end
-	end    
-})
-
-AntiFall = Tab2:AddToggle({
-	Name = "Anti Fall",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiFall = Value
-while _G.AntiFall do
-if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true and game.Players.LocalPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
@@ -4093,7 +4153,9 @@ game:GetService("ReplicatedStorage").AdiosActivated:FireServer()
 wait(8.3)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Balloony" do
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Balloony") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Balloony)
+end
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Balloony)
 task.wait()
 end
@@ -4305,6 +4367,10 @@ AntiTableflip:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiShard:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -4386,10 +4452,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiStun:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiFall:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -5506,7 +5568,7 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." [ "..p.Name.." ]".." [ "..message.." ]")
 end
 end
 end
@@ -5659,9 +5721,9 @@ Tab:AddDropdown({
 	Options = {"Null", "Tinkever"},
 	Callback = function(Value)
 if Value == "Null" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
-elseif Value == "Tinkever" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5455.59, -195.001, 1857.2)
+elseif Value == "Tinkever" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
 end
 	end    
 })
