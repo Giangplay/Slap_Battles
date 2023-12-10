@@ -4,109 +4,124 @@ end
 
 game:GetService("GuiService"):ClearError()
 
+local Configs_HUB = {
+  Cor_Hub = Color3.fromRGB(15, 15, 15),
+  Cor_Options = Color3.fromRGB(15, 15, 15),
+  Cor_Stroke = Color3.fromRGB(60, 60, 60),
+  Cor_Text = Color3.fromRGB(240, 240, 240),
+  Cor_DarkText = Color3.fromRGB(140, 140, 140),
+  Corner_Radius = UDim.new(0, 4),
+  Text_Font = Enum.Font.FredokaOne
+}
+
+local function Corner(parent, props)
+  local new = Instance.new("UICorner", parent)
+  new.CornerRadius = Configs_HUB.Corner_Radius
+  if props then
+    SetProps(new, props)
+  end
+  return new
+end
+
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ResetOnSpawn = false
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 400, 0, 200)
-frame.Position = UDim2.new(0.5, -150, 0.5, -80)
-frame.BackgroundColor3 = Color3.new(1, 1, 1)
-frame.Parent = screenGui
-
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 30)
-title.Position = UDim2.new(0, 0, 0, -30)
-title.Text = "Slap Battles Key System".." | "..identifyexecutor()
-title.TextColor3 = Color3.new(1, 1, 1)
-title.BackgroundColor3 = Color3.new(0, 0, 0)
-title.Parent = frame
-
-local dragging
-local dragInput
-local dragStart
-local startPos
-
-local function update(input)
-    local delta = input.Position - dragStart
-    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-end
-
-title.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = frame.Position
-        
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
-end)
-
-title.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        dragInput = input
-    end
-end)
-
-title.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = false
-        dragInput = nil
-    end
-end)
-
-game:GetService("UserInputService").InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
-    end
-end)
-
-local KeySystem = Instance.new("TextBox")
-KeySystem.Size = UDim2.new(1, 0, 0.5, 0)
-KeySystem.Position = UDim2.new(0, 0, 0, 0)
-KeySystem.Text = "Enter The Key"
-KeySystem.TextSize = 15
-KeySystem.TextColor3 = Color3.new(0, 0, 0)
-KeySystem.BackgroundTransparency = 0.5
-KeySystem.BackgroundColor3 = Color3.new(1, 1, 1)
-KeySystem.TextWrapped = true
-KeySystem.Parent = frame
-
-local SubmitButton = Instance.new("TextButton")
-SubmitButton.Size = UDim2.new(0.5, 0, 0.5, 0)
-SubmitButton.Position = UDim2.new(0, 0, 0.5, 0)
-SubmitButton.Text = "Check Key"
-SubmitButton.TextSize = 15
-SubmitButton.Parent = frame
+local KeyMenu = Instance.new("Frame")
+KeyMenu.Size = UDim2.new(0, 400, 0, 220)
+KeyMenu.Position = UDim2.new(0.5, 0, 0.5, 0)
+KeyMenu.BackgroundColor3 = Configs_HUB.Cor_Hub
+KeyMenu.AnchorPoint = Vector2.new(0.5, 0.5)
+KeyMenu.Active = true
+KeyMenu.Draggable = true
+KeyMenu.Parent = screenGui
+Corner(KeyMenu)
 
 local CloseButton = Instance.new("TextButton")
 CloseButton.Size = UDim2.new(0, 30, 0, 30)
-CloseButton.Position = UDim2.new(1, -30, 0, 0)
+CloseButton.Position = UDim2.new(1, -10, 0, 5)
+CloseButton.AnchorPoint = Vector2.new(1, 0)
 CloseButton.Text = "X"
-CloseButton.TextSize = 15
-CloseButton.TextColor3 = Color3.new(1, 1, 1)
-CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
-CloseButton.Parent = frame
+CloseButton.Font = Enum.Font.FredokaOne
+CloseButton.TextScaled = true
+CloseButton.TextColor3 = Color3.fromRGB(240, 0, 0)
+CloseButton.BackgroundTransparency = 1
+CloseButton.Parent = KeyMenu
+Corner(CloseButton)
 
 CloseButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
+screenGui:Destroy()
 end)
 
-local GetKeyButton = Instance.new("TextButton")
-GetKeyButton.Size = UDim2.new(0.5, 0, 0.5, 0)
-GetKeyButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-GetKeyButton.Text = "Get Key"
-GetKeyButton.TextSize = 15
-GetKeyButton.Parent = frame
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, -80, 0, 20)
+Title.Position = UDim2.new(0, 20, 0, 5)
+Title.Text = "Slap Battles Key System".." | "..identifyexecutor()
+Title.Font = Configs_HUB.Text_Font
+Title.TextScaled = true
+Title.TextColor3 = Configs_HUB.Cor_Text
+Title.TextXAlignment = "Left"
+Title.BackgroundTransparency = 1
+Title.Parent = KeyMenu
 
-SubmitButton.MouseButton1Click:Connect(function()
-local KeySystem = KeySystem.Text
-if KeySystem == "SlapBattlesScriptGetBannedplsnotBanned" or KeySystem == "GetSomeBannedPlsAdminDontBannedYou" then   
+local Description = Instance.new("TextLabel")
+Description.Size = UDim2.new(1, -80, 0, 0)
+Description.Text = "Don't Get Your Account Banned In Slap Battles👏"
+Description.TextSize = 17
+Description.TextColor3 = Configs_HUB.Cor_DarkText
+Description.Font = Configs_HUB.Text_Font
+Description.Position = UDim2.new(0, 20, 0, 25)
+Description.TextXAlignment = "Left"
+Description.AutomaticSize = "Y"
+Description.TextYAlignment = "Top"
+Description.BackgroundTransparency = 1
+Description.Parent = KeyMenu
+
+local ConfirmButton = Instance.new("TextButton")
+ConfirmButton.Text = "Check Key"
+ConfirmButton.Font = Configs_HUB.Text_Font
+ConfirmButton.TextSize = 20
+ConfirmButton.TextColor3 = Configs_HUB.Cor_Text
+ConfirmButton.Size = UDim2.new(0, 150, 0, 40)
+ConfirmButton.AnchorPoint = Vector2.new(1, 0)
+ConfirmButton.Position = UDim2.new(1, -35, 0, 140)
+ConfirmButton.BackgroundColor3 = Configs_HUB.Cor_Options
+ConfirmButton.Parent = KeyMenu
+Corner(ConfirmButton)
+
+local GetKeyLink = Instance.new("TextButton")
+GetKeyLink.Text = "Get Key"
+GetKeyLink.Font = Configs_HUB.Text_Font
+GetKeyLink.TextSize = 20
+GetKeyLink.TextColor3 = Configs_HUB.Cor_Text
+GetKeyLink.Size = UDim2.new(0, 150, 0, 40)
+GetKeyLink.Position = UDim2.new(0, 35, 0, 140)
+GetKeyLink.BackgroundColor3 = Configs_HUB.Cor_Options
+GetKeyLink.Parent = KeyMenu
+Corner(GetKeyLink)
+
+local EnterKey = Instance.new("TextBox")
+EnterKey.Size = UDim2.new(1, -70, 0, 40)
+EnterKey.Position = UDim2.new(0, 35, 0, 90)
+EnterKey.BackgroundColor3 = Configs_HUB.Cor_Options
+EnterKey.PlaceholderText = "Enter Key"
+EnterKey.Text = ""
+EnterKey.TextColor3 = Configs_HUB.Cor_Text
+EnterKey.Font = Configs_HUB.Text_Font
+EnterKey.TextSize = 25
+EnterKey.Parent = KeyMenu
+Corner(EnterKey)
+
+ConfirmButton.MouseButton1Click:Connect(function()
+local EnterKey = EnterKey.Text
+if EnterKey == "SlapBattlesScriptGetBannedplsnotBanned" or EnterKey == "GetSomeBannedPlsAdminDontBannedYou" then   
 screenGui:Destroy()
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+game:GetService("GuiService"):ClearError()
+
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -2587,18 +2602,9 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.PlayerView = Value
-if _G.PlayerView == false then
-if workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
-workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-end
-end
 while _G.PlayerView do
 if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") then
 workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
-end
-if game.Players[_G.ViewPlayer].Character == nil then
-workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-OrionLib:MakeNotification({Name = "Error",Content = "Some player have off",Image = "rbxassetid://7733658504",Time = 5})
 end
 task.wait()
 end
@@ -3164,7 +3170,7 @@ while MagnetPlayer do
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.6, Enum.EasingStyle.Linear)
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
 tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
@@ -4821,14 +4827,13 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 })
 
 elseif game.PlaceId == 13833961666 then
-local VoidPart = Instance.new("Part", workspace)
-VoidPart.Name = "VoidPart"
-VoidPart.Position = Vector3.new(-36, -3, 16)
-VoidPart.Size = Vector3.new(2000, 1, 2000)
-VoidPart.Anchored = true
-VoidPart.Transparency = 1
-VoidPart.CanCollide = true
 local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
+
+shared.gloveHitBob = {
+	["Killstreak"] = game.ReplicatedStorage.KSHit,
+	["Reaper"] = game.ReplicatedStorage.ReaperHit,
+}
+
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.05
@@ -4847,12 +4852,6 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab1 = Window:MakeTab({
-	Name = "Script",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
@@ -4860,12 +4859,24 @@ Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
-	Name = "Damage Boss",
+	Name = "Dame Boss",
 	Default = false,
 	Callback = function(Value)
 _G.DameBossBob = Value
 while _G.DameBossBob do
 game.workspace.bobBoss.DamageEvent:FireServer()
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Slap BobClone",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSlapBobClone = Value
+while _G.AutoSlapBobClone do
+shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.HumanoidRootPart)
 task.wait()
 end
 	end    
@@ -4888,7 +4899,7 @@ end
 	end    
 })
 
-SpawnRob = Tab:AddToggle({
+Tab:AddToggle({
 	Name = "Auto Spawn Rob",
 	Default = false,
 	Callback = function(Value)
@@ -4899,75 +4910,35 @@ game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
 elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-SpawnRob:Set(false)
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end    
 })
 
-Tab:AddDropdown({
-	Name = "Glove Slap Bob",
-	Default = "Killstreak",
-	Options = {"Killstreak", "Reaper"},
-	Callback = function(Value)
-GloveSlap = Value
-	end    
-})
+Tab:AddLabel("Script OP")
 
-Tab:AddToggle({
-	Name = "Slap Bob Clone",
-	Default = false,
-	Callback = function(Value)
-_G.SlapBob = Value
-while _G.SlapBob and GloveSlap == "Killstreak" do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") then
-game.ReplicatedStorage.KSHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-end
-end
-task.wait()
-end
-while _G.SlapBob and GloveSlap == "Reaper" do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") and v:FindFirstChild("DeathMark") then
-game.ReplicatedStorage.ReaperHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-end
-end
-task.wait()
-end
-	end    
-})
-
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "Fe fly V3",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
   	end    
 })
 
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "Inf Yield Delta",
 	Callback = function()
       		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
   	end    
 })
 
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "Inf Yield",
 	Callback = function()
       		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
 })
 
-Tab1:AddButton({
-	Name = "RemoteSpy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "TP back to Slap Battles",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
@@ -5781,7 +5752,7 @@ game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text =
 end
 end)
 
-GetKeyButton.MouseButton1Click:Connect(function()
+GetKeyLink.MouseButton1Click:Connect(function()
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
 setclipboard("https://eu10.proxysite.com/process.php?d=o6LQgpIMKXa%2FPA4FGgOY9bCibv%2BGKvpXJ3eHXrE%3D&b=1") 
 end)
