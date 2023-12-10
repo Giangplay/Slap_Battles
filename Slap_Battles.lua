@@ -9,14 +9,14 @@ screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 200, 0, 100)
-frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.Size = UDim2.new(0, 400, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -80)
 frame.BackgroundColor3 = Color3.new(1, 1, 1)
 frame.Parent = screenGui
 
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 20)
-title.Position = UDim2.new(0, 0, 0, -20)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, -30)
 title.Text = "Slap Battles Key System".." | "..identifyexecutor()
 title.TextColor3 = Color3.new(1, 1, 1)
 title.BackgroundColor3 = Color3.new(0, 0, 0)
@@ -37,7 +37,7 @@ title.InputBegan:Connect(function(input)
         dragging = true
         dragStart = input.Position
         startPos = frame.Position
-
+        
         input.Changed:Connect(function()
             if input.UserInputState == Enum.UserInputState.End then
                 dragging = false
@@ -69,6 +69,7 @@ local KeySystem = Instance.new("TextBox")
 KeySystem.Size = UDim2.new(1, 0, 0.5, 0)
 KeySystem.Position = UDim2.new(0, 0, 0, 0)
 KeySystem.Text = "Enter The Key"
+KeySystem.TextSize = 15
 KeySystem.TextColor3 = Color3.new(0, 0, 0)
 KeySystem.BackgroundTransparency = 0.5
 KeySystem.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -79,12 +80,14 @@ local SubmitButton = Instance.new("TextButton")
 SubmitButton.Size = UDim2.new(0.5, 0, 0.5, 0)
 SubmitButton.Position = UDim2.new(0, 0, 0.5, 0)
 SubmitButton.Text = "Check Key"
+SubmitButton.TextSize = 15
 SubmitButton.Parent = frame
 
 local CloseButton = Instance.new("TextButton")
-CloseButton.Size = UDim2.new(0, 20, 0, 20)
-CloseButton.Position = UDim2.new(1, -20, 0, 0)
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -30, 0, 0)
 CloseButton.Text = "X"
+CloseButton.TextSize = 15
 CloseButton.TextColor3 = Color3.new(1, 1, 1)
 CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
 CloseButton.Parent = frame
@@ -97,6 +100,7 @@ local GetKeyButton = Instance.new("TextButton")
 GetKeyButton.Size = UDim2.new(0.5, 0, 0.5, 0)
 GetKeyButton.Position = UDim2.new(0.5, 0, 0.5, 0)
 GetKeyButton.Text = "Get Key"
+GetKeyButton.TextSize = 15
 GetKeyButton.Parent = frame
 
 SubmitButton.MouseButton1Click:Connect(function()
@@ -2583,9 +2587,18 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.PlayerView = Value
+if _G.PlayerView == false then
+if workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+end
 while _G.PlayerView do
 if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") then
 workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
+end
+if game.Players[_G.ViewPlayer].Character == nil then
+workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+OrionLib:MakeNotification({Name = "Error",Content = "Some player have off",Image = "rbxassetid://7733658504",Time = 5})
 end
 task.wait()
 end
@@ -3151,7 +3164,7 @@ while MagnetPlayer do
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.6, Enum.EasingStyle.Linear)
 tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
 tween:Play()
 end
@@ -4808,13 +4821,14 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 })
 
 elseif game.PlaceId == 13833961666 then
+local VoidPart = Instance.new("Part", workspace)
+VoidPart.Name = "VoidPart"
+VoidPart.Position = Vector3.new(-36, -3, 16)
+VoidPart.Size = Vector3.new(2000, 1, 2000)
+VoidPart.Anchored = true
+VoidPart.Transparency = 1
+VoidPart.CanCollide = true
 local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
-
-shared.gloveHitBob = {
-	["Killstreak"] = game.ReplicatedStorage.KSHit,
-	["Reaper"] = game.ReplicatedStorage.ReaperHit,
-}
-
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.05
@@ -4833,6 +4847,12 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab1 = Window:MakeTab({
+	Name = "Script",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
@@ -4840,24 +4860,12 @@ Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
-	Name = "Dame Boss",
+	Name = "Damage Boss",
 	Default = false,
 	Callback = function(Value)
 _G.DameBossBob = Value
 while _G.DameBossBob do
 game.workspace.bobBoss.DamageEvent:FireServer()
-task.wait()
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Auto Slap BobClone",
-	Default = false,
-	Callback = function(Value)
-_G.AutoSlapBobClone = Value
-while _G.AutoSlapBobClone do
-shared.gloveHitBob[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(workspace.BobClone.HumanoidRootPart)
 task.wait()
 end
 	end    
@@ -4880,7 +4888,7 @@ end
 	end    
 })
 
-Tab:AddToggle({
+SpawnRob = Tab:AddToggle({
 	Name = "Auto Spawn Rob",
 	Default = false,
 	Callback = function(Value)
@@ -4891,35 +4899,75 @@ game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
 elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+SpawnRob:Set(false)
 end
 	end    
 })
 
-Tab:AddLabel("Script OP")
+Tab:AddDropdown({
+	Name = "Glove Slap Bob",
+	Default = "Killstreak",
+	Options = {"Killstreak", "Reaper"},
+	Callback = function(Value)
+GloveSlap = Value
+	end    
+})
 
-Tab:AddButton({
+Tab:AddToggle({
+	Name = "Slap Bob Clone",
+	Default = false,
+	Callback = function(Value)
+_G.SlapBob = Value
+while _G.SlapBob and GloveSlap == "Killstreak" do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") then
+game.ReplicatedStorage.KSHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+end
+end
+task.wait()
+end
+while _G.SlapBob and GloveSlap == "Reaper" do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") and v:FindFirstChild("DeathMark") then
+game.ReplicatedStorage.ReaperHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+end
+end
+task.wait()
+end
+	end    
+})
+
+Tab1:AddButton({
 	Name = "Fe fly V3",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
   	end    
 })
 
-Tab:AddButton({
+Tab1:AddButton({
 	Name = "Inf Yield Delta",
 	Callback = function()
       		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
   	end    
 })
 
-Tab:AddButton({
+Tab1:AddButton({
 	Name = "Inf Yield",
 	Callback = function()
       		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
 })
 
-Tab:AddButton({
+Tab1:AddButton({
+	Name = "RemoteSpy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "TP back to Slap Battles",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
