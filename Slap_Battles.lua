@@ -5829,5 +5829,5 @@ end)
 
 GetKeyLink.MouseButton1Click:Connect(function()
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
-setclipboard("https://eu10.proxysite.com/process.php?d=o6LQgpIMKXa%2FPA4FGgOY9bCibv%2BGKvpXJ3eHXrE%3D&b=1") 
+setclipboard("https://sites.google.com/view/get-key-free-slap-battles") 
 end)
