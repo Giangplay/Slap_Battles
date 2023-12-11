@@ -1310,10 +1310,10 @@ game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.T
 end
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-task.wait(0.3)
+end
+task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-end
 task.wait()
 end
 elseif _G.AutoFarmBob == true then
