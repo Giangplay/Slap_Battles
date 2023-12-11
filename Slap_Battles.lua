@@ -14,6 +14,26 @@ local Configs_HUB = {
   Text_Font = Enum.Font.FredokaOne
 }
 
+local function Create(instance, parent, props)
+  local new = Instance.new(instance, parent)
+  if props then
+    table.foreach(props, function(prop, value)
+      new[prop] = value
+    end)
+  end
+  return new
+end
+
+local function CreateTween(instance, prop, value, time, tweenWait)
+  local tween = game:GetService("TweenService"):Create(instance,
+  TweenInfo.new(time, Enum.EasingStyle.Linear),
+  {[prop] = value})
+  tween:Play()
+  if tweenWait then
+    tween.Completed:Wait()
+  end
+end
+
 local function Corner(parent, props)
   local new = Instance.new("UICorner", parent)
   new.CornerRadius = Configs_HUB.Corner_Radius
@@ -50,6 +70,8 @@ CloseButton.Parent = KeyMenu
 Corner(CloseButton)
 
 CloseButton.MouseButton1Click:Connect(function()
+local UIScale = Create("UIScale", screenGui)
+CreateTween(UIScale, "Scale", 0, 0.20, true)
 screenGui:Destroy()
 end)
 
@@ -115,13 +137,9 @@ Corner(EnterKey)
 ConfirmButton.MouseButton1Click:Connect(function()
 local EnterKey = EnterKey.Text
 if EnterKey == "SlapBattlesScriptGetBannedplsnotBanned" or EnterKey == "GetSomeBannedPlsAdminDontBannedYou" then   
+local UIScale = Create("UIScale", screenGui)
+CreateTween(UIScale, "Scale", 0, 0.40, true)
 screenGui:Destroy()
-if not game:IsLoaded() then
-    game.Loaded:Wait()
-end
-
-game:GetService("GuiService"):ClearError()
-
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -1248,7 +1266,7 @@ task.wait()
 Tab3:AddDropdown({
 	Name = "Farm Bob",
 	Default = "Slow",
-	Options = {"Slow", "Fast", "Super Fast"},
+	Options = {"Slow", "Fast", "Super Fast", "Normal"},
 	Callback = function(Value)
 Autobob = Value
 	end    
@@ -1280,7 +1298,20 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(0.06)
+task.wait(0.5)
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+task.wait()
+end
+while _G.AutoFarmBob and Autobob == "Normal" do
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
+end
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+task.wait(0.3)
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -3636,7 +3667,7 @@ if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..p.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." [ "..p.Name.." ]".." [ "..message.." ]")
 end
 end
 end
@@ -3650,7 +3681,7 @@ if _G.AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
 AntiKick:Set(false)
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." [ "..Player.Name.." ]".." [ "..message.." ]")
 end
 end
 end
@@ -5644,7 +5675,7 @@ Words = message:split(" ")
 if AntiRecord == true then
 for i, v in pairs(Words) do
 if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-game.Players.LocalPlayer:Kick("Possible player recording detected.".." ("..Player.Name..")".." ("..message..")")
+game.Players.LocalPlayer:Kick("Possible player recording detected.".." [ "..Player.Name.." ]".." [ "..message.." ]")
 end
 end
 end
