@@ -3472,23 +3472,6 @@ end
 	end    
 })
 
-AntiShard = Tab2:AddToggle({
-	Name = "Anti Shard",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiShard = Value
-while _G.AntiShard do
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "SkyShard" then
-                        v.CanTouch = false
-                        v.CanQuery = false
-                    end
-                end
-task.wait()
-end
-	end    
-})
-
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -4417,10 +4400,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiTableflip:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiShard:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
