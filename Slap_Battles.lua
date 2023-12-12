@@ -1986,12 +1986,14 @@ game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
 task.wait(0.85)
 end
+end
 if SetGodmode == "Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while AutoGodmode and SetGodmode == "Golden" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
 game:GetService("ReplicatedStorage").Goldify:FireServer(true)
 end
 task.wait()
+end
 end
 	end    
 })
