@@ -1305,16 +1305,16 @@ task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
 repeat task.wait() until game.Players.LocalPlayer.Character
-repeat task.wait()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
+repeat task.wait()
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
-end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
 end
 task.wait()
 end
