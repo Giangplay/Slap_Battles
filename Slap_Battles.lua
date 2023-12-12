@@ -452,10 +452,8 @@ Retro1.Material = "ForceField"
 Retro1.Anchored = true
 Retro1.Transparency = 1
 Retro1.CanCollide = false
-end
 
-if workspace:FindFirstChild("Retro2") == nil then
-local Retro2 = Instance.new("Part", workspace)
+local Retro2 = Instance.new("Part", Retro1)
 Retro2.Position = Vector3.new(-16862.791015625, -7.879573822021484, 4791.55517578125)
 Retro2.Name = "Retro2"
 Retro2.Size = Vector3.new(2000, 1, 2000)
@@ -463,10 +461,8 @@ Retro2.Material = "ForceField"
 Retro2.Anchored = true
 Retro2.Transparency = 1
 Retro2.CanCollide = false
-end
 
-if workspace:FindFirstChild("Retro3") == nil then
-local Retro3 = Instance.new("Part", workspace)
+local Retro3 = Instance.new("Part", Retro1)
 Retro3.Position = Vector3.new(-28023.3046875, -219.92381286621094, 4906.6015625)
 Retro3.Name = "Retro3"
 Retro3.Size = Vector3.new(2000, 1, 2000)
@@ -482,15 +478,13 @@ if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
 VoidPart.Name = "VoidPart"
-VoidPart.Size = Vector3.new(2048, 1, 2021)
+VoidPart.Size = Vector3.new(2048, 1, 2048)
 VoidPart.Material = "ForceField"
 VoidPart.Anchored = true
 VoidPart.Transparency = 1
 VoidPart.CanCollide = false
-end
 
-if workspace:FindFirstChild("TAntiVoid") == nil then
-local TournamentAntiVoid = Instance.new("Part", workspace)
+local TournamentAntiVoid = Instance.new("Part", VoidPart)
 TournamentAntiVoid.Name = "TAntiVoid"
 TournamentAntiVoid.Size = Vector3.new(2048, 15, 2048)
 TournamentAntiVoid.Position = Vector3.new(3450, 59.009, 68)
@@ -3282,11 +3276,11 @@ Tab12:AddToggle({
 	Name = "Anti Void Obby Pyscho",
 	Default = false,
 	Callback = function(Value)
-game.Workspace.Psycho.CanCollide = Value
+game.Workspace["Psycho"].CanCollide = Value
 if Value == true then
-game.Workspace.Psycho.Transparency = 0.5
+game.Workspace["Psycho"].Transparency = 0.5
 else
-game.Workspace.Psycho.Transparency = 1
+game.Workspace["Psycho"].Transparency = 1
 end
 	end    
 })
@@ -3295,17 +3289,17 @@ Tab12:AddToggle({
 	Name = "Anti Void Obby Retro",
 	Default = false,
 	Callback = function(Value)
-game.Workspace.Retro1.CanCollide = Value
-game.Workspace.Retro2.CanCollide = Value
-game.Workspace.Retro3.CanCollide = Value
+game.Workspace["Retro1"].CanCollide = Value
+game.Workspace.Retro1["Retro2"].CanCollide = Value
+game.Workspace.Retro1["Retro3"].CanCollide = Value
 if Value == true then
-game.Workspace.Retro1.Transparency = 0.5
-game.Workspace.Retro2.Transparency = 0.5
-game.Workspace.Retro2.Transparency = 0.5
+game.Workspace["Retro1"].Transparency = 0.5
+game.Workspace.Retro1["Retro2"].Transparency = 0.5
+game.Workspace.Retro1["Retro3"].Transparency = 0.5
 else
-game.Workspace.Retro1.Transparency = 1
-game.Workspace.Retro2.Transparency = 1
-game.Workspace.Retro3.Transparency = 1
+game.Workspace["Retro1"].Transparency = 1
+game.Workspace.Retro1["Retro2"].Transparency = 1
+game.Workspace.Retro1["Retro3"].Transparency = 1
 end
 	end    
 })
@@ -3326,11 +3320,11 @@ AntiVoid = Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
-game.Workspace.VoidPart.CanCollide = Value
-game.Workspace.TAntiVoid.CanCollide = Value
+game.Workspace["VoidPart"].CanCollide = Value
+game.Workspace["VoidPart"]["TAntiVoid"].CanCollide = Value
 if Value == true then
-game.Workspace.VoidPart.Transparency = 0.5
-game.Workspace.TAntiVoid.Transparency = 0.5
+game.Workspace["VoidPart"].Transparency = 0.5
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 0.5
 else
 game.Workspace.VoidPart.Transparency = 1
 game.Workspace.TAntiVoid.Transparency = 1
