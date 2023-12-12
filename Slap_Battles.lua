@@ -1966,7 +1966,7 @@ end
 })
 
 Tab14:AddDropdown({
-	Name = "Godmode",
+	Name = "Godmode Glove",
 	Default = "Golden",
 	Options = {"Reverse","Golden"},
 	Callback = function(Value)
@@ -1974,7 +1974,7 @@ SetGodmode = Value
 	end    
 })
 
-AutoGodmodes = Tab14:AddToggle({
+Tab14:AddToggle({
 	Name = "Auto Godmode",
 	Default = false,
 	Callback = function(Value)
@@ -1984,12 +1984,7 @@ while AutoGodmode and SetGodmode == "Reverse" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) == nil and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 end
-task.wait(0.56)
-end
-elseif AutoGodmode == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped and don't ping in lag.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoGodmodes:Set(false)
+task.wait(0.85)
 end
 if SetGodmode == "Golden" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while AutoGodmode and SetGodmode == "Golden" do
@@ -1997,11 +1992,6 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game:GetService("ReplicatedStorage").Goldify:FireServer(true)
 end
 task.wait()
-end
-elseif AutoGodmode == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoGodmodes:Set(false)
 end
 	end    
 })
@@ -2103,13 +2093,13 @@ repeat task.wait()
 if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
 task.wait(0.37)
-game.Players.LocalPlayer.Character.Head.Anchored = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 end
 until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
-game.Players.LocalPlayer.Character.Head.Anchored = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 task.wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
@@ -2131,13 +2121,13 @@ repeat task.wait()
 if Target.Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
 task.wait(0.37)
-game.Players.LocalPlayer.Character.Head.Anchored = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 end
 until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
 task.wait(0.6)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 wait(.25)
-game.Players.LocalPlayer.Character.Head.Anchored = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 task.wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
@@ -2327,7 +2317,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, B
 task.wait()
 end
 elseif _G.GoldColor == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Golden equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 ColorSkin:Set(false)
 end
@@ -2499,7 +2489,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Wo
 elseif Value == "Tournament" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
 elseif Value == "Keypad" then
+if not workspace:FindFirstChild("Keypad") then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+else
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+end
 elseif Value == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(215, -15.5, 0.5)
 elseif Value == "Default Arena" then
@@ -2665,7 +2659,7 @@ local Found = {}
 local strl = String:lower()
 if strl == "Random" then
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= lplayer.Name then
+if v.Name ~= game.Players.LocalPlayer.Name then
 table.insert(Found,v)
 end
 end
@@ -2687,9 +2681,9 @@ Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
 if not workspace:FindFirstChild("Keypad") then
-for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+for _, v in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+if v.playing < v.maxPlayers and v.JobId ~= game.JobId then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, v.id)
 end
 end
 else
@@ -2721,6 +2715,7 @@ Tab7:AddButton({
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.EggCodes do
 wait(.5)
@@ -3290,16 +3285,16 @@ Tab12:AddToggle({
 	Default = false,
 	Callback = function(Value)
 game.Workspace["Retro1"].CanCollide = Value
-game.Workspace.Retro1["Retro2"].CanCollide = Value
-game.Workspace.Retro1["Retro3"].CanCollide = Value
+game.Workspace["Retro1"]["Retro2"].CanCollide = Value
+game.Workspace["Retro1"]["Retro3"].CanCollide = Value
 if Value == true then
 game.Workspace["Retro1"].Transparency = 0.5
-game.Workspace.Retro1["Retro2"].Transparency = 0.5
-game.Workspace.Retro1["Retro3"].Transparency = 0.5
+game.Workspace["Retro1"]["Retro2"].Transparency = 0.5
+game.Workspace["Retro1"]["Retro3"].Transparency = 0.5
 else
 game.Workspace["Retro1"].Transparency = 1
-game.Workspace.Retro1["Retro2"].Transparency = 1
-game.Workspace.Retro1["Retro3"].Transparency = 1
+game.Workspace["Retro1"]["Retro2"].Transparency = 1
+game.Workspace["Retro1"]["Retro3"].Transparency = 1
 end
 	end    
 })
@@ -3326,8 +3321,8 @@ if Value == true then
 game.Workspace["VoidPart"].Transparency = 0.5
 game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 0.5
 else
-game.Workspace.VoidPart.Transparency = 1
-game.Workspace.TAntiVoid.Transparency = 1
+game.Workspace["VoidPart"].Transparency = 1
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 1
 end
 	end    
 })
