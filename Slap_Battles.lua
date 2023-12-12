@@ -1316,7 +1316,6 @@ task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
-end
 task.wait()
 end
 elseif _G.AutoFarmBob == true then
