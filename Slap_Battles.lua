@@ -1281,14 +1281,14 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Slow" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(15.1)
 end
+task.wait(15.1)
 end
 while _G.AutoFarmBob and Autobob == "Fast" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
-task.wait(5.3)
 end
+task.wait(5.3)
 end
 while _G.AutoFarmBob and Autobob == "Super Fast" do
 repeat task.wait() until game.Players.LocalPlayer.Character
@@ -1298,16 +1298,17 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(0.5)
+task.wait(0.8)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
 repeat task.wait() until game.Players.LocalPlayer.Character
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
+end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
@@ -1442,10 +1443,10 @@ Tab3:AddToggle({
 Giftfarm = Value
 while Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Gift" then
+                    if v.Name == "Gift" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-end
-end
+                    end
+                end
 task.wait()
 end
 	end    
@@ -2646,7 +2647,8 @@ workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:Fi
 end
 if game.Players[_G.ViewPlayer].Character == nil then
 workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-OrionLib:MakeNotification({Name = "Error",Content = "Some player have off",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.5)
+OrionLib:MakeNotification({Name = "Error",Content = "The player has transferred to the server or has turned off.",Image = "rbxassetid://7733658504",Time = 5})
 end
 task.wait()
 end
