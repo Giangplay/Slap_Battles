@@ -1320,81 +1320,6 @@ end
 	end    
 })
 
-ReplicaAndBallerFarm = Tab3:AddToggle({
-	Name = "Replica & Baller Slap Farm",
-	Default = false,
-	Callback = function(Value)
-		ReplicaBallerFarm = Value 
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" then 
-if ReplicaBallerFarm == true then 
-coroutine.wrap(SpamReplicaBaller)() 
-end
-while ReplicaBallerFarm do 
-for i, v in pairs(workspace:GetChildren()) do 
-                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
-                 end
-end
-task.wait()
-end
-elseif ReplicaBallerFarm == true then 
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
-wait(0.05)
-ReplicaAndBallerFarm:Set(false) 
-end 
-	end    
-})
-
-FarmBaller = Tab3:AddToggle({
-	Name = "Auto Slap Baller",
-	Default = false,
-	Callback = function(Value)
-_G.BallerFarm = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if _G.BallerFarm == true then
-coroutine.wrap(SpamBaller)()
-end
-while _G.BallerFarm do
-for _, v in pairs(workspace:GetChildren()) do
-                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-                end
-            end
-task.wait()
-end
-elseif _G.BallerFarm == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-FarmBaller:Set(false)
-end
-	end    
-})
-
-FarmReplica = Tab3:AddToggle({
-	Name = "Auto Slap Replica",
-	Default = false,
-	Callback = function(Value)
-ReplicaFarm = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
-if ReplicaFarm == true then
-coroutine.wrap(SpamReplica)()
-end
-while ReplicaFarm do
-for i, v in pairs(workspace:GetChildren()) do
-                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
-                end
-            end
-task.wait()
-end
-elseif ReplicaFarm == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-FarmReplica:Set(false)
-end
-	end    
-})
-
 Tab3:AddToggle({
 	Name = "Jet Farm",
 	Default = false,
@@ -1895,6 +1820,100 @@ OrbitSpeed = Value
 })
 
 Tab14:AddDropdown({
+	Name = "Equipped Glove Farm",
+	Default = "",
+	Options = {"Baller","Replica","Baller & Replica"},
+	Callback = function(Value)
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+if Value == "Baller" then
+fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
+elseif Value == "Replica" then
+fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
+elseif Value == "Baller & Replica" then
+fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end    
+})
+
+ReplicaAndBallerFarm = Tab14:AddToggle({
+	Name = "Baller & Replica Slap Farm",
+	Default = false,
+	Callback = function(Value)
+		ReplicaBallerFarm = Value 
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" then 
+if ReplicaBallerFarm == true then 
+coroutine.wrap(SpamReplicaBaller)() 
+end
+while ReplicaBallerFarm do 
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                 end
+end
+task.wait()
+end
+elseif ReplicaBallerFarm == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndBallerFarm:Set(false) 
+end 
+	end    
+})
+
+FarmBaller = Tab14:AddToggle({
+	Name = "Auto Slap Baller",
+	Default = false,
+	Callback = function(Value)
+_G.BallerFarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if _G.BallerFarm == true then
+coroutine.wrap(SpamBaller)()
+end
+while _G.BallerFarm do
+for _, v in pairs(workspace:GetChildren()) do
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+end
+elseif _G.BallerFarm == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FarmBaller:Set(false)
+end
+	end    
+})
+
+FarmReplica = Tab14:AddToggle({
+	Name = "Auto Slap Replica",
+	Default = false,
+	Callback = function(Value)
+ReplicaFarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true then
+if ReplicaFarm == true then
+coroutine.wrap(SpamReplica)()
+end
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+end
+elseif ReplicaFarm == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FarmReplica:Set(false)
+end
+	end    
+})
+
+Tab14:AddDropdown({
 	Name = "Ingredient",
 	Default = "",
 	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose"},
@@ -2030,31 +2049,6 @@ Tab14:AddSlider({
 	ValueName = "Speed",
 	Callback = function(Value)
 		_G.SetSpeedCloud = Value
-	end    
-})
-
-Tab14:AddToggle({
-	Name = "AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoFarmSlap = Value
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-while _G.AutoFarmSlap do
-for i,v in pairs(game.Players:GetChildren()) do
-if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
-wait(.25)
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-end
-end
-end
-end
-wait(.25)
-end
 	end    
 })
 
@@ -2728,6 +2722,31 @@ wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
+})
+
+Tab:AddToggle({
+	Name = "AutoFarm Slap",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoFarmSlap = Value
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+while _G.AutoFarmSlap do
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
+wait(.25)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+end
+end
+end
+end
+wait(.25)
+end
+	end    
 })
 
 Tab7:AddButton({
