@@ -1,7 +1,7 @@
 shared.gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    ----------------------------------------
+    -----------// Glove Hit General \\-----------
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -20,7 +20,7 @@ shared.gloveHits = {
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
     ["Killerfish"] = game.ReplicatedStorage.GeneralHit,
-    ["ðŸ—¿"] = game.ReplicatedStorage.GeneralHit,
+    ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
@@ -56,7 +56,7 @@ shared.gloveHits = {
     ["Ferryman"] = game.ReplicatedStorage.GeneralHit,
     ["Scythe"] = game.ReplicatedStorage.GeneralHit,
     ["Blackhole"] = game.ReplicatedStorage.GeneralHit,
-    ----------------------------------------
+    -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -130,9 +130,8 @@ shared.gloveHits = {
     ["Retro"] = game.ReplicatedStorage.RetroHit,
     ["Cloud"] = game.ReplicatedStorage.CloudHit,
     ["Null"] = game.ReplicatedStorage.NullHit,
-    ["Custom"] = game.ReplicatedStorage.CustomHit,
     ["spin"] = game.ReplicatedStorage.spinhit,
-    ----------------------------------------
+    -----------// Glove Hit Stun \\-----------
     ["Kinetic"] = game.ReplicatedStorage.HtStun,
     ["Recall"] = game.ReplicatedStorage.HtStun,
     ["Balloony"] = game.ReplicatedStorage.HtStun,
@@ -140,18 +139,19 @@ shared.gloveHits = {
     ["Boogie"] = game.ReplicatedStorage.HtStun,
     ["Stun"] = game.ReplicatedStorage.HtStun,
     ["Coil"] = game.ReplicatedStorage.HtStun,
-    ----------------------------------------
+    -----------// Glove Hit Diamond \\-----------
     ["Diamond"] = game.ReplicatedStorage.DiamondHit,
     ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    ----------------------------------------
+    -----------// Glove Hit Celestial \\-----------
     ["Moon"] = game.ReplicatedStorage.CelestialHit,
     ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
-    ----------------------------------------
+    -----------// Glove Hard \\-----------
     ["Mitten"] = game.ReplicatedStorage.MittenHit,
     ["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
-    ----------------------------------------
+    -----------// Glove Hit Power \\-----------
     ["OVERKILL"] = game.ReplicatedStorage.Overkillhit,
     ["The Flex"] = game.ReplicatedStorage.FlexHit,
+    ["Custom"] = game.ReplicatedStorage.CustomHit,
     ["God's Hand"] = game.ReplicatedStorage.Godshand,
     ["Error"] = game.ReplicatedStorage.Errorhit
 }
