@@ -1285,8 +1285,9 @@ repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
+task.wait(0.3)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(0.8)
+task.wait(0.9)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1823,6 +1824,7 @@ if Value == "Baller" then
 fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
 elseif Value == "Replica" then
 fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
