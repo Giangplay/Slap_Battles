@@ -5860,6 +5860,19 @@ end
 	end    
 })
 
+Tab1:AddSlider({
+	Name = "Reach HitBox",
+	Min = 2,
+	Max = 30,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitbox = Value
+	end    
+})
+
 Tab1:AddToggle({
 	Name = "Hitbox Player",
 	Default = false,
