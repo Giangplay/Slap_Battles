@@ -252,7 +252,7 @@ end
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.05
+v.BackgroundTransparency = 0.7
 end
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
@@ -1470,7 +1470,11 @@ AutoTycoon = Tab3:AddToggle({
 	   _G.AutoTpPlate = Value
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
 while _G.AutoTpPlate do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+v.CFrame = game.workspace.Arena.Plate.CFrame
+end
+end
 task.wait()
 end
 elseif Value == true then
@@ -2557,6 +2561,26 @@ end
 	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Animation",
+	Default = "Id Animation",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.Animation = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Start Animation",
+	Callback = function()
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://".._G.Animation
+Anim.Name = "Animation"
+local Start = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+Start:Play()
+  	end    
+})
+
 Tab7:AddToggle({
 	Name = "Autofarm Slapples",
 	Default = false,
@@ -2645,10 +2669,9 @@ workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.C
 end
 end
 while _G.PlayerView do
-if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") then
+if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character ~= nil then
 workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
-end
-if game.Players[_G.ViewPlayer].Character == nil then
+else
 workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 wait(0.5)
 OrionLib:MakeNotification({Name = "Error",Content = "The player has transferred to the server or has turned off.",Image = "rbxassetid://7733658504",Time = 5})
@@ -5049,6 +5072,7 @@ Namecall = hookmetamethod(game, "__namecall", function(self, ...)
    return Namecall(self, ...)
 end)
 
+if workspace:FindFirstChild("AntiLava") == nil then
 local AntiLava = Instance.new("Part", workspace)
 AntiLava.Name = "AntiLava"
 AntiLava.Position = Vector3.new(-238, -43, 401)
@@ -5057,13 +5081,14 @@ AntiLava.Anchored = true
 AntiLava.Transparency = 1
 AntiLava.CanCollide = false
 
-local AntiAcid = Instance.new("Part", workspace)
+local AntiAcid = Instance.new("Part", AntiLava)
 AntiAcid.Position = Vector3.new(-70, -20, -725)
 AntiAcid.Name = "AntiAcid"
 AntiAcid.Size = Vector3.new(155, 35, 144)
 AntiAcid.Anchored = true
 AntiAcid.Transparency = 1
-AntiLava.CanCollide = false
+AntiAcid.CanCollide = false
+end
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -5213,7 +5238,7 @@ for i, v in ipairs(game.Players:GetChildren()) do
 end
 while GloveESP do
 for i, v in ipairs(game.Players:GetChildren()) do
-                if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character.inMatch.Value == true and v.Character.Head:FindFirstChild("GloveEsp") == nil then
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character.inMatch.Value == true and v.Character.Head:FindFirstChild("GloveEsp") == nil then
 GloveEsp = Instance.new("BillboardGui", v.Character.Head)
 GloveEsp.Adornee = v.Character.Head
 GloveEsp.Name = "GloveEsp"
@@ -5225,7 +5250,7 @@ GloveEspText = Instance.new("TextLabel", GloveEsp)
 GloveEspText.BackgroundTransparency = 1
 GloveEspText.Size = UDim2.new(0, 100, 0, 100)
 GloveEspText.TextSize = 25
-GloveEspText.Font = Enum.Font.SourceSansSemibold
+GloveEspText.Font = Enum.Font.FredokaOne
 GloveEspText.TextColor3 = Color3.new(255, 255, 255)
 GloveEspText.TextStrokeTransparency = 0
 GloveEspText.Text = "Glove [ "..v.Glove.Value.." ]"
@@ -5642,19 +5667,12 @@ end)
 	end    
 })
 
-AntiAcid = Tab1:AddToggle({
-	Name = "Anti Acid",
+AntiLava_Acid = Tab1:AddToggle({
+	Name = "Anti Lava & Acid",
 	Default = false,
 	Callback = function(Value)
-AntiAcid.CanCollide = Value
-	end    
-})
-
-AntiLava = Tab1:AddToggle({
-	Name = "Anti Lava",
-	Default = false,
-	Callback = function(Value)
-AntiLava.CanCollide = Value
+game.Workspace["AntiLava"].CanCollide = Value
+game.Workspace["AntiLava"]["AntiAcid"].CanCollide = Value
 	end    
 })
 
@@ -5762,7 +5780,7 @@ AntiZone:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiLava:Set(game.Workspace.NoChanged.Value)
+AntiLava_Acid:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -5832,7 +5850,7 @@ end
 	end    
 })
 elseif game.PlaceId == 15507333474 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("Slap Battles Christmas 🎊".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Namecall
 Namecall = hookmetamethod(game, "__namecall", function(self, ...)
@@ -5846,13 +5864,15 @@ Namecall = hookmetamethod(game, "__namecall", function(self, ...)
    return Namecall(self, ...)
 end)
 
+if workspace:FindFirstChild("VoidPart") == nil then
 local Anti = Instance.new("Part", workspace)
 Anti.Name = "AntiVoid"
 Anti.Position = Vector3.new(286, 71, -153)
 Anti.Size = Vector3.new(2000,1,2000)
 Anti.Anchored = true
 Anti.Transparency = 1
-Anti.CanCollide = true
+Anti.CanCollide = false
+end
 
 local Tab1 = Window:MakeTab({
 	Name = "Combat",
@@ -5866,23 +5886,36 @@ local Tab2 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab1:AddSlider({
+	Name = "Reach Slap Aura",
+	Min = 0,
+	Max = 50,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachSlap = Value
+	end    
+})
+
 Tab1:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
 	Callback = function(Value)
-		SlapAura = Value
-                while SlapAura do
+SlapAura = Value
+while SlapAura do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character.Ragdolled.Value == false then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        if 50 >= Magnitude then
+                        if _G.ReachSlap >= Magnitude then
 game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
                     end
 end
 end
                 end
-task.wait(.1)
+task.wait(0.7)
 end
 	end    
 })
@@ -5921,6 +5954,19 @@ for i,v in pairs(game.Players:GetChildren()) do
                         v.Character.HumanoidRootPart.Transparency = 1
                     end
                 end
+end
+	end    
+})
+
+Tab2:AddToggle({
+	Name = "Anti Thorn",
+	Default = false,
+	Callback = function(Value)
+game.Workspace["AntiVoid"].CanCollide = Value
+if Value == true then
+game.Workspace["AntiVoid"].Transparency = 0.5
+else
+game.Workspace["AntiVoid"].Transparency = 1
 end
 	end    
 })
@@ -5967,155 +6013,13 @@ end)
 })
 
 Tab2:AddButton({
-	Name = "Invisible Script [ Keybind Z ]",
+	Name = "Anti Lag",
 	Callback = function()
-local ScriptStarted = false
-local Keybind = "Z"
-local Transparency = true
-local NoClip = false
-
-local Player = game:GetService("Players").LocalPlayer
-local RealCharacter = Player.Character or Player.CharacterAdded:Wait()
-
-local IsInvisible = false
-
-RealCharacter.Archivable = true
-local FakeCharacter = RealCharacter:Clone()
-local Part
-Part = Instance.new("Part", workspace)
-Part.Anchored = true
-Part.Size = Vector3.new(200, 1, 200)
-Part.CFrame = CFrame.new(0, -500, 0) --Set this to whatever you want, just far away from the map.
-Part.CanCollide = true
-FakeCharacter.Parent = workspace
-FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
-
-for i, v in pairs(RealCharacter:GetChildren()) do
-  if v:IsA("LocalScript") then
-      local clone = v:Clone()
-      clone.Disabled = true
-      clone.Parent = FakeCharacter
-  end
-end
-if Transparency then
-  for i, v in pairs(FakeCharacter:GetDescendants()) do
-      if v:IsA("BasePart") then
-          v.Transparency = 0.7
-      end
-  end
-end
-local CanInvis = true
-function RealCharacterDied()
-  CanInvis = false
-  RealCharacter:Destroy()
-  RealCharacter = Player.Character
-  CanInvis = true
-  isinvisible = false
-  FakeCharacter:Destroy()
-  workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
-
-  RealCharacter.Archivable = true
-  FakeCharacter = RealCharacter:Clone()
-  Part:Destroy()
-  Part = Instance.new("Part", workspace)
-  Part.Anchored = true
-  Part.Size = Vector3.new(200, 1, 200)
-  Part.CFrame = CFrame.new(9999, 9999, 9999) --Set this to whatever you want, just far away from the map.
-  Part.CanCollide = true
-  FakeCharacter.Parent = workspace
-  FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
-
-  for i, v in pairs(RealCharacter:GetChildren()) do
-      if v:IsA("LocalScript") then
-          local clone = v:Clone()
-          clone.Disabled = true
-          clone.Parent = FakeCharacter
-      end
-  end
-  if Transparency then
-      for i, v in pairs(FakeCharacter:GetDescendants()) do
-          if v:IsA("BasePart") then
-              v.Transparency = 0.7
-          end
-      end
-  end
- RealCharacter.Humanoid.Died:Connect(function()
- RealCharacter:Destroy()
- FakeCharacter:Destroy()
- end)
- Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
-end
-RealCharacter.Humanoid.Died:Connect(function()
- RealCharacter:Destroy()
- FakeCharacter:Destroy()
- end)
-Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
-local PseudoAnchor
-game:GetService "RunService".RenderStepped:Connect(
-  function()
-      if PseudoAnchor ~= nil then
-          PseudoAnchor.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
-      end
-       if NoClip then
-      FakeCharacter.Humanoid:ChangeState(11)
-       end
-  end
-)
-
-PseudoAnchor = FakeCharacter.HumanoidRootPart
-local function Invisible()
-  if IsInvisible == false then
-      local StoredCF = RealCharacter.HumanoidRootPart.CFrame
-      RealCharacter.HumanoidRootPart.CFrame = FakeCharacter.HumanoidRootPart.CFrame
-      FakeCharacter.HumanoidRootPart.CFrame = StoredCF
-      RealCharacter.Humanoid:UnequipTools()
-      Player.Character = FakeCharacter
-      workspace.CurrentCamera.CameraSubject = FakeCharacter.Humanoid
-      PseudoAnchor = RealCharacter.HumanoidRootPart
-      for i, v in pairs(FakeCharacter:GetChildren()) do
-          if v:IsA("LocalScript") then
-              v.Disabled = false
-          end
-      end
-
-      IsInvisible = true
-  else
-      local StoredCF = FakeCharacter.HumanoidRootPart.CFrame
-      FakeCharacter.HumanoidRootPart.CFrame = RealCharacter.HumanoidRootPart.CFrame
-     
-      RealCharacter.HumanoidRootPart.CFrame = StoredCF
-     
-      FakeCharacter.Humanoid:UnequipTools()
-      Player.Character = RealCharacter
-      workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
-      PseudoAnchor = FakeCharacter.HumanoidRootPart
-      for i, v in pairs(FakeCharacter:GetChildren()) do
-          if v:IsA("LocalScript") then
-              v.Disabled = true
-          end
-      end
-      IsInvisible = false
-  end
-end
-
-game:GetService("UserInputService").InputBegan:Connect(
-  function(key, gamep)
-      if gamep then
-          return
-      end
-      if key.KeyCode.Name:lower() == Keybind:lower() and CanInvis and RealCharacter and FakeCharacter then
-          if RealCharacter:FindFirstChild("HumanoidRootPart") and FakeCharacter:FindFirstChild("HumanoidRootPart") then
-              Invisible()
-          end
-      end
-  end)
-    end    
-})
-
-Tab:AddButton({
-	Name = "Keyboard",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+_G.Settings = {Players = {["Ignore Me"] = true, ["Ignore Others"] = true},
+Meshes = {Destroy = false,LowDetail = true},
+Images = {Invisible = true,LowDetail = false,Destroy = false,},
+Other = {["No Particles"] = true,["No Camera Effects"] = true,["No Explosions"] = true,["No Clothes"] = true,["Low Water Graphics"] = true,["No Shadows"] = true,["Low Rendering"] = true,["Low Quality Parts"] = true}}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
 	end    
 })
 
