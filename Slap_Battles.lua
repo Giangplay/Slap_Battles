@@ -252,7 +252,7 @@ end
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.5
+v.BackgroundTransparency = 0.25
 end
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
@@ -1470,8 +1470,8 @@ AutoTycoon = Tab3:AddToggle({
 	   _G.AutoTpPlate = Value
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
 while _G.AutoTpPlate do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
-game.Players.LocalPlayer.Charater.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
 end
 task.wait()
 end
@@ -1542,7 +1542,7 @@ Santa = Tab14:AddToggle({
 	Callback = function(Value)
 SantaSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Santa" then
-while SantaSpam do
+while SantaSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Santa" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(SantaAbility)
 task.wait()
 end
@@ -1575,7 +1575,7 @@ SaveThePlayer = game.Players.LocalPlayer.Name
 end
 GuardianAngelSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
-while GuardianAngelSpam do
+while GuardianAngelSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[SaveThePlayer])
 task.wait()
 end
@@ -1727,7 +1727,7 @@ PotionAuto = Tab14:AddToggle({
 	Callback = function(Value)
 _G.AutoGetPotion = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-while _G.AutoGetPotion do
+while _G.AutoGetPotion and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
@@ -1797,7 +1797,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
 Orbit = "0"
 PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
-while PingPongOrbit do
+while PingPongOrbit and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 Orbit = Orbit + OrbitSpeed
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, Orbit, -180)
@@ -2080,7 +2080,7 @@ FullKinetic = Tab14:AddToggle({
 	Callback = function(Value)
 FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-while FullKineticSpam do
+while FullKineticSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
 end
@@ -2330,7 +2330,7 @@ ColorSkin = Tab14:AddToggle({
 	Callback = function(Value)
 		_G.GoldColor = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while _G.GoldColor do
+while _G.GoldColor and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" do
 game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(false, BrickColor.new(_G.skinColor))
 task.wait()
 end
@@ -2348,7 +2348,7 @@ RainBox = Tab14:AddToggle({
 	Callback = function(Value)
 		_G.Rainbow = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
-while _G.Rainbow do
+while _G.Rainbow and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" do
 local randomnumber = math.random(1004, 1032)
 local args = {
     [1] = false,
@@ -2770,22 +2770,24 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoFarmSlap = Value
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 while _G.AutoFarmSlap do
+pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
-wait(.25)
+if 25 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude then
+wait(0.25)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+task.wait(0.13)
 end
 end
 end
 end
-wait(.25)
+end
+end)
+task.wait()
 end
 	end    
 })
@@ -5903,6 +5905,7 @@ Tab1:AddToggle({
 	Callback = function(Value)
 SlapAura = Value
 while SlapAura do
+pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character.Ragdolled.Value == false then
@@ -5913,6 +5916,7 @@ game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild("HumanoidR
 end
 end
                 end
+                end)
 task.wait(0.7)
 end
 	end    
