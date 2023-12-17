@@ -1471,9 +1471,7 @@ AutoTycoon = Tab3:AddToggle({
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
 while _G.AutoTpPlate do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-v.CFrame = game.workspace.Arena.Plate.CFrame
-end
+game.Players.LocalPlayer.Charater.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
 end
 task.wait()
 end
