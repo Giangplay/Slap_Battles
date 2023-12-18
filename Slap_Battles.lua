@@ -252,7 +252,7 @@ end
 
 for i,v in pairs(gethui().Orion:GetDescendants()) do
 if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.25
+v.BackgroundTransparency = 0.2
 end
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
