@@ -4299,22 +4299,43 @@ end
 	end    
 })
 
+Tab2:AddDropdown({
+	Name = "Ragdoll Character",
+	Default = "Not Reset",
+	Options = {"Reset","Not Reset"},
+	Callback = function(Value)
+RagdollGetAnti = Value
+	end    
+})
+
 AntiRagdoll = Tab2:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(Value)
         _G.AntiRagdoll = Value
-if _G.AntiRagdoll then
+if _G.AntiRagdoll and RagdollGetAnti == "Reset" then
 game.Players.LocalPlayer.Character.Humanoid.Health = 0
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
-if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and _G.AntiRagdoll then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and _G.AntiRagdoll and RagdollGetAnti == "Reset" then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
 end)
 end)
+end
+while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and _G.AntiRagdoll and RagdollGetAnti == "Not Reset" then
+repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+game.Players.LocalPlayer.Character.Torso.Anchored = false
+end
+end)
+end
+task.wait()
 end
 	end    
 })
@@ -6025,6 +6046,52 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
 	end    
 })
 
+Tab2:AddButton({
+	Name = "Anti Lag inf yield",
+	Callback = function()
+local Terrain = workspace:FindFirstChildOfClass("Terrain")
+	Terrain.WaterWaveSize = 0
+	Terrain.WaterWaveSpeed = 0
+	Terrain.WaterReflectance = 0
+	Terrain.WaterTransparency = 0
+	Lighting.GlobalShadows = false
+	Lighting.FogEnd = 9e9
+	settings().Rendering.QualityLevel = 1
+	for i,v in pairs(game:GetDescendants()) do
+		if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+			v.Material = "Plastic"
+			v.Reflectance = 0
+		elseif v:IsA("Decal") then
+			v.Transparency = 1
+		elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+			v.Lifetime = NumberRange.new(0)
+		elseif v:IsA("Explosion") then
+			v.BlastPressure = 1
+			v.BlastRadius = 1
+		end
+	end
+	for i,v in pairs(Lighting:GetDescendants()) do
+		if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+			v.Enabled = false
+		end
+	end
+	workspace.DescendantAdded:Connect(function(child)
+		task.spawn(function()
+			if child:IsA("ForceField") then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA("Sparkles") then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA("Smoke") or child:IsA("Fire") then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			end
+		end)
+	end)
+	end    
+})
+
 Tab2:AddToggle({
 	Name = "Teleport Flag",
 	Default = false,
@@ -6033,13 +6100,28 @@ Teleport = Value
 game:GetService("RunService").RenderStepped:Connect(function()
 if Teleport then
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(157, 184, -109)
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Part" and v:FindFirstChild("TouchInterest") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,-6,0)
+end
+end
 end
 end
 end)
 	end    
 })
 end
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+v.BackgroundTransparency = 0.2
+end
+end
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
+v.BackgroundTransparency = 1
+end
+end
+gethui().Orion.Name = "OrionEdited"
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
 end
@@ -6047,5 +6129,5 @@ end)
 
 GetKeyLink.MouseButton1Click:Connect(function()
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
-setclipboard("https://sites.google.com/view/get-key-free-slap-battles") 
+setclipboard("https://pastefy.app/kIsrJu4M/raw") 
 end)
