@@ -131,6 +131,7 @@ EnterKey.Text = ""
 EnterKey.TextColor3 = Configs_HUB.Cor_Text
 EnterKey.Font = Configs_HUB.Text_Font
 EnterKey.TextSize = 25
+EnterKey.TextWrapped = true
 EnterKey.Parent = KeyMenu
 Corner(EnterKey)
 
@@ -1356,8 +1357,9 @@ Tab3:AddToggle({
 Giftfarm = Value
 while Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Gift" then
-v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
                     end
                 end
 task.wait()
@@ -4921,25 +4923,17 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 })
 
 elseif game.PlaceId == 13833961666 then
+if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Name = "VoidPart"
 VoidPart.Position = Vector3.new(-36, -3, 16)
 VoidPart.Size = Vector3.new(2000, 1, 2000)
 VoidPart.Anchored = true
 VoidPart.Transparency = 1
-VoidPart.CanCollide = true
+VoidPart.CanCollide = false
+end
+
 local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.05
-end
-end
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
-v.BackgroundTransparency = 1
-end
-end
-gethui().Orion.Name = "OrionEdited"
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -4988,6 +4982,19 @@ end
 	end    
 })
 
+Tab:AddToggle({
+	Name = "Anti Void",
+	Default = false,
+	Callback = function(Value)
+game.Workspace["VoidPart"].CanCollide = Value
+if Value == true then
+game.Workspace["VoidPart"].Transparency = 0.5
+else
+game.Workspace["VoidPart"].Transparency = 1
+end
+	end    
+})
+
 SpawnRob = Tab:AddToggle({
 	Name = "Auto Spawn Rob",
 	Default = false,
@@ -4999,7 +5006,7 @@ game:GetService("ReplicatedStorage").rob:FireServer()
 wait(15)
 end
 elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "Get ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 SpawnRob:Set(false)
 end
@@ -5166,6 +5173,7 @@ Tab:AddToggle({
 	Callback = function(Value)
 		SlapAura = Value
                 while SlapAura do
+pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character then
 if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
@@ -5176,6 +5184,7 @@ game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("Humanoid
 end
 end
                 end
+end)
 task.wait(.05)
 end
 	end    
@@ -5616,7 +5625,7 @@ fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.Clic
 })
 
 Tab2:AddButton({
-	Name = "Free Emotes (Type /e emotename)",
+	Name = "Free Emotes [ Type /e emotename ]",
 	Callback = function()
 Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
 Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
@@ -6043,52 +6052,6 @@ Meshes = {Destroy = false,LowDetail = true},
 Images = {Invisible = true,LowDetail = false,Destroy = false,},
 Other = {["No Particles"] = true,["No Camera Effects"] = true,["No Explosions"] = true,["No Clothes"] = true,["Low Water Graphics"] = true,["No Shadows"] = true,["Low Rendering"] = true,["Low Quality Parts"] = true}}
 loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
-	end    
-})
-
-Tab2:AddButton({
-	Name = "Anti Lag inf yield",
-	Callback = function()
-local Terrain = workspace:FindFirstChildOfClass("Terrain")
-	Terrain.WaterWaveSize = 0
-	Terrain.WaterWaveSpeed = 0
-	Terrain.WaterReflectance = 0
-	Terrain.WaterTransparency = 0
-	Lighting.GlobalShadows = false
-	Lighting.FogEnd = 9e9
-	settings().Rendering.QualityLevel = 1
-	for i,v in pairs(game:GetDescendants()) do
-		if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-			v.Material = "Plastic"
-			v.Reflectance = 0
-		elseif v:IsA("Decal") then
-			v.Transparency = 1
-		elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-			v.Lifetime = NumberRange.new(0)
-		elseif v:IsA("Explosion") then
-			v.BlastPressure = 1
-			v.BlastRadius = 1
-		end
-	end
-	for i,v in pairs(Lighting:GetDescendants()) do
-		if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
-			v.Enabled = false
-		end
-	end
-	workspace.DescendantAdded:Connect(function(child)
-		task.spawn(function()
-			if child:IsA("ForceField") then
-				RunService.Heartbeat:Wait()
-				child:Destroy()
-			elseif child:IsA("Sparkles") then
-				RunService.Heartbeat:Wait()
-				child:Destroy()
-			elseif child:IsA("Smoke") or child:IsA("Fire") then
-				RunService.Heartbeat:Wait()
-				child:Destroy()
-			end
-		end)
-	end)
 	end    
 })
 
