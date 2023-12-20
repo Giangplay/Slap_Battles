@@ -194,6 +194,14 @@ robAnim.Parent = game.ReplicatedStorage
 robAnim.Name = "robAnimation"
 end
 
+game.Players.PlayerRemoving:Connect(function(player)
+if player == nil then
+ViewPlayer:Set(false)
+wait(0.5)
+OrionLib:MakeNotification({Name = "Error",Content = "View turned off [ Player left ]",Image = "rbxassetid://7733658504",Time = 5})
+end
+end)
+
 function SpamBaller()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while _G.BallerFarm do
@@ -2658,7 +2666,7 @@ _G.ViewPlayer = Value
 	end	  
 })
 
-Tab7:AddToggle({
+ViewPlayer = Tab7:AddToggle({
 	Name = "Auto View Player",
 	Default = false,
 	Callback = function(Value)
@@ -2669,14 +2677,10 @@ workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.C
 end
 end
 while _G.PlayerView do
-if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character ~= nil then
+if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
 workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
-else
-workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-wait(0.5)
-OrionLib:MakeNotification({Name = "Error",Content = "The player has transferred to the server or has turned off.",Image = "rbxassetid://7733658504",Time = 5})
-end
 task.wait()
+end
 end
 	end    
 })
