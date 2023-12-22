@@ -257,20 +257,6 @@ fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
----Transparency---
-
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.2
-end
-end
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
-v.BackgroundTransparency = 1
-end
-end
-gethui().Orion.Name = "OrionEdited"
-
 ---SafeSpotBox---
 
 if workspace:FindFirstChild("SafeBox") == nil then
@@ -3631,9 +3617,7 @@ Tab7:AddToggle({
 while MagnetPlayer do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
-tween:Play()
+game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, TweenInfo.new(.7, Enum.EasingStyle.Linear), {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)}):Play()
 end
 end
 task.wait()
@@ -3650,9 +3634,7 @@ while MagnetPlayer do
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.7, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)})
-tween:Play()
+game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, TweenInfo.new(.7, Enum.EasingStyle.Linear), {CFrame = v.Character.HumanoidRootPart.CFrame + Vector3.new(0,_G.HeightMagnet,0)}):Play()
 end
 end
 end
@@ -3781,11 +3763,13 @@ AntiPortal = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
+workspace.SnowyPortalTeleporter.Teleport1.CanTouch = false
 workspace.Lobby.Teleport2.CanTouch = false
 workspace.Lobby.Teleport3.CanTouch = false
 workspace.Lobby.Teleport4.CanTouch = false
 workspace.Lobby.Teleport6.CanTouch = false
 else
+workspace.SnowyPortalTeleporter.Teleport1.CanTouch = true
 workspace.Lobby.Teleport2.CanTouch = true
 workspace.Lobby.Teleport3.CanTouch = true
 workspace.Lobby.Teleport4.CanTouch = true
@@ -3852,7 +3836,9 @@ AntiObby = Tab2:AddToggle({
 while _G.AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+if v.CanTouch == true then
 v.CanTouch = false
+end
 end
 end
 task.wait()
@@ -3860,7 +3846,9 @@ end
 if _G.AntiObby == false then
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+if v.CanTouch == false then
 v.CanTouch = true
+end
 end
 end
 end
