@@ -195,7 +195,7 @@ robAnim.Name = "robAnimation"
 end
 
 game.Players.PlayerRemoving:Connect(function(player)
-if player == nil then
+if Viewing ~= nil and player == nil then
 ViewPlayer:Set(false)
 wait(0.5)
 OrionLib:MakeNotification({Name = "Error",Content = "View turned off [ Player left ]",Image = "rbxassetid://7733658504",Time = 5})
@@ -425,7 +425,7 @@ Safespot5.Transparency = .5
 Safespot5.Parent = game.workspace.Safespot
 end
 
----AntiVoidBagde---
+---AntiVoidBadge---
 
 if workspace:FindFirstChild("Psycho") == nil then
 local Psycho = Instance.new("Part", workspace)
@@ -508,13 +508,13 @@ local Tab2 = Window:MakeTab({
 })
 
 local Tab12 = Window:MakeTab({
-	Name = "Anti Void Bagde",
+	Name = "Anti Void Badge",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Tab3 = Window:MakeTab({
-	Name = "Bagdes",
+	Name = "Badges",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -553,11 +553,12 @@ local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
-TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 CodeKeypad = Tab:AddLabel("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
+PositionYou = Tab:AddLabel("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 
 Tab1:AddButton({
@@ -766,9 +767,9 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Bagde", "Show All","Spawn"},
+	Options = {"Get Badge", "Show All","Spawn"},
 	Callback = function(Value)
-if Value == "Get Bagde" then
+if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 elseif Value == "Show All" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
@@ -1106,14 +1107,14 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Duck and Orange and Knife Bagde",
+	Name = "Get Duck & Orange & Knife Badge",
 	Callback = function()
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
 fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
 fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector) 
 fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Bagde",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1135,7 +1136,7 @@ end
 end
 end
 end)
-elseif Value == true then
+elseif _G.AutoHallowJack == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have glove Killstreak",Image = "rbxassetid://7733658504",Time = 5})
 OrionLib:MakeNotification({Name = "Error",Content = "until Slap battles update Halloween 👍",Image = "rbxassetid://7733658504",Time = 5})
 task.wait(0.05)
@@ -1644,7 +1645,7 @@ Cancel = false
 })
 
 Tab14:AddButton({
-	Name = "Kick Player",
+	Name = "Kick Player Za Hando",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
@@ -1667,6 +1668,41 @@ v.CanTouch = true
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Za Hando equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Kick Player Recall",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+PlayerKick = Value
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Start Kick Player Recall",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2.5)
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
+end
+task.wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2653,6 +2689,7 @@ _G.ViewPlayer = Value
 	end	  
 })
 
+Viewing = nil
 ViewPlayer = Tab7:AddToggle({
 	Name = "Auto View Player",
 	Default = false,
@@ -2665,7 +2702,8 @@ end
 end
 while _G.PlayerView do
 if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
-workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
+local Viewing = game.Players[_G.ViewPlayer]
+workspace.CurrentCamera.CameraSubject = Viewing.Character:FindFirstChildOfClass("Humanoid")
 task.wait()
 end
 end
@@ -4437,6 +4475,7 @@ ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." / "..game.Pla
 TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+PositionYou:Set("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
@@ -4579,7 +4618,7 @@ local Window = OrionLib:MakeWindow({IntroText = (GameName.." / Server Elude"), N
 
 --Tab
 local Tab = Window:MakeTab({
-	Name = "Bagdes",
+	Name = "Badges",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -5862,7 +5901,7 @@ end)
 })
 
 Tab:AddDropdown({
-	Name = "Bagde",
+	Name = "Badge",
 	Default = "",
 	Options = {"Null", "Tinkever"},
 	Callback = function(Value)
