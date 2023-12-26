@@ -3615,7 +3615,7 @@ Tab7:AddToggle({
 _G.AllESP = Value
 if _G.AllESP == false then
 for i, v in pairs(game.Workspace:GetChildren()) do
-                if v.Name == "Gift" or v.Name == "PhaseOrb" or v.Name == "JetOrb" and v:FindFirstChild("BadgeEsp") then
+                if v:FindFirstChild("BadgeEsp") then
 v.BadgeEsp:Destroy()
                 end
             end
