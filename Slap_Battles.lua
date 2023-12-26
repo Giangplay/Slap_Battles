@@ -2796,6 +2796,19 @@ end
   	end    
 })
 
+Tab7:AddSlider({
+	Name = "HipHeight AutoFarm Slap",
+	Min = 0,
+	Max = 20,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hip",
+	Callback = function(Value)
+		_G.HipAutoFarmSlap = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "AutoFarm Slap",
 	Default = false,
@@ -2807,12 +2820,10 @@ for i,v in pairs(game.Players:GetChildren()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("Right Leg").CFrame * CFrame.new(6,-5,6)
-if 25 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude then
-wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
+wait(0.55)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-task.wait(0.13)
-end
+wait(0.25)
 end
 end
 end
@@ -3552,6 +3563,14 @@ end
 	end    
 })
 
+Tab7:AddColorpicker({
+	Name = "Color ESP",
+	Default = Color3.fromRGB(111, 255, 0),
+	Callback = function(Value)
+		_G.ColorESP = Value
+	end	  
+})
+
 Tab7:AddToggle({
 	Name = "ESP Glove",
 	Default = false,
@@ -3579,9 +3598,46 @@ GloveEspText.BackgroundTransparency = 1
 GloveEspText.Size = UDim2.new(0, 100, 0, 100)
 GloveEspText.TextSize = 20
 GloveEspText.Font = Enum.Font.FredokaOne
-GloveEspText.TextColor3 = Color3.new(255, 255, 255)
-GloveEspText.TextStrokeTransparency = 0
+GloveEspText.TextColor3 = _G.ColorESP
+GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
+                end
+            end
+task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "ESP Gift | Jet | Phase",
+	Default = false,
+	Callback = function(Value)
+_G.AllESP = Value
+if _G.AllESP == false then
+for i, v in pairs(game.Workspace:GetChildren()) do
+                if v.Name == "Gift" or v.Name == "PhaseOrb" or v.Name == "JetOrb" and v:FindFirstChild("BadgeEsp") then
+v.BadgeEsp:Destroy()
+                end
+            end
+end
+while _G.AllESP do
+for i, v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Gift" or v.Name == "PhaseOrb" or v.Name == "JetOrb" and v:FindFirstChild("BadgeEsp") == nil then
+BadgeEsp = Instance.new("BillboardGui", v)
+BadgeEsp.Adornee = v
+BadgeEsp.Name = "BadgeEsp"
+BadgeEsp.Size = UDim2.new(0, 100, 0, 150)
+BadgeEsp.StudsOffset = Vector3.new(0, 1, 0)
+BadgeEsp.AlwaysOnTop = true
+BadgeEsp.StudsOffset = Vector3.new(0, 3, 0)
+BadgeEspText = Instance.new("TextLabel", BadgeEsp)
+BadgeEspText.BackgroundTransparency = 1
+BadgeEspText.Size = UDim2.new(0, 100, 0, 100)
+BadgeEspText.TextSize = 20
+BadgeEspText.Font = Enum.Font.FredokaOne
+BadgeEspText.TextColor3 = _G.ColorESP
+BadgeEspText.TextStrokeTransparency = 0.5
+BadgeEspText.Text = v.Name
                 end
             end
 task.wait()
@@ -3653,11 +3709,13 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		MagnetPlayer = Value
 while MagnetPlayer do
+pcall(function()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, TweenInfo.new(.7, Enum.EasingStyle.Linear), {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)}):Play()
 end
 end
+end)
 task.wait()
 end
 	end    
@@ -3669,6 +3727,7 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		MagnetPlayer = Value
 while MagnetPlayer do
+pcall(function()
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
@@ -3676,6 +3735,7 @@ game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"]
 end
 end
 end
+end)
 task.wait()
 end
 	end    
