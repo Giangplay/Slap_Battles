@@ -555,6 +555,7 @@ CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.Se
 ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+ViewAgeServer = Tab:AddLabel("View Server Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 CodeKeypad = Tab:AddLabel("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
@@ -791,7 +792,7 @@ Tab3:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i = 1,100 do
+for i = 1,145 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.05)
 end
@@ -1692,7 +1693,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.5)
+task.wait(2.3)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
 end
@@ -1927,7 +1928,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players
 if _G.BallerFarm == true then
 coroutine.wrap(SpamBaller)()
 end
-while _G.BallerFarm do
+while _G.BallerFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
 game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
@@ -1952,7 +1953,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Player
 if ReplicaFarm == true then
 coroutine.wrap(SpamReplica)()
 end
-while ReplicaFarm do
+while ReplicaFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true do
 for i, v in pairs(workspace:GetChildren()) do
                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
 game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
@@ -1994,7 +1995,7 @@ GetAlchemist = Tab14:AddToggle({
 	Callback = function(Value)
 		AlchemistIngredients = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-while AlchemistIngredients do
+while AlchemistIngredients and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" do
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem", AlchemistIngredientsGet)
 task.wait()
 end
@@ -2012,7 +2013,7 @@ GetAllAlchemist = Tab14:AddToggle({
 	Callback = function(Value)
 		AlchemistIngredients = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-while AlchemistIngredients do
+while AlchemistIngredients and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" do
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
@@ -2078,7 +2079,7 @@ CloudSpeed = Tab14:AddToggle({
 	Callback = function(Value)
 _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
-while _G.CloudSpeed do
+while _G.CloudSpeed and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
 v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
@@ -2689,7 +2690,6 @@ _G.ViewPlayer = Value
 	end	  
 })
 
-Viewing = nil
 ViewPlayer = Tab7:AddToggle({
 	Name = "Auto View Player",
 	Default = false,
@@ -2702,8 +2702,7 @@ end
 end
 while _G.PlayerView do
 if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
-local Viewing = game.Players[_G.ViewPlayer]
-workspace.CurrentCamera.CameraSubject = Viewing.Character:FindFirstChildOfClass("Humanoid")
+workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
 task.wait()
 end
 end
@@ -3515,7 +3514,7 @@ AutoShukuchi = Tab7:AddToggle({
 	Callback = function(Value)
          _G.AutoShukuchi = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
-                while _G.AutoShukuchi do
+                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
@@ -3781,7 +3780,7 @@ RhythmNote = Tab7:AddToggle({
 	Callback = function(Value)
 		RhythmNoteSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" then
-while RhythmNoteSpam do
+while RhythmNoteSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" do
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
 game.Players.LocalPlayer.Character.Rhythm:Activate()
@@ -4085,15 +4084,15 @@ AntiIceAndPotion = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AntiIce = Value
-while _G.AntiIce do
-                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v.Name == "Icecube" then
-                        v:Destroy()
-                    end
-                end
-if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true or game.Workspace:FindFirstChild("Shockwave") then
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
+   while _G.AntiIce do
+           if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
+                game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+           end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v.Name == "Icecube" then
+                v:Destroy()
+            end
+       end
 task.wait()
 end
 	end    
@@ -4528,20 +4527,21 @@ Tab15:AddButton({
   	end 
 })
 
---GetRun--
+--infoServerRun--
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
+ViewAgeServer:Set("View Server Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 PositionYou:Set("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 end)
 
----AllAnti---
+---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiVoid:Set(game.Workspace.NoChanged.Value)
 end)
@@ -6164,6 +6164,24 @@ end
 end
 end
 end)
+	end    
+})
+
+Tab2:AddToggle({
+	Name = "Shoots Snowball",
+	Default = false,
+	Callback = function(Value)
+_G.ShootsSnowball = Value
+while _G.ShootsSnowball do
+local args = {
+    [1] = 999,
+    [2] = Vector3.new(158.67724609375, 191.6060333251953, -110.86800384521484),
+    [3] = Vector3.new(156.8695831298828, 179.1384735107422, -108.30918884277344)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(unpack(args))
+task.wait()
+end
 	end    
 })
 end
