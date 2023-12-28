@@ -1685,7 +1685,7 @@ PlayerKick = Value
 Tab14:AddButton({
 	Name = "Start Kick Player Recall",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
@@ -1694,16 +1694,14 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.3)
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
-end
 task.wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you not equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -3958,7 +3956,7 @@ AntiRock = Tab2:AddToggle({
 	Callback = function(Value)
 		_G.AntiRock = Value
 while _G.AntiRock do
-for i,v in pairs(game.Workspace:GetDescendants()) do
+for _,v in pairs(game.Players:GetChildren()) do
                     if v.Name == "rock" and v.CanTouch == true and v.CanQuery == true then
                         v.CanTouch = false
                         v.CanQuery = false
@@ -4012,6 +4010,20 @@ _G.AntiMail = Value
 while _G.AntiMail do
 if game.Players.LocalPlayer.Character:FindFirstChild("YouHaveGotMail") then
 game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = true
+end
+task.wait()
+end
+	end    
+})
+
+AntiMittenBlind = Tab2:AddToggle({
+	Name = "Anti Mitten Blind",
+	Default = false,
+	Callback = function(Value)
+_G.AntiMittenBlind = Value
+while _G.AntiMittenBlind do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("MittenBlind") then
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("MittenBlind"):Destroy()
 end
 task.wait()
 end
