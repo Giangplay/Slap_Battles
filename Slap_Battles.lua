@@ -1280,7 +1280,7 @@ task.wait()
 Tab3:AddDropdown({
 	Name = "Farm Bob",
 	Default = "Slow",
-	Options = {"Slow", "Fast", "Super Fast", "Normal"},
+	Options = {"Slow", "Fast", "Fast V2", "Normal","Super Fast"},
 	Callback = function(Value)
 Autobob = Value
 	end    
@@ -1304,16 +1304,15 @@ game.ReplicatedStorage.Duplicate:FireServer(true)
 end
 task.wait(5.3)
 end
-while _G.AutoFarmBob and Autobob == "Super Fast" do
+while _G.AutoFarmBob and Autobob == "Fast V2" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-task.wait(0.3)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(0.9)
+wait(0.3)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1332,6 +1331,15 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 end
 task.wait()
+end
+while _G.AutoFarmBob and Autobob == "Super Fast" do
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+wait(0.5)
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+task.wait(0.2)
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+task.wait(1.8)
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
