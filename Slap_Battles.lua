@@ -1154,17 +1154,16 @@ GetJack = Tab3:AddToggle({
 	Callback = function(Value)
 		_G.AutoHallowJack = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoHallowJack then
-if workspace:FindFirstChild("Gravestone") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
-for i,v in pairs(workspace.Gravestone:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
+while _G.AutoHallowJack and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text == "10" then
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name:match("Gravestone") and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector)
 end
 end
 end
+task.wait()
 end
-end)
 elseif _G.AutoHallowJack == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have glove Killstreak",Image = "rbxassetid://7733658504",Time = 5})
 OrionLib:MakeNotification({Name = "Error",Content = "until Slap battles update Halloween 👍",Image = "rbxassetid://7733658504",Time = 5})
@@ -1175,21 +1174,18 @@ end
 })
 
 Tab3:AddToggle({
-	Name = "Auto Get Hammer [ Other Spawn ToolBox ]",
+	Name = "Get Glove Hammer",
 	Default = false,
 	Callback = function(Value)
-		_G.AutoHammer = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoHammer then
-if workspace:FindFirstChild("Toolbox") then
-for i,v in pairs(workspace.Toolbox:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
+_G.PickUpToolbox = Value
+while _G.PickUpToolbox do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name:match("Toolbox") and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector)
 end
 end
+task.wait()
 end
-end
-end)
 	end    
 })
 
@@ -2376,7 +2372,7 @@ task.wait(0.5)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 task.wait(0.6)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-v.Transparency = 0.5
+v.Transparency = 0
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
@@ -2543,6 +2539,9 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                        v.Transparency = 0
+                end
 for i,v in pairs(game.LogService:GetChildren()) do
                         v.Parent = game.Players.LocalPlayer.Backpack
                 end
@@ -2856,7 +2855,6 @@ if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.Loca
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 wait(0.55)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-wait(0.25)
 end
 end
 end
@@ -3732,7 +3730,7 @@ Tab7:AddSlider({
 	Increment = 1,
 	ValueName = "Height",
 	Callback = function(Value)
-		_G.HeightMagnet= Value
+		_G.HeightMagnet = Value
 	end    
 })
 
@@ -3745,7 +3743,7 @@ while MagnetPlayer do
 pcall(function()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, TweenInfo.new(.7, Enum.EasingStyle.Linear), {CFrame = game.Players[magnetPlayerHe].Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.HeightMagnet,0)}):Play()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,_G.HeightMagnet,0)
 end
 end
 end)
@@ -3764,7 +3762,7 @@ pcall(function()
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game:GetService("TweenService"):Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, TweenInfo.new(.7, Enum.EasingStyle.Linear), {CFrame = v.Character.HumanoidRootPart.CFrame + Vector3.new(0,_G.HeightMagnet,0)}):Play()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,_G.HeightMagnet,0)
 end
 end
 end
