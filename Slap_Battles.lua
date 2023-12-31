@@ -1661,7 +1661,7 @@ if Cancel == true then
 break
 end
 if game.Players[_G.PunishPlayer].Character:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49865,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49867,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
 end
 task.wait()
 if Timer < 1 then
@@ -2796,12 +2796,15 @@ Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
 if not workspace:FindFirstChild("Keypad") then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad, can have started serverhop",Image = "rbxassetid://7733658504",Time = 5})
+task.wait(2.25)
 for _, v in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
 if v.playing < v.maxPlayers and v.JobId ~= game.JobId then
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, v.id)
 end
 end
 else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
@@ -2868,7 +2871,7 @@ if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirs
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
-wait(0.55)
+task.wait(0.55)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
 end
 end
@@ -3510,7 +3513,7 @@ Tab7:AddSlider({
 	Name = "Reach HitBox",
 	Min = 2,
 	Max = 30,
-	Default = 20,
+	Default = 10,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Reach",
@@ -4212,7 +4215,7 @@ AntiBrick = Tab2:AddToggle({
 _G.AntiBrick = Value
 while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Union" then
+                    if v.Name == "Union" and v:FindFirstChild("TouchTransmitter") then
                         v.CanTouch = false
                     end
                 end
@@ -4454,7 +4457,7 @@ end
 
 Tab2:AddDropdown({
 	Name = "Ragdoll Character",
-	Default = "Not Reset",
+	Default = "Reset",
 	Options = {"Reset","Not Reset"},
 	Callback = function(Value)
 RagdollGetAnti = Value
@@ -5228,16 +5231,18 @@ end)
 elseif game.PlaceId == 9431156611 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
-local Namecall
-Namecall = hookmetamethod(game, "__namecall", function(self, ...)
-   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
-       return
-   end
-   return Namecall(self, ...)
+local bypass;
+bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.Ban then
+     return
+elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.AdminGUI then
+     return
+elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS then
+     return
+elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS2 then
+     return
+end
+return bypass(method, ...)
 end)
 
 if workspace:FindFirstChild("AntiLava") == nil then
