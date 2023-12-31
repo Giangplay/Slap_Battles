@@ -1148,6 +1148,17 @@ end
   	end 
 })
 
+Tab3:AddButton({
+	Name = "Get Ice Skate",
+	Callback = function()
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2906002612987222) then
+game:GetService("ReplicatedStorage").IceSkate:FireServer("Freeze")
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 GetJack = Tab3:AddToggle({
 	Name = "Auto Get Hallow Jack",
 	Default = false,
@@ -1725,7 +1736,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.3)
+task.wait(2.4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
 task.wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -5315,6 +5326,58 @@ end
 	end    
 })
 
+ReachSlap = Tab:AddToggle({
+	Name = "Reach Slap",
+	Default = false,
+	Callback = function(Value)
+		getgenv().Reach = Value
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
+if input.UserInputType == Enum.UserInputType.MouseButton1 then
+if getgenv().Reach then
+       pcall(function()
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character then
+if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if 20 >= Magnitude then
+game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
+task.wait()
+                    end
+end
+end
+                end
+end)
+end
+end
+end)
+	end    
+})
+
+Hitbox = Tab:AddToggle({
+	Name = "Hitbox Player",
+	Default = false,
+	Callback = function(Value)
+_G.HitboxPlayer = Value
+while _G.HitboxPlayer do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
+                        v.Character.HumanoidRootPart.Transparency = 0.75
+                    end
+                end
+task.wait()
+end
+if _G.HitboxPlayer == false then
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+                        v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
+end
+	end    
+})
+
 GetItem = Tab:AddToggle({
 	Name = "Auto Get All Item",
 	Default = false,
@@ -5931,11 +5994,23 @@ EspGlove:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+ReachSlap:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+Hitbox:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiZone:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiLava_Acid:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiReco:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
