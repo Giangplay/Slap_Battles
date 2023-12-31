@@ -5335,58 +5335,6 @@ end
 	end    
 })
 
-ReachSlap = Tab:AddToggle({
-	Name = "Reach Slap",
-	Default = false,
-	Callback = function(Value)
-		getgenv().Reach = Value
-game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
-if input.UserInputType == Enum.UserInputType.MouseButton1 then
-if getgenv().Reach then
-       pcall(function()
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character then
-if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        if 20 >= Magnitude then
-game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
-task.wait()
-                    end
-end
-end
-                end
-end)
-end
-end
-end)
-	end    
-})
-
-Hitbox = Tab:AddToggle({
-	Name = "Hitbox Player",
-	Default = false,
-	Callback = function(Value)
-_G.HitboxPlayer = Value
-while _G.HitboxPlayer do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
-                        v.Character.HumanoidRootPart.Transparency = 0.75
-                    end
-                end
-task.wait()
-end
-if _G.HitboxPlayer == false then
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                        v.Character.HumanoidRootPart.Transparency = 1
-                    end
-                end
-end
-	end    
-})
-
 GetItem = Tab:AddToggle({
 	Name = "Auto Get All Item",
 	Default = false,
@@ -5401,6 +5349,7 @@ if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
             end
 repeat task.wait() until game.Workspace:FindFirstChildWhichIsA("Tool") == nil
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+GetItem:Set(false)
 end
 task.wait()
 end
