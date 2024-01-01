@@ -5171,18 +5171,16 @@ Tab:AddToggle({
 	Callback = function(Value)
 _G.SlapBob = Value
 while _G.SlapBob and GloveSlap == "Killstreak" do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") then
-game.ReplicatedStorage.KSHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-end
-end
+local args = {[1] = workspace:WaitForChild("BobClone"):WaitForChild("HumanoidRootPart")}
+game:GetService("ReplicatedStorage"):WaitForChild("KSHit"):FireServer(unpack(args))
 task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
-for i,v in pairs(workspace:GetChildren()) do
-if v.Name:match("BobClone") and v:WaitForChild("HumanoidRootPart") and v:FindFirstChild("DeathMark") then
-game.ReplicatedStorage.ReaperHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-end
+if workspace:WaitForChild("BobClone"):WaitForChild("DeathMark") == nil then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.BobClone.HumanoidRootPart.Position).Magnitude
+if 90 >= Magnitude then
+local args = {[1] = workspace:WaitForChild("BobClone"):WaitForChild("HumanoidRootPart")}
+game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(unpack(args))
 end
 task.wait()
 end
