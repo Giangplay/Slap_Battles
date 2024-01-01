@@ -5182,6 +5182,7 @@ if 90 >= Magnitude then
 local args = {[1] = workspace:WaitForChild("BobClone"):WaitForChild("HumanoidRootPart")}
 game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(unpack(args))
 end
+end
 task.wait()
 end
 	end    
