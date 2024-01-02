@@ -4,7 +4,7 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
+if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 or game.PlaceId == 15507333474 or game.PlaceId == 14422118326 or game.PlaceId == 9020359053 or game.PlaceId == 9412268818 or game.PlaceId == 13833961666 or game.PlaceId == 9431156611 then
 local Configs_HUB = {
   Cor_Hub = Color3.fromRGB(15, 15, 15),
   Cor_Options = Color3.fromRGB(15, 15, 15),
@@ -3050,13 +3050,11 @@ game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["fi
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Track" do
-local LocalPlayer = game.Players.LocalPlayer
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character.isInArena.Value == true
-PersonToKill = RandomPlayer
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PersonToKill.Character)
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil
+Target = RandomPlayer
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character)
 wait(10.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Mail" do
@@ -3257,7 +3255,7 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ferryman" do
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Leap")
 wait(1.85)
-game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer( "FinishLeap",game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("FinishLeap",game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 wait(1.7)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" do
@@ -3267,6 +3265,11 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blackhole" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jebaited" do
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(CFrame.new(OGL) * CFrame.Angles(-2.62974964471141e-07, 1.4957197904586792, 2.625950799028942e-07))
+wait(7)
 end
 	end    
 })
