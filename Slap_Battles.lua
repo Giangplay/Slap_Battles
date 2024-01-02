@@ -4,6 +4,7 @@ end
 
 game:GetService("GuiService"):ClearError()
 
+if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 local Configs_HUB = {
   Cor_Hub = Color3.fromRGB(15, 15, 15),
   Cor_Options = Color3.fromRGB(15, 15, 15),
@@ -436,6 +437,17 @@ Psycho.Material = "ForceField"
 Psycho.Anchored = true
 Psycho.Transparency = 1
 Psycho.CanCollide = false
+end
+
+if workspace:FindFirstChild("Kraken") == nil then
+local Kraken = Instance.new("Part", workspace)
+Kraken.Position = Vector3.new(221, 29, -12632)
+Kraken.Name = "Kraken"
+Kraken.Size = Vector3.new(2000, 1, 2000)
+Kraken.Material = "ForceField"
+Kraken.Anchored = true
+Kraken.Transparency = 1
+Kraken.CanCollide = false
 end
 
 if workspace:FindFirstChild("Retro1") == nil then
@@ -3900,6 +3912,19 @@ end
 	end    
 })
 
+Tab12:AddToggle({
+	Name = "Anti Water Kraken",
+	Default = false,
+	Callback = function(Value)
+game.Workspace["Kraken"].CanCollide = Value
+if Value == true then
+game.Workspace["Kraken"].Transparency = 0.5
+else
+game.Workspace["Kraken"].Transparency = 1
+end
+	end    
+})
+
 if game.Workspace:FindFirstChild("NoChanged") == nil then
 local NoChanged = Instance.new("BoolValue", workspace)
 NoChanged.Name = "NoChanged"
@@ -6293,3 +6318,4 @@ GetKeyLink.MouseButton1Click:Connect(function()
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
 setclipboard("https://pastefy.app/kIsrJu4M/raw") 
 end)
+end
