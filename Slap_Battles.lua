@@ -195,14 +195,6 @@ robAnim.Parent = game.ReplicatedStorage
 robAnim.Name = "robAnimation"
 end
 
-game.Players.PlayerRemoving:Connect(function(player)
-if Viewing ~= nil and player == nil then
-ViewPlayer:Set(false)
-wait(0.5)
-OrionLib:MakeNotification({Name = "Error",Content = "View turned off [ Player left ]",Image = "rbxassetid://7733658504",Time = 5})
-end
-end)
-
 function SpamBaller()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while _G.BallerFarm do
@@ -812,14 +804,29 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Badge", "Show All","Spawn"},
+	Options = {"Get Badge", "Show All", "Teleport Spawn"},
 	Callback = function(Value)
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 elseif Value == "Show All" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
-elseif Value == "Spawn" then
+elseif Value == "Teleport Spawn" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
+end
+	end    
+})
+
+Tab3:AddDropdown({
+	Name = "Repressed Memory",
+	Default = "",
+	Options = {"Show All","Off Show All", "Teleport Enter"},
+	Callback = function(Value)
+if Value == "Show All" then
+game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
+elseif Value == "Off Show All" then
+game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
+elseif Value == "Teleport Enter" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18625, 2971, -230)
 end
 	end    
 })
