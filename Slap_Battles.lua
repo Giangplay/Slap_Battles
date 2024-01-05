@@ -4015,7 +4015,7 @@ while _G.AntiRock do
 for _,v in pairs(game.Players:GetChildren()) do
                     if v.Character:FindFirstChild("rock") then
                         v.Character:FindFirstChild("rock").CanTouch = false
-                        v.Character:FindFirstChild("rock").CanCollide = false
+                        v.Character:FindFirstChild("rock").CanQuery = false
                     end
                 end
 task.wait()
