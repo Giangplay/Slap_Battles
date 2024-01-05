@@ -804,12 +804,14 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Badge", "Show All", "Teleport Spawn"},
+	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn"},
 	Callback = function(Value)
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 elseif Value == "Show All" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+elseif Value == "Off Show All" then
+game.Workspace.Retro.Parent = game.ReplicatedStorage.Assets
 elseif Value == "Teleport Spawn" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
 end
@@ -1321,8 +1323,9 @@ repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
+wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-wait(0.3)
+task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
 task.wait()
@@ -1764,14 +1767,14 @@ OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
-Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
+Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 task.wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -2794,8 +2797,8 @@ end
 while _G.PlayerView do
 if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
 workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
-task.wait()
 end
+task.wait()
 end
 	end    
 })
@@ -2914,7 +2917,7 @@ if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirs
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
-task.wait(0.55)
+task.wait(0.5)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
 end
 end
@@ -3023,7 +3026,7 @@ wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rocky" do
 game:GetService("ReplicatedStorage").RockyShoot:FireServer()
-wait(6.1)
+task.wait(7.5)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "God's Hand" do
 game:GetService("ReplicatedStorage").TimestopJump:FireServer()
@@ -3587,6 +3590,7 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		SlapAura = Value
                 while SlapAura do
+pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
@@ -3599,6 +3603,7 @@ end
 end
 end
                 end
+end)
 task.wait(.1)
 end
 	end    
@@ -3773,66 +3778,6 @@ repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Name
                 game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
                 end
             end)
-	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Player Magnet",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-magnetPlayerHe = Value
-	end	  
-})
-
-Tab7:AddSlider({
-	Name = "Magnet Height",
-	Min = 0,
-	Max = 60,
-	Default = 0,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Height",
-	Callback = function(Value)
-		_G.HeightMagnet = Value
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Player Magnet",
-	Default = false,
-	Callback = function(Value)
-		MagnetPlayer = Value
-while MagnetPlayer do
-pcall(function()
-if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and workspace[magnetPlayerHe]:FindFirstChild("Character") and workspace[magnetPlayerHe].Character:FindFirstChild("entered") and workspace[magnetPlayerHe].Character:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,_G.HeightMagnet,0)
-end
-end
-end)
-task.wait()
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Random Player Magnet",
-	Default = false,
-	Callback = function(Value)
-		MagnetPlayer = Value
-while MagnetPlayer do
-pcall(function()
-for _, v in pairs(game.Players:GetPlayers()) do
-if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,_G.HeightMagnet,0)
-end
-end
-end
-end)
-task.wait()
-end
 	end    
 })
 
@@ -4068,9 +4013,9 @@ AntiRock = Tab2:AddToggle({
 		_G.AntiRock = Value
 while _G.AntiRock do
 for _,v in pairs(game.Players:GetChildren()) do
-                    if v.Name == "rock" and v.CanTouch == true and v.CanQuery == true then
-                        v.CanTouch = false
-                        v.CanQuery = false
+                    if v.Character:FindFirstChild("rock") then
+                        v.Character:FindFirstChild("rock").CanTouch = false
+                        v.Character:FindFirstChild("rock").CanCollide = false
                     end
                 end
 task.wait()
@@ -4232,20 +4177,6 @@ while _G.AntiTimestop do
                         v.Anchored = false
                     end
                 end
-task.wait()
-end
-	end    
-})
-
-AntiSpeedSnow = Tab2:AddToggle({
-	Name = "Anti Speed Snow",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiSpeedSnow = Value
-while _G.AntiSpeedSnow do
-         if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= 20 then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
-       end
 task.wait()
 end
 	end    
@@ -4720,7 +4651,7 @@ AntiIceAndPotion:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiSpeedSnow:Set(game.Workspace.NoChanged.Value)
+AntiMittenBlind:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
