@@ -59,6 +59,8 @@ shared.gloveHits = {
     ["Santa"] = game.ReplicatedStorage.GeneralHit,
     ["Grapple"] = game.ReplicatedStorage.GeneralHit,
     ["Iceskate"] = game.ReplicatedStorage.GeneralHit,
+    ["Pan"] = game.ReplicatedStorage.GeneralHit,
+    ["Blasphemy"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
