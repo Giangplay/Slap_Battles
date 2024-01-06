@@ -4,144 +4,6 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 or game.PlaceId == 15507333474 or game.PlaceId == 14422118326 or game.PlaceId == 9020359053 or game.PlaceId == 9412268818 or game.PlaceId == 13833961666 or game.PlaceId == 9431156611 then
-local Configs_HUB = {
-  Cor_Hub = Color3.fromRGB(15, 15, 15),
-  Cor_Options = Color3.fromRGB(15, 15, 15),
-  Cor_Stroke = Color3.fromRGB(60, 60, 60),
-  Cor_Text = Color3.fromRGB(240, 240, 240),
-  Cor_DarkText = Color3.fromRGB(140, 140, 140),
-  Corner_Radius = UDim.new(0, 4),
-  Text_Font = Enum.Font.FredokaOne
-}
-
-local function Create(instance, parent, props)
-  local new = Instance.new(instance, parent)
-  if props then
-    table.foreach(props, function(prop, value)
-      new[prop] = value
-    end)
-  end
-  return new
-end
-
-local function CreateTween(instance, prop, value, time, tweenWait)
-  local tween = game:GetService("TweenService"):Create(instance,
-  TweenInfo.new(time, Enum.EasingStyle.Linear),
-  {[prop] = value})
-  tween:Play()
-  if tweenWait then
-    tween.Completed:Wait()
-  end
-end
-
-local function Corner(parent, props)
-  local new = Instance.new("UICorner", parent)
-  new.CornerRadius = Configs_HUB.Corner_Radius
-  if props then
-    SetProps(new, props)
-  end
-  return new
-end
-
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-screenGui.ResetOnSpawn = false
-
-local KeyMenu = Instance.new("Frame")
-KeyMenu.Size = UDim2.new(0, 400, 0, 220)
-KeyMenu.Position = UDim2.new(0.5, 0, 0.5, 0)
-KeyMenu.BackgroundColor3 = Configs_HUB.Cor_Hub
-KeyMenu.AnchorPoint = Vector2.new(0.5, 0.5)
-KeyMenu.Active = true
-KeyMenu.Draggable = true
-KeyMenu.Parent = screenGui
-Corner(KeyMenu)
-
-local CloseButton = Instance.new("TextButton")
-CloseButton.Size = UDim2.new(0, 30, 0, 30)
-CloseButton.Position = UDim2.new(1, -10, 0, 5)
-CloseButton.AnchorPoint = Vector2.new(1, 0)
-CloseButton.Text = "X"
-CloseButton.Font = Enum.Font.FredokaOne
-CloseButton.TextScaled = true
-CloseButton.TextColor3 = Color3.fromRGB(240, 0, 0)
-CloseButton.BackgroundTransparency = 1
-CloseButton.Parent = KeyMenu
-Corner(CloseButton)
-
-CloseButton.MouseButton1Click:Connect(function()
-local UIScale = Create("UIScale", screenGui)
-CreateTween(UIScale, "Scale", 0, 0.20, true)
-screenGui:Destroy()
-end)
-
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -80, 0, 20)
-Title.Position = UDim2.new(0, 20, 0, 5)
-Title.Text = "Slap Battles Key System".." | "..identifyexecutor()
-Title.Font = Configs_HUB.Text_Font
-Title.TextScaled = true
-Title.TextColor3 = Configs_HUB.Cor_Text
-Title.TextXAlignment = "Left"
-Title.BackgroundTransparency = 1
-Title.Parent = KeyMenu
-
-local Description = Instance.new("TextLabel")
-Description.Size = UDim2.new(1, -80, 0, 0)
-Description.Text = "Don't Get Your Account Banned In Slap Battles👏"
-Description.TextSize = 17
-Description.TextColor3 = Configs_HUB.Cor_DarkText
-Description.Font = Configs_HUB.Text_Font
-Description.Position = UDim2.new(0, 20, 0, 25)
-Description.TextXAlignment = "Left"
-Description.AutomaticSize = "Y"
-Description.TextYAlignment = "Top"
-Description.BackgroundTransparency = 1
-Description.Parent = KeyMenu
-
-local ConfirmButton = Instance.new("TextButton")
-ConfirmButton.Text = "Check Key"
-ConfirmButton.Font = Configs_HUB.Text_Font
-ConfirmButton.TextSize = 20
-ConfirmButton.TextColor3 = Configs_HUB.Cor_Text
-ConfirmButton.Size = UDim2.new(0, 150, 0, 40)
-ConfirmButton.AnchorPoint = Vector2.new(1, 0)
-ConfirmButton.Position = UDim2.new(1, -35, 0, 140)
-ConfirmButton.BackgroundColor3 = Configs_HUB.Cor_Options
-ConfirmButton.Parent = KeyMenu
-Corner(ConfirmButton)
-
-local GetKeyLink = Instance.new("TextButton")
-GetKeyLink.Text = "Get Key"
-GetKeyLink.Font = Configs_HUB.Text_Font
-GetKeyLink.TextSize = 20
-GetKeyLink.TextColor3 = Configs_HUB.Cor_Text
-GetKeyLink.Size = UDim2.new(0, 150, 0, 40)
-GetKeyLink.Position = UDim2.new(0, 35, 0, 140)
-GetKeyLink.BackgroundColor3 = Configs_HUB.Cor_Options
-GetKeyLink.Parent = KeyMenu
-Corner(GetKeyLink)
-
-local EnterKey = Instance.new("TextBox")
-EnterKey.Size = UDim2.new(1, -70, 0, 40)
-EnterKey.Position = UDim2.new(0, 35, 0, 90)
-EnterKey.BackgroundColor3 = Configs_HUB.Cor_Options
-EnterKey.PlaceholderText = "Enter Key"
-EnterKey.Text = ""
-EnterKey.TextColor3 = Configs_HUB.Cor_Text
-EnterKey.Font = Configs_HUB.Text_Font
-EnterKey.TextSize = 25
-EnterKey.TextWrapped = true
-EnterKey.Parent = KeyMenu
-Corner(EnterKey)
-
-ConfirmButton.MouseButton1Click:Connect(function()
-local EnterKey = EnterKey.Text
-if EnterKey == "SlapBattlesScriptGetBannedplsnotBanned" or EnterKey == "GetSomeBannedPlsAdminDontBannedYou" then   
-local UIScale = Create("UIScale", screenGui)
-CreateTween(UIScale, "Scale", 0, 0.40, true)
-screenGui:Destroy()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -831,7 +693,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All", "Teleport Enter"},
+	Options = {"Show All","Off Show All","Teleport Enter"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -843,10 +705,32 @@ end
 	end    
 })
 
+Tab3:AddDropdown({
+	Name = "Map Kraken",
+	Default = "",
+	Options = {"Show All","Off Show All", "Teleport Enter"},
+	Callback = function(Value)
+if Value == "Show All" then
+game.ReplicatedStorage.AbyssAssets.Abyss.Parent = game.Workspace
+elseif Value == "Off Show All" then
+game.Workspace.Abyss.Parent = game.ReplicatedStorage.AbyssAssets
+elseif Value == "Teleport Enter" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18625, 2971, -230)
+end
+	end    
+})
+
 Tab3:AddButton({
 	Name = "Reset Player",
 	Callback = function()
          game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Click Bob Plushie",
+	Callback = function()
+         fireclickdetector(game.Workspace:FindFirstChild("RepressedMemories"):FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
   	end    
 })
 
@@ -895,6 +779,23 @@ task.wait(0.3)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you owner badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Get Glove Pyscho",
+	Callback = function()
+if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
+AntiPyschoVoid:Set(true)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("RepressedMemoriesMap").Psychokinesis.Triggers.StartPsychoEvent.CFrame
+task.wait(3.6)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("RepressedMemoriesMap").Psychokinesis.Triggers.StopPsychoEvent.CFrame
+task.wait(4.7)
+fireclickdetector(game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.Psycho.ClickDetector)
+AntiPyschoVoid:Set(false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You are not in Repressed Memory",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2214,10 +2115,10 @@ _G.CloudSpeed = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
-v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
-end
-end
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
+                        v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
+                    end
+               end
 task.wait(0.10)
 end
 elseif _G.CloudSpeed == true then
@@ -3902,7 +3803,7 @@ end
 	end    
 })
 
-Tab12:AddToggle({
+AntiPyschoVoid = Tab12:AddToggle({
 	Name = "Anti Void Obby Pyscho",
 	Default = false,
 	Callback = function(Value)
@@ -5023,6 +4924,13 @@ Tab:AddButton({
 	Name = "TP back to Slap Battles",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Click Alchemist Plushie",
+	Callback = function()
+         fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectEludeHat").ClickDetector)
   	end    
 })
 
@@ -6314,23 +6222,13 @@ end
 })
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
-end
-end
+                    end
+                end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
-if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 and v.BackgroundColor3 == Color3.fromRGB(32, 32, 42) then
 v.BackgroundTransparency = 1
-end
-end
+                    end
+                end
 gethui().Orion.Name = "OrionEdited"
-else
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Key False ☹️",Icon = "rbxassetid://7733965118",Duration = 6})
-end
-end)
-
-GetKeyLink.MouseButton1Click:Connect(function()
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You Have Enter Google",Icon = "rbxassetid://7733734762",Duration = 6})
-setclipboard("https://pastefy.app/kIsrJu4M/raw") 
-end)
-end
