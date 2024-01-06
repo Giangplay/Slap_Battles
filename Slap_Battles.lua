@@ -473,6 +473,16 @@ end
 
 ---Anti Void---
 
+if workspace:FindFirstChild("VoidPart1") == nil then
+local VoidPart1 = Instance.new("Part", workspace)
+VoidPart1.Position = Vector3.new(0,-50026.5,0)
+VoidPart1.Name = "VoidPart1"
+VoidPart1.Size = Vector3.new(2048,70,2048)
+VoidPart1.Anchored = true
+VoidPart1.Transparency = 1
+VoidPart1.CanCollide = false
+end
+
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
@@ -1656,30 +1666,26 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-AntiVoid:Set(true)
+game.Workspace.VoidPart1.CanCollide = true
 Timer = 0
 repeat
 if Cancel == true then
 break
 end
 if game.Players[_G.PunishPlayer].Character:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49867,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
-task.wait(0.34)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.PunishPlayer].HumanoidRootPart.Position.X,-49999,workspace[_G.PunishPlayer].HumanoidRootPart.Position.Z)
 end
-task.wait()
+task.wait(0.01)
 if Timer < 1 then
-Timer = Timer + 0.1
+Timer = Timer + 0.01
 end
 until game.Players[_G.PunishPlayer].Character and workspace[_G.PunishPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.PunishPlayer]:FindFirstChild("entered") and workspace[_G.PunishPlayer].Ragdolled.Value == false and Timer >= 1
 if Cancel == false then
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.4)
 game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-AntiVoid:Set(false)
+game.Workspace.VoidPart1.CanCollide = false
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
