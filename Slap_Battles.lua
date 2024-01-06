@@ -2137,6 +2137,42 @@ end
 	end    
 })
 
+Tab14:AddSlider({
+	Name = "Reach HitBox Rob",
+	Min = 5,
+	Max = 500,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitboxRob = Value
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Hitbox Rob",
+	Default = false,
+	Callback = function(Value)
+_G.HitboxRob = Value
+while _G.HitboxRob do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Field" then
+                        v.Size = Vector3.new(_G.ReachHitboxRob,_G.ReachHitboxRob,_G.ReachHitboxRob)
+                    end
+                end
+task.wait()
+end
+if _G.HitboxRob == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Field" then
+                        v.Size = Vector3.new(16,16,16)
+                    end
+                end
+end
+	end    
+})
+
 Tab14:AddDropdown({
 	Name = "Godmode Glove",
 	Default = "Golden",
@@ -2992,7 +3028,7 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" do
 game:GetService("ReplicatedStorage").KSABILI:FireServer()
 wait(6.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bus" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" do
 game:GetService("ReplicatedStorage").busmoment:FireServer()
 wait(5.1)
 end
@@ -3500,8 +3536,7 @@ Tab7:AddToggle({
 AntiCooldown = Value
 game:GetService("RunService").RenderStepped:Connect(function()
 if AntiCooldown then
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
+local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
 local localscript = tool:FindFirstChildOfClass("LocalScript")
 local localscriptclone = localscript:Clone()
@@ -3590,12 +3625,38 @@ Tab7:AddSlider({
 	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Slap Aura Friend",
+	Default = "",
+	Options = {"Fight", "Not Fight"},
+	Callback = function(Value)
+SlapAuraFriend = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
-                while SlapAura do
+while SlapAura and SlapAuraFriend == "Fight" do
+pcall(function()
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachSlapArua >= Magnitude then
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+                    end
+end
+end
+end
+                end
+end)
+task.wait(.1)
+end
+while SlapAura and SlapAuraFriend == "Not Fight" do
 pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
@@ -4418,11 +4479,11 @@ AntiCOD = Tab2:AddToggle({
 	Callback = function(Value)
 		if Value == true then
 if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
-workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
 end
 else
 if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
-workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
 end
 end
 	end    
