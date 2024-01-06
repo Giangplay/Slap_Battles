@@ -3914,13 +3914,11 @@ AntiPortal = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
-workspace.SnowyPortalTeleporter.Teleport1.CanTouch = false
 workspace.Lobby.Teleport2.CanTouch = false
 workspace.Lobby.Teleport3.CanTouch = false
 workspace.Lobby.Teleport4.CanTouch = false
 workspace.Lobby.Teleport6.CanTouch = false
 else
-workspace.SnowyPortalTeleporter.Teleport1.CanTouch = true
 workspace.Lobby.Teleport2.CanTouch = true
 workspace.Lobby.Teleport3.CanTouch = true
 workspace.Lobby.Teleport4.CanTouch = true
@@ -4072,7 +4070,7 @@ end
 	end    
 })
 
-AntiMittenBlind = Tab2:AddToggle({
+AntiMittenBl = Tab2:AddToggle({
 	Name = "Anti Mitten Blind",
 	Default = false,
 	Callback = function(Value)
@@ -4090,7 +4088,16 @@ AntiJack = Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
 	Callback = function(Value)
+_G.AntiJack = Value
 game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
+            while _G.AntiJack do
+                for i,v in pairs(game.Workspace:GetChildren()) do
+                      if v.Name == "Pumpkin" then
+                          v.CanTouch = false
+                    end
+                end
+task.wait()
+            end
 	end    
 })
 
@@ -4651,7 +4658,7 @@ AntiIceAndPotion:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiMittenBlind:Set(game.Workspace.NoChanged.Value)
+AntiMittenBl:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
