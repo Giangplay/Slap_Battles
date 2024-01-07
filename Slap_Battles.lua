@@ -2041,7 +2041,7 @@ end
 Tab14:AddSlider({
 	Name = "Reach HitBox Rob",
 	Min = 5,
-	Max = 500,
+	Max = 100,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -2051,8 +2051,16 @@ Tab14:AddSlider({
 	end    
 })
 
+Tab14:AddColorpicker({
+	Name = "Color Hitbox Rob",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(Value)
+		_G.ColorHitboxRob = Value
+	end	  
+})
+
 Tab14:AddToggle({
-	Name = "Hitbox Rob",
+	Name = "Hitbox Rob & Color",
 	Default = false,
 	Callback = function(Value)
 _G.HitboxRob = Value
@@ -2060,6 +2068,7 @@ while _G.HitboxRob do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Field" then
                         v.Size = Vector3.new(_G.ReachHitboxRob,_G.ReachHitboxRob,_G.ReachHitboxRob)
+                        v.BrickColor = BrickColor.new(_G.ColorHitboxRob)
                     end
                 end
 task.wait()
@@ -2068,6 +2077,7 @@ if _G.HitboxRob == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Field" then
                         v.Size = Vector3.new(16,16,16)
+                        v.BrickColor = BrickColor.new(255,255,255)
                     end
                 end
 end
