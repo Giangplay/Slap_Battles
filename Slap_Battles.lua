@@ -708,14 +708,14 @@ end
 Tab3:AddDropdown({
 	Name = "Map Kraken",
 	Default = "",
-	Options = {"Show All","Off Show All", "Teleport Enter"},
+	Options = {"Show All","Off Show All", "Teleport Enter [ Can Have Fix ]"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.AbyssAssets.Abyss.Parent = game.Workspace
 elseif Value == "Off Show All" then
 game.Workspace.Abyss.Parent = game.ReplicatedStorage.AbyssAssets
-elseif Value == "Teleport Enter" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18625, 2971, -230)
+elseif Value == "Teleport Enter [ Can Have Fix ]" then
+print("You Not Teleport Enter")
 end
 	end    
 })
@@ -1234,7 +1234,7 @@ repeat task.wait()
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-wait(0.5)
+task.wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
@@ -1247,12 +1247,10 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 repeat task.wait()
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-end
 end
 task.wait()
 end
@@ -1263,7 +1261,7 @@ wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-task.wait(1.8)
+task.wait(1)
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -1655,34 +1653,6 @@ task.wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
-task.wait(3.75)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you not equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Random Kick Player Recall",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.4)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 task.wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
@@ -2743,13 +2713,13 @@ ViewPlayer = Tab7:AddToggle({
 	Callback = function(Value)
 _G.PlayerView = Value
 if _G.PlayerView == false then
-if workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
-workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 end
 end
 while _G.PlayerView do
-if workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
-workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
+if game.Workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
+game.Workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
 end
 task.wait()
 end
@@ -2865,13 +2835,14 @@ Tab7:AddToggle({
 		_G.AutoFarmSlap = Value
 while _G.AutoFarmSlap do
 pcall(function()
-for i,v in pairs(game.Players:GetChildren()) do
+for i,v in next, game.Players:GetChildren() do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 task.wait(0.5)
 shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+task.wait(0.25)
 end
 end
 end
@@ -3262,6 +3233,26 @@ end
 	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Rojo Spawn",
+	Default = "",
+	Options = {"Attack","Attack Fake"},
+	Callback = function(Value)
+if Value == "Attack" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Charge")
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
+wait(5)
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame})
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.AnimationRecoil, game.Players.LocalPlayer.Character.Humanoid):Play()
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+elseif Value == "Attack Fake" then
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Charge")
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
+end
+	end    
+})
+
 Tab7:AddButton({
 	Name = "Free All Animations",
 	Callback = function()
@@ -3430,12 +3421,10 @@ end
 })
 
 Tab7:AddButton({
-	Name = "Destroy Light",
+	Name = "Destroy Light & Sky",
 	Callback = function()
 for _, v in pairs(game.Lighting:GetChildren()) do
-if v.Name ~= "Sky" then
 v:Destroy()
-end
 end
   	end    
 })
@@ -3728,7 +3717,7 @@ Tab7:AddTextbox({
 	Default = "Nametag",
 	TextDisappear = false,
 	Callback = function(Value)
-workspace.NametagChanged.Value = Value
+game.Workspace.NametagChanged.Value = Value
 	end	  
 })
 
@@ -3743,17 +3732,17 @@ Tab7:AddToggle({
 	Callback = function(Value)
 	AutoChangeNameTag = Value
         if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
-        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = game.Workspace.NametagChanged.Value
 end
 workspace.NametagChanged.Changed:Connect(function()
         if AutoChangeNameTag == true and game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true) then
-        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+        game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = game.Workspace.NametagChanged.Value
 end
 end)
             game.Players.LocalPlayer.CharacterAdded:Connect(function()
                 if AutoChangeNameTag == true then
 repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Nametag",true)
-                game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = workspace.NametagChanged.Value
+                game.Players.LocalPlayer.Character.Head.Nametag.TextLabel.Text = game.Workspace.NametagChanged.Value
                 end
             end)
 	end    
@@ -3782,7 +3771,7 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoTycoon = Value
 while _G.AutoTycoon do
-for _, v in pairs(workspace:GetChildren()) do
+for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
 fireclickdetector(v.Click.ClickDetector, 0)
 fireclickdetector(v.Click.ClickDetector, 1)
@@ -4137,15 +4126,15 @@ AntiIceAndPotion = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AntiIce = Value
-   while _G.AntiIce do
-           if game.Players.LocalPlayer.Character.Humanoid.PlatformStand == true then
-                game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-           end
+while _G.AntiIce do
+if game.Players.LocalPlayer.Character:FindFirstChild("Icecube") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == false then
     for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
             if v.Name == "Icecube" then
                 v:Destroy()
             end
        end
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
 task.wait()
 end
 	end    
@@ -5108,6 +5097,34 @@ end
 })
 
 Tab:AddToggle({
+	Name = "Auto Remove Big Meteors",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoRemoveBigMeteors = Value
+while _G.AutoRemoveBigMeteors do
+if game:GetService("Players").LocalPlayer.PlayerScripts.VFXListener:FindFirstChild("BigExplosion") then
+game:GetService("Players").LocalPlayer.PlayerScripts.VFXListener.BigExplosion:Destroy()
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Remove Small Meteors",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoRemoveSmallMeteors = Value
+while _G.AutoRemoveSmallMeteors do
+if game:GetService("Players").LocalPlayer.PlayerScripts.VFXListener:FindFirstChild("SmallMeteorVFX") then
+game:GetService("Players").LocalPlayer.PlayerScripts.VFXListener.SmallMeteorVFX:Destroy()
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
@@ -5174,6 +5191,31 @@ Tab1:AddButton({
 	Name = "Fe fly V3",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Anti Lag",
+	Callback = function()
+local decalsyeeted = true
+game.Workspace.WaterWaveSize = 0
+game.Workspace.WaterWaveSpeed = 0
+game.Workspace.WaterReflectance = 0
+game.Workspace.WaterTransparency = 0
+game.Workspace.Lighting.GlobalShadows = false
+game.Workspace.Lighting.FogEnd = 9e9
+game.Workspace.Lighting.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i,v in pairs(game:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("MeshPart") then
+        v.Material = "Plastic"
+v.Reflectance = 0
+elseif v:IsA("Decal") and decalsyeeted then 
+v.Transparency = 1
+elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then 
+v.Lifetime = NumberRange.new(0)
+    end
+    end
   	end    
 })
 
