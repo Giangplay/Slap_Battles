@@ -433,15 +433,22 @@ TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGame
 AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
 ViewAgeServer = Tab:AddLabel("View Server Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 CodeKeypad = Tab:AddLabel("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
+if not game.Workspace:FindFirstChild("Keypad") then
+KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
+else
+KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
+end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
+Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
+local InfoServer = Tab:AddSection({Name = "Local Player"})
 WalkspeedYou = Tab:AddLabel("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
 JumppowerYou = Tab:AddLabel("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
 HealthYou = Tab:AddLabel("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 HipHeightYou = Tab:AddLabel("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
+GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 
 Tab:AddToggle({
 	Name = "Auto Set Info",
@@ -465,6 +472,12 @@ WalkspeedYou:Set("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.Wa
 JumppowerYou:Set("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
 HealthYou:Set("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 HipHeightYou:Set("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
+GravityYou:Set("Gravity [ "..game.Workspace.Gravity.." ]")
+if not game.Workspace:FindFirstChild("Keypad") then
+KeypadSpawn:Set("Keypad Spawn [ No ]")
+else
+KeypadSpawn:Set("Keypad Spawn [ Yes ]")
+end
 end
 end)
 	end    
@@ -1790,6 +1803,19 @@ end
 	end    
 })
 
+Tab14:AddSlider({
+	Name = "Ping Pong Orbit Speed",
+	Min = 0,
+	Max = 1000,
+	Default = 30,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+OrbitSpeed = Value
+	end    
+})
+
 PingPong = Tab14:AddToggle({
 	Name = "Ping Pong Orbit",
 	Default = false,
@@ -1829,19 +1855,6 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong eq
 wait(0.05)
 PingPong:Set(false)
 end
-	end    
-})
-
-Tab14:AddSlider({
-	Name = "Ping Pong Orbit Speed",
-	Min = 0,
-	Max = 1000,
-	Default = 30,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Speed",
-	Callback = function(Value)
-OrbitSpeed = Value
 	end    
 })
 
@@ -2087,8 +2100,21 @@ end
 	end    
 })
 
+Tab14:AddSlider({
+	Name = "Speed Cloud",
+	Min = 0.1,
+	Max = 1.2,
+	Default = 0.5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 0.1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		_G.SetSpeedCloud = Value
+	end    
+})
+
 CloudSpeed = Tab14:AddToggle({
-	Name = "Cloud Speed",
+	Name = "Auto Set Cloud Speed",
 	Default = false,
 	Callback = function(Value)
 _G.CloudSpeed = Value
@@ -2106,19 +2132,6 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipp
 wait(0.05)
 CloudSpeed:Set(false)
 end
-	end    
-})
-
-Tab14:AddSlider({
-	Name = "Speed Cloud",
-	Min = 0.1,
-	Max = 1.2,
-	Default = 0.5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 0.1,
-	ValueName = "Speed",
-	Callback = function(Value)
-		_G.SetSpeedCloud = Value
 	end    
 })
 
@@ -2352,9 +2365,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-task.wait(0.5)
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-task.wait(0.6)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0
 end
@@ -2398,12 +2409,7 @@ RainBox = Tab14:AddToggle({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" then
 while _G.Rainbow and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golden" do
 local randomnumber = math.random(1004, 1032)
-local args = {
-    [1] = false,
-    [2] = BrickColor.new(randomnumber)
-}
-
-game:GetService("ReplicatedStorage").Goldify:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Goldify:FireServer(false, BrickColor.new(randomnumber))
 task.wait(0.075)
 end
 elseif _G.Rainbow == true then
@@ -2472,6 +2478,19 @@ end
 Bindable.OnInvoke = Callback
 game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server Leaking Glove",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
   	end    
+})
+
+Tab7:AddToggle({
+	Name = "Infinity Jump",
+	Default = false,
+	Callback = function(Value)
+_G.InfiniteJump = Value
+game:GetService("UserInputService").JumpRequest:connect(function()
+if _G.InfiniteJump then
+game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+end
+end)
+	end    
 })
 
 Tab7:AddDropdown({
@@ -2625,8 +2644,16 @@ Tab7:AddButton({
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://".._G.Animation
 Anim.Name = "Animation"
-local Start = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
-Start:Play()
+StartAnimation = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+StartAnimation:Play()
+  	end    
+})
+
+Tab7:AddButton({
+	Name = "Stop Animation",
+	Callback = function()
+StartAnimation:Stop()
+StartAnimation:Destroy()
   	end    
 })
 
@@ -2655,7 +2682,8 @@ Tab7:AddToggle({
 while CandyCornsFarm do
 for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
                 end
             end
 task.wait()
@@ -2680,7 +2708,7 @@ local Found = {}
 local strl = String:lower()
 if strl == "Random" then
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= lplayer.Name then
+if v.Name ~= game.Players.LocalPlayer.Name then
 table.insert(Found,v)
 end
 end
@@ -2766,7 +2794,7 @@ Tab7:AddButton({
 	Callback = function()
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad, can have started serverhop",Image = "rbxassetid://7733658504",Time = 5})
-task.wait(2.25)
+task.wait(1.5)
 for _, v in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
 if v.playing < v.maxPlayers and v.JobId ~= game.JobId then
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, v.id)
@@ -2785,6 +2813,25 @@ wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
+})
+
+Notifykeypad = Tab7:AddToggle({
+	Name = "Auto Notification Keypad",
+	Default = false,
+	Callback = function(Value)
+	 _G.NotifyKeypad = Value
+while _G.NotifyKeypad do
+if not game.Workspace:FindFirstChild("Keypad") then
+repeat task.wait() until game.Workspace:FindFirstChild("Keypad")
+OrionLib:MakeNotification({Name = "Error",Content = "Server in have spawn keypad.",Image = "rbxassetid://7733658504",Time = 8})
+Notifykeypad:Set(false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+Notifykeypad:Set(false)
+end
+task.wait()
+end
+	end    
 })
 
 Tab7:AddDropdown({
