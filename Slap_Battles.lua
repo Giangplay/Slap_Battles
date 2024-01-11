@@ -1177,7 +1177,7 @@ Tab5:AddToggle({
 	Callback = function(Value)
 		KeepJumppower = Value
             while KeepJumppower do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Jumppower then
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= Jumppower then
                     game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
                 end
 task.wait()
@@ -1207,6 +1207,34 @@ Tab5:AddToggle({
            while KeepHipHeight do
               if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
                   game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
+              end
+task.wait()
+         end
+	end    
+})
+
+Tab5:AddSlider({
+	Name = "Gravity",
+	Min = 0,
+	Max = 196,
+	Default = 196,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(Value)
+game.Workspace.Gravity = Value
+Gravity = Value
+	end    
+})
+
+Tab5:AddToggle({
+	Name = "Gravity Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepGravity = Value
+           while KeepGravity do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace.Gravity ~= nil and game.Workspace.Gravity ~= Gravity then
+                  game.Workspace.Gravity = Gravity
               end
 task.wait()
          end
@@ -1712,10 +1740,11 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+task.wait(0.05)
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("BrewPotion")
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
 end
 else
@@ -1736,14 +1765,15 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+task.wait(0.05)
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer("BrewPotion")
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 task.wait(.1)
 end
 elseif _G.AutoGetPotion == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped or don't have enter arena.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 PotionAuto:Set(false)
 end
@@ -2366,6 +2396,7 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+task.wait(1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 v.Transparency = 0
 end
@@ -2542,6 +2573,7 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+task.wait(1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                         v.Transparency = 0
                 end
@@ -2832,6 +2864,57 @@ end
 task.wait()
 end
 	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Write Code Keypad",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.writeCode = Value
+	end	  
+})
+
+Tab7:AddDropdown({
+	Name = "Enter Keypad",
+	Default = "Enter",
+	Options = {"Not Enter","Enter"},
+	Callback = function(Value)
+_G.EnterKeypad = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Write Code Keypad Start",
+	Callback = function()
+if _G.EnterKeypad == "Not Enter" then
+if not workspace:FindFirstChild("Keypad") then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+for i = 1,#_G.writeCode do
+wait(.5)
+local digit = _G.writeCode:sub(i,i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+end
+elseif _G.EnterKeypad == "Enter" then
+if not workspace:FindFirstChild("Keypad") then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
+for i = 1,#_G.writeCode do
+wait(.5)
+local digit = _G.writeCode:sub(i,i)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
+end
+wait(1)
+fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
+end
+  	end    
 })
 
 Tab7:AddDropdown({
