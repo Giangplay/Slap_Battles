@@ -1302,7 +1302,7 @@ wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-task.wait(1)
+task.wait(1.8)
 end
 elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2573,10 +2573,6 @@ OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-task.wait(1)
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                        v.Transparency = 0
-                end
 for i,v in pairs(game.LogService:GetChildren()) do
                         v.Parent = game.Players.LocalPlayer.Backpack
                 end
@@ -2941,6 +2937,53 @@ fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit)
 end
 wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
+  	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Recall Player Get Retro",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PlayerGetRetro = Value
+	end	  
+})
+
+Tab7:AddDropdown({
+	Name = "Glove Help",
+	Default = "",
+	Options = {"Swapper","Recall"},
+	Callback = function(Value)
+_G.GloveHelpPlayer = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Player Get Retro",
+	Callback = function()
+if _G.GloveHelpPlayer == "Swapper" then
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+wait(1)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.GloveHelpPlayer == "Recall" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2.4)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerGetRetro].Character.HumanoidRootPart.CFrame
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end    
 })
@@ -3671,7 +3714,7 @@ Tab7:AddToggle({
 		SlapAura = Value
 while SlapAura and SlapAuraFriend == "Fight" do
 pcall(function()
-for i,v in pairs(game.Players:GetChildren()) do
+for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
@@ -3688,7 +3731,7 @@ task.wait(.1)
 end
 while SlapAura and SlapAuraFriend == "Not Fight" do
 pcall(function()
-for i,v in pairs(game.Players:GetChildren()) do
+for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
@@ -3982,7 +4025,7 @@ local NoChanged = Instance.new("BoolValue", workspace)
 NoChanged.Name = "NoChanged"
 end
 Tab2:AddToggle({
-	Name = "All Toggle",
+	Name = "All Toggle Anti",
 	Default = false,
 	Callback = function(Value)
 game.Workspace.NoChanged.Value = Value
@@ -5227,6 +5270,20 @@ end
 })
 
 Tab:AddToggle({
+	Name = "Anti Ring",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiRing = Value
+while _G.AntiRing do
+if game.Workspace:FindFirstChild("Ring") then
+game.Workspace:FindFirstChild("Ring"):Destroy()
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
 	Name = "Auto Remove Big Meteors",
 	Default = false,
 	Callback = function(Value)
@@ -5965,6 +6022,33 @@ end)
     end    
 })
 
+Tab:AddDropdown({
+	Name = "Remove",
+	Default = "",
+	Options = {"Lava", "Zone Blur", "Acid"},
+	Callback = function(Value)
+if Value == "Lava" then
+for _, v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+    if v.Name == "Lava" then
+        v:Destroy()
+    end
+end
+elseif Value == "Zone Blur" then
+for _, v in ipairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
+    if v.Name == "ZoneEffects" then
+        v:Destroy()
+    end
+end
+elseif Value == "Acid" then
+for _, v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+    if v.Name == "Acid" then
+        v:Destroy()
+    end
+end
+end
+	end    
+})
+
 AntiZone = Tab1:AddToggle({
 	Name = "Anti Zone",
 	Default = false,
@@ -6163,12 +6247,15 @@ end)
 Tab:AddDropdown({
 	Name = "Badge",
 	Default = "",
-	Options = {"Null", "Tinkever"},
+	Options = {"Null", "Tinkever", "All"},
 	Callback = function(Value)
 if Value == "Null" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5455.59, -195.001, 1857.2)
+fireclickdetector(game.Workspace.Model.Handle.ClickDetector)
 elseif Value == "Tinkever" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
+fireclickdetector(game.Workspace:GetChildren()[13].Handle.ClickDetector)
+elseif Value == "All" then
+fireclickdetector(game.Workspace.Model.Handle.ClickDetector)
+fireclickdetector(game.Workspace:GetChildren()[13].Handle.ClickDetector)
 end
 	end    
 })
