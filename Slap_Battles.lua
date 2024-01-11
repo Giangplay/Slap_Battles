@@ -5327,25 +5327,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Anti Lag",
 	Callback = function()
-local decalsyeeted = true
-game.Workspace.WaterWaveSize = 0
-game.Workspace.WaterWaveSpeed = 0
-game.Workspace.WaterReflectance = 0
-game.Workspace.WaterTransparency = 0
-game.Workspace.Lighting.GlobalShadows = false
-game.Workspace.Lighting.FogEnd = 9e9
-game.Workspace.Lighting.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i,v in pairs(game:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("MeshPart") then
-        v.Material = "Plastic"
-v.Reflectance = 0
-elseif v:IsA("Decal") and decalsyeeted then 
-v.Transparency = 1
-elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then 
-v.Lifetime = NumberRange.new(0)
-    end
-    end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
   	end    
 })
 
@@ -6205,7 +6187,7 @@ Namecall = hookmetamethod(game, "__namecall", function(self, ...)
    return Namecall(self, ...)
 end)
 
-if workspace:FindFirstChild("VoidPart") == nil then
+if workspace:FindFirstChild("AntiVoid") == nil then
 local Anti = Instance.new("Part", workspace)
 Anti.Name = "AntiVoid"
 Anti.Position = Vector3.new(286, 71, -153)
