@@ -6245,17 +6245,14 @@ end)
 })
 
 Tab:AddDropdown({
-	Name = "Badge",
+	Name = "Teleport Badge",
 	Default = "",
-	Options = {"Null", "Tinkever", "All"},
+	Options = {"Null", "Tinkever"},
 	Callback = function(Value)
 if Value == "Null" then
-fireclickdetector(game.Workspace.Model.Handle.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5455.59, -195.001, 1857.2)
 elseif Value == "Tinkever" then
-fireclickdetector(game.Workspace:GetChildren()[13].Handle.ClickDetector)
-elseif Value == "All" then
-fireclickdetector(game.Workspace.Model.Handle.ClickDetector)
-fireclickdetector(game.Workspace:GetChildren()[13].Handle.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
 end
 	end    
 })
