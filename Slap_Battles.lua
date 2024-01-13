@@ -75,6 +75,16 @@ end
 end
 end
 
+function SpamBlink()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while BlinkFarm do
+local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
+game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+task.wait(50.05)
+end
+end
+end
+
 function SpamReplicaBaller()
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 while ReplicaBallerFarm do
@@ -721,14 +731,14 @@ end
 Tab3:AddDropdown({
 	Name = "Map Kraken",
 	Default = "",
-	Options = {"Show All","Off Show All", "Teleport Enter [ Can Have Fix ]"},
+	Options = {"Show All","Off Show All", "Teleport Enter"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.AbyssAssets.Abyss.Parent = game.Workspace
 elseif Value == "Off Show All" then
 game.Workspace.Abyss.Parent = game.ReplicatedStorage.AbyssAssets
-elseif Value == "Teleport Enter [ Can Have Fix ]" then
-print("You Not Teleport Enter")
+elseif Value == "Teleport Enter" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(194, 35, -12671)
 end
 	end    
 })
@@ -736,7 +746,7 @@ end
 Tab3:AddButton({
 	Name = "Reset Player",
 	Callback = function()
-         game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
   	end    
 })
 
@@ -1741,7 +1751,6 @@ end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-task.wait(0.05)
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
@@ -1766,7 +1775,6 @@ end
 task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
-task.wait(0.05)
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
@@ -1891,13 +1899,15 @@ end
 Tab14:AddDropdown({
 	Name = "Equipped Glove Farm",
 	Default = "",
-	Options = {"Baller","Replica"},
+	Options = {"Baller","Replica","Blink"},
 	Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 if Value == "Baller" then
 fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
 elseif Value == "Replica" then
 fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
+elseif Value == "Blink" then
+fireclickdetector(workspace.Lobby["Blink"].ClickDetector)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
@@ -1976,6 +1986,31 @@ elseif ReplicaFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 FarmReplica:Set(false)
+end
+	end    
+})
+
+FarmBlink = Tab14:AddToggle({
+	Name = "Auto Slap Blink",
+	Default = false,
+	Callback = function(Value)
+BlinkFarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if BlinkFarm == true then
+coroutine.wrap(SpamBlink)()
+end
+while BlinkFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+end
+elseif BlinkFarm == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Blink equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FarmBlink:Set(false)
 end
 	end    
 })
@@ -2073,7 +2108,7 @@ Tab14:AddColorpicker({
 })
 
 Tab14:AddToggle({
-	Name = "Hitbox Rob & Color",
+	Name = "Hitbox All Rob & Color",
 	Default = false,
 	Callback = function(Value)
 _G.HitboxRob = Value
@@ -6407,9 +6442,8 @@ Tab2:AddToggle({
 AntiCooldown = Value
 game:GetService("RunService").RenderStepped:Connect(function()
 if AntiCooldown then
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local tool = character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
 local localscript = tool:FindFirstChildOfClass("LocalScript")
 local localscriptclone = localscript:Clone()
 localscriptclone = localscript:Clone()
