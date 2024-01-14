@@ -122,33 +122,6 @@ fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
-if not game.CoreGui:FindFirstChild("patrickGui") then
-local gui = Instance.new("ScreenGui",game.CoreGui)
-local Time = Instance.new("Frame",gui)
-local SecondUi = Instance.new("UICorner",Time)
-local Second = Instance.new("TextLabel",Time)
-local Seconds = Instance.new("UICorner", Second)
-gui.Name = "patrickGui"
-
-Time.Name = "Time"
-Time.Size = UDim2.new(0.25, 0, 0.15, 0)
-Time.Position = UDim2.new(0.38, 0, -0.1, 0)
-Time.BackgroundColor3 = Color3.new(1, 1, 1)
-Time.BorderColor3 = Color3.new(0, 0, 0)
-SecondUi.CornerRadius = UDim.new(10, 20)
-
-Second.Name = "Second"
-Second.Size = UDim2.new(1, 0, 1, 0)
-Second.Position = UDim2.new(0, 0, 0, 0)
-Second.BackgroundColor3 = Color3.new(1,1,1)
-Second.BorderColor3 = Color3.new(0, 0, 0)
-Second.Text = "Time [ 0 ]"
-Second.TextColor3 = Color3.new(0, 0, 0)
-Second.TextSize = 12
-Seconds.CornerRadius = UDim.new(10, 20)
-game.CoreGui.patrickGui.Enabled = false
-end
-
 ---SafeSpotBox---
 
 if workspace:FindFirstChild("SafeBox") == nil then
@@ -834,23 +807,6 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Glove Pyscho",
-	Callback = function()
-if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
-AntiPyschoVoid:Set(true)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("RepressedMemoriesMap").Psychokinesis.Triggers.StartPsychoEvent.CFrame
-task.wait(3.6)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("RepressedMemoriesMap").Psychokinesis.Triggers.StopPsychoEvent.CFrame
-task.wait(4.7)
-fireclickdetector(game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.Psycho.ClickDetector)
-AntiPyschoVoid:Set(false)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You are not in Repressed Memory",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab3:AddButton({
 	Name = "Get Glove Chain",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
@@ -1416,32 +1372,26 @@ Tab3:AddToggle({
 _G.AutoTimeGet = Value
 if AutoTime == "Fish" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-game.CoreGui.patrickGui.Enabled = true
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 end
 elseif Value == false then
 SleepTime = 0
-game.CoreGui.patrickGui.Time.Second.Text = "Time Sleep [ 0 ]"
-game.CoreGui.patrickGui.Enabled = false
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Fish" and task.wait() do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
 SleepTime += 1
-game.CoreGui.patrickGui.Time.Second.Text = "Time Sleep [ "..SleepTime.." ]"
+OrionLib:MakeNotification({Name = "Time Sleep [ "..SleepTime.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 end
 end
 if AutoTime == "Voodoo" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.CoreGui.patrickGui.Enabled = true
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 end
 elseif Value == false then
-game.CoreGui.patrickGui.Time.Second.Text = "Time [ 0 ]"
-game.CoreGui.patrickGui.Enabled = false
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 TimeGhost = 0
 end
@@ -1450,17 +1400,14 @@ while _G.AutoTimeGet and AutoTime == "Voodoo" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
 TimeGhost += 1
-game.CoreGui.patrickGui.Time.Second.Text = "Time Ghost [ "..TimeGhost.." ]"
+OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 end
 end
 if AutoTime == "MegaRock" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
-game.CoreGui.patrickGui.Enabled = true
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 elseif Value == false then
-game.CoreGui.patrickGui.Time.Second.Text = "Time [ 0 ]"
-game.CoreGui.patrickGui.Enabled = false
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
 end
@@ -1469,7 +1416,7 @@ while _G.AutoTimeGet and AutoTime == "MegaRock" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
-game.CoreGui.patrickGui.Time.Second.Text = "Time Rock [ "..TimeMegarock.." ]"
+OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
 end
 end
 	end    
@@ -3771,7 +3718,7 @@ Tab7:AddSlider({
 
 Tab7:AddDropdown({
 	Name = "Slap Aura Friend",
-	Default = "",
+	Default = "Fight",
 	Options = {"Fight", "Not Fight"},
 	Callback = function(Value)
 SlapAuraFriend = Value
