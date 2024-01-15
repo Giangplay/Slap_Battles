@@ -1248,20 +1248,32 @@ GetBob = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) then
 while _G.AutoFarmBob and Autobob == "Slow" do
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetBob:Set(false)
 end
 task.wait(15.1)
 end
 while _G.AutoFarmBob and Autobob == "Fast" do
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
+end
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetBob:Set(false)
 end
 task.wait(5.3)
 end
 while _G.AutoFarmBob and Autobob == "Fast V2" do
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -1270,12 +1282,17 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 task.wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetBob:Set(false)
 end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
 repeat task.wait()
@@ -1286,19 +1303,29 @@ task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetBob:Set(false)
+end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Super Fast" do
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+GetBob:Set(false)
+end
 task.wait(1.8)
 end
 elseif _G.AutoFarmBob == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped, or You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 GetBob:Set(false)
 end
@@ -2977,7 +3004,7 @@ _G.GloveHelpPlayer = Value
 	end    
 })
 
-Tab14:AddButton({
+Tab7:AddButton({
 	Name = "Player Get Retro",
 	Callback = function()
 if _G.GloveHelpPlayer == "Swapper" then
@@ -3394,7 +3421,12 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jebaited" do
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(CFrame.new(OGL) * CFrame.Angles(-2.62974964471141e-07, 1.4957197904586792, 2.625950799028942e-07))
-wait(7)
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" do
+local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
+game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+task.wait()
 end
 	end    
 })
@@ -3524,6 +3556,8 @@ if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
 for i = 1, _G.GiveKillReaper do
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
 end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Player hit you for glove reaper.",Image = "rbxassetid://7733658504",Time = 5})
 end
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v.Name == "DeathMark" then
@@ -3539,7 +3573,7 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoGiveKill = Value
-while _G.AutoGiveKill do
+while _G.AutoGiveKill and game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") do
 if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
 for i = 1, _G.GiveKillReaper do
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
