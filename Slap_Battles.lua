@@ -1248,7 +1248,7 @@ GetBob = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 while _G.AutoFarmBob and Autobob == "Slow" do
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
