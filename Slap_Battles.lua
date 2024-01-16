@@ -2995,40 +2995,38 @@ _G.PlayerGetRetro = Value
 	end	  
 })
 
-Tab7:AddDropdown({
-	Name = "Glove Help",
-	Default = "",
-	Options = {"Swapper","Recall"},
-	Callback = function(Value)
-_G.GloveHelpPlayer = Value
-	end    
-})
-
 Tab7:AddButton({
 	Name = "Player Get Retro",
 	Callback = function()
-if _G.GloveHelpPlayer == "Swapper" then
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
-wait(1)
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif _G.GloveHelpPlayer == "Recall" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+function GetPlayer(String)
+local Found = {}
+local strl = String:lower()
+if strl == "Random" then
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name ~= game.Players.LocalPlayer.Name then
+table.insert(Found,v)
+end
+end
+else
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name:lower():sub(1, #String) == String:lower() then
+table.insert(Found,v)
+end
+end 
+end
+return Found
+end
+local Help = unpack(GetPlayer(_G.PlayerGetRetro))
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerGetRetro].Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Help.Character.HumanoidRootPart.CFrame
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
 end
   	end    
 })
@@ -3838,8 +3836,8 @@ _G.HitboxPlayer = Value
 while _G.HitboxPlayer do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
-                        v.Character.HumanoidRootPart.Transparency = 0.75
+                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachGlove,_G.ReachGlove,_G.ReachGlove)
+                        v.Character.HumanoidRootPart.Transparency = 1
                     end
                 end
 task.wait()
@@ -3848,7 +3846,7 @@ if _G.HitboxPlayer == false then
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                        v.Character.HumanoidRootPart.Transparency = 1
+                        v.Character.HumanoidRootPart.Transparency = 0
                     end
                 end
 end
