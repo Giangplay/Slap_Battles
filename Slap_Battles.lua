@@ -2987,6 +2987,26 @@ end
 })
 
 Tab7:AddTextbox({
+	Name = "ID Badge",
+	Default = "UseId",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.IdBadgeGetNotify = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Check Badge",
+	Callback = function()
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, _G.IdBadgeGetNotify) then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Owner Item",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owner Item",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddTextbox({
 	Name = "Recall Player Get Retro",
 	Default = "",
 	TextDisappear = false,
@@ -6292,6 +6312,13 @@ localscriptclone.Parent = tool
 end
 end)
 	end    
+})
+
+Tab3:AddButton({
+	Name = "Click Rob Plushie",
+	Callback = function()
+         fireclickdetector(game.Workspace:FindFirstChild("RepressedMemories"):FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+  	end    
 })
 
 Tab:AddDropdown({
