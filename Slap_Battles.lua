@@ -122,6 +122,50 @@ fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
+function SpamReplicaBallerBlink()
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+while ReplicaBallerBlinkFarm do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.25)
+local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
+game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+wait(0.5)
+fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+wait(0.25)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.25)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(0.09)
+game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+wait(0.5)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.5)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(20)
+game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(workspace.Lobby.Blink.ClickDetector)
+end
+end
+
 ---SafeSpotBox---
 
 if workspace:FindFirstChild("SafeBox") == nil then
@@ -1950,6 +1994,31 @@ end
 	end    
 })
 
+ReplicaAndBallerAndBlinkFarm = Tab14:AddToggle({
+	Name = "Baller & Replica & Bink Slap Farm",
+	Default = false,
+	Callback = function(Value)
+		ReplicaBallerBlinkFarm = Value 
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" then 
+if ReplicaBallerBlinkFarm == true then 
+coroutine.wrap(SpamReplicaBallerBlink)() 
+end
+while ReplicaBallerBlinkFarm do 
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                 end
+end
+task.wait()
+end
+elseif ReplicaBallerBlinkFarm == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndBallerAndBlinkFarm:Set(false) 
+end 
+	end    
+})
+
 FarmBaller = Tab14:AddToggle({
 	Name = "Auto Slap Baller",
 	Default = false,
@@ -2897,9 +2966,11 @@ while _G.NotifyKeypad do
 if not game.Workspace:FindFirstChild("Keypad") then
 repeat task.wait() until game.Workspace:FindFirstChild("Keypad")
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have spawn keypad.",Image = "rbxassetid://7733658504",Time = 8})
+wait(0.05)
 Notifykeypad:Set(false)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
 Notifykeypad:Set(false)
 end
 task.wait()
