@@ -743,7 +743,7 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn"},
+	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn", "Teleport Button"},
 	Callback = function(Value)
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
@@ -753,6 +753,8 @@ elseif Value == "Off Show All" then
 game.Workspace.Retro.Parent = game.ReplicatedStorage.Assets
 elseif Value == "Teleport Spawn" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
+elseif Value == "Teleport Button" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
 end
 	end    
 })
