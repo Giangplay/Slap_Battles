@@ -1592,6 +1592,15 @@ RetroAbility = Value
 })
 
 Tab14:AddDropdown({
+	Name = "Admin Ability",
+	Default = "Fling",
+	Options = {"Fling", "Anvil", "Invisibility"},
+	Callback = function(Value)
+AbilityAdmin = Value
+	end    
+})
+
+Tab14:AddDropdown({
 	Name = "Santa Ability",
 	Default = "",
 	Options = {"bobplush", "snowpeep", "milk"},
@@ -1614,6 +1623,24 @@ elseif SantaSpam == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Santa equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 Santa:Set(false)
+end
+	end    
+})
+
+Admin = Tab14:AddToggle({
+	Name = "Auto Spam Admin",
+	Default = false,
+	Callback = function(Value)
+AdminSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Admin" then
+while AdminSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Admin" do
+game:GetService("ReplicatedStorage").AdminAbility:FireServer(AbilityAdmin)
+task.wait()
+end
+elseif AdminSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Admin equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+Admin:Set(false)
 end
 	end    
 })
@@ -3707,10 +3734,26 @@ Tab7:AddButton({
 	Name = "Epin Glove",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby[EpinGlove].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[EpinGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
+  	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Id game",
+	Default = "UseId",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.IDGame = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Join Id Game",
+	Callback = function()
+      		game:GetService("TeleportService"):Teleport(_G.IDGame)
   	end    
 })
 
@@ -3850,6 +3893,15 @@ SlapAuraFriend = Value
 	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Slap Aura Character",
+	Default = "Head",
+	Options = {"HumanoidRootPart", "Head", "Left Arm", "Left Leg", "Right Arm", "Right Leg"},
+	Callback = function(Value)
+SlapAuraCharacter = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
@@ -3863,7 +3915,7 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
                     end
 end
 end
@@ -3880,7 +3932,7 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
                     end
 end
 end
