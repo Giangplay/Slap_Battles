@@ -6669,6 +6669,57 @@ task.wait()
 end
 	end    
 })
+elseif game.PlaceId == 16034567693 then
+local Window = OrionLib:MakeWindow({IntroText = GameName, IntroIcon = "rbxassetid://7733955740",Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local InfoServer = Tab:AddSection({Name = "Info"})
+CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+game:GetService("RunService").RenderStepped:Connect(function()
+CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+end)
+local InfoServer = Tab:AddSection({Name = "Misc"})
+
+Tab:AddButton({
+	Name = "Quest TV",
+	Callback = function()
+fireclickdetector(game.Workspace:FindFirstChild("Desk").TV:FindFirstChild("Model").LIGHT.ClickDetector)
+wait(0.5)
+if game.Workspace.RouterButton.ClickDetector then
+fireclickdetector(game.Workspace.RouterButton.ClickDetector)
+end
+wait(0.5)
+OrionLib:MakeNotification({Name = "Error",Content = "Plz Click Screen Until Done.",Image = "rbxassetid://7733658504",Time = 5})
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Quest Obby Admin",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120, 4, 3)
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(449, 80, 3)
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(500, 80, 79)
+wait(1)
+if getconnections then
+for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
+v:Disable()
+end
+end
+OrionLib:MakeNotification({Name = "Error",Content = "Turned on Anti Afk",Image = "rbxassetid://7733658504",Time = 3})
+OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour, or you have view Info.",Image = "rbxassetid://7733658504",Time = 5})
+  	end    
+})
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
