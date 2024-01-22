@@ -6690,26 +6690,9 @@ end)
 local InfoServer = Tab:AddSection({Name = "Misc"})
 
 Tab:AddButton({
-	Name = "Quest TV",
+	Name = "Teleport Enter Final room",
 	Callback = function()
-fireclickdetector(game.Workspace:FindFirstChild("Desk").TV:FindFirstChild("Model").LIGHT.ClickDetector)
-wait(0.5)
-if game.Workspace.RouterButton.ClickDetector then
-fireclickdetector(game.Workspace.RouterButton.ClickDetector)
-end
-wait(0.5)
-OrionLib:MakeNotification({Name = "Error",Content = "Plz Click Screen Until Done.",Image = "rbxassetid://7733658504",Time = 5})
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Quest Obby Admin",
-	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120, 4, 3)
-wait(0.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(449, 80, 3)
-wait(0.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(500, 80, 79)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.860291, 77.2709045, 60.5982056, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 wait(1)
 if getconnections then
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
