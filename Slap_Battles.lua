@@ -3580,6 +3580,39 @@ end
 	end    
 })
 
+RhythmNote = Tab7:AddToggle({
+	Name = "Infinite Rhythm",
+	Default = false,
+	Callback = function(Value)
+		RhythmNoteSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" then
+while RhythmNoteSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" do
+if game.Players.LocalPlayer.PlayerGui.Rhythm.MainFrame then
+game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
+game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
+game.Players.LocalPlayer.Character.Rhythm:Activate()
+task.wait()
+end
+end
+elseif RhythmNoteSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+RhythmNote:Set(false)
+end
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Auto Play Rhythm",
+	Callback = function()
+game.Players.LocalPlayer.PlayerGui.Rhythm.MainFrame.Bars.ChildAdded:Connect(function()
+task.delay(0.75, function()
+game.Players.LocalPlayer.Character:FindFirstChild("Rhythm"):Activate()
+end)
+end)
+  	end    
+})
+
 Tab7:AddDropdown({
 	Name = "Rojo Spawn",
 	Default = "",
@@ -4189,26 +4222,6 @@ end
 	end    
 })
 
-RhythmNote = Tab7:AddToggle({
-	Name = "Infinite Rhythm",
-	Default = false,
-	Callback = function(Value)
-		RhythmNoteSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" then
-while RhythmNoteSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" do
-game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
-game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
-game.Players.LocalPlayer.Character.Rhythm:Activate()
-task.wait()
-end
-elseif RhythmNoteSpam == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-RhythmNote:Set(false)
-end
-	end    
-})
-
 AntiPyschoVoid = Tab12:AddToggle({
 	Name = "Anti Void Obby Pyscho",
 	Default = false,
@@ -4388,24 +4401,6 @@ for _,v in pairs(game.Players:GetChildren()) do
                     if v.Character:FindFirstChild("rock") then
                         v.Character:FindFirstChild("rock").CanTouch = false
                         v.Character:FindFirstChild("rock").CanQuery = false
-                    end
-                end
-task.wait()
-end
-	end    
-})
-
-AntiHomeRun = Tab2:AddToggle({
-	Name = "Anti Home Run",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiHomeRun = Value
-while _G.AntiHomeRun do
-for _,v in pairs(game.Players:GetChildren()) do
-                    if v.Character:FindFirstChild("HomeRunBat") then
-                        v.Character:FindFirstChild("HomeRunBat").CanTouch = false
-                        v.Character:FindFirstChild("HomeRunBat").CanQuery = false
-                        v.Character:FindFirstChild("HomeRunBat").CanCollide = false
                     end
                 end
 task.wait()
@@ -4999,10 +4994,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRock:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiHomeRun:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
