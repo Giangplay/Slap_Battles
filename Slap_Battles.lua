@@ -522,10 +522,17 @@ PositionYou:Set("Position You [ "..tostring(math.round(game.Players.LocalPlayer.
 CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
+if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+WalkspeedYou:Set("Walk Speed [ Not Walk then rock ]")
+JumppowerYou:Set("Jump Power [ Not Jump Power then rock ]")
+HealthYou:Set("Health You [ Not Health then rock ]")
+HipHeightYou:Set("Hip Height [ Not Hip then rock ]")
+else
 WalkspeedYou:Set("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
 JumppowerYou:Set("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
 HealthYou:Set("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 HipHeightYou:Set("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
+end
 GravityYou:Set("Gravity [ "..game.Workspace.Gravity.." ]")
 if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
@@ -1312,6 +1319,7 @@ if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlaye
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
 end
+else
 OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 GetBob:Set(false)
@@ -4356,6 +4364,24 @@ end
 	end    
 })
 
+AntiHomeRun = Tab2:AddToggle({
+	Name = "Anti Home Run",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiHomeRun = Value
+while _G.AntiHomeRun do
+for _,v in pairs(game.Players:GetChildren()) do
+                    if v.Character:FindFirstChild("HomeRunBat") then
+                        v.Character:FindFirstChild("HomeRunBat").CanTouch = false
+                        v.Character:FindFirstChild("HomeRunBat").CanQuery = false
+                        v.Character:FindFirstChild("HomeRunBat").CanCollide = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiBus = Tab2:AddToggle({
 	Name = "Anti Bus",
 	Default = false,
@@ -4423,16 +4449,7 @@ AntiJack = Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
 	Callback = function(Value)
-_G.AntiJack = Value
 game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
-            while _G.AntiJack do
-                for i,v in pairs(game.Workspace:GetChildren()) do
-                      if v.Name == "Pumpkin" then
-                          v.CanTouch = false
-                    end
-                end
-task.wait()
-            end
 	end    
 })
 
@@ -4501,6 +4518,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Icecube") and game.Players
                 v:Destroy()
             end
        end
+wait(0.5)
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 end
 task.wait()
@@ -4950,6 +4968,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRock:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiHomeRun:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
