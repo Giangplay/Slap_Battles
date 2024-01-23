@@ -1636,19 +1636,13 @@ end
 })
 
 Admin = Tab14:AddToggle({
-	Name = "Auto Spam Admin",
+	Name = "Auto Spam Admin [ All Glove ]",
 	Default = false,
 	Callback = function(Value)
 AdminSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Admin" then
-while AdminSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Admin" do
+while AdminSpam do
 game:GetService("ReplicatedStorage").AdminAbility:FireServer(AbilityAdmin)
 task.wait()
-end
-elseif AdminSpam == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Admin equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-Admin:Set(false)
 end
 	end    
 })
@@ -2820,19 +2814,23 @@ _G.Animation = Value
 Tab7:AddButton({
 	Name = "Start Animation",
 	Callback = function()
+if not game.ReplicatedStorage:FindFirstChild("Animation") then
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://".._G.Animation
 Anim.Name = "Animation"
-StartAnimation = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
-StartAnimation:Play()
+Anim.Parent = game.ReplicatedStorage
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
+end
   	end    
 })
 
 Tab7:AddButton({
 	Name = "Stop Animation",
 	Callback = function()
-StartAnimation:Stop()
-StartAnimation:Destroy()
+if game.ReplicatedStorage:FindFirstChild("Animation") then
+game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Stop()
+game.ReplicatedStorage.Animation:Destroy()
+end
   	end    
 })
 
@@ -3893,6 +3891,15 @@ Tab7:AddSlider({
 })
 
 Tab7:AddDropdown({
+	Name = "Shukuchi Friend",
+	Default = "Fight",
+	Options = {"Fight", "Not Fight"},
+	Callback = function(Value)
+ShukuchiFriend = Value
+	end    
+})
+
+Tab7:AddDropdown({
 	Name = "Slap Aura Friend",
 	Default = "Fight",
 	Options = {"Fight", "Not Fight"},
@@ -3957,8 +3964,9 @@ AutoShukuchi = Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
          _G.AutoShukuchi = Value
+if ShukuchiFriend == "Fight" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
-                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
+                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Fight" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
@@ -3977,6 +3985,29 @@ elseif _G.AutoShukuchi == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoShukuchi:Set(false)
+end
+elseif ShukuchiFriend == "Not Fight" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
+                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Not Fight" do
+for i,v in pairs(game.Players:GetPlayers()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil then
+if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachShukuchi >= Magnitude then
+game:GetService("ReplicatedStorage").SM:FireServer(v)
+                     end
+end
+end
+end
+                 end
+task.wait()
+end
+elseif _G.AutoShukuchi == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoShukuchi:Set(false)
+end
 end
 	end    
 })
@@ -4389,7 +4420,7 @@ AntiBus = Tab2:AddToggle({
 		_G.AntiBus = Value
 while _G.AntiBus do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "BusModel" and v.CanTouch == true then
+                    if v.Name == "BusModel" then
                         v.CanTouch = false
                     end
                 end
