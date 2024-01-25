@@ -2242,38 +2242,6 @@ end
 	end    
 })
 
-Tab14:AddTextbox({
-	Name = "Bring Bomb Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.BombPlayer = Value
-	end	  
-})
-
-Bomb = Tab14:AddToggle({
-	Name = "Bomb Player",
-	Default = false,
-	Callback = function(Value)
-		BombBringPlayer = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Bomb" then
-Bonbball = game.Players.LocalPlayer.Name.."_bømb"
-while BombBringPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bomb" dod
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == Bonbball then
-                        v.CFrame = game.Players[_G.BombPlayer].Character.HumanoidRootPart.CFrame
-                    end
-                end
-task.wait()
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Bomb equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-Bomb:Set(false)
-end
-	end    
-})
-
 Tab14:AddDropdown({
 	Name = "Godmode Glove",
 	Default = "Golden",
@@ -3638,7 +3606,7 @@ Tab7:AddButton({
 	Name = "Auto Play Rhythm",
 	Callback = function()
 game.Players.LocalPlayer.PlayerGui.Rhythm.MainFrame.Bars.ChildAdded:Connect(function()
-task.delay(1.65, function()
+task.delay(1.75, function()
 game.Players.LocalPlayer.Character:FindFirstChild("Rhythm"):Activate()
 end)
 end)
