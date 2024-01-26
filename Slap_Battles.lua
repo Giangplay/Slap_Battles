@@ -4867,13 +4867,11 @@ end)
 end
 while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
-if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and _G.AntiRagdoll and RagdollGetAnti == "Not Reset" then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and RagdollGetAnti == "Not Reset" then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
-end)
 end
 task.wait()
 end
@@ -4883,7 +4881,7 @@ end
 Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
-	Options = {"Ghost", "Thanos", "Space", "Scythe", "Golden", "Hitman", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
+	Options = {"Ghost", "Thanos", "Space", "Scythe", "Golden", "Hitman", "Prop", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
 	Callback = function(Value)
 GloveSound = Value
 	end    
@@ -4917,6 +4915,10 @@ task.wait()
 end
 while GloveSoundSpam and GloveSound == "Hitman" do
 game:GetService("ReplicatedStorage"):WaitForChild("HitmanAbility"):FireServer("ReplicateGoldenRevolver",{0})
+task.wait()
+end
+while GloveSoundSpam and GloveSound == "Prop" do
+game:GetService("ReplicatedStorage").Prop:FireServer()
 task.wait()
 end
 while GloveSoundSpam and GloveSound == "Error Death [ All Glove ]" do
