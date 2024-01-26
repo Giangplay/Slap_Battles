@@ -64,6 +64,7 @@ shared.gloveHits = {
     ["Blink"] = game.ReplicatedStorage.GeneralHit,
     ["Ultra Instinct"] = game.ReplicatedStorage.GeneralHit,
     ["Admin"] = game.ReplicatedStorage.GeneralHit,
+    ["Prop"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
