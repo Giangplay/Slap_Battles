@@ -492,15 +492,27 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
+if game.Players.LocalPlayer.PlayerGui.Kills and game.Players.LocalPlayer.PlayerGui.Kills.Frame then
+CheckKill = Tab:AddLabel("Check Kill [ "..game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.." ]")
+else
+CheckKill = Tab:AddLabel("Check Kill [ You don't have glove killstreak ]")
+end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
 Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
+if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+WalkspeedYou = Tab:AddLabel("Walk Speed [ Not Walk then rock ]")
+JumppowerYou = Tab:AddLabel("Jump Power [ Not Jump Power then rock ]")
+HealthYou = Tab:AddLabel("Health You [ Not Health then rock ]")
+HipHeightYou = Tab:AddLabel("Hip Height [ Not Hip then rock ]")
+else
 WalkspeedYou = Tab:AddLabel("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
 JumppowerYou = Tab:AddLabel("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
 HealthYou = Tab:AddLabel("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 HipHeightYou = Tab:AddLabel("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
+end
 GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 
@@ -538,6 +550,11 @@ if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
+end
+if game.Players.LocalPlayer.PlayerGui.Kills and game.Players.LocalPlayer.PlayerGui.Kills.Frame then
+CheckKill:Set("Check Kill [ "..game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.." ]")
+else
+CheckKill:Set("Check Kill [ You don't have glove killstreak ]")
 end
 end
 end)
@@ -824,7 +841,7 @@ repeat
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid ~= 0
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,-20,0)
 wait(0.25)
@@ -1357,6 +1374,7 @@ task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
+else
 OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 GetBob:Set(false)
@@ -3606,7 +3624,7 @@ Tab7:AddButton({
 	Name = "Auto Play Rhythm",
 	Callback = function()
 game.Players.LocalPlayer.PlayerGui.Rhythm.MainFrame.Bars.ChildAdded:Connect(function()
-task.delay(1.75, function()
+task.delay(1.65, function()
 game.Players.LocalPlayer.Character:FindFirstChild("Rhythm"):Activate()
 end)
 end)
