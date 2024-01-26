@@ -492,11 +492,6 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
-if game.Players.LocalPlayer.PlayerGui.Kills and game.Players.LocalPlayer.PlayerGui.Kills.Frame then
-CheckKill = Tab:AddLabel("Check Kill [ "..game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.." ]")
-else
-CheckKill = Tab:AddLabel("Check Kill [ You don't have glove killstreak ]")
-end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
@@ -550,11 +545,6 @@ if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
-end
-if game.Players.LocalPlayer.PlayerGui.Kills and game.Players.LocalPlayer.PlayerGui.Kills.Frame then
-CheckKill:Set("Check Kill [ "..game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.." ]")
-else
-CheckKill:Set("Check Kill [ You don't have glove killstreak ]")
 end
 end
 end)
