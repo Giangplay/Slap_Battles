@@ -492,6 +492,11 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter then
+CounterStun = Tab:AddLabel("Stun Counter [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]")
+else
+CounterStun = Tab:AddLabel("Stun Counter [ 0 ]")
+end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
@@ -545,6 +550,11 @@ if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
+end
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter then
+CounterStun:Set("Stun Counter [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]")
+else
+CounterStun:Set("Stun Counter [ 0 ]")
 end
 end
 end)
@@ -820,9 +830,9 @@ Tab3:AddButton({
 Tab3:AddButton({
 	Name = "Get Glove Kinetic",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i = 1,100 do
+for i = 1,150 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.05)
 end
@@ -830,14 +840,13 @@ wait(1.5)
 repeat
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid ~= 0
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid ~= 0
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,-20,0)
 wait(0.25)
 game.ReplicatedStorage.StunR:FireServer(game.Players.LocalPlayer.Character.Stun)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-wait(9.9)
+wait(10.3)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -1622,6 +1631,33 @@ Tab14:AddDropdown({
 	Options = {"bobplush", "snowpeep", "milk"},
 	Callback = function(Value)
 SantaAbility = Value
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Prop Ability",
+	Default = "",
+	Options = {"Barrel", "Bench", "Brick", "Bush 1", "Bush 2", "Cauldron", "Diamond", "Frenzy Bot", "Gift", "GoldenSlapple", "Imp", "Jet Orb", "Larry", "MEGAROCK", "Moai Head", "Obby 1", "Obby 2", "Obby 3", "Obby 4", "Obby 5", "Orange", "Oven", "Phase Heart", "Phase Orb", "Rock 1", "Rock 2", "Rock 3", "Sentry", "Slapple", "Snow Peep", "Snow Turret", "bob", "rob"},
+	Callback = function(Value)
+PropAbility = Value
+	end    
+})
+
+Prop = Tab14:AddToggle({
+	Name = "Auto Spam Prop",
+	Default = false,
+	Callback = function(Value)
+PropSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Prop" then
+while PropSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Prop" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PropAbility)
+task.wait()
+end
+elseif PropSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Prop equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+Prop:Set(false)
+end
 	end    
 })
 
@@ -3015,6 +3051,24 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 Notifykeypad:Set(false)
+end
+task.wait()
+end
+	end    
+})
+
+NotifyAdminJoin = Tab7:AddToggle({
+	Name = "Auto Notification Admin Join",
+	Default = false,
+	Callback = function(Value)
+	 _G.NotifyAdminJoin = Value
+while _G.NotifyAdminJoin do
+for i,v in pairs(game.Players:GetChildren()) do
+if v:GetRankInGroup(9950771) >= 2 or v:GetRankInGroup(9950771) >= 3 or v:GetRankInGroup(9950771) >= 4 or v:GetRankInGroup(9950771) >= 5 or v:GetRankInGroup(9950771) >= 7 or v:GetRankInGroup(9950771) >= 8 or v:GetRankInGroup(9950771) >= 9 or v:GetRankInGroup(9950771) >= 10 or v:GetRankInGroup(9950771) >= 11 or v:GetRankInGroup(9950771) >= 12 then
+OrionLib:MakeNotification({Name = "Error",Content = "Server in admin name [ "..v.Name.." ] join guy",Image = "rbxassetid://7733658504",Time = 5})
+NotifyAdminJoin:Set(false)
+break
+end
 end
 task.wait()
 end
@@ -5348,7 +5402,7 @@ Tab:AddButton({
   	end    
 })
 
-Tab3:AddButton({
+Tab:AddButton({
 	Name = "Click Alchemist Plushie",
 	Callback = function()
          fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectEludeHat").ClickDetector)
@@ -5774,40 +5828,6 @@ end)
 task.wait(.05)
 end
 	end    
-})
-
-GetItem = Tab:AddToggle({
-	Name = "Auto Get All Item",
-	Default = false,
-	Callback = function(Value)
-		GetAllItems = Value
-while GetAllItems do
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-            for i, v in ipairs(game.Workspace:GetChildren()) do
-                if v.ClassName == "Tool" then
- game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                end
-            end
-repeat task.wait() until game.Workspace:FindFirstChildWhichIsA("Tool") == nil
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-GetItem:Set(false)
-end
-task.wait()
-end
-	end    
-})
-
-Tab:AddButton({
-	Name = "Bus Bomb",
-	Callback = function()
-repeat task.wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Bomb")
-            for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                if v.Name == "Bomb" then
-                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                    v:Activate()
-                end
-            end
-  	end    
 })
 
 Tab:AddButton({
