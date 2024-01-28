@@ -492,11 +492,6 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter then
-CounterStun = Tab:AddLabel("Stun Counter [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]")
-else
-CounterStun = Tab:AddLabel("Stun Counter [ 0 ]")
-end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
@@ -550,11 +545,6 @@ if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
-end
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter then
-CounterStun:Set("Stun Counter [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]")
-else
-CounterStun:Set("Stun Counter [ 0 ]")
 end
 end
 end)
@@ -840,16 +830,22 @@ wait(1.5)
 repeat
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid ~= 0
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid.Health ~= 0
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,-20,0)
 wait(0.25)
 game.ReplicatedStorage.StunR:FireServer(game.Players.LocalPlayer.Character.Stun)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.5)
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") then
+OrionLib:MakeNotification({Name = "Error",Content = "Counter Stun [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Are you dead or what are you doing in another job",Image = "rbxassetid://7733658504",Time = 5})
+end
 wait(10.3)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped, or you aren't in the arena",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -870,7 +866,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99, -10
 task.wait(0.3)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you owner badge",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1162,7 +1158,7 @@ wait(4)
 end
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You Have 5K Slap Or Then Owner Bagde",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have 5000 slap, or you have Owner bagde",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1175,7 +1171,7 @@ fireclickdetector(game.Workspace.Lobby.Scene.knofe.ClickDetector)
 fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector) 
 fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Badge",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1186,7 +1182,7 @@ Tab3:AddButton({
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2906002612987222) then
 game:GetService("ReplicatedStorage").IceSkate:FireServer("Freeze")
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You Have Owner Badge",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -1794,7 +1790,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.45)
+task.wait(0.5)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
@@ -1829,11 +1825,11 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(1)
+task.wait(0.5)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
-task.wait(3.75)
+task.wait(1.54)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
@@ -2087,7 +2083,7 @@ end
 task.wait()
 end
 elseif ReplicaBallerBlinkFarm == true then 
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Baller equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Blink equipped.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
 ReplicaAndBallerAndBlinkFarm:Set(false) 
 end 
@@ -5660,16 +5656,14 @@ Tab:AddToggle({
 	Callback = function(Value)
 _G.SlapBob = Value
 while _G.SlapBob and GloveSlap == "Killstreak" do
-local args = {[1] = workspace:WaitForChild("BobClone"):WaitForChild("HumanoidRootPart")}
-game:GetService("ReplicatedStorage"):WaitForChild("KSHit"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("KSHit"):FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
 task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
-if workspace:WaitForChild("BobClone"):WaitForChild("DeathMark") == nil then
+if game.Workspace:WaitForChild("BobClone"):WaitForChild("DeathMark") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.BobClone.HumanoidRootPart.Position).Magnitude
 if 90 >= Magnitude then
-local args = {[1] = workspace:WaitForChild("BobClone"):WaitForChild("HumanoidRootPart")}
-game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
 end
 end
 task.wait()
@@ -5782,18 +5776,6 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-if game.Workspace:FindFirstChild("NoChanged") == nil then
-local NoChanged = Instance.new("BoolValue", workspace)
-NoChanged.Name = "NoChanged"
-end
-Tab:AddToggle({
-	Name = "All Toggle",
-	Default = false,
-	Callback = function(Value)
-game.Workspace.NoChanged.Value = Value
-	end    
-})
-
 Tab:AddSlider({
 	Name = "Reach Slap Aura",
 	Min = 10,
@@ -5831,7 +5813,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Leave bus early",
+	Name = "Leave Bus Early",
 	Callback = function()
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
 repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("JumpPrompt")
@@ -5840,7 +5822,7 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 })
 
 Tab:AddButton({
-	Name = "Inf Power 250 [ 2 True Power ]",
+	Name = "Infinity Power 250 [ 2 True Power ]",
 	Callback = function()
 for i = 1,2 do
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
@@ -5850,7 +5832,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Use permanent items",
+	Name = "Use Permanent Items",
 	Callback = function()
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if v.Name == "Bull's essence" or v.Name == "Potion of Strength" or v.Name == "Boba" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Strength Brew" or v.Name == "Frog Brew" or v.Name == "Speed Brew" then
@@ -6291,7 +6273,7 @@ end)
     end    
 })
 
-Tab:AddDropdown({
+Tab1:AddDropdown({
 	Name = "Remove",
 	Default = "",
 	Options = {"Lava", "Zone Blur", "Acid"},
@@ -6318,7 +6300,7 @@ end
 	end    
 })
 
-AntiZone = Tab1:AddToggle({
+Tab1:AddToggle({
 	Name = "Anti Zone",
 	Default = false,
 	Callback = function(Value)
@@ -6331,7 +6313,7 @@ end)
 	end    
 })
 
-AntiLava_Acid = Tab1:AddToggle({
+Tab1:AddToggle({
 	Name = "Anti Lava & Acid",
 	Default = false,
 	Callback = function(Value)
@@ -6340,7 +6322,7 @@ game.Workspace["AntiLava"]["AntiAcid"].CanCollide = Value
 	end    
 })
 
-AntiReco = Tab1:AddToggle({
+Tab1:AddToggle({
 	Name = "Anti Record",
 	Default = false,
 	Callback = function(Value)
@@ -6374,6 +6356,24 @@ end
 end)
 end)
 
+Tab2:AddToggle({
+	Name = "Anti Ragdoll",
+	Default = false,
+	Callback = function(Value)
+        _G.AntiRagdoll = Value
+while _G.AntiRagdoll  do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
+repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+game.Players.LocalPlayer.Character.Torso.Anchored = false
+end
+end
+task.wait()
+end
+	end    
+})
+
 Tab3:AddSlider({
 	Name = "Walkspeed",
 	Min = 20,
@@ -6388,7 +6388,7 @@ Walkspeed = Value
 	end    
 })
 
-AutoSetWalkSpeed = Tab3:AddToggle({
+Tab3:AddToggle({
 	Name = "Keep Walkspeed",
 	Default = false,
 	Callback = function(Value)
@@ -6416,7 +6416,7 @@ Jumppower = Value
 	end    
 })
 
-AutoSetJumpPower = Tab3:AddToggle({
+Tab3:AddToggle({
 	Name = "Keep Jumppower",
 	Default = false,
 	Callback = function(Value)
@@ -6429,43 +6429,6 @@ task.wait()
             end
 	end    
 })
-
----AllToggle---
-game.Workspace.NoChanged.Changed:Connect(function()
-GetItem:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-EspGlove:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-ReachSlap:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-Hitbox:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiZone:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiLava_Acid:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiReco:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AutoSetWalkSpeed:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AutoSetJumpPower:Set(game.Workspace.NoChanged.Value)
-end)
 elseif game.PlaceId == 14422118326 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -6513,7 +6476,7 @@ end)
 	end    
 })
 
-Tab3:AddButton({
+Tab:AddButton({
 	Name = "Click Rob Plushie",
 	Callback = function()
          fireclickdetector(game.Workspace:FindFirstChild("RepressedMemories"):FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
@@ -6587,7 +6550,7 @@ Tab1:AddToggle({
 	Default = false,
 	Callback = function(Value)
 SlapAura = Value
-while SlapAura do
+          while SlapAura do
 pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
@@ -6711,9 +6674,9 @@ Tab2:AddToggle({
 	Name = "Teleport Flag",
 	Default = false,
 	Callback = function(Value)
-Teleport = Value
+WinTeleport = Value
 game:GetService("RunService").RenderStepped:Connect(function()
-if Teleport then
+if WinTeleport then
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Part" and v:FindFirstChild("TouchInterest") then
@@ -6767,7 +6730,7 @@ Tab:AddButton({
 	Name = "Teleport Enter Final room",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.860291, 77.2709045, 60.5982056, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-wait(1)
+wait(1.5)
 if getconnections then
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
 v:Disable()
