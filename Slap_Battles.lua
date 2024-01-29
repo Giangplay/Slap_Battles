@@ -5812,6 +5812,37 @@ end
 	end    
 })
 
+Tab:AddToggle({
+	Name = "Get All Item",
+	Default = false,
+	Callback = function(Value)
+		GetAllItems = Value
+                while GetAllItems do
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true and game.Workspace.Items:FindFirstChildWhichIsA("Tool") then
+   for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
+game:GetService("ReplicatedStorage").Events.Item:FireServer(v.Handle)
+                end
+            end
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Bomb Bus",
+	Callback = function()
+repeat task.wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Bomb")
+            for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Bomb" then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    v:Activate()
+                end
+            end
+	end    
+})
+
 Tab:AddButton({
 	Name = "Leave Bus Early",
 	Callback = function()
@@ -5843,7 +5874,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 	end    
 })
 
-EspGlove = Tab:AddToggle({
+Tab:AddToggle({
 	Name = "Glove Esp",
 	Default = false,
 	Callback = function(Value)
@@ -6356,7 +6387,7 @@ end
 end)
 end)
 
-Tab2:AddToggle({
+Tab1:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(Value)
