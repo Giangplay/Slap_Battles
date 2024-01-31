@@ -813,7 +813,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 Tab3:AddButton({
 	Name = "Click Bob Plushie",
 	Callback = function()
-         fireclickdetector(game.Workspace:FindFirstChild("RepressedMemories"):FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+         fireclickdetector(game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
   	end    
 })
 
@@ -867,6 +867,36 @@ task.wait(0.3)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Get Glove Blasphemy",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061) then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+repeat
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+task.wait(0.34)
+game:GetService("ReplicatedStorage").busmoment:FireServer()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(1.5)
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
+wait(1)
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "BusModel" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
+task.wait(5)
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have bus equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2859,6 +2889,8 @@ local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://".._G.Animation
 Anim.Name = "Animation"
 Anim.Parent = game.ReplicatedStorage
+end
+if game.ReplicatedStorage:FindFirstChild("Animation") then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
 end
   	end    
@@ -3063,7 +3095,6 @@ for i,v in pairs(game.Players:GetChildren()) do
 if v:GetRankInGroup(9950771) >= 2 or v:GetRankInGroup(9950771) >= 3 or v:GetRankInGroup(9950771) >= 4 or v:GetRankInGroup(9950771) >= 5 or v:GetRankInGroup(9950771) >= 7 or v:GetRankInGroup(9950771) >= 8 or v:GetRankInGroup(9950771) >= 9 or v:GetRankInGroup(9950771) >= 10 or v:GetRankInGroup(9950771) >= 11 or v:GetRankInGroup(9950771) >= 12 then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in admin name [ "..v.Name.." ] join guy",Image = "rbxassetid://7733658504",Time = 5})
 NotifyAdminJoin:Set(false)
-break
 end
 end
 task.wait()
@@ -3645,12 +3676,10 @@ RhythmNote = Tab7:AddToggle({
 		RhythmNoteSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" then
 while RhythmNoteSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rhythm" do
-if game.Players.LocalPlayer.PlayerGui.Rhythm.MainFrame then
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = false
 game.Players.LocalPlayer.PlayerGui.Rhythm.LocalScript.Disabled = true
 game.Players.LocalPlayer.Character.Rhythm:Activate()
 task.wait()
-end
 end
 elseif RhythmNoteSpam == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rhythm equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -4596,7 +4625,6 @@ AntiIceAndPotion = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiIce = Value
 while _G.AntiIce do
-if game.Players.LocalPlayer.Character:FindFirstChild("Icecube") and game.Players.LocalPlayer.Character.Humanoid.PlatformStand == false then
     for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
             if v.Name == "Icecube" then
                 v:Destroy()
@@ -4604,7 +4632,6 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Icecube") and game.Players
        end
 wait(0.5)
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
 task.wait()
 end
 	end    
@@ -6387,7 +6414,7 @@ end
 end)
 end)
 
-Tab1:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(Value)
@@ -6510,7 +6537,7 @@ end)
 Tab:AddButton({
 	Name = "Click Rob Plushie",
 	Callback = function()
-         fireclickdetector(game.Workspace:FindFirstChild("RepressedMemories"):FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+         fireclickdetector(game.Workspace._ugcQuestObjectBobPlushie.ClickDetector)
   	end    
 })
 
