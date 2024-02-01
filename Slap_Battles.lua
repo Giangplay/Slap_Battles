@@ -887,13 +887,13 @@ game:GetService("ReplicatedStorage").busmoment:FireServer()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(1.5)
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-wait(1)
+task.wait(0.7)
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
-task.wait(5)
+task.wait(3.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have bus equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
@@ -1068,17 +1068,17 @@ for i,v in pairs(game.Workspace.Map.CodeBrick.SurfaceGui:GetChildren()) do
                     end
                 end
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
-task.wait(2)
+task.wait(1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[first].ClickDetector)
-task.wait(2)
+task.wait(1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[second].ClickDetector)
-task.wait(2)
+task.wait(1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[third].ClickDetector)
-task.wait(2)
+task.wait(1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[fourth].ClickDetector)
-task.wait(2)
+task.wait(1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
-task.wait(4.7)
+task.wait(0.5)
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
@@ -1119,7 +1119,7 @@ task.wait(0.8)
 local digit = digits:sub(i, i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
-task.wait(1)
+task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
@@ -1167,7 +1167,7 @@ task.wait(0.8)
 local digit = digits:sub(i, i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
-task.wait(1)
+task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
   	end    
@@ -1184,7 +1184,7 @@ if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.Us
 else
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
-wait(4)
+wait(3.75)
 end
 end
 else
@@ -1345,31 +1345,18 @@ GetBob = Tab3:AddToggle({
 _G.AutoFarmBob = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 while _G.AutoFarmBob and Autobob == "Slow" do
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
 end
 task.wait(15.1)
 end
 while _G.AutoFarmBob and Autobob == "Fast" do
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.ReplicatedStorage.Duplicate:FireServer(true)
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
 end
 task.wait(5.3)
 end
 while _G.AutoFarmBob and Autobob == "Fast V2" do
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -1380,15 +1367,9 @@ task.wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
-end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
 repeat task.wait()
@@ -1399,26 +1380,15 @@ task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
-end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Super Fast" do
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-GetBob:Set(false)
-end
 task.wait(1.8)
 end
 elseif _G.AutoFarmBob == true then
@@ -1496,7 +1466,7 @@ Tab3:AddToggle({
 _G.AutoTimeGet = Value
 if AutoTime == "Fish" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 end
 elseif Value == false then
@@ -1508,11 +1478,13 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Player
 task.wait(1)
 SleepTime += 1
 OrionLib:MakeNotification({Name = "Time Sleep [ "..SleepTime.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == false then
+SleepTime = 0
 end
 end
 if AutoTime == "Voodoo" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 end
 elseif Value == false then
@@ -1522,9 +1494,11 @@ end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Voodoo" do
 task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
 TimeGhost += 1
 OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 0 then
+TimeGhost = 0
 end
 end
 if AutoTime == "MegaRock" and Value == true then
@@ -1538,9 +1512,11 @@ end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "MegaRock" do
 task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
 OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
+TimeMegarock = 0
 end
 end
 	end    
@@ -1568,7 +1544,7 @@ end
 while Brickfarm and AutoBrick == "Fast" do
 game:GetService("ReplicatedStorage").lbrick:FireServer()
 game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
-task.wait(1.10)
+task.wait(2)
 end
 elseif Brickfarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -4678,6 +4654,7 @@ while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Union" and v:FindFirstChild("TouchTransmitter") then
                         v.CanTouch = false
+                        v.CanQuery = false
                     end
                 end
 task.wait()
@@ -5217,11 +5194,16 @@ game:GetService("TeleportService"):Teleport(6403373529)
 Tab:AddButton({
 	Name = "Get Counter",
 	Callback = function()
+Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(121)
+for i = 1,Time do
+Time = Time - 1
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 1})
+wait(1)
+end
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
