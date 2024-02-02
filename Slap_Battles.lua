@@ -3142,44 +3142,6 @@ end
   	end    
 })
 
-Tab7:AddSlider({
-	Name = "HipHeight AutoFarm Slap",
-	Min = 0,
-	Max = 20,
-	Default = 0,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Hip",
-	Callback = function(Value)
-		_G.HipAutoFarmSlap = Value
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "AutoFarm Slap",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoFarmSlap = Value
-while _G.AutoFarmSlap do
-pcall(function()
-for i,v in next, game.Players:GetChildren() do
-if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
-task.wait(0.5)
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-task.wait(0.25)
-end
-end
-end
-end
-end)
-task.wait()
-end
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "Auto Spam Ability",
 	Default = false,
@@ -3867,6 +3829,7 @@ end
 	end    
 })
 
+if game.PlaceId == 11520107397 then
 Tab7:AddSlider({
 	Name = "Reach Slap Aura",
 	Min = 10,
@@ -3876,9 +3839,10 @@ Tab7:AddSlider({
 	Increment = 1,
 	ValueName = "Reach",
 	Callback = function(Value)
-		_G.ReachSlapArua = Value
+		_G.ReachSlapAruaKillstreak = Value
 	end    
 })
+end
 
 Tab7:AddSlider({
 	Name = "Reach HitBox",
@@ -3915,6 +3879,7 @@ ShukuchiFriend = Value
 	end    
 })
 
+if game.PlaceId == 11520107397 then
 Tab7:AddDropdown({
 	Name = "Slap Aura Friend",
 	Default = "Fight",
@@ -3942,14 +3907,11 @@ while SlapAura and SlapAuraFriend == "Fight" do
 pcall(function()
 for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Ragdolled.Value == false then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        if _G.ReachSlapArua >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+                        if _G.ReachSlapAruaKillstreak >= Magnitude then
+game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
                     end
-end
-end
 end
                 end
 end)
@@ -3959,14 +3921,11 @@ while SlapAura and SlapAuraFriend == "Not Fight" do
 pcall(function()
 for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
-if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        if _G.ReachSlapArua >= Magnitude then
-shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+                        if _G.ReachSlapAruaKillstreak >= Magnitude then
+game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
                     end
-end
-end
 end
                 end
 end)
@@ -3974,6 +3933,7 @@ task.wait(.1)
 end
 	end    
 })
+end
 
 AutoShukuchi = Tab7:AddToggle({
 	Name = "Auto Shukuchi",
@@ -6675,7 +6635,6 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour
   	end    
 })
 end
-local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
