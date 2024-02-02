@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -419,12 +419,6 @@ TournamentAntiVoid.CanCollide = false
 end
 
 --Tab1 - 15
-local Tab = Window:MakeTab({
-	Name = "Info",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 local Tab1 = Window:MakeTab({
 	Name = "Script",
 	Icon = "rbxassetid://4483345998",
@@ -477,78 +471,6 @@ local Tab15 = Window:MakeTab({
 	Name = "Cradit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
-})
-
-local InfoServer = Tab:AddSection({Name = "Info"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-ServerPlayer = Tab:AddLabel("Player Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
-TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-AgeAccYou = Tab:AddLabel("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
-ViewAgeServer = Tab:AddLabel("View Server Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
-CodeKeypad = Tab:AddLabel("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
-if not game.Workspace:FindFirstChild("Keypad") then
-KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
-else
-KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
-end
-CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
-Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-local InfoServer = Tab:AddSection({Name = "Local Player"})
-if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-WalkspeedYou = Tab:AddLabel("Walk Speed [ Not Walk then rock ]")
-JumppowerYou = Tab:AddLabel("Jump Power [ Not Jump Power then rock ]")
-HealthYou = Tab:AddLabel("Health You [ Not Health then rock ]")
-HipHeightYou = Tab:AddLabel("Hip Height [ Not Hip then rock ]")
-else
-WalkspeedYou = Tab:AddLabel("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
-JumppowerYou = Tab:AddLabel("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
-HealthYou = Tab:AddLabel("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
-HipHeightYou = Tab:AddLabel("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
-end
-GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
-PositionYou = Tab:AddLabel("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
-
-Tab:AddToggle({
-	Name = "Auto Set Info",
-	Default = true,
-	Callback = function(Value)
-_G.AutoSetInfo = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoSetInfo then
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-ServerPlayer:Set("Player Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
-TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-AgeAccYou:Set("Age You [ "..game.Players.LocalPlayer.AccountAge.." ]")
-ViewAgeServer:Set("View Server Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
-PlateTime:Set("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
-PositionYou:Set("Position You [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
-CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
-CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
-Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-WalkspeedYou:Set("Walk Speed [ Not Walk then rock ]")
-JumppowerYou:Set("Jump Power [ Not Jump Power then rock ]")
-HealthYou:Set("Health You [ Not Health then rock ]")
-HipHeightYou:Set("Hip Height [ Not Hip then rock ]")
-else
-WalkspeedYou:Set("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
-JumppowerYou:Set("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
-HealthYou:Set("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
-HipHeightYou:Set("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
-end
-GravityYou:Set("Gravity [ "..game.Workspace.Gravity.." ]")
-if not game.Workspace:FindFirstChild("Keypad") then
-KeypadSpawn:Set("Keypad Spawn [ No ]")
-else
-KeypadSpawn:Set("Keypad Spawn [ Yes ]")
-end
-end
-end)
-	end    
 })
 
 Tab1:AddButton({
@@ -5179,10 +5101,6 @@ local Tab1 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Fps = Tab:AddSection({Name = "Fps You"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-
 Tab:AddButton({
 	Name = "Get Elude",
 	Callback = function()
@@ -5455,11 +5373,6 @@ end
 game:GetService("TeleportService"):Teleport(9412268818)
   	end    
 })
-
----GetRun---
-game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-end)
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -5541,12 +5454,6 @@ local Tab1 = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
-
-local InfoServer = Tab:AddSection({Name = "Info"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
-local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
 	Name = "Damage Boss",
@@ -6755,17 +6662,6 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local InfoServer = Tab:AddSection({Name = "Info"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-end)
-local InfoServer = Tab:AddSection({Name = "Misc"})
-
 Tab:AddButton({
 	Name = "Teleport Enter Final room",
 	Callback = function()
@@ -6777,7 +6673,7 @@ v:Disable()
 end
 end
 OrionLib:MakeNotification({Name = "Error",Content = "Turned on Anti Afk",Image = "rbxassetid://7733658504",Time = 3})
-OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour, or you have view Info.",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour",Image = "rbxassetid://7733658504",Time = 5})
   	end    
 })
 end
