@@ -479,6 +479,7 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By Giang And Tấn Lộc")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -4986,9 +4987,11 @@ end
 	end    
 })
 
-Tab15:AddLabel("Owner Credits Script By Giang")
 Tab15:AddLabel("All Discord or github Help My credits Script")
 Tab15:AddLabel("My Share Link Discord And Zalo")
+Tab15:AddLabel("Join Link Zalo Message All People Or Friend")
+Tab15:AddLabel("You Have To Message Zalo In VietNamese")
+Tab15:AddLabel("You Have Message Discord In VietNamese Or English")
 
 Tab15:AddButton({
 	Name = "Copy Guy that exists",
