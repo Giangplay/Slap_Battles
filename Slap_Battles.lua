@@ -479,7 +479,7 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddLabel("Owner Credits Script By Giang And Tấn Lộc")
+Tab:AddLabel("Owner Credits Script By Giang And Tấn Lộc And DonjoSx")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -5018,6 +5018,13 @@ Tab15:AddButton({
 	Name = "Copy Subscribe Mundion Exploits",
 	Callback = function()
             setclipboard("www.youtube.com/@MundionExploits")
+  	end    
+})
+
+Tab15:AddButton({
+	Name = "Copy Subscribe DonjoSx [ DonjoScript ]",
+	Callback = function()
+            setclipboard("www.youtube.com/@DonjoScript")
   	end    
 })
 
