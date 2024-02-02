@@ -47,8 +47,6 @@ _G.GetPotion = {
 }
 
 ---GetThe---
-    
-local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 
 if not game.ReplicatedStorage:FindFirstChild("robAnimation") then
 local robAnim = Instance.new("Animation")
@@ -6677,6 +6675,7 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour
   	end    
 })
 end
+local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
