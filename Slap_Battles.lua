@@ -4988,6 +4988,7 @@ end
 
 Tab15:AddLabel("Owner Credits Script By Giang")
 Tab15:AddLabel("All Discord or github Help My credits Script")
+Tab15:AddLabel("My Share Link Discord And Zalo")
 
 Tab15:AddButton({
 	Name = "Copy Guy that exists",
@@ -5021,6 +5022,13 @@ Tab15:AddButton({
 	Name = "Copy thanhdat4461 [ Baconscripter ]",
 	Callback = function()
             setclipboard("thanhdat4461#1232")
+  	end    
+})
+
+Tab15:AddButton({
+	Name = "Copy Join Zalo",
+	Callback = function()
+            setclipboard("https://zalo.me/g/qlukiy407")
   	end    
 })
 
@@ -6396,7 +6404,7 @@ end
 end)
 end)
 
-Tab2:AddToggle({
+Tab1:AddToggle({
 	Name = "Anti Ragdoll",
 	Default = false,
 	Callback = function(Value)
