@@ -80,7 +80,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.
 while BlinkFarm do
 local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
 game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
-task.wait(50.05)
+task.wait(0.17)
 end
 end
 end
@@ -3576,7 +3576,7 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Parry" do
 game.ReplicatedStorage.GeneralAbility:FireServer()
-wait()
+task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cheeky" do
 game:GetService("ReplicatedStorage").Spherify:FireServer()
@@ -3595,10 +3595,14 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability1")
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ferryman" do
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil
+Target = RandomPlayer
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Leap")
 wait(1.85)
-game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("FinishLeap",game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
-wait(1.7)
+game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("FinishLeap",Target.Character.HumanoidRootPart.Position)
+task.wait(2.9)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -3616,6 +3620,10 @@ end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" do
 local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
 game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Joust" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Start")
 task.wait()
 end
 	end    
