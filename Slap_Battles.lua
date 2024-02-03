@@ -80,7 +80,17 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.
 while BlinkFarm do
 local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
 game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
-task.wait(0.17)
+task.wait(0.20)
+end
+end
+end
+
+function SpamBlink2()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+while BlinkFarm2 do
+local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
+game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+task.wait(50.05)
 end
 end
 end
@@ -2168,6 +2178,31 @@ elseif BlinkFarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Blink equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 FarmBlink:Set(false)
+end
+	end    
+})
+
+FarmBlink2 = Tab14:AddToggle({
+	Name = "Auto Slap Blink 2",
+	Default = false,
+	Callback = function(Value)
+BlinkFarm2 = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if BlinkFarm == true then
+coroutine.wrap(SpamBlink2)()
+end
+while BlinkFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+end
+elseif BlinkFarm2 == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Blink equipped or you aren't in the island default.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FarmBlink2:Set(false)
 end
 	end    
 })
