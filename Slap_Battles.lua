@@ -80,7 +80,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.
 while BlinkFarm do
 local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
 game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
-task.wait(0.16)
+task.wait(50.05)
 end
 end
 end
