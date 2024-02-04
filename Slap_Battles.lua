@@ -2113,6 +2113,7 @@ if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true and game.Pl
 game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
 elseif game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false and game.Players.LocalPlayer.Character.isInArena.Value == false then
 game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+                   end
                 end
             end
 task.wait()
