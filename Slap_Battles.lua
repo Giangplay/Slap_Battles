@@ -48,7 +48,7 @@ _G.GetPotion = {
 
 ---GetThe---
 
-local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/slap-battles/main/File/Gloves.lua"))()
 
 if not game.ReplicatedStorage:FindFirstChild("robAnimation") then
 local robAnim = Instance.new("Animation")
