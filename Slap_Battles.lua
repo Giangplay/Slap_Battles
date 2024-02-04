@@ -2109,6 +2109,9 @@ end
 while _G.BallerFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true and game.Players.LocalPlayer.Character.IsInArena.Value == false then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+elseif game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false and game.Players.LocalPlayer.Character.isInArena.Value == false then
 game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
                 end
             end
@@ -2159,7 +2162,11 @@ end
 while BlinkFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") do
 for i, v in pairs(workspace:GetChildren()) do
                 if v ~= game.Players.LocalPlayer.Name and v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true and game.Players.LocalPlayer.Character.IsInArena.Value == false then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+elseif game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false and game.Players.LocalPlayer.Character.isInArena.Value == false then
 game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
+                   end
                 end
             end
 task.wait()
@@ -3057,7 +3064,7 @@ OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Ima
 wait(0.05)
 Notifykeypad:Set(false)
 end
-task.wait()
+task.wait(0.05)
 end
 	end    
 })
@@ -3624,6 +3631,7 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Joust" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Start")
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
 task.wait()
 end
 	end    
