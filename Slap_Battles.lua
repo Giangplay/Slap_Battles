@@ -814,7 +814,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 Tab3:AddButton({
 	Name = "Click Bob Plushie",
 	Callback = function()
-         fireclickdetector(game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
+fireclickdetector(game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
   	end    
 })
 
@@ -2980,7 +2980,7 @@ game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPla
 end
 end
 while _G.PlayerView do
-if game.Workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") and game.Players[_G.ViewPlayer].Character then
+if game.Workspace.CurrentCamera and game.Players[_G.ViewPlayer].Character and game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid") then
 game.Workspace.CurrentCamera.CameraSubject = game.Players[_G.ViewPlayer].Character:FindFirstChildOfClass("Humanoid")
 end
 task.wait()
@@ -3229,6 +3229,83 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Help Player Teleport Button",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.HelpPlayerGetButton = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Start Help Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+function GetPlayer(String)
+local Found = {}
+local strl = String:lower()
+if strl == "Random" then
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name ~= game.Players.LocalPlayer.Name then
+table.insert(Found,v)
+end
+end
+else
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name:lower():sub(1, #String) == String:lower() then
+table.insert(Found,v)
+end
+end 
+end
+return Found
+end
+local Help = unpack(GetPlayer(_G.HelpPlayerGetButton))
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
+wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2.4)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Help.Character.HumanoidRootPart.CFrame
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab7:AddTextbox({
+	Name = "Help Player Get Quake",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.HelpPlayerGetQuake = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Start Help Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.HelpPlayerGetQuake].leaderstats.Glove.Value == "Berserk" then
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+fireclickdetector(game.Workspace.Lobby.woah.ClickDetector)
+end
+wait(4.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
+wait(0.5)
+game:GetService("ReplicatedStorage").VineThud:FireServer()
+task.wait(1.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
+fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
+wait(0.5)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
 })
 
 Tab7:AddSlider({
