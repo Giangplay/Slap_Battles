@@ -888,7 +888,7 @@ game:GetService("ReplicatedStorage").busmoment:FireServer()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(1.5)
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-task.wait(0.7)
+wait(0.8)
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
