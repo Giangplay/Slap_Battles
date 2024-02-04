@@ -2059,7 +2059,7 @@ end
 while ReplicaBallerFarm do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                  end
 end
 task.wait()
@@ -2084,7 +2084,7 @@ end
 while ReplicaBallerBlinkFarm do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                  end
 end
 task.wait()
@@ -2109,11 +2109,7 @@ end
 while _G.BallerFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baller" do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true and game.Players.LocalPlayer.Character.IsInArena.Value == false then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
-elseif game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false and game.Players.LocalPlayer.Character.isInArena.Value == false then
-game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-                   end
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                 end
             end
 task.wait()
@@ -2138,7 +2134,7 @@ end
 while ReplicaFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true do
 for i, v in pairs(workspace:GetChildren()) do
                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                 end
             end
 task.wait()
@@ -2162,12 +2158,8 @@ coroutine.wrap(SpamBlink)()
 end
 while BlinkFarm and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") do
 for i, v in pairs(workspace:GetChildren()) do
-                if v ~= game.Players.LocalPlayer.Name and v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character.IsInDefaultArena.Value == true and game.Players.LocalPlayer.Character.IsInArena.Value == false then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
-elseif game.Players.LocalPlayer.Character.IsInDefaultArena.Value == false and game.Players.LocalPlayer.Character.isInArena.Value == false then
-game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
-                   end
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
                 end
             end
 task.wait()
