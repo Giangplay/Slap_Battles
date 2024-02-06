@@ -645,7 +645,6 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddLabel("Owner Credits Script By Giang And Tấn Lộc And DonjoSx")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -943,7 +942,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Bob Plushie","Click Bob Plushie","Teleport Portal"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -951,6 +950,12 @@ elseif Value == "Off Show All" then
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
 elseif Value == "Teleport Enter" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18625, 2971, -230)
+elseif Value == "Teleport Bob Plushie" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18472.6094, 3063.44214, -402.015442, -0.835954249, 0, -0.548799276, 0, 1.00000012, 0, 0.548799336, 0, -0.83595413)
+elseif Value == "Click Bob Plushie" then
+fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+elseif Value == "Teleport Portal" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18661.6172, 3002.72485, -298.155304, 0.999925911, -0, -0.0121711809, 0, 1, -0, 0.0121711809, 0, 0.999925911)
 end
 	end    
 })
@@ -973,14 +978,11 @@ end
 Tab3:AddButton({
 	Name = "Reset Player",
 	Callback = function()
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "Click Bob Plushie",
-	Callback = function()
-fireclickdetector(game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have dead",Image = "rbxassetid://7733658504",Time = 5})
+end
   	end    
 })
 
@@ -1819,7 +1821,9 @@ Prop = Tab14:AddToggle({
 PropSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Prop" then
 while PropSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Prop" do
+if game.Workspace:FindFirstChild("PropModel_"..game.Players.LocalPlayer.Name) == nil then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PropAbility)
+end
 task.wait()
 end
 elseif PropSpam == true then
@@ -2827,12 +2831,9 @@ end
 	end    
 })
 
-local Bindable = Instance.new("BindableFunction")
 Tab7:AddButton({
-	Name = "View Testing Server",
+	Name = "View Slap Battles Testing Server",
 	Callback = function()
-function Callback(answer)
-if answer == "Server Slap Battles" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -2841,31 +2842,14 @@ if teleportFunc then
         end
         repeat wait() until game.Players.LocalPlayer
         game:GetService("RunService").RenderStepped:Connect(function()
+if game.CoreGui.RobloxLoadingGUI then
             game:GetService("GuiService"):ClearError()
             game.CoreGui.RobloxLoadingGUI:Destroy()
+end
         end)
     ]])
 end
 game:GetService("TeleportService"):Teleport(9020359053)
-elseif answer == "Server Slap Royale" then
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
-        game:GetService("RunService").RenderStepped:Connect(function()
-            game:GetService("GuiService"):ClearError()
-            game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9412268818)
-end
-end
-Bindable.OnInvoke = Callback
-game.StarterGui:SetCore("SendNotification", {Title = "Error",Text = "Server Leaking Glove",Duration = 5,Button1 = "Server Slap Battles",Button2 = "Server Slap Royale",Icon = "rbxassetid://7733658504",Callback = Bindable})
   	end    
 })
 
@@ -4631,7 +4615,7 @@ end
 })
 
 AntiAdmin = Tab2:AddToggle({
-	Name = "Anti Mod",
+	Name = "Anti Mod | Admin",
 	Default = false,
 	Callback = function(Value)
 AntiMods = Value
@@ -4708,7 +4692,7 @@ end
 })
 
 AntiRock = Tab2:AddToggle({
-	Name = "Anti Megarock / Custom",
+	Name = "Anti Megarock | Custom",
 	Default = false,
 	Callback = function(Value)
 		_G.AntiRock = Value
@@ -4905,7 +4889,7 @@ AntiBrick = Tab2:AddToggle({
 _G.AntiBrick = Value
 while _G.AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Union" and v:FindFirstChild("TouchTransmitter") then
+                    if v.Name == "Union" then
                         v.CanTouch = false
                         v.CanQuery = false
                     end
@@ -5239,11 +5223,13 @@ end
 	end    
 })
 
-Tab15:AddLabel("All Discord or github Help My credits Script")
+Tab15:AddLabel("Owner Credits Script By Giang And DonjoSx")
+Tab15:AddLabel("All Discord or github Help My Credits Script")
 Tab15:AddLabel("My Share Link Discord And Zalo")
 Tab15:AddLabel("Join Link Zalo Message All People Or Friend")
 Tab15:AddLabel("You Have To Message Zalo In VietNamese")
 Tab15:AddLabel("You Have Message Discord In VietNamese Or English")
+Tab15:AddLabel("Owner Zalo [ Tấn Lộc ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
 
 Tab15:AddButton({
 	Name = "Copy Guy that exists",
@@ -5450,8 +5436,8 @@ local Tab1 = Window:MakeTab({
 })
 
 local Fps = Tab:AddSection({Name = "Fps You"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
+CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 
 Tab:AddButton({
 	Name = "Get Elude",
@@ -5677,15 +5663,21 @@ Tab:AddButton({
   	end    
 })
 
-Tab:AddButton({
-	Name = "Click Alchemist Plushie",
-	Callback = function()
-         fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectEludeHat").ClickDetector)
-  	end    
+Tab:AddDropdown({
+	Name = "Alchemist Plushie",
+	Default = "",
+	Options = {"Click", "Teleport"},
+	Callback = function(Value)
+if Value == "Click" then
+fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectEludeHat").ClickDetector)
+elseif Value == "Teleport" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-52.8588524, 1.19999933, -37.3839836, -0.999801993, -1.05696429e-07, -0.0199000984, -1.05679547e-07, 1, -1.89986538e-09, 0.0199000984, 2.03544209e-10, -0.999801993)
+end
+	end    
 })
 
 Tab1:AddButton({
-	Name = "View Testing Server [ Good for glove leaking ] [ You Have Banned ]",
+	Name = "View Testing Server",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
@@ -5696,39 +5688,19 @@ if teleportFunc then
         local localPlr = game:GetService("Players").LocalPlayer
         repeat wait() until localPlr
         game:GetService("RunService").RenderStepped:Connect(function()
+if game.CoreGui.RobloxLoadingGUI then
 game:GetService("GuiService"):ClearError()
 game.CoreGui.RobloxLoadingGUI:Destroy()
+end
         end)
     ]])
 end
 game:GetService("TeleportService"):Teleport(9020359053)
   	end    
 })
-
-Tab1:AddButton({
-	Name = "View Testing Slap Royale Server",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9412268818)
-  	end    
-})
-
 ---GetRun---
 game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 end)
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
@@ -5778,8 +5750,10 @@ if teleportFunc then
         end
         repeat wait() until game.Players.LocalPlayer
         game:GetService("RunService").RenderStepped:Connect(function()
+if game.CoreGui.RobloxLoadingGUI then
             game:GetService("GuiService"):ClearError()
             game.CoreGui.RobloxLoadingGUI:Destroy()
+end
         end)
     ]])
 end
@@ -5813,9 +5787,9 @@ local Tab1 = Window:MakeTab({
 })
 
 local InfoServer = Tab:AddSection({Name = "Info"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-Tab:AddLabel("ID Game Play [ "..game.PlaceId.." ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
@@ -5930,7 +5904,7 @@ GloveSlap = Value
 })
 
 Tab:AddToggle({
-	Name = "Slap Bob Clone",
+	Name = "Auto Slap Bob Clone",
 	Default = false,
 	Callback = function(Value)
 _G.SlapBob = Value
@@ -5940,10 +5914,7 @@ task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
 if game.Workspace:WaitForChild("BobClone"):WaitForChild("DeathMark") == nil then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.BobClone.HumanoidRootPart.Position).Magnitude
-if 90 >= Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
-end
 end
 task.wait()
 end
@@ -6786,11 +6757,17 @@ end)
 	end    
 })
 
-Tab:AddButton({
-	Name = "Click Rob Plushie",
-	Callback = function()
-         fireclickdetector(game.Workspace._ugcQuestObjectBobPlushie.ClickDetector)
-  	end    
+Tab:AddDropdown({
+	Name = "Rob Plushie",
+	Default = "",
+	Options = {"Click", "Teleport"},
+	Callback = function(Value)
+if Value == "Click" then
+fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+elseif Value == "Teleport" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5260.01758, -141.203705, 863.330688, -0.923977673, 9.12476672e-09, -0.382446438, 4.22164632e-08, 1, -7.81346046e-08, 0.382446438, -8.83401654e-08, -0.923977673)
+end
+	end    
 })
 
 Tab:AddDropdown({
@@ -7026,18 +7003,18 @@ local Tab = Window:MakeTab({
 })
 
 local InfoServer = Tab:AddSection({Name = "Info"})
-CanYouFps = Tab:AddLabel("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CanYouPing = Tab:AddLabel("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-TimeServer = Tab:AddLabel("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CanYouPing:Set("Can You Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-TimeServer:Set("Time Server [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing:Set("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+TimeServer:Set("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 end)
 local InfoServer = Tab:AddSection({Name = "Misc"})
 
 Tab:AddButton({
-	Name = "Teleport Enter Final room",
+	Name = "Teleport Enter Final Room",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.860291, 77.2709045, 60.5982056, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 wait(1.5)
