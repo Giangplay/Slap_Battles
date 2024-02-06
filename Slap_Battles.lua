@@ -1743,68 +1743,6 @@ end
 	end    
 })
 
-Tab14:AddTextbox({
-	Name = "Spam Rojo Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-Person = game.Players.LocalPlayer.Name
-else
-Person = Value
-end
-	end	  
-})
-
-Tab14:AddTextbox({
-	Name = "Godmode Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-SaveThePlayer = game.Players.LocalPlayer.Name
-else
-SaveThePlayer = Value
-end
-	end	  
-})
-
-Tab14:AddTextbox({
-	Name = "Make Punish Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.PunishPlayer = Value
-	end	  
-})
-
-Tab14:AddDropdown({
-	Name = "Retro Ability",
-	Default = "Rocket Launcher",
-	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
-	Callback = function(Value)
-RetroAbility = Value
-	end    
-})
-
-Tab14:AddDropdown({
-	Name = "Admin Ability",
-	Default = "Fling",
-	Options = {"Fling", "Anvil", "Invisibility"},
-	Callback = function(Value)
-AbilityAdmin = Value
-	end    
-})
-
-Tab14:AddDropdown({
-	Name = "Santa Ability",
-	Default = "",
-	Options = {"bobplush", "snowpeep", "milk"},
-	Callback = function(Value)
-SantaAbility = Value
-	end    
-})
-
 Tab14:AddDropdown({
 	Name = "Prop Ability",
 	Default = "",
@@ -1834,6 +1772,15 @@ end
 	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Santa Ability",
+	Default = "",
+	Options = {"bobplush", "snowpeep", "milk"},
+	Callback = function(Value)
+SantaAbility = Value
+	end    
+})
+
 Santa = Tab14:AddToggle({
 	Name = "Auto Spam Santa",
 	Default = false,
@@ -1852,6 +1799,15 @@ end
 	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Admin Ability",
+	Default = "Fling",
+	Options = {"Fling", "Anvil", "Invisibility"},
+	Callback = function(Value)
+AbilityAdmin = Value
+	end    
+})
+
 Admin = Tab14:AddToggle({
 	Name = "Auto Spam Admin [ All Glove ]",
 	Default = false,
@@ -1861,6 +1817,15 @@ while AdminSpam do
 game:GetService("ReplicatedStorage").AdminAbility:FireServer(AbilityAdmin)
 task.wait()
 end
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Retro Ability",
+	Default = "Rocket Launcher",
+	Options = {"Rocket Launcher", "Ban Hammer", "Bomb"},
+	Callback = function(Value)
+RetroAbility = Value
 	end    
 })
 
@@ -1874,6 +1839,19 @@ game:GetService("ReplicatedStorage").RetroAbility:FireServer(RetroAbility)
 task.wait()
 end
 	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Godmode Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+SaveThePlayer = game.Players.LocalPlayer.Name
+else
+SaveThePlayer = Value
+end
+	end	  
 })
 
 SavePlayer = Tab14:AddToggle({
@@ -1897,6 +1875,28 @@ end
 	end    
 })
 
+Tab14:AddTextbox({
+	Name = "Spam Rojo Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+Person = game.Players.LocalPlayer.Name
+else
+Person = Value
+end
+	end	  
+})
+
+Tab14:AddDropdown({
+	Name = "Rojo Ability",
+	Default = "",
+	Options = {"Normal", "Down"},
+	Callback = function(Value)
+RojoAbility = Value
+	end    
+})
+
 Tab14:AddToggle({
 	Name = "Auto Spam Rojo [ All Glove ]",
 	Default = false,
@@ -1905,11 +1905,24 @@ if Person == nil then
 Person = game.Players.LocalPlayer.Name
 end
 _G.RojoSpam = Value
-while _G.RojoSpam do
+while _G.RojoSpam and RojoAbility == "Normal" do
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
 task.wait()
 end
+while _G.RojoSpam and RojoAbility == "Down" do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
+task.wait()
+end
 	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Make Punish Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.PunishPlayer = Value
+	end	  
 })
 
 Cancel = false
@@ -3503,7 +3516,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(4.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
-game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
 wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
@@ -3512,16 +3525,17 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Head:FindFirstChild("RedEye") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+end
 game:GetService("ReplicatedStorage").SM:FireServer(Target)
 wait(0.05)
-end
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
 game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
 game:GetService("ReplicatedStorage").Slicer:FireServer("slash", game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame, Vector3.new())
 wait(5.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" and workspace:WaitForChild(game.Players.LocalPlayer.Name):FindFirstChild("entered") do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" do
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
 task.wait(5.7)
 end
@@ -3840,13 +3854,11 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Jebaited" do
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(CFrame.new(OGL) * CFrame.Angles(-2.62974964471141e-07, 1.4957197904586792, 2.625950799028942e-07))
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" do
-local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
-game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Joust" do
