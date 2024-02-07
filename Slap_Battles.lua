@@ -5810,7 +5810,7 @@ Tab:AddToggle({
 	Callback = function(Value)
 _G.DameBossBob = Value
 while _G.DameBossBob do
-game.workspace.bobBoss.DamageEvent:FireServer()
+game.Workspace.bobBoss.DamageEvent:FireServer()
 task.wait()
 end
 	end    
@@ -5876,7 +5876,7 @@ end
 })
 
 Tab:AddToggle({
-	Name = "Anti Void",
+	Name = "Anti Void Damage",
 	Default = false,
 	Callback = function(Value)
 game.Workspace["VoidPart"].CanCollide = Value
@@ -5921,13 +5921,11 @@ Tab:AddToggle({
 	Callback = function(Value)
 _G.SlapBob = Value
 while _G.SlapBob and GloveSlap == "Killstreak" do
-game:GetService("ReplicatedStorage"):WaitForChild("KSHit"):FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
+game:GetService("ReplicatedStorage").KSHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
 task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
-if game.Workspace:WaitForChild("BobClone"):WaitForChild("DeathMark") == nil then
-game:GetService("ReplicatedStorage"):WaitForChild("ReaperHit"):FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
-end
+game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
 task.wait()
 end
 	end    
