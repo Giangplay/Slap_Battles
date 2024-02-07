@@ -953,7 +953,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Repr
 elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie" then
-fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
 elseif Value == "Teleport Portal" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 end
@@ -1576,7 +1576,8 @@ Jetfarm = Value
 while Jetfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "JetOrb" then
-v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
                     end
                 end
 task.wait()
@@ -1592,7 +1593,8 @@ Phasefarm = Value
 while Phasefarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "PhaseOrb" then
-v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
                     end
                 end
 task.wait()
@@ -5679,7 +5681,7 @@ Tab:AddDropdown({
 	Options = {"Click", "Teleport"},
 	Callback = function(Value)
 if Value == "Click" then
-fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectEludeHat").ClickDetector)
+fireclickdetector(workspace._ugcQuestObjectEludeHat.ClickDetector)
 elseif Value == "Teleport" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-52.8588524, 1.19999933, -37.3839836, -0.999801993, -1.05696429e-07, -0.0199000984, -1.05679547e-07, 1, -1.89986538e-09, 0.0199000984, 2.03544209e-10, -0.999801993)
 end
@@ -6771,7 +6773,7 @@ Tab:AddDropdown({
 	Options = {"Click", "Teleport"},
 	Callback = function(Value)
 if Value == "Click" then
-fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
+fireclickdetector(workspace._ugcQuestObjectBobPlushie.ClickDetector)
 elseif Value == "Teleport" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5260.01758, -141.203705, 863.330688, -0.923977673, 9.12476672e-09, -0.382446438, 4.22164632e-08, 1, -7.81346046e-08, 0.382446438, -8.83401654e-08, -0.923977673)
 end
