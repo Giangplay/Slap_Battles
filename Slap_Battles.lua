@@ -949,13 +949,13 @@ game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
 elseif Value == "Off Show All" then
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
 elseif Value == "Teleport Enter" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18625, 2971, -230)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.Limbo.CFrame * CFrame.new(0,-5,0)
 elseif Value == "Teleport Bob Plushie" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18472.6094, 3063.44214, -402.015442, -0.835954249, 0, -0.548799276, 0, 1.00000012, 0, 0.548799336, 0, -0.83595413)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie" then
 fireclickdetector(game.Workspace:FindFirstChild("_ugcQuestObjectBobPlushie").ClickDetector)
 elseif Value == "Teleport Portal" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(18661.6172, 3002.72485, -298.155304, 0.999925911, -0, -0.0121711809, 0, 1, -0, 0.0121711809, 0, 0.999925911)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 end
 	end    
 })
@@ -1575,9 +1575,8 @@ Tab3:AddToggle({
 Jetfarm = Value
 while Jetfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "JetOrb" and v:FindFirstChild("TouchInterest") then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    if v.Name == "JetOrb" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
 task.wait()
@@ -1592,9 +1591,8 @@ Tab3:AddToggle({
 Phasefarm = Value
 while Phasefarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "PhaseOrb" and v:FindFirstChild("TouchInterest") then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    if v.Name == "PhaseOrb" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
 task.wait()
@@ -1609,7 +1607,7 @@ Tab3:AddToggle({
 Giftfarm = Value
 while Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Gift" and v:FindFirstChild("TouchInterest") then
+                    if v.Name == "Gift" then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
                     end
