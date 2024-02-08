@@ -1046,6 +1046,7 @@ Tab3:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061) then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 repeat
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
@@ -1060,6 +1061,7 @@ wait(0.8)
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
 end
 end
 task.wait(3.5)
@@ -1473,7 +1475,7 @@ task.wait()
 Tab5:AddSlider({
 	Name = "Gravity",
 	Min = 0,
-	Max = 196,
+	Max = 600,
 	Default = 196,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -1628,6 +1630,8 @@ AutoTime = Value
 	end    
 })
 
+FarmTimeServer = Tab3:AddLabel("Farm Time [ 0 ]")
+
 Tab3:AddToggle({
 	Name = "AutoFarm Time",
 	Default = false,
@@ -1640,15 +1644,17 @@ game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 end
 elseif Value == false then
 SleepTime = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Fish" and task.wait() do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
 SleepTime += 1
-OrionLib:MakeNotification({Name = "Time Sleep [ "..SleepTime.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+FarmTimeServer:Set("Farm Time [ "..SleepTime.." ] | [ "..(3600 - SleepTime).." ]")
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == false then
 SleepTime = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 end
 if AutoTime == "Voodoo" and Value == true then
@@ -1659,15 +1665,17 @@ end
 elseif Value == false then
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 TimeGhost = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "Voodoo" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
 TimeGhost += 1
-OrionLib:MakeNotification({Name = "Time Ghost [ "..TimeGhost.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+FarmTimeServer:Set("Farm Time [ "..TimeGhost.." ] | [ "..(3600 - TimeGhost).." ]")
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 0 then
 TimeGhost = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 end
 if AutoTime == "MegaRock" and Value == true then
@@ -1675,17 +1683,21 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 elseif Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
+end
 end
 task.wait()
 while _G.AutoTimeGet and AutoTime == "MegaRock" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
-OrionLib:MakeNotification({Name = "Time Rock [ "..TimeMegarock.." ]",Content = "Error",Image = "rbxassetid://7743873443",Time = 0.5})
+FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ] | [ "..(3600 - TimeMegarock).." | "..(36000 - TimeMegarock).." ]")
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
 TimeMegarock = 0
+FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 end
 	end    
