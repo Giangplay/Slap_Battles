@@ -116,6 +116,7 @@ local gloveHits = {
     ["Admin"] = game.ReplicatedStorage.GeneralHit,
     ["Prop"] = game.ReplicatedStorage.GeneralHit,
     ["Joust"] = game.ReplicatedStorage.GeneralHit,
+    ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -3520,17 +3521,15 @@ Tab7:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.HelpPlayerGetQuake].leaderstats.Glove.Value == "Berserk" then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 fireclickdetector(game.Workspace.Lobby.woah.ClickDetector)
-end
 wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
-wait(0.5)
+task.wait(0.3)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
-task.wait(1.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
+task.wait(2.5)
 fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
-wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
+task.wait(0.25)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.",Image = "rbxassetid://7733658504",Time = 5})
@@ -3941,6 +3940,10 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Start")
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slapstick" do
+game:GetService("ReplicatedStorage").slapstick:FireServer("charge")
+task.wait()
+end
 	end    
 })
 
@@ -4117,7 +4120,7 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoGiveKill = Value
-while _G.AutoGiveKill and game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") do
+while _G.AutoGiveKill do
 if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
 for i = 1, _G.GiveKillReaper do
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
@@ -4139,7 +4142,7 @@ Tab7:AddButton({
 	Callback = function()
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
-for i = 1,100 do
+for i = 1,150 do
 fireclickdetector(v.ClickDetector)
 end
 end
@@ -4212,6 +4215,13 @@ for _, v in pairs(game.Lighting:GetChildren()) do
 v:Destroy()
 end
   	end    
+})
+
+Tab7:AddButton({
+	Name = "Add Character Troll",
+	Callback = function()
+game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
+  	end 
 })
 
 Tab7:AddToggle({
@@ -5244,8 +5254,8 @@ end)
 end)
 end
 while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and RagdollGetAnti == "Not Reset" then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Ragdolled") then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
@@ -5790,7 +5800,7 @@ Tab:AddDropdown({
 if Value == "Click" then
 fireclickdetector(workspace._ugcQuestObjectEludeHat.ClickDetector)
 elseif Value == "Teleport" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-52.8588524, 1.19999933, -37.3839836, -0.999801993, -1.05696429e-07, -0.0199000984, -1.05679547e-07, 1, -1.89986538e-09, 0.0199000984, 2.03544209e-10, -0.999801993)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
 end
 	end    
 })
@@ -5977,6 +5987,18 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab2 = Window:MakeTab({
+	Name = "Anti",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab3 = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
 local Tab1 = Window:MakeTab({
 	Name = "Script",
 	Icon = "rbxassetid://4483345998",
@@ -5988,53 +6010,6 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
-
-Tab:AddTextbox({
-	Name = "Speed Fly",
-	Default = "Userspeed",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.SetSpeedFly = Value
-	end	  
-})
-
-_G.SetSpeedFly = 50
-Tab:AddToggle({
-	Name = "Start Fly",
-	Default = false,
-	Callback = function(Value)
-	 _G.StartFly = Value
-if _G.StartFly == false then
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(0,0,0)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(0,0,0)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-while _G.StartFly do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-end
-task.wait()
-end
-	end    
-})
 
 Tab:AddToggle({
 	Name = "Damage Boss",
@@ -6065,7 +6040,7 @@ end
 	end    
 })
 
-Tab:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Ring",
 	Default = false,
 	Callback = function(Value)
@@ -6079,7 +6054,7 @@ end
 	end    
 })
 
-Tab:AddToggle({
+Tab2:AddToggle({
 	Name = "Auto Remove Big Meteors",
 	Default = false,
 	Callback = function(Value)
@@ -6093,7 +6068,7 @@ end
 	end    
 })
 
-Tab:AddToggle({
+Tab2:AddToggle({
 	Name = "Auto Remove Small Meteors",
 	Default = false,
 	Callback = function(Value)
@@ -6107,7 +6082,7 @@ end
 	end    
 })
 
-Tab:AddToggle({
+Tab2:AddToggle({
 	Name = "Anti Void Damage",
 	Default = false,
 	Callback = function(Value)
@@ -6116,6 +6091,24 @@ if Value == true then
 game.Workspace["VoidPart"].Transparency = 0.5
 else
 game.Workspace["VoidPart"].Transparency = 1
+end
+	end    
+})
+
+Tab2:AddToggle({
+	Name = "Anti Ragdoll",
+	Default = true,
+	Callback = function(Value)
+        _G.AntiRagdoll = Value
+while _G.AntiRagdoll do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
+repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+game.Players.LocalPlayer.Character.Torso.Anchored = false
+end
+end
+task.wait()
 end
 	end    
 })
@@ -6158,6 +6151,53 @@ task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
 game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
+task.wait()
+end
+	end    
+})
+
+Tab3:AddTextbox({
+	Name = "Speed Fly",
+	Default = "Userspeed",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.SetSpeedFly = Value
+	end	  
+})
+
+_G.SetSpeedFly = 50
+Tab3:AddToggle({
+	Name = "Start Fly",
+	Default = false,
+	Callback = function(Value)
+	 _G.StartFly = Value
+if _G.StartFly == false then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+while _G.StartFly do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+go = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+end
 task.wait()
 end
 	end    
