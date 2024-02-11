@@ -673,11 +673,13 @@ local Tab11 = Window:MakeTab({
 })
 
 local Tab15 = Window:MakeTab({
-	Name = "Cradit",
+	Name = "Credit",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By Giang And DonjoSx")
+Tab:AddLabel("Bạn có thể Vào nhóm Zalo thì vào Credit nhé")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -3526,7 +3528,7 @@ wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
 task.wait(0.3)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
-task.wait(2.5)
+task.wait(1.5)
 fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
 task.wait(0.25)
@@ -5320,7 +5322,6 @@ end
 	end    
 })
 
-Tab15:AddLabel("Owner Credits Script By Giang And DonjoSx")
 Tab15:AddLabel("All Discord or github Help My Credits Script")
 Tab15:AddLabel("My Share Link Discord And Zalo")
 Tab15:AddLabel("Join Link Zalo Message All People Or Friend")
@@ -7145,20 +7146,24 @@ Tab:AddDropdown({
 if Value == "Click" then
 fireclickdetector(workspace._ugcQuestObjectBobPlushie.ClickDetector)
 elseif Value == "Teleport" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5260.01758, -141.203705, 863.330688, -0.923977673, 9.12476672e-09, -0.382446438, 4.22164632e-08, 1, -7.81346046e-08, 0.382446438, -8.83401654e-08, -0.923977673)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace._ugcQuestObjectBobPlushie.Handle.CFrame
 end
 	end    
 })
 
 Tab:AddDropdown({
-	Name = "Teleport Badge",
+	Name = "Teleport Or Get Badge",
 	Default = "",
-	Options = {"Null", "Tinkever"},
+	Options = {"Null", "Tinkever","Lobby"},
 	Callback = function(Value)
 if Value == "Null" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5455.59, -195.001, 1857.2)
+fireclickdetector(workspace.Model.Handle.ClickDetector)
 elseif Value == "Tinkever" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
+wait(2)
+fireclickdetector(workspace:GetChildren()[13].Handle.ClickDetector)
+elseif Value == "Lobby" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5466, -1, -585)
 end
 	end    
 })
