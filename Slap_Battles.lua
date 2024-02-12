@@ -2593,6 +2593,12 @@ end
 	end    
 })
 
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") == nil or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+CheckKineticCharge = Tab14:AddLabel("Check Kinetic Charge [ You don't have Kinetic equipped, or not have enter erane ]")
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") or game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+CheckKineticCharge = Tab14:AddLabel("Check Kinetic Charge [ "..game.Players.LocalPlayer.Character.KineticCharge.Value.." ]")
+end
+
 FullKinetic = Tab14:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
@@ -2601,6 +2607,11 @@ FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while FullKineticSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") == nil or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+CheckKineticCharge:Set("Check Kinetic Charge [ 0 ]")
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") or game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+CheckKineticCharge:Set("Check Kinetic Charge [ "..game.Players.LocalPlayer.Character.KineticCharge.Value.." ]")
+end
 task.wait()
 end
 elseif Value == true then
@@ -3451,6 +3462,8 @@ end
 return Found
 end
 local Help = unpack(GetPlayer(_G.PlayerGetRetro))
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
@@ -3496,6 +3509,8 @@ end
 return Found
 end
 local Help = unpack(GetPlayer(_G.HelpPlayerGetButton))
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
@@ -5964,12 +5979,6 @@ local Tab2 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab3 = Window:MakeTab({
-	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 local Tab1 = Window:MakeTab({
 	Name = "Script",
 	Icon = "rbxassetid://4483345998",
@@ -6122,53 +6131,6 @@ task.wait()
 end
 while _G.SlapBob and GloveSlap == "Reaper" do
 game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
-task.wait()
-end
-	end    
-})
-
-Tab3:AddTextbox({
-	Name = "Speed Fly",
-	Default = "Userspeed",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.SetSpeedFly = Value
-	end	  
-})
-
-_G.SetSpeedFly = 50
-Tab3:AddToggle({
-	Name = "Start Fly",
-	Default = false,
-	Callback = function(Value)
-	 _G.StartFly = Value
-if _G.StartFly == false then
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(0,0,0)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(0,0,0)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-while _G.StartFly do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (controlModule:GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-end
 task.wait()
 end
 	end    
