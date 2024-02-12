@@ -5962,14 +5962,14 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab2 = Window:MakeTab({
-	Name = "Anti",
+local Tab1 = Window:MakeTab({
+	Name = "Script",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab1 = Window:MakeTab({
-	Name = "Script",
+local Tab2 = Window:MakeTab({
+	Name = "Anti",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -6007,6 +6007,91 @@ end
 task.wait()
 end
 	end    
+})
+
+SpawnRob = Tab:AddToggle({
+	Name = "Auto Spawn Rob",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoSpawnRob = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" then
+while _G.AutoSpawnRob do
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(15)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "Get ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+SpawnRob:Set(false)
+end
+	end    
+})
+
+Tab:AddDropdown({
+	Name = "Glove Slap Bob",
+	Default = "Killstreak",
+	Options = {"Killstreak", "Reaper"},
+	Callback = function(Value)
+GloveSlap = Value
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Slap Bob Clone",
+	Default = false,
+	Callback = function(Value)
+_G.SlapBob = Value
+while _G.SlapBob and GloveSlap == "Killstreak" do
+game:GetService("ReplicatedStorage").KSHit:FireServer(game.Workspace.BobClone.HumanoidRootPart)
+task.wait()
+end
+while _G.SlapBob and GloveSlap == "Reaper" do
+game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone.HumanoidRootPart)
+task.wait()
+end
+	end    
+})
+
+Tab1:AddButton({
+	Name = "Fe fly V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Anti Lag",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Inf Yield Delta",
+	Callback = function()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Inf Yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "RemoteSpy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "TP back to Slap Battles",
+	Callback = function()
+      		game:GetService("TeleportService"):Teleport(6403373529)
+  	end    
 })
 
 Tab2:AddToggle({
@@ -6080,91 +6165,6 @@ end
 task.wait()
 end
 	end    
-})
-
-SpawnRob = Tab:AddToggle({
-	Name = "Auto Spawn Rob",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoSpawnRob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "rob" then
-while _G.AutoSpawnRob do
-game:GetService("ReplicatedStorage").rob:FireServer()
-wait(15)
-end
-elseif Value == true then
-OrionLib:MakeNotification({Name = "Error",Content = "Get ethernal bob boss fight phase 6.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-SpawnRob:Set(false)
-end
-	end    
-})
-
-Tab:AddDropdown({
-	Name = "Glove Slap Bob",
-	Default = "Killstreak",
-	Options = {"Killstreak", "Reaper"},
-	Callback = function(Value)
-GloveSlap = Value
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Auto Slap Bob Clone",
-	Default = false,
-	Callback = function(Value)
-_G.SlapBob = Value
-while _G.SlapBob and GloveSlap == "Killstreak" do
-game:GetService("ReplicatedStorage").KSHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
-task.wait()
-end
-while _G.SlapBob and GloveSlap == "Reaper" do
-game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone:WaitForChild("HumanoidRootPart"))
-task.wait()
-end
-	end    
-})
-
-Tab1:AddButton({
-	Name = "Fe fly V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Anti Lag",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Inf Yield Delta",
-	Callback = function()
-      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Inf Yield",
-	Callback = function()
-      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "RemoteSpy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "TP back to Slap Battles",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(6403373529)
-  	end    
 })
 
 ---GetRun---
