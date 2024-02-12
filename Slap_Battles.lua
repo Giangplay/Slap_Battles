@@ -2593,12 +2593,6 @@ end
 	end    
 })
 
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") == nil or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-CheckKineticCharge = Tab14:AddLabel("Check Kinetic Charge [ You don't have Kinetic equipped, or not have enter erane ]")
-elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") or game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-CheckKineticCharge = Tab14:AddLabel("Check Kinetic Charge [ "..game.Players.LocalPlayer.Character.KineticCharge.Value.." ]")
-end
-
 FullKinetic = Tab14:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
@@ -2607,11 +2601,6 @@ FullKineticSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while FullKineticSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") == nil or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-CheckKineticCharge:Set("Check Kinetic Charge [ 0 ]")
-elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:WaitForChild("KineticCharge") or game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-CheckKineticCharge:Set("Check Kinetic Charge [ "..game.Players.LocalPlayer.Character.KineticCharge.Value.." ]")
-end
 task.wait()
 end
 elseif Value == true then
