@@ -5554,6 +5554,8 @@ local Tab1 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local Fps = Tab:AddSection({Name = "Fps You"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
@@ -5974,6 +5976,8 @@ local Tab1 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
@@ -6259,6 +6263,9 @@ Tab:AddSlider({
 		ReachAura = Value
 	end    
 })
+
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 
 Tab:AddToggle({
 	Name = "Slap Aura",
@@ -7004,6 +7011,9 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
+
 Tab:AddToggle({
 	Name = "Anti Null",
 	Default = false,
@@ -7186,6 +7196,9 @@ local Tab2 = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
+
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 
 Tab1:AddSlider({
 	Name = "Reach Slap Aura",
@@ -7417,6 +7430,8 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
