@@ -500,7 +500,7 @@ Safespot2.Position = Vector3.new(10248.2, 13, 10002.4)
 Safespot2.Size = Vector3.new(5, 117, 496)
 Safespot2.Anchored = true
 Safespot2.CanCollide = true
-Safespot2.Transpvarency = .5
+Safespot2.Transparency = .5
 Safespot2.Parent = game.workspace.Safespot
 
 local Safespot3 = Instance.new("Part",workspace)
@@ -586,7 +586,7 @@ end
 
 ---Anti Void---
 
-if workspace:FindFirstChild("VoidPart") == nil the
+if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
 VoidPart.Name = "VoidPart"
