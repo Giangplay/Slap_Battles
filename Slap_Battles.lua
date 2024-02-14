@@ -296,7 +296,6 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
 game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
-wait(0.5)
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
@@ -324,7 +323,6 @@ until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-wait(0.5)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
@@ -502,7 +500,7 @@ Safespot2.Position = Vector3.new(10248.2, 13, 10002.4)
 Safespot2.Size = Vector3.new(5, 117, 496)
 Safespot2.Anchored = true
 Safespot2.CanCollide = true
-Safespot2.Transparency = .5
+Safespot2.Transpvarency = .5
 Safespot2.Parent = game.workspace.Safespot
 
 local Safespot3 = Instance.new("Part",workspace)
@@ -588,17 +586,7 @@ end
 
 ---Anti Void---
 
-if workspace:FindFirstChild("VoidPart1") == nil then
-local VoidPart1 = Instance.new("Part", workspace)
-VoidPart1.Position = Vector3.new(0,-50026.5,0)
-VoidPart1.Name = "VoidPart1"
-VoidPart1.Size = Vector3.new(2048,70,2048)
-VoidPart1.Anchored = true
-VoidPart1.Transparency = 1
-VoidPart1.CanCollide = false
-end
-
-if workspace:FindFirstChild("VoidPart") == nil then
+if workspace:FindFirstChild("VoidPart") == nil the
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
 VoidPart.Name = "VoidPart"
@@ -607,6 +595,14 @@ VoidPart.Material = "ForceField"
 VoidPart.Anchored = true
 VoidPart.Transparency = 1
 VoidPart.CanCollide = false
+
+local VoidPart1 = Instance.new("Part", VoidPart)
+VoidPart1.Position = Vector3.new(0,-50026.5,0)
+VoidPart1.Name = "VoidPart1"
+VoidPart1.Size = Vector3.new(2048,70,2048)
+VoidPart1.Anchored = true
+VoidPart1.Transparency = 1
+VoidPart1.CanCollide = false
 
 local TournamentAntiVoid = Instance.new("Part", VoidPart)
 TournamentAntiVoid.Name = "TAntiVoid"
@@ -1557,14 +1553,20 @@ GetBob = Tab3:AddToggle({
 _G.AutoFarmBob = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 while _G.AutoFarmBob and Autobob == "Slow" do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") or game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
+GetBob:Set(false)
 end
 task.wait(15.1)
 end
 while _G.AutoFarmBob and Autobob == "Fast" do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") or game.Workspace:FindFirstChild("bobcap") == nil then
 game.ReplicatedStorage.Duplicate:FireServer(true)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
+GetBob:Set(false)
 end
 task.wait(5.3)
 end
@@ -1577,7 +1579,12 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
 task.wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+if game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
+GetBob:Set(false)
+end
 end
 task.wait()
 end
@@ -1590,7 +1597,12 @@ until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Play
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+if game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
+GetBob:Set(false)
+end
 end
 task.wait()
 end
@@ -1600,7 +1612,12 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 wait(0.5)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 task.wait(0.2)
+if game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
+GetBob:Set(false)
+end
 task.wait(1.8)
 end
 elseif _G.AutoFarmBob == true then
@@ -1984,7 +2001,7 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Workspace.VoidPart1.CanCollide = true
+game.Workspace.VoidPart.VoidPart1.CanCollide = true
 Timer = 0
 repeat
 if Cancel == true then
@@ -2003,7 +2020,7 @@ game:GetService("ReplicatedStorage").SLOC:FireServer()
 end
 wait(.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Workspace.VoidPart1.CanCollide = false
+game.Workspace.VoidPart.VoidPart1.CanCollide = false
 if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Part",true) == nil then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -3239,16 +3256,16 @@ game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
 game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly * 50)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly * 50)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly * 50)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly * 50)
 end
 end
 task.wait()
@@ -3291,11 +3308,9 @@ while _G.NotifyKeypad do
 if not game.Workspace:FindFirstChild("Keypad") then
 repeat task.wait() until game.Workspace:FindFirstChild("Keypad")
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have spawn keypad.",Image = "rbxassetid://7733658504",Time = 8})
-wait(0.05)
 Notifykeypad:Set(false)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
 Notifykeypad:Set(false)
 end
 task.wait(0.05)
@@ -6251,6 +6266,9 @@ local Tab3 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
+
 Tab:AddSlider({
 	Name = "Reach Slap Aura",
 	Min = 10,
@@ -6263,9 +6281,6 @@ Tab:AddSlider({
 		ReachAura = Value
 	end    
 })
-
-Tab:AddLabel("Owner Credits Script By [ Giang ]")
-Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 
 Tab:AddToggle({
 	Name = "Slap Aura",
