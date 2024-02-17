@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, FontText = "Enum.Font.Arial",SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -117,6 +117,7 @@ local gloveHits = {
     ["Prop"] = game.ReplicatedStorage.GeneralHit,
     ["Joust"] = game.ReplicatedStorage.GeneralHit,
     ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
+    ["Firework"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -253,7 +254,6 @@ end
 end
 
 function SpamReplicaBaller()
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 while ReplicaBallerFarm do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -262,8 +262,6 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.3)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
@@ -278,8 +276,6 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.3)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
@@ -1551,7 +1547,7 @@ GetBob = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFarmBob = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
 while _G.AutoFarmBob and Autobob == "Slow" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") or game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
@@ -1591,9 +1587,9 @@ end
 while _G.AutoFarmBob and Autobob == "Normal" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
-repeat task.wait()
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
-until game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
+end
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
@@ -2499,7 +2495,7 @@ end
 Tab14:AddSlider({
 	Name = "Reach HitBox Rob",
 	Min = 5,
-	Max = 100,
+	Max = 300,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -2993,7 +2989,7 @@ end
 Tab7:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Keypad", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Cannon Island","Keypad", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
@@ -3007,6 +3003,8 @@ elseif Value == "Plate" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
 elseif Value == "Tournament" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+elseif Value == "Cannon Island" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
 elseif Value == "Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
@@ -3235,7 +3233,7 @@ _G.SetSpeedFly = Value
 	end	  
 })
 
-_G.SetSpeedFly = 50
+_G.SetSpeedFly = 100
 Tab7:AddToggle({
 	Name = "Start Fly",
 	Default = false,
@@ -3256,16 +3254,16 @@ game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
 game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly * 50)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly * 50)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly * 50)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
 end
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly * 50)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
 end
 end
 task.wait()
@@ -3541,17 +3539,22 @@ Tab7:AddButton({
 	Name = "Start Help Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.HelpPlayerGetQuake].leaderstats.Glove.Value == "Berserk" then
+OGLSize = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.Size
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 fireclickdetector(game.Workspace.Lobby.woah.ClickDetector)
 wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
-task.wait(0.3)
+task.wait(.2)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
-task.wait(1.5)
+task.wait(1)
 fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
+game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
+wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
-task.wait(0.25)
+wait(0.1)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+wait(3)
+game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.Size = OGLSize
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -3963,6 +3966,10 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slapstick" do
 game:GetService("ReplicatedStorage").slapstick:FireServer("charge")
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Firework" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 	end    
@@ -5821,6 +5828,7 @@ _G.SetSpeedFly = Value
 	end	  
 })
 
+_G.SetSpeedFly = 50
 Tab:AddToggle({
 	Name = "Start Fly",
 	Default = false,
@@ -5870,10 +5878,8 @@ if teleportFunc then
         local localPlr = game:GetService("Players").LocalPlayer
         repeat wait() until localPlr
         game:GetService("RunService").RenderStepped:Connect(function()
-if game.CoreGui.RobloxLoadingGUI then
 game:GetService("GuiService"):ClearError()
 game.CoreGui.RobloxLoadingGUI:Destroy()
-end
         end)
     ]])
 end
@@ -5932,10 +5938,8 @@ if teleportFunc then
         end
         repeat wait() until game.Players.LocalPlayer
         game:GetService("RunService").RenderStepped:Connect(function()
-if game.CoreGui.RobloxLoadingGUI then
             game:GetService("GuiService"):ClearError()
             game.CoreGui.RobloxLoadingGUI:Destroy()
-end
         end)
     ]])
 end
@@ -6047,28 +6051,43 @@ end
 })
 
 Tab:AddDropdown({
-	Name = "Glove Slap Bob",
+	Name = "Glove Slap Aura Bob",
 	Default = "Killstreak",
-	Options = {"Killstreak", "Reaper"},
+	Options = {"Killstreak", "Reaper", "God's Hand", "Tycoon"},
 	Callback = function(Value)
 GloveSlap = Value
 	end    
 })
 
-Tab:AddToggle({
-	Name = "Auto Slap Bob Clone",
-	Default = false,
-	Callback = function(Value)
-_G.SlapBob = Value
-while _G.SlapBob and GloveSlap == "Killstreak" do
-game:GetService("ReplicatedStorage").KSHit:FireServer(game.Workspace.BobClone.HumanoidRootPart)
-task.wait()
+Tab1:AddButton({
+	Name = "Slap Aura Bob",
+	Callback = function()
+if GloveSlap == "Killstreak" then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v.Name == "BobClone" then
+game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
-while _G.SlapBob and GloveSlap == "Reaper" do
-game:GetService("ReplicatedStorage").ReaperHit:FireServer(game.Workspace.BobClone.HumanoidRootPart)
-task.wait()
 end
-	end    
+elseif GloveSlap == "Reaper" then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v.Name == "BobClone" then
+game:GetService("ReplicatedStorage").ReaperHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
+end
+elseif GloveSlap == "God's Hand" then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v.Name == "BobClone" then
+game:GetService("ReplicatedStorage").Godshand:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
+end
+elseif GloveSlap == "Tycoon" then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v.Name == "BobClone" then
+game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
+end
+end
+  	end    
 })
 
 Tab2:AddToggle({
@@ -6324,15 +6343,40 @@ end
 })
 
 Tab:AddButton({
-	Name = "Bomb Bus",
+	Name = "Get Bomb & Bomb Bus",
 	Callback = function()
-repeat task.wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Bomb")
-            for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true and game.Workspace.Items:FindFirstChildWhichIsA("Tool") then
+   for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.Name == "Bomb" and v:FindFirstChild("Handle") then
+game:GetService("ReplicatedStorage").Events.Item:FireServer(v.Handle)
+                end
+            end
+wait(0.5)
+for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 if v.Name == "Bomb" then
                     game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
                     v:Activate()
                 end
             end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have started bus",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Bomb Bus",
+	Callback = function()
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Bomb" then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    v:Activate()
+                end
+            end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have started bus",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end    
 })
 
@@ -6413,7 +6457,7 @@ _G.SetSpeedFly = Value
 	end	  
 })
 
-_G.SetSpeedFly = 50
+_G.SetSpeedFly = 100
 Tab:AddToggle({
 	Name = "Start Fly",
 	Default = false,
