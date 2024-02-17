@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, FontText = "Enum.Font.Arial",SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false,SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
