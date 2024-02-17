@@ -27,6 +27,7 @@ end)
 
 _G.GetPotion = {
 	["Grug"] = {"Mushroom"},
+	["idIot"] = {"Cake Mix"},
 	["Nightmare"] = {"Dark Roots","Dark Roots","Dark Roots"},
 	["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
 	["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
@@ -1907,6 +1908,52 @@ end
 	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Slapstick Ability",
+	Default = "runeffect",
+	Options = {"runeffect", "fullcharged", "dash", "addarm","charge","cancelrun","discharge"},
+	Callback = function(Value)
+SlapstickAbility = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Spam Ability Slapstick",
+	Callback = function()
+if SlapstickAbility == "runeffect" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game:GetService("ReplicatedStorage").slapstick:FireServer("runeffect")
+wait(3)
+game:GetService("ReplicatedStorage").slapstick:FireServer("fullcharged")
+wait(1)
+OrionLib:MakeNotification({Name = "Error",Content = "Started RUN Now.",Image = "rbxassetid://7733658504",Time = 5})
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 70
+wait(8)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+game:GetService("ReplicatedStorage").slapstick:FireServer("cancelrun")
+elseif SlapstickAbility == "dash" then
+game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
+game:GetService("ReplicatedStorage").slapstick:FireServer("dash")
+end
+  	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam Slapstick [ All Glove ]",
+	Default = false,
+	Callback = function(Value)
+SlapstickSpam = Value
+if SlapstickSpam == true then
+game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
+end
+while SlapstickSpam do
+game:GetService("ReplicatedStorage").slapstick:FireServer(SlapstickAbility)
+task.wait()
+end
+	end    
+})
+
 Tab14:AddTextbox({
 	Name = "Godmode Player",
 	Default = "Username",
@@ -2099,7 +2146,7 @@ end
 Tab14:AddDropdown({
 	Name = "Potion",
 	Default = "Speed",
-	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field"},
+	Options = {"Grug","idIot","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field"},
 	Callback = function(Value)
 _G.MakePotion = Value
 	end    
@@ -2129,13 +2176,12 @@ for b = 1, _G.GivePotion do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-task.wait(.03)
+task.wait(0.003)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-task.wait(.1)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2159,7 +2205,7 @@ game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddIte
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-task.wait(.1)
+task.wait()
 end
 elseif _G.AutoGetPotion == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -4243,13 +4289,6 @@ for _, v in pairs(game.Lighting:GetChildren()) do
 v:Destroy()
 end
   	end    
-})
-
-Tab7:AddButton({
-	Name = "Add Character Troll",
-	Callback = function()
-game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
-  	end 
 })
 
 Tab7:AddToggle({
