@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false,SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7733955740",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -5987,6 +5987,8 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 })
 
 elseif game.PlaceId == 13833961666 then
+local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
+
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Name = "VoidPart"
@@ -5997,24 +5999,17 @@ VoidPart.Transparency = 1
 VoidPart.CanCollide = false
 end
 
-local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
-
-if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil then
-local bv = Instance.new("BodyVelocity")
-bv.Name = "VelocityHandler"
-bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bv.MaxForce = Vector3.new(0,0,0)
-bv.Velocity = Vector3.new(0,0,0)
-end
-
-if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
-local bg = Instance.new("BodyGyro")
-bg.Name = "GyroHandler"
-bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bg.MaxTorque = Vector3.new(0,0,0)
-bg.P = 1000
-bg.D = 50
-end
+local Namecall
+Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
+       return
+   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
+       return
+   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
+       return
+   end
+   return Namecall(self, ...)
+end)
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -6028,16 +6023,11 @@ local Tab2 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Tab1 = Window:MakeTab({
-	Name = "Script",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
 Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
@@ -6098,7 +6088,7 @@ GloveSlap = Value
 	end    
 })
 
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "Slap Aura Bob",
 	Callback = function()
 if GloveSlap == "Killstreak" then
@@ -6126,6 +6116,50 @@ game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:FindFirstChild("Hum
 end
 end
 end
+  	end    
+})
+
+Tab:AddLabel("Script")
+
+Tab:AddButton({
+	Name = "Fe fly V3",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Anti Lag",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Inf Yield Delta",
+	Callback = function()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Inf Yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "RemoteSpy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+  	end    
+})
+
+Tab:AddButton({
+	Name = "TP back to Slap Battles",
+	Callback = function()
+      		game:GetService("TeleportService"):Teleport(6403373529)
   	end    
 })
 
@@ -6202,51 +6236,10 @@ end
 	end    
 })
 
-Tab1:AddButton({
-	Name = "Fe fly V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Anti Lag",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Inf Yield Delta",
-	Callback = function()
-      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Inf Yield",
-	Callback = function()
-      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "RemoteSpy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "TP back to Slap Battles",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(6403373529)
-  	end    
-})
-
 ---GetRun---
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 end)
 elseif game.PlaceId == 9431156611 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
