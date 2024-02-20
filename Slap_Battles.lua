@@ -1595,6 +1595,7 @@ game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlay
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 if game.Workspace:FindFirstChild("bobcap") == nil then
+repeat task.wait() until game.Players.LocalPlayers.Character.Humanoid.Health == 100
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
@@ -1621,6 +1622,25 @@ elseif _G.AutoFarmBob == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Replica equipped, or You have Owned Items",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 GetBob:Set(false)
+end
+	end    
+})
+
+Tab3:AddToggle({
+	Name = "Toolbox Farm",
+	Default = false,
+	Callback = function(Value)
+Toolboxfarm = Value
+while Toolboxfarm do
+if game.Workspace:FindFirstChild("Toolbox") then
+for i,v in pairs(game.Workspace:GetDescendants()) do
+                    if v.Name == "Toolbox" and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+                    end
+                end
+            end
+task.wait()
 end
 	end    
 })
@@ -1962,7 +1982,20 @@ Tab14:AddTextbox({
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
 SaveThePlayer = game.Players.LocalPlayer.Name
 else
-SaveThePlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+SaveThePlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..SaveThePlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
 	end	  
 })
@@ -1996,7 +2029,20 @@ Tab14:AddTextbox({
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
 Person = game.Players.LocalPlayer.Name
 else
-Person = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+Person = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..Person.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
 	end	  
 })
@@ -2034,7 +2080,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.PunishPlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PunishPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PunishPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2115,7 +2174,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-PlayerKick = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+PlayerKick = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKick.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2220,7 +2292,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.OvenPlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.OvenPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.OvenPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2675,7 +2760,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.VoidPlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.VoidPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.VoidPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2737,7 +2835,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.KillerPlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.KillerPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.KillerPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2786,7 +2897,20 @@ Tab14:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.PressIntoTheGround = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PressIntoTheGround = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PressIntoTheGround.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -2842,9 +2966,22 @@ Tab14:AddTextbox({
 	TextDisappear = false,
 	Callback = function(Value)
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-Person = game.Players.LocalPlayer.Name
+PersonCar = game.Players.LocalPlayer.Name
 else
-Person = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+PersonCar = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PersonCar.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
 	end	  
 })
@@ -2853,7 +2990,7 @@ Tab14:AddButton({
 	Name = "Cards Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[Person])
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[PersonCar])
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -3177,33 +3314,29 @@ Tab7:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.PlayerTeleport = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PlayerTeleport = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerTeleport.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
 Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
-function GetPlayer(String)
-local Found = {}
-local strl = String:lower()
-if strl == "Random" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= game.Players.LocalPlayer.Name then
-table.insert(Found,v)
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerTeleport].Character.HumanoidRootPart.CFrame
 end
-end
-else
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name:lower():sub(1, #String) == String:lower() then
-table.insert(Found,v)
-end
-end 
-end
-return Found
-end
-local PlayerT = unpack(GetPlayer(_G.PlayerTeleport))
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerT.Character.HumanoidRootPart.CFrame
   	end    
 })
 
@@ -3212,7 +3345,20 @@ Tab7:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.ViewPlayer = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.ViewPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.ViewPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -3233,41 +3379,6 @@ end
 task.wait()
 end
 	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Copy Name Player",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
-_G.Copyname = Value
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Copy Player",
-	Callback = function()
-function GetPlayer(String)
-local Found = {}
-local strl = String:lower()
-if strl == "Random" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= game.Players.LocalPlayer.Name then
-table.insert(Found,v)
-end
-end
-else
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name:lower():sub(1, #String) == String:lower() then
-table.insert(Found,v)
-end
-end 
-end
-return Found
-end
-local Copy = unpack(GetPlayer(_G.Copyname))
-setclipboard(tostring(Copy))
-  	end    
 })
 
 Tab7:AddTextbox({
@@ -3356,6 +3467,22 @@ Notifykeypad:Set(false)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Server in have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 Notifykeypad:Set(false)
+end
+task.wait(0.05)
+end
+	end    
+})
+
+NotifyToolbox = Tab7:AddToggle({
+	Name = "Auto Notification ToolBox",
+	Default = false,
+	Callback = function(Value)
+	 _G.NotifyToolBox = Value
+while _G.NotifyToolBox do
+if not game.Workspace:FindFirstChild("Toolbox") then
+repeat task.wait() until game.Workspace:FindFirstChild("Toolbox")
+OrionLib:MakeNotification({Name = "Error",Content = "Player spawn toolbox then glove Engineer.",Image = "rbxassetid://7733658504",Time = 5})
+NotifyToolbox:Set(false)
 end
 task.wait(0.05)
 end
@@ -3480,10 +3607,23 @@ end
 
 Tab7:AddTextbox({
 	Name = "Recall Player Get Retro",
-	Default = "",
+	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.PlayerGetRetro = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PlayerGetRetro = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerGetRetro.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -3491,32 +3631,15 @@ Tab7:AddButton({
 	Name = "Player Get Retro",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-function GetPlayer(String)
-local Found = {}
-local strl = String:lower()
-if strl == "Random" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= game.Players.LocalPlayer.Name then
-table.insert(Found,v)
-end
-end
-else
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name:lower():sub(1, #String) == String:lower() then
-table.insert(Found,v)
-end
-end 
-end
-return Found
-end
-local Help = unpack(GetPlayer(_G.PlayerGetRetro))
+if game.Workspace:FindFirstChild("Retro") == nil then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+end
 wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Help.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerGetRetro].Character.HumanoidRootPart.CFrame
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 else
@@ -3530,7 +3653,20 @@ Tab7:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.HelpPlayerGetButton = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.HelpPlayerGetButton = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HelpPlayerGetButton.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -3538,32 +3674,17 @@ Tab7:AddButton({
 	Name = "Start Help Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-function GetPlayer(String)
-local Found = {}
-local strl = String:lower()
-if strl == "Random" then
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name ~= game.Players.LocalPlayer.Name then
-table.insert(Found,v)
-end
-end
-else
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v.Name:lower():sub(1, #String) == String:lower() then
-table.insert(Found,v)
-end
-end 
-end
-return Found
-end
-local Help = unpack(GetPlayer(_G.HelpPlayerGetButton))
+if game.Workspace.Assets:FindFirstChild("Retro") == nil then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Ok show all the help player",Image = "rbxassetid://7733658504",Time = 5})
+end
 wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Help.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetButton].Character.HumanoidRootPart.CFrame
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
 else
@@ -3577,7 +3698,20 @@ Tab7:AddTextbox({
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
-_G.HelpPlayerGetQuake = Value
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.HelpPlayerGetQuake = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HelpPlayerGetQuake.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end	  
 })
 
@@ -3672,7 +3806,7 @@ if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:Fin
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 end
 game:GetService("ReplicatedStorage").SM:FireServer(Target)
-wait(0.05)
+wait(0.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
 game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
@@ -4216,7 +4350,7 @@ Tab7:AddButton({
 	Callback = function()
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
-for i = 1,150 do
+for i = 1,110 do
 fireclickdetector(v.ClickDetector)
 end
 end
@@ -4656,8 +4790,8 @@ Tab7:AddToggle({
 	Name = "Auto Destroy Tycoon",
 	Default = false,
 	Callback = function(Value)
-		_G.AutoTycoon = Value
-while _G.AutoTycoon do
+		_G.AutoDestroyTycoon = Value
+while _G.AutoDestroyTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
 fireclickdetector(v.Destruct.ClickDetector, 0)
@@ -4673,8 +4807,8 @@ Tab7:AddToggle({
 	Name = "Auto Click Tycoon",
 	Default = false,
 	Callback = function(Value)
-		_G.AutoTycoon = Value
-while _G.AutoTycoon do
+		_G.AutoClickTycoon = Value
+while _G.AutoClickTycoon do
 for _, v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
 fireclickdetector(v.Click.ClickDetector, 0)
@@ -5336,7 +5470,7 @@ end
 Tab11:AddDropdown({
 	Name = "Glove Sound",
 	Default = "Ghost",
-	Options = {"Ghost", "Thanos", "Space", "Scythe", "Golden", "Hitman", "Prop", "Error Death [ All Glove ]", "Zombie [ All Glove ]"},
+	Options = {"Ghost", "Thanos", "Space", "Scythe", "Golden", "Hitman", "Prop", "Error Death", "Zombie"},
 	Callback = function(Value)
 GloveSound = Value
 	end    
@@ -5376,11 +5510,11 @@ while GloveSoundSpam and GloveSound == "Prop" do
 game:GetService("ReplicatedStorage").Prop:FireServer()
 task.wait()
 end
-while GloveSoundSpam and GloveSound == "Error Death [ All Glove ]" do
+while GloveSoundSpam and GloveSound == "Error Death" do
 game.ReplicatedStorage.ErrorDeath:FireServer()
 task.wait()
 end
-while GloveSoundSpam and GloveSound == "Zombie [ All Glove ]" do
+while GloveSoundSpam and GloveSound == "Zombie" do
 game:GetService("ReplicatedStorage").b:FireServer("ReplicateSound_Zombie")
 task.wait()
 end
