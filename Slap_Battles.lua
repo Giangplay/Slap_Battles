@@ -1595,8 +1595,9 @@ game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlay
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 if game.Workspace:FindFirstChild("bobcap") == nil then
-repeat task.wait() until game.Players.LocalPlayers.Character.Humanoid.Health == 100
+if game.Players.LocalPlayer.Character.Humanoid.Health == 100 then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
 GetBob:Set(false)
@@ -4934,14 +4935,17 @@ AntiAfk = Tab2:AddToggle({
 	Name = "Anti Afk",
 	Default = false,
 	Callback = function(Value)
-	_G.AntiAfk = Value
-while _G.AntiAfk do
-if getconnections then
-for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
-v:Disable()
+if Value then
+local AntiAfkGet 
+AntiAfkGet = game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(1)
+game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+else
+if AntiAfkGet then
+AntiAfkGet:Disconnect()
 end
-end
-task.wait()
 end
 	end    
 })
@@ -6490,62 +6494,6 @@ end
 	end    
 })
 
-Tab:AddToggle({
-	Name = "Get All Item",
-	Default = false,
-	Callback = function(Value)
-		GetAllItems = Value
-                while GetAllItems do
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true and game.Workspace.Items:FindFirstChildWhichIsA("Tool") then
-   for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-                if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
-game:GetService("ReplicatedStorage").Events.Item:FireServer(v.Handle)
-                end
-            end
-end
-task.wait()
-end
-	end    
-})
-
-Tab:AddButton({
-	Name = "Get Bomb & Bomb Bus",
-	Callback = function()
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true and game.Workspace.Items:FindFirstChildWhichIsA("Tool") then
-   for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-                if v.Name == "Bomb" and v:FindFirstChild("Handle") then
-game:GetService("ReplicatedStorage").Events.Item:FireServer(v.Handle)
-                end
-            end
-wait(0.5)
-for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                if v.Name == "Bomb" then
-                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                    v:Activate()
-                end
-            end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have started bus",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end    
-})
-
-Tab:AddButton({
-	Name = "Bomb Bus",
-	Callback = function()
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                if v.Name == "Bomb" then
-                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                    v:Activate()
-                end
-            end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have started bus",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end    
-})
-
 Tab:AddButton({
 	Name = "Leave Bus Early",
 	Callback = function()
@@ -6607,6 +6555,43 @@ GloveEspText.Font = Enum.Font.FredokaOne
 GloveEspText.TextColor3 = Color3.new(255, 255, 255)
 GloveEspText.TextStrokeTransparency = 0
 GloveEspText.Text = "Glove [ "..v.Glove.Value.." ]"
+                end
+            end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Item Esp",
+	Default = false,
+	Callback = function(Value)
+		ItemEsp = Value
+if ItemEsp == false then
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v:FindFirstChild("ItemESP") then
+v.ItemESP:Destroy()
+                end
+            end
+end
+while ItemEsp do
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v:FindFirstChild("ItemESP") == nil then
+ItemESP = Instance.new("BillboardGui", v.Handle)
+ItemESP.Adornee = v.Handle
+ItemESP.Name = "ItemESP"
+ItemESP.Size = UDim2.new(0, 100, 0, 150)
+ItemESP.StudsOffset = Vector3.new(0, 1, 0)
+ItemESP.AlwaysOnTop = true
+ItemESP.StudsOffset = Vector3.new(0, 3, 0)
+ItemESPText = Instance.new("TextLabel", ItemESP)
+ItemESPText.BackgroundTransparency = 1
+ItemESPText.Size = UDim2.new(0, 100, 0, 100)
+ItemESPText.TextSize = 25
+ItemESPText.Font = Enum.Font.FredokaOne
+ItemESPText.TextColor3 = Color3.new(255, 255, 255)
+ItemESPText.TextStrokeTransparency = 0
+ItemESPText.Text = "Item [ "..v.Name.." ]"
                 end
             end
 task.wait()
