@@ -6169,6 +6169,10 @@ CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.S
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
+game:GetService("RunService").RenderStepped:Connect(function()
+CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+end)
 
 Tab:AddToggle({
 	Name = "Damage Boss",
@@ -6373,12 +6377,6 @@ task.wait()
 end
 	end    
 })
-
----GetRun---
-game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
-end)
 elseif game.PlaceId == 9431156611 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -6503,28 +6501,6 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 	end    
 })
 
-Tab:AddButton({
-	Name = "Infinity Power 250 [ 2 True Power ]",
-	Callback = function()
-for i = 1,2 do
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
-game.Players.LocalPlayer.Character["True Power"]:Activate()
-end
-	end    
-})
-
-Tab:AddButton({
-	Name = "Use Permanent Items",
-	Callback = function()
-for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                    if v.Name == "Bull's essence" or v.Name == "Potion of Strength" or v.Name == "Boba" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Strength Brew" or v.Name == "Frog Brew" or v.Name == "Speed Brew" then
-                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                        v:Activate()
-                    end
-                end
-	end    
-})
-
 Tab:AddToggle({
 	Name = "Glove Esp",
 	Default = false,
@@ -6562,19 +6538,9 @@ end
 	end    
 })
 
-Tab:AddToggle({
-	Name = "Item Esp",
-	Default = false,
-	Callback = function(Value)
-		ItemEsp = Value
-if ItemEsp == false then
-for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-                if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v:FindFirstChild("ItemESP") then
-v.ItemESP:Destroy()
-                end
-            end
-end
-while ItemEsp do
+Tab:AddButton({
+	Name = "Ese Item",
+	Callback = function()
 for i, v in ipairs(game.Workspace.Items:GetChildren()) do
 if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v:FindFirstChild("ItemESP") == nil then
 ItemESP = Instance.new("BillboardGui", v.Handle)
@@ -6586,15 +6552,13 @@ ItemESP.AlwaysOnTop = true
 ItemESP.StudsOffset = Vector3.new(0, 3, 0)
 ItemESPText = Instance.new("TextLabel", ItemESP)
 ItemESPText.BackgroundTransparency = 1
-ItemESPText.Size = UDim2.new(0, 100, 0, 100)
-ItemESPText.TextSize = 25
+ItemESPText.Size = UDim2.new(0, 50, 0, 50)
+ItemESPText.TextSize = 14
 ItemESPText.Font = Enum.Font.FredokaOne
 ItemESPText.TextColor3 = Color3.new(255, 255, 255)
 ItemESPText.TextStrokeTransparency = 0
 ItemESPText.Text = "Item [ "..v.Name.." ]"
-                end
-            end
-task.wait()
+end
 end
 	end    
 })
