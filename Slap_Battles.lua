@@ -119,6 +119,7 @@ local gloveHits = {
     ["Joust"] = game.ReplicatedStorage.GeneralHit,
     ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
     ["Firework"] = game.ReplicatedStorage.GeneralHit,
+    ["Run"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1420,6 +1421,30 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
+})
+
+Tab3:AddToggle({
+	Name = "Auto Exit Run",
+	Default = false,
+	Callback = function(Value)
+_G.AutoExit = Value
+while _G.AutoExit do
+if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
+for _, v in pairs(workspace:GetDescendants()) do
+    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
+        local doors = v.Doors
+        for _, y in ipairs(doors:GetChildren()) do
+            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = y.Hitbox.CFrame
+                break
+            end
+        end
+    end
+end
+end
+task.wait()
+end
+	end    
 })
 
 Tab5:AddSlider({
@@ -6455,6 +6480,8 @@ local Tab3 = Window:MakeTab({
 
 Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
+Tab:AddLabel("InfoServer")
+Tab:AddLabel("Player Server [ "..game.Players:GetPlayers().." ]")
 
 Tab:AddSlider({
 	Name = "Reach Slap Aura",
@@ -6466,6 +6493,44 @@ Tab:AddSlider({
 	ValueName = "Reach",
 	Callback = function(Value)
 		ReachAura = Value
+	end    
+})
+
+Tab:AddSlider({
+	Name = "Reach HitBox",
+	Min = 2,
+	Max = 30,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitbox = Value
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Hitbox Player",
+	Default = false,
+	Callback = function(Value)
+_G.HitboxPlayer = Value
+while _G.HitboxPlayer do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
+                        v.Character.HumanoidRootPart.Transparency = 0.75
+                    end
+                end
+task.wait()
+end
+if _G.HitboxPlayer == false then
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+                        v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
+end
 	end    
 })
 
@@ -6487,7 +6552,7 @@ end
 end
                 end
 end)
-task.wait(.05)
+task.wait()
 end
 	end    
 })
