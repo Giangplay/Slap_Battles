@@ -6480,8 +6480,6 @@ local Tab3 = Window:MakeTab({
 
 Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
-Tab:AddLabel("InfoServer")
-Tab:AddLabel("Player Server [ "..game.Players:GetPlayers().." ]")
 
 Tab:AddSlider({
 	Name = "Reach Slap Aura",
@@ -6493,44 +6491,6 @@ Tab:AddSlider({
 	ValueName = "Reach",
 	Callback = function(Value)
 		ReachAura = Value
-	end    
-})
-
-Tab:AddSlider({
-	Name = "Reach HitBox",
-	Min = 2,
-	Max = 30,
-	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Reach",
-	Callback = function(Value)
-		_G.ReachHitbox = Value
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Hitbox Player",
-	Default = false,
-	Callback = function(Value)
-_G.HitboxPlayer = Value
-while _G.HitboxPlayer do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
-                        v.Character.HumanoidRootPart.Transparency = 0.75
-                    end
-                end
-task.wait()
-end
-if _G.HitboxPlayer == false then
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                        v.Character.HumanoidRootPart.Transparency = 1
-                    end
-                end
-end
 	end    
 })
 
