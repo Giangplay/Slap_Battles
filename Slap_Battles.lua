@@ -2434,6 +2434,74 @@ end
 	end    
 })
 
+PingPongFling = Tab14:AddToggle({
+	Name = "Ping Pong Fling",
+	Default = false,
+	Callback = function(Value)
+		_G.PingPongFlingAll = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+while _G.PingPongFlingAll and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+if Target ~= game.Players.LocalPlayer.Name and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall") ~= nil and Target.Character and Target.Character:WaitForChild("Ragdolled").Value == false then
+game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall").CFrame = Target.Character.HumanoidRootPart.CFrame
+end
+task.wait(0.01)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PingPongFling:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Ping Pong Fling",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.TargeterNameFling = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.TargeterNameFling.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+PingPongPlayerFling = Tab14:AddToggle({
+	Name = "Ping Pong Fling Player",
+	Default = false,
+	Callback = function(Value)
+		_G.PingPongFlingPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+while _G.PingPongFlingPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall") ~= nil and game.Players[_G.TargeterNameFling].Character and game.Players[_G.TargeterNameFling].Character:WaitForChild("Ragdolled").Value == false then
+game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall").CFrame = game.Players[_G.TargeterName].Character.HumanoidRootPart.CFrame
+end
+task.wait(0.01)
+end
+elseif Value == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PingPongPlayerFling:Set(false)
+end
+	end    
+})
+
 Tab14:AddDropdown({
 	Name = "Equipped Glove Farm",
 	Default = "",
