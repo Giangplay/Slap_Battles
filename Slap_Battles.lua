@@ -4844,6 +4844,57 @@ end
 	end    
 })
 
+Tab7:AddToggle({
+	Name = "Esp Exit Run",
+	Default = false,
+	Callback = function(Value)
+_G.ExitESP = Value
+if _G.ExitESP == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
+for _, v in pairs(workspace:GetDescendants()) do
+    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
+        local doors = v.Doors
+        for _, y in ipairs(doors:GetChildren()) do
+            if y:FindFirstChild("Hitbox") and y:FindFirstChild("ExitEsp") and y.Hitbox:FindFirstChild("TouchInterest") then
+y.Hitbox.ExitEsp:Destroy()
+            end
+        end
+    end
+end
+end
+end
+while _G.ExitESP do
+if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
+for _, v in pairs(workspace:GetDescendants()) do
+    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
+        local doors = v.Doors
+        for _, y in ipairs(doors:GetChildren()) do
+            if y:FindFirstChild("Hitbox") and y:FindFirstChild("ExitEsp") == nil and y.Hitbox:FindFirstChild("TouchInterest") then
+              ExitEsp = Instance.new("BillboardGui", y.Hitbox)
+              ExitEsp.Adornee = y.Hitbox
+              ExitEsp.Name = "ExitEsp"
+              ExitEsp.Size = UDim2.new(0, 100, 0, 150)
+              ExitEsp.StudsOffset = Vector3.new(0, 1, 0)
+              ExitEsp.AlwaysOnTop = true
+              ExitEsp.StudsOffset = Vector3.new(0, 3, 0)
+              ExitEspText = Instance.new("TextLabel", ExitEsp)
+              ExitEspText.BackgroundTransparency = 1
+              ExitEspText.Size = UDim2.new(0, 50, 0, 50)
+              ExitEspText.TextSize = 15
+              ExitEspText.Font = Enum.Font.FredokaOne
+              ExitEspText.TextColor3 = _G.ColorESP
+              ExitEspText.TextStrokeTransparency = 0.5
+              ExitEspText.Text = "Exit"
+            end
+        end
+    end
+end
+end
+task.wait()
+end
+	end    
+})
+
 Tab7:AddTextbox({
 	Name = "Auto Change Nametag",
 	Default = "Nametag",
@@ -6259,12 +6310,14 @@ Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
+CheckHealth:Set("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 end)
 
 Tab:AddToggle({
@@ -6586,11 +6639,59 @@ end
 })
 
 Tab:AddButton({
-	Name = "Leave Bus Early",
+	Name = "Leave Bus Early [ Votes Kick ]",
 	Callback = function()
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
 repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("JumpPrompt")
 game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
+	end    
+})
+
+Tab:AddButton({
+	Name = "Teleport Player Random",
+	Callback = function()
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("Dead") == nil and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character:WaitForChild("inMatch").Value == true
+Target = RandomPlayer
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2.5, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,5,0)})
+tween:Play()
+	end    
+})
+
+Tab:AddButton({
+	Name = "Teleport Player Random & Old Teleport",
+	Callback = function()
+OldTele = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("Dead") == nil and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character:WaitForChild("inMatch").Value == true
+Target = RandomPlayer
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2.5, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,5,0)})
+tween:Play()
+wait(0.7)
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
+tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = OldTele})
+tween:Play()
+	end    
+})
+
+Tab:AddButton({
+	Name = "Get Item Random",
+	Callback = function()
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+for i,v in pairs(workspace.Items:GetChildren()) do
+    if v:IsA("Tool") then
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1.5, Enum.EasingStyle.Linear)
+        tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Handle.CFrame})
+        tween:Play()
+    end
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have started [ don't work the bus ]",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end    
 })
 
