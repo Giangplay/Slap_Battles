@@ -3428,9 +3428,7 @@ end
 Tab7:AddButton({
 	Name = "Teleport Player",
 	Callback = function()
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerTeleport].Character.HumanoidRootPart.CFrame
-end
   	end    
 })
 
@@ -3768,10 +3766,8 @@ Tab7:AddButton({
 	Name = "Start Help Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-if game.Workspace.Assets:FindFirstChild("Retro") == nil then
+if game.Workspace:FindFirstChild("Retro") == nil then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Ok show all the help player",Image = "rbxassetid://7733658504",Time = 5})
 end
 wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
