@@ -614,61 +614,61 @@ end
 --Tab1 - 15
 local Tab = Window:MakeTab({
 	Name = "Info",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7734053426",
 	PremiumOnly = false
 })
 
 local Tab1 = Window:MakeTab({
 	Name = "Script",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://8997387937",
 	PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
 	Name = "Anti",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7734056608",
 	PremiumOnly = false
 })
 
 local Tab12 = Window:MakeTab({
 	Name = "Anti Void Badge",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733673987",
 	PremiumOnly = false
 })
 
 local Tab3 = Window:MakeTab({
 	Name = "Badges",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733673987",
 	PremiumOnly = false
 })
 
 local Tab5 = Window:MakeTab({
 	Name = "Local",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4335489011",
 	PremiumOnly = false
 })
 
 local Tab7 = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
 local Tab14 = Window:MakeTab({
 	Name = "Gloves Optional",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733955740",
 	PremiumOnly = false
 })
 
 local Tab11 = Window:MakeTab({
 	Name = "Troller",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733917120",
 	PremiumOnly = false
 })
 
 local Tab15 = Window:MakeTab({
 	Name = "Credit",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733955511",
 	PremiumOnly = false
 })
 
@@ -982,7 +982,15 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Repr
 elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie" then
+if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
+wait(1)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
+wait(0.5)
+game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have show all",Image = "rbxassetid://7733658504",Time = 5})
+end
 elseif Value == "Teleport Portal" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 end
@@ -1044,6 +1052,26 @@ wait(10.3)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped, or you aren't in the arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab3:AddButton({
+	Name = "Get Win Obby Pyscho",
+	Callback = function()
+if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
+OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame
+OGL1 = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame
+wait(0.5)
+game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+wait(1)
+game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = OGL
+wait(1)
+game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+wait(1)
+game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = OGL1
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have enter limbo [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -5883,13 +5911,13 @@ end
 --Tab
 local Tab = Window:MakeTab({
 	Name = "Badges",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733673987",
 	PremiumOnly = false
 })
 
 local Tab1 = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
@@ -6212,7 +6240,7 @@ local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." 
 
 local Tab = Window:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370345144",
 	PremiumOnly = false
 })
 
@@ -6291,13 +6319,13 @@ end)
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733674079",
 	PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
 	Name = "Anti",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
@@ -6573,25 +6601,25 @@ end
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
 local Tab1 = Window:MakeTab({
 	Name = "Antis",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7734056608",
 	PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
 local Tab3 = Window:MakeTab({
 	Name = "Local",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4335489011",
 	PremiumOnly = false
 })
 
@@ -6680,7 +6708,7 @@ Tab:AddButton({
 if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
 for i,v in pairs(workspace.Items:GetChildren()) do
     if v:IsA("Tool") then
-        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1.5, Enum.EasingStyle.Linear)
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(3.5, Enum.EasingStyle.Linear)
         tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Handle.CFrame})
         tween:Play()
     end
@@ -7371,7 +7399,7 @@ end
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
@@ -7551,13 +7579,13 @@ end)
 
 local Tab1 = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://7733674079",
 	PremiumOnly = false
 })
 
 local Tab2 = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
@@ -7790,7 +7818,7 @@ local Window = OrionLib:MakeWindow({IntroText = GameName, IntroIcon = "rbxasseti
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370318685",
 	PremiumOnly = false
 })
 
