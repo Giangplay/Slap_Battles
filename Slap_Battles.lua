@@ -28,7 +28,7 @@ end)
 _G.GetPotion = {
 	["Grug"] = {"Mushroom"},
 	["idIot"] = {"Cake Mix"},
-	["Nightmare"] = {"Dark Roots","Dark Roots","Dark Roots"},
+	["Nightmare"] = {"Dark Root","Dark Root","Dark Root"},
 	["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
 	["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
 	["Paralyzing"] = {"Plane Flower","Plane Flower"},
@@ -42,9 +42,9 @@ _G.GetPotion = {
 	["Speed"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
 	["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
 	["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
-	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flowers","Plane Flowers","Elder Wood"},
+	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
 	["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
-	["Field"] = {"Hazel Lily","Plane Flowers","Plane Flowers"}
+	["Field"] = {"Hazel Lily","Plane Flower","Plane Flower"}
 }
 
 ---GetThe---
@@ -120,6 +120,7 @@ local gloveHits = {
     ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
     ["Firework"] = game.ReplicatedStorage.GeneralHit,
     ["Run"] = game.ReplicatedStorage.GeneralHit,
+    ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1057,7 +1058,7 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Win Obby Pyscho",
+	Name = "Win Obby Pyscho",
 	Callback = function()
 if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
 OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame
@@ -1449,6 +1450,31 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
+})
+
+AutoFarmGetAlchemist = Tab3:AddToggle({
+	Name = "Auto Farm Alchemist",
+	Default = false,
+	Callback = function(Value)
+_G.AutoFarmAlchemist = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
+while _G.AutoFarmAlchemist do
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame
+task.wait(0.2)
+game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
+task.wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+task.wait(3.4)
+end
+elseif _G.AutoFarmAlchemist == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped",Image = "rbxassetid://7733658504",Time = 5})
+AutoFarmGetAlchemist:Set(false)
+end
+	end    
 })
 
 Tab3:AddToggle({
@@ -2076,6 +2102,58 @@ end
 })
 
 Tab14:AddTextbox({
+	Name = "Beatdown Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+BeatdownPlayer = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+BeatdownPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..BeatdownPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+	end	  
+})
+
+BeatdownPlayerGet = Tab14:AddToggle({
+	Name = "Auto Beatdown Player",
+	Default = false,
+	Callback = function(Value)
+if BeatdownPlayer == nil then
+BeatdownPlayer = game.Players.LocalPlayer.Name
+end
+BeatdownSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
+while BeatdownSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" do
+if game.Workspace:FindFirstChild("Stand") == nil then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+else
+local BeatdownPlayerHit = {[1] = "standhit",[2] = {["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart}}
+game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(BeatdownPlayerHit))
+end
+task.wait(0.3)
+end
+elseif BeatdownSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Beatdown equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+BeatdownPlayerGet:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
 	Name = "Spam Rojo Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -2192,6 +2270,22 @@ Tab14:AddButton({
 Cancel = true
 wait(0.1)
 Cancel = false
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Beatdown All Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(0.5)
+for i,v in pairs(game.Players:GetPlayers()) do
+local args = {[1] = "standhit",[2] = {["cf"] = CFrame.new(35.738887786865234, -4.172937870025635, 10.624616622924805) * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = v.Character.HumanoidRootPart}}
+game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(args))
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Beatdown equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
   	end    
 })
 
@@ -2677,7 +2771,7 @@ end
 Tab14:AddDropdown({
 	Name = "Ingredient",
 	Default = "",
-	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose"},
+	Options = {"Autumn Sprout", "Blood Rose", "Blue Crystal", "Dark Root", "Dire Flower","Elder Wood", "Fire Flower", "Glowing Mushroom", "Hazel Lily", "Jade Stone","Lamp Grass", "Mushroom", "Plane Flower", "Red Crystal", "Wild Vine", "Winter Rose","Cake Mix"},
 	Callback = function(Value)
 AlchemistIngredientsGet = Value
 	end    
@@ -2735,6 +2829,7 @@ game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
 game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Cake Mix")
 task.wait()
 end
 elseif AlchemistIngredients == true then
@@ -7842,7 +7937,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.8602
 wait(1.5)
 if getconnections then
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
-v:Disable()
+v:Disable() 
 end
 end
 OrionLib:MakeNotification({Name = "Error",Content = "Turned on Anti Afk",Image = "rbxassetid://7733658504",Time = 3})
