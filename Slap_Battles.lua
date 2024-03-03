@@ -2137,12 +2137,9 @@ end
 BeatdownSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
 while BeatdownSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" do
-if game.Workspace:FindFirstChild("Stand") == nil then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-else
-local BeatdownPlayerHit = {[1] = "standhit",[2] = {["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart}}
+local BeatdownPlayerHit = {[1] = "standhit",[2] = {["cf"] = CFrame.new(35.738887786865234, -4.172937870025635, 10.624616622924805) * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart}}
 game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(BeatdownPlayerHit))
-end
 task.wait(0.3)
 end
 elseif BeatdownSpam == true then
@@ -2278,7 +2275,6 @@ Tab14:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(0.5)
 for i,v in pairs(game.Players:GetPlayers()) do
 local args = {[1] = "standhit",[2] = {["cf"] = CFrame.new(35.738887786865234, -4.172937870025635, 10.624616622924805) * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = v.Character.HumanoidRootPart}}
 game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(args))
@@ -4573,7 +4569,7 @@ end
 
 Tab7:AddTextbox({
 	Name = "Glove",
-	Default = "Glove Name",
+	Default = "Use Glove Name",
 	TextDisappear = false,
 	Callback = function(Value)
 		_G.EquipGlove = Value
@@ -4587,6 +4583,36 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Glove Tournament",
+	Default = "Use Glove Name",
+	TextDisappear = false,
+	Callback = function(Value)
+		_G.EquipGloveTournament = Value
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Equip Glove",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+fireclickdetector(game.Workspace.Lobby[_G.EquipGloveTournament].ClickDetector)
+wait(0.8)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "you are in Tournament not equip, 1 you use it.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -5796,6 +5822,13 @@ Tab15:AddLabel("You Have Message Discord In VietNamese Or English")
 Tab15:AddLabel("Owner Zalo [ Tấn Lộc ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
 
 Tab15:AddButton({
+	Name = "Copy Join Zalo",
+	Callback = function()
+            setclipboard("https://zalo.me/g/qlukiy407")
+  	end    
+})
+
+Tab15:AddButton({
 	Name = "Copy Guy that exists",
 	Callback = function()
             setclipboard("Guy that exists#1915")
@@ -5834,13 +5867,6 @@ Tab15:AddButton({
 	Name = "Copy thanhdat4461 [ Baconscripter ]",
 	Callback = function()
             setclipboard("thanhdat4461#1232")
-  	end    
-})
-
-Tab15:AddButton({
-	Name = "Copy Join Zalo",
-	Callback = function()
-            setclipboard("https://zalo.me/g/qlukiy407")
   	end    
 })
 
@@ -6627,7 +6653,7 @@ end
 
 Tab2:AddToggle({
 	Name = "Anti Ragdoll",
-	Default = true,
+	Default = false,
 	Callback = function(Value)
         _G.AntiRagdoll = Value
 while _G.AntiRagdoll do
