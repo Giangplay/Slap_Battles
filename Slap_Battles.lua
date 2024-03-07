@@ -870,6 +870,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Nuke Potion",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastefy.app/HxytfnBn/raw",true))();  
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Fe fly V3",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
@@ -4617,7 +4624,7 @@ Tab7:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 fireclickdetector(game.Workspace.Lobby[_G.EquipGloveTournament].ClickDetector)
-wait(0.8)
+wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -4625,7 +4632,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.5)
+wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "you are in Tournament not equip, 1 you use it.",Image = "rbxassetid://7733658504",Time = 5})
@@ -4760,6 +4767,19 @@ Tab7:AddSlider({
 	ValueName = "Reach",
 	Callback = function(Value)
 		_G.ReachHitbox = Value
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Reach Glove",
+	Min = 2,
+	Max = 90,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.GloveReach = Value
 	end    
 })
 
@@ -4917,6 +4937,35 @@ for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                         v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
                         v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Reach Glove",
+	Default = false,
+	Callback = function(Value)
+_G.ReachGlove = Value
+while _G.ReachGlove do
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveReach,_G.GloveReach,_G.GloveReach)
+                            v:FindFirstChild("Glove").Transparency = 0.75
+                        end
+                    end
+                end
+task.wait()
+end
+if _G.ReachGlove == false then
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2,2,1)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
                     end
                 end
 end
