@@ -121,6 +121,7 @@ local gloveHits = {
     ["Firework"] = game.ReplicatedStorage.GeneralHit,
     ["Run"] = game.ReplicatedStorage.GeneralHit,
     ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
+    ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal And New \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -872,7 +873,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Nuke Potion",
 	Callback = function()
-      		loadstring(game:HttpGet("https://pastefy.app/HxytfnBn/raw",true))();  
+      		loadstring(game:HttpGet("https://pastefy.app/HxytfnBn/raw",true))()
   	end    
 })
 
@@ -1082,11 +1083,11 @@ OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEven
 OGL1 = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame
 wait(0.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(1)
+wait(3.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = OGL
-wait(1)
+wait(3.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(1)
+wait(3.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = OGL1
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have enter limbo [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
@@ -1105,7 +1106,7 @@ Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame
 task.wait(0.3)
 game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
-task.wait(0.5)
+task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99, -104, 81)
 task.wait(0.3)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
@@ -1360,7 +1361,7 @@ if teleportFunc then
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
-OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, auto start Serverhop",Image = "rbxassetid://7733658504",Time = 5})
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
@@ -1395,7 +1396,6 @@ if teleportFunc then
         repeat wait() until game.Players.LocalPlayer
     task.wait(5)
 Time = 121
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
@@ -1412,6 +1412,7 @@ end
 end
     ]])
 end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
@@ -2038,16 +2039,17 @@ Tab14:AddButton({
 	Name = "Spam Ability Slapstick",
 	Callback = function()
 if SlapstickAbility == "runeffect" then
+OldSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 game:GetService("ReplicatedStorage").slapstick:FireServer("runeffect")
-wait(3)
+wait(5)
 game:GetService("ReplicatedStorage").slapstick:FireServer("fullcharged")
 wait(1)
 OrionLib:MakeNotification({Name = "Error",Content = "Started RUN Now.",Image = "rbxassetid://7733658504",Time = 5})
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 70
-wait(8)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+wait(25)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OldSpeed
 game:GetService("ReplicatedStorage").slapstick:FireServer("cancelrun")
 elseif SlapstickAbility == "dash" then
 game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
@@ -2575,14 +2577,19 @@ PingPongFling = Tab14:AddToggle({
 	Callback = function(Value)
 		_G.PingPongFlingAll = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
 while _G.PingPongFlingAll and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer.Name and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall") ~= nil and Target.Character and Target.Character:WaitForChild("Ragdolled").Value == false then
-game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall").CFrame = Target.Character.HumanoidRootPart.CFrame
+if Target ~= game.Players.LocalPlayer.Name and Target.Character and Target.Character:WaitForChild("Ragdolled").Value == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.CFrame = Target.Character.HumanoidRootPart.CFrame
+                    end
+                end
 end
 task.wait(0.01)
 end
@@ -2622,10 +2629,15 @@ PingPongPlayerFling = Tab14:AddToggle({
 	Callback = function(Value)
 		_G.PingPongFlingPlayer = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
+PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
 while _G.PingPongFlingPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall") ~= nil and game.Players[_G.TargeterNameFling].Character and game.Players[_G.TargeterNameFling].Character:WaitForChild("Ragdolled").Value == false then
-game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."_PingPongBall").CFrame = game.Players[_G.TargeterName].Character.HumanoidRootPart.CFrame
+if game.Players[_G.TargeterNameFling].Character and game.Players[_G.TargeterNameFling].Character:WaitForChild("Ragdolled").Value == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == PingPongBall then
+v.CFrame = game.Players[_G.TargeterName].Character.HumanoidRootPart.CFrame
+                    end
+                end
 end
 task.wait(0.01)
 end
@@ -4771,15 +4783,15 @@ Tab7:AddSlider({
 })
 
 Tab7:AddSlider({
-	Name = "Reach Glove",
+	Name = "Extend Glove",
 	Min = 2,
-	Max = 90,
+	Max = 37,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Reach",
+	ValueName = "Extend",
 	Callback = function(Value)
-		_G.GloveReach = Value
+		_G.GloveExtendReach = Value
 	end    
 })
 
@@ -4793,6 +4805,15 @@ Tab7:AddSlider({
 	ValueName = "Reach",
 	Callback = function(Value)
 		_G.ReachShukuchi = Value
+	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Extend Option",
+	Default = "Meat Stick",
+	Options = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
+	Callback = function(Value)
+GloveExtendOption = Value
 	end    
 })
 
@@ -4947,23 +4968,63 @@ Tab7:AddToggle({
 	Name = "Reach Glove",
 	Default = false,
 	Callback = function(Value)
-_G.ReachGlove = Value
-while _G.ReachGlove do
+_G.GloveExtendGet = Value
+while _G.GloveExtendGet do
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                          if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
+                        end
+                    end
+                end
+end
 for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         if v:FindFirstChild("Glove") ~= nil then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveReach,_G.GloveReach,_G.GloveReach)
-                            v:FindFirstChild("Glove").Transparency = 0.75
+                            if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
                         end
                     end
                 end
 task.wait()
 end
-if _G.ReachGlove == false then
+if _G.ReachGloveGet == false then
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
+                    end
+                end
+end
 for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         if v:FindFirstChild("Glove") ~= nil then
-                            v:FindFirstChild("Glove").Size = Vector3.new(2,2,1)
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
                             v:FindFirstChild("Glove").Transparency = 0
                         end
                     end
@@ -5879,12 +5940,9 @@ end
 	end    
 })
 
-Tab15:AddLabel("All Discord or github Help My Credits Script")
-Tab15:AddLabel("My Share Link Discord And Zalo")
-Tab15:AddLabel("Join Link Zalo Message All People Or Friend")
-Tab15:AddLabel("You Have To Message Zalo In VietNamese")
-Tab15:AddLabel("You Have Message Discord In VietNamese Or English")
-Tab15:AddLabel("Owner Zalo [ Tấn Lộc ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
+Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend")
+Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese")
+Tab15:AddParagraph("Owner Zalo","[ Tấn Lộc ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
 
 Tab15:AddButton({
 	Name = "Copy Join Zalo",
@@ -5894,44 +5952,9 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "Copy Guy that exists",
-	Callback = function()
-            setclipboard("Guy that exists#1915")
-  	end    
-})
-
-Tab15:AddButton({
-	Name = "Copy Join Discord R2O",
-	Callback = function()
-            setclipboard("https://discord.gg/zty372wma5")
-  	end    
-})
-
-Tab15:AddButton({
-	Name = "Copy Join Discord Mundion Exploits",
-	Callback = function()
-            setclipboard("https://discord.gg/jZFEk7Vn")
-  	end    
-})
-
-Tab15:AddButton({
-	Name = "Copy Subscribe Mundion Exploits",
-	Callback = function()
-            setclipboard("www.youtube.com/@MundionExploits")
-  	end    
-})
-
-Tab15:AddButton({
 	Name = "Copy Subscribe DonjoSx [ DonjoScript ]",
 	Callback = function()
             setclipboard("www.youtube.com/@DonjoScript")
-  	end    
-})
-
-Tab15:AddButton({
-	Name = "Copy thanhdat4461 [ Baconscripter ]",
-	Callback = function()
-            setclipboard("thanhdat4461#1232")
   	end    
 })
 
@@ -6854,54 +6877,6 @@ Tab:AddButton({
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
 repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("JumpPrompt")
 game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
-	end    
-})
-
-Tab:AddButton({
-	Name = "Teleport Player Random",
-	Callback = function()
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("Dead") == nil and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character:WaitForChild("inMatch").Value == true
-Target = RandomPlayer
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2.5, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,5,0)})
-tween:Play()
-	end    
-})
-
-Tab:AddButton({
-	Name = "Teleport Player Random & Old Teleport",
-	Callback = function()
-OldTele = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("Dead") == nil and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character:WaitForChild("inMatch").Value == true
-Target = RandomPlayer
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2.5, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,5,0)})
-tween:Play()
-wait(0.7)
-tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(.5, Enum.EasingStyle.Linear)
-tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = OldTele})
-tween:Play()
-	end    
-})
-
-Tab:AddButton({
-	Name = "Get Item Random",
-	Callback = function()
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-for i,v in pairs(workspace.Items:GetChildren()) do
-    if v:IsA("Tool") then
-        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(3.5, Enum.EasingStyle.Linear)
-        tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.Handle.CFrame})
-        tween:Play()
-    end
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have started [ don't work the bus ]",Image = "rbxassetid://7733658504",Time = 5})
-end
 	end    
 })
 
