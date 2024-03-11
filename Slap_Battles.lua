@@ -681,7 +681,8 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-AgeAccYou = Tab:AddLabel("You Account Age[ "..game.Players.LocalPlayer.AccountAge.." ]")
+TimeNow = Tab:AddLabel("Now Time [ "..os.date("%X").." ]")
+AgeAccYou = Tab:AddLabel("You Account Age [ "..game.Players.LocalPlayer.AccountAge.." ]")
 ViewAgeServer = Tab:AddLabel("Server's Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
 ResetTime = Tab:AddLabel("Time Spawn [ "..game.Players.RespawnTime.." ]")
@@ -697,7 +698,7 @@ end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
 if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 WalkspeedYou = Tab:AddLabel("Walk Speed [ Not Walk then rock ]")
@@ -725,6 +726,7 @@ ServerPlayer:Set("Player In Server [ "..#game.Players:GetPlayers().." / "..game.
 TimeServer:Set("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 CanYouPing:Set("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 AgeAccYou:Set("Your Account Age [ "..game.Players.LocalPlayer.AccountAge.." ]")
+TimeNow:Set("Now Time [ "..os.date("%X").." ]")
 ViewAgeServer:Set("Server's Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 PlateTime:Set("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
@@ -1336,9 +1338,35 @@ end
   	end    
 })
 
+Tab3:AddDropdown({
+	Name = "Join Maze Elude",
+	Default = "Auto Keypad",
+	Options = {"Teleport","Auto Keypad"},
+	Callback = function(Value)
+_G.SelectMaze = Value
+	end    
+})
+
 Tab3:AddButton({
 	Name = "Get Glove Elude",
 	Callback = function()
+if _G.SelectMaze == "Teleport" then
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+        game:GetService("RunService").RenderStepped:Connect(function()
+           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
+        end)
+    ]])
+end
+OrionLib:MakeNotification({Name = "Error",Content = "If you get kicked, get out or It's okay if you don't kick",Image = "rbxassetid://7733658504",Time = 5})
+wait(2)
+game:GetService("TeleportService"):Teleport(11828384869)
+elseif _G.SelectMaze == "Auto Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, auto start Serverhop",Image = "rbxassetid://7733658504",Time = 5})
 	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
@@ -1372,12 +1400,43 @@ end
 task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
+end
   	end    
 })
 
 Tab3:AddButton({
 	Name = "Get Glove Counter",
 	Callback = function()
+if _G.SelectMaze == "Teleport" then
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        repeat wait() until game.Players.LocalPlayer
+        task.wait(5)
+Time = 121
+fireclickdetector(game.Workspace.CounterLever.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+for i = 1,Time do
+Time = Time - 1
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
+wait(1)
+end
+for i,v in pairs(workspace.Maze:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
+end
+end
+    ]])
+end
+OrionLib:MakeNotification({Name = "Error",Content = "If you get kicked, get out or It's okay if you don't kick",Image = "rbxassetid://7733658504",Time = 5})
+wait(2)
+game:GetService("TeleportService"):Teleport(11828384869)
+elseif _G.SelectMaze == "Auto Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, auto start Serverhop",Image = "rbxassetid://7733658504",Time = 5})
 	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
@@ -1422,6 +1481,7 @@ fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit)
 end
 task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
+end
 end
   	end    
 })
@@ -4785,7 +4845,7 @@ Tab7:AddSlider({
 Tab7:AddSlider({
 	Name = "Extend Glove",
 	Min = 2,
-	Max = 37,
+	Max = 50,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -4989,7 +5049,7 @@ for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         end
                     end
                 end
-end
+else
 for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         if v:FindFirstChild("Glove") ~= nil then
@@ -5008,9 +5068,10 @@ for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                         end
                     end
                 end
+           end
 task.wait()
 end
-if _G.ReachGloveGet == false then
+if _G.GloveExtendGet == false then
 if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
 for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
@@ -5020,7 +5081,7 @@ for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         end
                     end
                 end
-end
+else
 for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         if v:FindFirstChild("Glove") ~= nil then
@@ -5029,6 +5090,7 @@ for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                         end
                     end
                 end
+end
 end
 	end    
 })
@@ -6134,7 +6196,7 @@ Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local Fps = Tab:AddSection({Name = "Fps You"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
 
 Tab:AddButton({
 	Name = "Get Elude",
@@ -6545,7 +6607,7 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
@@ -6848,6 +6910,28 @@ Tab:AddSlider({
 	end    
 })
 
+Tab:AddSlider({
+	Name = "Extend Glove",
+	Min = 2,
+	Max = 50,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Extend",
+	Callback = function(Value)
+		_G.GloveExtendReach = Value
+	end    
+})
+
+Tab:AddDropdown({
+	Name = "Extend Option",
+	Default = "Meat Stick",
+	Options = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
+	Callback = function(Value)
+GloveExtendOption = Value
+	end    
+})
+
 Tab:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
@@ -6867,6 +6951,77 @@ end
                 end
 end)
 task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Reach Glove",
+	Default = false,
+	Callback = function(Value)
+_G.GloveExtendGet = Value
+while _G.GloveExtendGet do
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                          if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
+                        end
+                    end
+                end
+else
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
+                        end
+                    end
+                end
+           end
+task.wait()
+end
+if _G.GloveExtendGet == false then
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
+                    end
+                end
+else
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
+                    end
+                end
+end
 end
 	end    
 })
@@ -7827,6 +7982,99 @@ end
 	end    
 })
 
+Tab7:AddSlider({
+	Name = "Extend Glove",
+	Min = 2,
+	Max = 50,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Extend",
+	Callback = function(Value)
+		_G.GloveExtendReach = Value
+	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Extend Option",
+	Default = "Meat Stick",
+	Options = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
+	Callback = function(Value)
+GloveExtendOption = Value
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Reach Glove",
+	Default = false,
+	Callback = function(Value)
+_G.GloveExtendGet = Value
+while _G.GloveExtendGet do
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                          if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
+                        end
+                    end
+                end
+else
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            if GloveExtendOption == "Meat Stick" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
+                            elseif GloveExtendOption == "Pancake" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
+                            elseif GloveExtendOption == "Growth" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "North Korea Wall" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
+                            elseif GloveExtendOption == "Slight Extend" then
+                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
+                            end
+                            v:FindFirstChild("Glove").Transparency = 0.5
+                        end
+                    end
+                end
+           end
+task.wait()
+end
+if _G.GloveExtendGet == false then
+if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
+                    end
+                end
+else
+for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") and v.Name ~= "Radio" then
+                        if v:FindFirstChild("Glove") ~= nil then
+                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
+                            v:FindFirstChild("Glove").Transparency = 0
+                        end
+                    end
+                end
+end
+end
+	end    
+})
+
 Tab2:AddToggle({
 	Name = "Anti Thorn",
 	Default = false,
@@ -7860,26 +8108,6 @@ end
 	end    
 })
 
-Tab2:AddToggle({
-	Name = "Anti Cooldown",
-	Default = false,
-	Callback = function(Value)
-AntiCooldown = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if AntiCooldown then
-local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
-local localscript = tool:FindFirstChildOfClass("LocalScript")
-local localscriptclone = localscript:Clone()
-localscriptclone = localscript:Clone()
-localscriptclone:Clone()
-localscript:Destroy()
-localscriptclone.Parent = tool
-end
-end)
-	end    
-})
-
 Tab2:AddButton({
 	Name = "Anti Lag",
 	Callback = function()
@@ -7896,8 +8124,7 @@ Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 WinTeleport = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if WinTeleport then
+while WinTeleport do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Part" and v:FindFirstChild("TouchInterest") then
@@ -7905,8 +8132,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.n
 end
 end
 end
+task.wait()
 end
-end)
 	end    
 })
 
@@ -7989,6 +8216,7 @@ local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing:Set("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -8000,7 +8228,7 @@ Tab:AddButton({
 	Name = "Teleport Enter Final Room",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.860291, 77.2709045, 60.5982056, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-wait(1.5)
+task.wait(4)
 if getconnections then
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
 v:Disable() 
