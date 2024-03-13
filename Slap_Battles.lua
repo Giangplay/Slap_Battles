@@ -52,7 +52,7 @@ _G.GetPotion = {
 local gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    -----------// Glove Hit General \\-----------
+    -----------// Glove Hit General Or New Glove \\-----------
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -122,7 +122,7 @@ local gloveHits = {
     ["Run"] = game.ReplicatedStorage.GeneralHit,
     ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
     ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
-    -----------// Glove Hit Normal And New \\-----------
+    -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -362,6 +362,26 @@ bg.MaxTorque = Vector3.new(0,0,0)
 bg.P = 1000
 bg.D = 50
 end)
+
+do
+local DayMonthYear = ({["01 01"] = "Happy New Year 🎆",[(function(Year)
+local A = math.floor(Year/100)
+local B = math.floor((13+8*A)/25)
+local C = (15-B+A-math.floor(A/4))%30
+local D = (4+A-math.floor(A/4))%7
+local E = (19*(Year%19)+C)%30
+local F = (2*(Year%4)+4*(Year%7)+6*E+D)%7
+local G = (22+E+F)
+if E == 29 and F == 6 then
+return "04 19"
+elseif E == 28 and F == 6 then
+return "04 18"
+elseif 31 < G then
+return ("04 %02d"):format(G-31)
+end
+return ("03 %02d"):format(G)
+end)(tonumber(os.date"%Y"))] = "Happy Easter Egg 🥚",["10 31"] = "Halloween 🎃",["12 25"] = "Happy Noel 🎄"})[os.date("%m %d")]
+end
 
 ---SafeSpotBox---
 
@@ -675,7 +695,7 @@ local Tab15 = Window:MakeTab({
 })
 
 Tab:AddLabel("Owner Credits Script By Giang And DonjoSx")
-Tab:AddLabel("Bạn có thể Vào nhóm Zalo thì vào Credit nhé")
+Tab:AddLabel("Bạn muốn vào nhóm zalo thì vào Credit nhé")
 local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -698,6 +718,9 @@ end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
+if DayMonthYear then
+Tab:AddLabel("New Day Comes [ "..("%s %s %s"):format(DayMonthYear).." ]")
+end
 Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
 if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
@@ -2589,6 +2612,19 @@ OrbitSpeed = Value
 	end    
 })
 
+Tab14:AddSlider({
+	Name = "Extend Ping Pong",
+	Min = 0,
+	Max = 200,
+	Default = 15,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Potion",
+	Callback = function(Value)
+		_G.ExtendPingPong = Value
+	end    
+})
+
 PingPong = Tab14:AddToggle({
 	Name = "Ping Pong Orbit",
 	Default = false,
@@ -2605,12 +2641,12 @@ game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = Vector3.new(-180, 
 if game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-15) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
+v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,-_G.ExtendPingPong) * CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
                     end
                 end
 for i,v in pairs(game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == PingPongBall then
-                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,15) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
+                        v.CFrame = game.Players.LocalPlayer.Character.Torso.RadioPart.CFrame * CFrame.new(0,0,_G.ExtendPingPong) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
                     end
                 end
 elseif game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[1] or game.Players.LocalPlayer.Character.Torso.RadioPart:GetChildren()[2] then
@@ -2662,7 +2698,7 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Ping Pong Fling",
+	Name = "Ping Pong Player",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -2683,8 +2719,21 @@ end
 	end	  
 })
 
+Tab14:AddSlider({
+	Name = "Extend Ping Pong Player",
+	Min = 0,
+	Max = 50,
+	Default = 15,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Extend",
+	Callback = function(Value)
+		_G.ExtendPingPongPlayer = Value
+	end    
+})
+
 PingPongPlayerFling = Tab14:AddToggle({
-	Name = "Ping Pong Fling Player",
+	Name = "Ping Pong Player",
 	Default = false,
 	Callback = function(Value)
 		_G.PingPongFlingPlayer = Value
@@ -2695,7 +2744,7 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 if game.Players[_G.TargeterNameFling].Character and game.Players[_G.TargeterNameFling].Character:WaitForChild("Ragdolled").Value == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players[_G.TargeterName].Character.HumanoidRootPart.CFrame
+v.CFrame = game.Players[_G.TargeterNameFling].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-_G.ExtendPingPongPlayer)
                     end
                 end
 end
@@ -4662,6 +4711,17 @@ end
   	end    
 })
 
+Tab7:AddButton({
+	Name = "Destroy AFK",
+	Callback = function()
+if getconnections then
+for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
+v:Disable() 
+end
+end
+  	end    
+})
+
 Tab7:AddTextbox({
 	Name = "Glove",
 	Default = "Use Glove Name",
@@ -5408,25 +5468,6 @@ end
 	end    
 })
 
-AntiAfk = Tab2:AddToggle({
-	Name = "Anti Afk",
-	Default = false,
-	Callback = function(Value)
-if Value then
-local AntiAfkGet 
-AntiAfkGet = game:GetService("Players").LocalPlayer.Idled:connect(function()
-game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-wait(1)
-game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
-else
-if AntiAfkGet then
-AntiAfkGet:Disconnect()
-end
-end
-	end    
-})
-
 AntiKick = Tab2:AddToggle({
 	Name = "Anti Kick",
 	Default = false,
@@ -6038,10 +6079,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiAdmin:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -6872,7 +6909,7 @@ end
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://4370318685",
+	Icon = "rbxassetid://7733674079",
 	PremiumOnly = false
 })
 
@@ -6955,7 +6992,7 @@ end
 	end    
 })
 
-Tab7:AddToggle({
+Tab:AddToggle({
 	Name = "Reach Glove",
 	Default = false,
 	Callback = function(Value)
