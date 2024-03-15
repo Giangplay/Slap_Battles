@@ -122,6 +122,7 @@ local gloveHits = {
     ["Run"] = game.ReplicatedStorage.GeneralHit,
     ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
     ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
+    ["Glovel"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1027,10 +1028,10 @@ elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie" then
 if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 wait(1)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
-wait(0.5)
+wait(1)
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have show all",Image = "rbxassetid://7733658504",Time = 5})
@@ -1169,6 +1170,22 @@ task.wait(3.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have bus equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Auto Quests Chest",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(289, 13, 261)
+game:GetService("ReplicatedStorage").DigEvent:FireServer({["index"] = 2,["cf"] = CFrame.new(42.7222366, -6.17449856, 91.5175781, -0.414533257, 1.72594355e-05, -0.91003418, -5.57037238e-05, 1, 4.4339522e-05, 0.91003418, 6.90724992e-05, -0.414533257)})
+until game.Workspace:FindFirstChild("TreasureChestFolder") ~= nil and game.Workspace.TreasureChestFolder:FindFirstChild("TreasureChest") ~= nil
+wait(1)
+game.Workspace.TreasureChestFolder.TreasureChest.OpenRemote:FireServer()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -2471,13 +2488,13 @@ _G.MakePotion = Value
 })
 
 Tab14:AddSlider({
-	Name = "Give Potion",
+	Name = "Medicine Mix Potion",
 	Min = 1,
 	Max = 200,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Potion",
+	ValueName = "Mix",
 	Callback = function(Value)
 		_G.GivePotion = Value
 	end    
@@ -2494,7 +2511,7 @@ for b = 1, _G.GivePotion do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-task.wait(0.003)
+wait(0.0000005)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
@@ -2517,7 +2534,6 @@ while _G.AutoGetPotion and game.Players.LocalPlayer.leaderstats.Glove.Value == "
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-task.wait(.03)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
@@ -2529,6 +2545,44 @@ elseif _G.AutoGetPotion == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 PotionAuto:Set(false)
+end
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Potion Throw",
+	Default = "Speed Potion",
+	Options = {"Grug Potion","IdIot Potion","Nightmare Potion","Confusion Potion","Power Potion","Paralyzing Potion","Haste Potion","Invisibility Potion","Expotion","Invincible Potion","Toxic Potion","Freeze Potion","Feather Potion","Speed Potion","Lethal Poison","Slow Potion","Antitoxin Potion"},
+	Callback = function(Value)
+_G.PotionThrownNuke = Value
+	end    
+})
+
+PotionThrowNukeAuto = Tab14:AddToggle({
+	Name = "Auto Throw Nuke Potion",
+	Default = false,
+	Callback = function(Value)
+_G.AutoThrowPotion = Value
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if _G.AutoThrowPotion == true then
+game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+else
+if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
+end
+while _G.AutoThrowPotion do
+local RandomTeleX = math.random(-90,90)
+local RandomTeleZ = math.random(-90,90)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(RandomTeleX,-5,RandomTeleZ)
+task.wait()
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion",_G.PotionThrownNuke,true)
+end
+elseif _G.AutoThrowPotion == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You dont't have Alchemist equipped, or you have in the lobby",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+PotionThrowNukeAuto:Set(false)
 end
 	end    
 })
@@ -3523,12 +3577,14 @@ end
 Tab7:AddDropdown({
 	Name = "Teleport",
 	Default = "",
-	Options = {"Arena", "Lobby", "Brazil", "Island Slapple", "Plate", "Tournament", "Cannon Island","Keypad", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+	Options = {"Arena", "Lobby", "Hunter Room", "Brazil", "Island Slapple", "Plate", "Tournament", "Cannon Island", "Equip Glovel", "Keypad", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
 	Callback = function(Value)
 if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
 elseif Value == "Lobby" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-800,328,-2.5)
+elseif Value == "Hunter Room" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
 elseif Value == "Brazil" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
 elseif Value == "Island Slapple" then
@@ -3539,6 +3595,8 @@ elseif Value == "Tournament" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
 elseif Value == "Cannon Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
+elseif Value == "Equip Glovel" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.GlovelHoleInTheWall.GlovelHoleInTheWall.CFrame
 elseif Value == "Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
@@ -5544,24 +5602,6 @@ end
 	end    
 })
 
-AntiTableflip = Tab2:AddToggle({
-	Name = "Anti Tableflip",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiTableflip = Value
-while _G.AntiTableflip do
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "TableObject" then
-                        v.CanTouch = false
-                        v.CanQuery = false
-                        v.CanCollide = false
-                    end
-                end
-task.wait()
-end
-	end    
-})
-
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -6095,10 +6135,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiBus:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiTableflip:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -7611,6 +7647,22 @@ if RemoveZone then
 game.Players.LocalPlayer.Character:WaitForChild("inZone").Value = false
 end
 end)
+	end    
+})
+
+Tab1:AddToggle({
+	Name = "Anti Ice",
+	Default = false,
+	Callback = function(Value)
+_G.AntiIce = Value
+while _G.AntiIce do
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v.Name == "Icecube" then
+                v:Destroy()
+            end
+       end
+task.wait()
+end
 	end    
 })
 
