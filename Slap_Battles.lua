@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://7247207481",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -2257,8 +2257,7 @@ BeatdownSpam = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
 while BeatdownSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-local BeatdownPlayerHit = {[1] = "standhit",[2] = {["cf"] = CFrame.new(35.738887786865234, -4.172937870025635, 10.624616622924805) * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart}}
-game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(BeatdownPlayerHit))
+game:GetService("ReplicatedStorage").beatdownevent:FireServer("standhit",{["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart})
 task.wait(0.3)
 end
 elseif BeatdownSpam == true then
@@ -2395,8 +2394,7 @@ Tab14:AddButton({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 for i,v in pairs(game.Players:GetPlayers()) do
-local args = {[1] = "standhit",[2] = {["cf"] = CFrame.new(35.738887786865234, -4.172937870025635, 10.624616622924805) * CFrame.Angles(-3.141592502593994, 0.8276144862174988, 3.141592502593994),["hit"] = v.Character.HumanoidRootPart}}
-game:GetService("ReplicatedStorage").beatdownevent:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").beatdownevent:FireServer("standhit",{["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,["hit"] = v.Character.HumanoidRootPart})
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Beatdown equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2653,17 +2651,17 @@ end
 	end    
 })
 
-Tab14:AddSlider({
-	Name = "Ping Pong Orbit Speed",
-	Min = 0,
-	Max = 1000,
-	Default = 30,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Speed",
+Tab14:AddTextbox({
+	Name = "Speed Ping Pong",
+	Default = "UserSpeed",
+	TextDisappear = false,
 	Callback = function(Value)
+if Value == "inf" or Value == "Inf" or Value == "infinity" or Value == "Infinity" then
+OrbitSpeed = 9e9
+else
 OrbitSpeed = Value
-	end    
+end
+	end	  
 })
 
 Tab14:AddSlider({
@@ -2673,7 +2671,7 @@ Tab14:AddSlider({
 	Default = 15,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Potion",
+	ValueName = "Extend",
 	Callback = function(Value)
 		_G.ExtendPingPong = Value
 	end    
@@ -2687,6 +2685,9 @@ PingPong = Tab14:AddToggle({
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
 game.Players.LocalPlayer.Character.Torso.RadioPart.Rotation = game.Players.LocalPlayer.Character.HumanoidRootPart.Rotation
 Orbit = "0"
+if OrbitSpeed == nil then
+OrbitSpeed = 1
+end
 PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
 while PingPongOrbit and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -2802,7 +2803,7 @@ v.CFrame = game.Players[_G.TargeterNameFling].Character.HumanoidRootPart.CFrame 
                     end
                 end
 end
-task.wait(0.01)
+task.wait()
 end
 elseif Value == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ping Pong equipped.",Image = "rbxassetid://7733658504",Time = 5})
@@ -4174,7 +4175,7 @@ while _G.AutoFarmSlap do
 pcall(function()
 for i,v in next, game.Players:GetChildren() do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 task.wait(0.5)
@@ -4217,7 +4218,7 @@ if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:Fin
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 end
 game:GetService("ReplicatedStorage").SM:FireServer(Target)
-wait(0.1)
+wait(0.8)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Slicer" do
 game:GetService("ReplicatedStorage").Slicer:FireServer("sword")
@@ -4532,7 +4533,7 @@ Target = RandomPlayer
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Leap")
 wait(1.85)
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("FinishLeap",Target.Character.HumanoidRootPart.Position)
-task.wait(2.9)
+task.wait(3.9)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Scythe" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -6104,7 +6105,10 @@ Tab15:AddButton({
 Tab15:AddButton({
 	Name = "Destroy GUI",
 	Callback = function()
-      		OrionLib:Destroy()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") ~= nil then
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui"):Destroy()
+end
   	end 
 })
 
@@ -8226,24 +8230,6 @@ end
 	end    
 })
 
-Tab2:AddToggle({
-	Name = "Shoots Snowball",
-	Default = false,
-	Callback = function(Value)
-_G.ShootsSnowball = Value
-while _G.ShootsSnowball do
-local args = {
-    [1] = 999,
-    [2] = Vector3.new(158.67724609375, 191.6060333251953, -110.86800384521484),
-    [3] = Vector3.new(156.8695831298828, 179.1384735107422, -108.30918884277344)
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(unpack(args))
-task.wait()
-end
-	end    
-})
-
 Tab2:AddTextbox({
 	Name = "Speed Fly",
 	Default = "Userspeed",
@@ -8334,3 +8320,33 @@ v.BackgroundTransparency = 0.2
                     end
                 end
 gethui().Orion.Name = "OrionEdited"
+-----------------------------------------------------------
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") == nil then
+local ScreenGui = Instance.new("ScreenGui")
+local NameToggle = Instance.new("TextLabel")
+local ClickMe = Instance.new("TextButton")
+
+ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+NameToggle.Size = UDim2.new(0.13, 0, 0.1, 0)
+NameToggle.Position = UDim2.new(0, 0, 0, 0)
+NameToggle.BackgroundColor3 = Color3.fromRGB(98, 113, 245)
+NameToggle.Text = "Toggle Ui Orion"
+NameToggle.Draggable = true
+NameToggle.Active = true
+NameToggle.Font = Enum.Font.FredokaOne
+NameToggle.TextColor3 = Color3.new(0,0,0)
+NameToggle.Parent = ScreenGui
+
+ClickMe.Size = UDim2.new(1, 0, 1, 0)
+ClickMe.Position = UDim2.new(0, 0, 1, 0)
+ClickMe.BackgroundColor3 = Color3.fromRGB(119, 252, 125)
+ClickMe.Text = "Click"
+ClickMe.Font = Enum.Font.FredokaOne
+ClickMe.TextColor3 = Color3.new(0,0,0)
+ClickMe.Parent = NameToggle
+ClickMe.MouseButton1Click:connect(function()
+gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
+end)
+end
