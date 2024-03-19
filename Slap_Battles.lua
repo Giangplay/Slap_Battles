@@ -1956,7 +1956,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 elseif AutoTime ~= "MegaRock" or Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
