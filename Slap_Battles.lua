@@ -1915,7 +1915,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
 end
-elseif Value == false then
+elseif AutoTime ~= "Fish" or Value == false then
 SleepTime = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
@@ -1935,7 +1935,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 end
-elseif Value == false then
+elseif AutoTime ~= "Voodoo" or Value == false then
 game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
 TimeGhost = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
@@ -1955,8 +1955,8 @@ if AutoTime == "MegaRock" and Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
-elseif Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
+elseif AutoTime ~= "MegaRock" or Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
