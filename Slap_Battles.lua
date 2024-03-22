@@ -123,6 +123,7 @@ local gloveHits = {
     ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
     ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
     ["Glovel"] = game.ReplicatedStorage.GeneralHit,
+    ["Chicken"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1956,7 +1957,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 elseif AutoTime ~= "MegaRock" or Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") or game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
@@ -4561,6 +4562,10 @@ game:GetService("ReplicatedStorage").slapstick:FireServer("charge")
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Firework" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Chicken" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
@@ -7641,6 +7646,29 @@ end
 	end    
 })
 
+Tab1:AddDropdown({
+	Name = "Safe",
+	Default = "",
+	Options = {"Lava", "Zone Blur Remove", "Acid"},
+	Callback = function(Value)
+if Value == "Lava" then
+game.Workspace.Map.DragonDepths:WaitForChild("Lava").CanTouch = false
+elseif Value == "Zone Blur Remove" then
+for _, v in ipairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
+    if v.Name == "ZoneEffects" then
+        v:Destroy()
+    end
+end
+elseif Value == "Acid" then
+for _,v in ipairs(workspace.Map.AcidAbnormality:GetChildren()) do
+			if v.Name == "Acid" and v:IsA("BasePart") and v:FindFirstChildWhichIsA("TouchTransmitter") then
+				v.CanTouch = false
+			end
+		end
+end
+	end    
+})
+
 Tab1:AddToggle({
 	Name = "Anti Zone",
 	Default = false,
@@ -7667,6 +7695,14 @@ while _G.AntiIce do
        end
 task.wait()
 end
+	end    
+})
+
+Tab1:AddToggle({
+	Name = "Anti Kick Access",
+	Default = false,
+	Callback = function(Value)
+game.Workspace.Map.OriginOffice:WaitForChild("Antiaccess").CanTouch = Value
 	end    
 })
 
@@ -8322,31 +8358,18 @@ v.BackgroundTransparency = 0.2
 gethui().Orion.Name = "OrionEdited"
 -----------------------------------------------------------
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") == nil then
-local ScreenGui = Instance.new("ScreenGui")
-local NameToggle = Instance.new("TextLabel")
-local ClickMe = Instance.new("TextButton")
+local TOGGLE = {}
+TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
+TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"]);
 
-ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
-ScreenGui.ResetOnSpawn = false
-
-NameToggle.Size = UDim2.new(0.13, 0, 0.1, 0)
-NameToggle.Position = UDim2.new(0, 0, 0, 0)
-NameToggle.BackgroundColor3 = Color3.fromRGB(98, 113, 245)
-NameToggle.Text = "Toggle Ui Orion"
-NameToggle.Draggable = true
-NameToggle.Active = true
-NameToggle.Font = Enum.Font.FredokaOne
-NameToggle.TextColor3 = Color3.new(0,0,0)
-NameToggle.Parent = ScreenGui
-
-ClickMe.Size = UDim2.new(1, 0, 1, 0)
-ClickMe.Position = UDim2.new(0, 0, 1, 0)
-ClickMe.BackgroundColor3 = Color3.fromRGB(119, 252, 125)
-ClickMe.Text = "Click"
-ClickMe.Font = Enum.Font.FredokaOne
-ClickMe.TextColor3 = Color3.new(0,0,0)
-ClickMe.Parent = NameToggle
-ClickMe.MouseButton1Click:connect(function()
-gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
+TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
+TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
+TOGGLE["DaIcon"].Draggable = true
+TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
+TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(17, 36, 66)
+TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
+    gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
+TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 end
