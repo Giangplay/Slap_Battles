@@ -900,12 +900,12 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Nuke Potion",
 	Callback = function()
-      		loadstring(game:HttpGet("https://pastefy.app/HxytfnBn/raw",true))()
+      		loadstring(game:HttpGet("https://pastefy.app/J0u9Qe7p/raw",true))()
   	end    
 })
 
 Tab1:AddButton({
-	Name = "Fe fly V3",
+	Name = "Fe Fly V3",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
   	end    
@@ -961,6 +961,13 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
+	Name = "Simple Spy",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+  	end    
+})
+
+Tab1:AddButton({
 	Name = "Hydroxide",
 	Callback = function()
 local owner = "Upbolt"
@@ -970,13 +977,6 @@ return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydro
 end
 webImport("init")
 webImport("ui/main")
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Simple Spy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
   	end    
 })
 
@@ -1017,7 +1017,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter","Teleport Bob Plushie","Click Bob Plushie","Teleport Portal"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -1025,18 +1025,6 @@ elseif Value == "Off Show All" then
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
 elseif Value == "Teleport Enter" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.Limbo.CFrame * CFrame.new(0,-5,0)
-elseif Value == "Teleport Bob Plushie" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
-elseif Value == "Click Bob Plushie" then
-if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
-wait(1)
-fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
-wait(1)
-game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have show all",Image = "rbxassetid://7733658504",Time = 5})
-end
 elseif Value == "Teleport Portal" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 end
@@ -1969,7 +1957,7 @@ task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
 FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ] | [ "..(900 - TimeMegarock).." | "..(36000 - TimeMegarock).." ]")
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
@@ -2557,6 +2545,39 @@ _G.PotionThrownNuke = Value
 	end    
 })
 
+if _G.NukeExtend == nil then
+_G.NukeExtend = "90"
+end
+Tab14:AddTextbox({
+	Name = "Nuke Extend",
+	Default = "UseNumber",
+	TextDisappear = false,
+	Callback = function(Value)
+		_G.NukeExtend = Value
+	end	  
+})
+
+if _G.NukeHeightPotion == nil then
+_G.NukeHeightPotion = "-5"
+end
+Tab14:AddTextbox({
+	Name = "Nuke Potion Height",
+	Default = "UseNumber",
+	TextDisappear = false,
+	Callback = function(Value)
+		_G.NukeHeightPotion = Value
+	end	  
+})
+
+Tab14:AddDropdown({
+	Name = "Place",
+	Default = "",
+	Options = {"Arena", "Island Slapple", "Tournament", "Moai Island", "Player"},
+	Callback = function(Value)
+_G.PhaceNuke = Value
+	end    
+})
+
 PotionThrowNukeAuto = Tab14:AddToggle({
 	Name = "Auto Throw Nuke Potion",
 	Default = false,
@@ -2564,7 +2585,18 @@ PotionThrowNukeAuto = Tab14:AddToggle({
 _G.AutoThrowPotion = Value
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if _G.AutoThrowPotion == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
+if _G.PhaceNuke == "Arena" then
 game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+elseif _G.PhaceNuke == "Island Slapple" then
+game.Workspace.CurrentCamera.CameraSubject = game.workspace.Arena.island5.Union
+elseif _G.PhaceNuke == "Tournament" then
+game.Workspace.CurrentCamera.CameraSubject = workspace.Battlearena.Arena
+elseif _G.PhaceNuke == "Moai Island" then
+game.Workspace.CurrentCamera.CameraSubject = game.Workspace.Arena.island4.Grass
+elseif _G.PhaceNuke == "Player" then 
+game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+end
 else
 if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
@@ -2572,9 +2604,23 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
 end
 while _G.AutoThrowPotion do
-local RandomTeleX = math.random(-90,90)
-local RandomTeleZ = math.random(-90,90)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(RandomTeleX,-5,RandomTeleZ)
+local RandomTeleX = math.random(-_G.NukeExtend,_G.NukeExtend)
+local RandomTeleZ = math.random(-_G.NukeExtend,_G.NukeExtend)
+if _G.PhaceNuke == "Arena" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(RandomTeleX,_G.NukeHeightPotion,RandomTeleZ)
+elseif _G.PhaceNuke == "Island Slapple" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.island5.Union.CFrame * CFrame.new(RandomTeleX,_G.NukeHeightPotion,RandomTeleZ)
+elseif _G.PhaceNuke == "Tournament" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(RandomTeleX,_G.NukeHeightPotion,RandomTeleZ)
+elseif _G.PhaceNuke == "Moai Island" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.island4.Grass.CFrame * CFrame.new(RandomTeleX,_G.NukeHeightPotion,RandomTeleZ)
+elseif _G.PhaceNuke == "Player" then
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.NukeHeightPotion,0)
+end
 task.wait()
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion",_G.PotionThrownNuke,true)
 end
