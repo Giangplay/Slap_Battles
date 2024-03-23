@@ -1957,7 +1957,7 @@ task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
 FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ] | [ "..(900 - TimeMegarock).." | "..(36000 - TimeMegarock).." ]")
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
