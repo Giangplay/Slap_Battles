@@ -252,8 +252,7 @@ end
 function SpamBlink()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Blink" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 while BlinkFarm do
-local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
-game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
 task.wait(50.05)
 end
 end
@@ -296,8 +295,7 @@ OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 while ReplicaBallerBlinkFarm do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
-local args = {[1] = "OutOfBody",[2] = {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default}}
-game:GetService("ReplicatedStorage").Blink:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
@@ -364,26 +362,6 @@ bg.MaxTorque = Vector3.new(0,0,0)
 bg.P = 1000
 bg.D = 50
 end)
-
-do
-local DayMonthYear = ({["01 01"] = "Happy New Year 🎆",[(function(Year)
-local A = math.floor(Year/100)
-local B = math.floor((13+8*A)/25)
-local C = (15-B+A-math.floor(A/4))%30
-local D = (4+A-math.floor(A/4))%7
-local E = (19*(Year%19)+C)%30
-local F = (2*(Year%4)+4*(Year%7)+6*E+D)%7
-local G = (22+E+F)
-if E == 29 and F == 6 then
-return "04 19"
-elseif E == 28 and F == 6 then
-return "04 18"
-elseif 31 < G then
-return ("04 %02d"):format(G-31)
-end
-return ("03 %02d"):format(G)
-end)(tonumber(os.date"%Y"))] = "Happy Easter Egg 🥚",["10 31"] = "Halloween 🎃",["12 25"] = "Happy Noel 🎄"})[os.date("%m %d")]
-end
 
 ---SafeSpotBox---
 
@@ -720,10 +698,7 @@ end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
-if DayMonthYear then
-Tab:AddLabel("New Day Comes [ "..("%s %s %s"):format(DayMonthYear).." ]")
-end
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
 if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 WalkspeedYou = Tab:AddLabel("Walk Speed [ Not Walk then rock ]")
@@ -1723,7 +1698,7 @@ task.wait()
 Tab3:AddDropdown({
 	Name = "Farm Bob",
 	Default = "Slow",
-	Options = {"Slow", "Fast", "Fast V2", "Normal","Super Fast"},
+	Options = {"Slow", "Auto Spawn", "Fast Spawn", "Normal","Super Fast"},
 	Callback = function(Value)
 Autobob = Value
 	end    
@@ -1742,9 +1717,9 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You got Bob spawn",Image = "rbxassetid://7733658504",Time = 5})
 GetBob:Set(false)
 end
-task.wait(15.1)
+task.wait(0.5)
 end
-while _G.AutoFarmBob and Autobob == "Fast" do
+while _G.AutoFarmBob and Autobob == "Auto Spawn" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") or game.Workspace:FindFirstChild("bobcap") == nil then
 game.ReplicatedStorage.Duplicate:FireServer(true)
 else
@@ -1753,7 +1728,7 @@ GetBob:Set(false)
 end
 task.wait(5.3)
 end
-while _G.AutoFarmBob and Autobob == "Fast V2" do
+while _G.AutoFarmBob and Autobob == "Fast Spawn" do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -2010,7 +1985,7 @@ end
 task.wait()
 end
 elseif _G.AutoTpPlate == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane and 7 people the server",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane, or 7 people the server",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoTycoon:Set(false)
 end
@@ -2583,7 +2558,7 @@ PotionThrowNukeAuto = Tab14:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoThrowPotion = Value
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if _G.AutoThrowPotion == true and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if _G.AutoThrowPotion == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
 if _G.PhaceNuke == "Arena" then
@@ -2616,10 +2591,10 @@ elseif _G.PhaceNuke == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.island4.Grass.CFrame * CFrame.new(RandomTeleX,_G.NukeHeightPotion,RandomTeleZ)
 elseif _G.PhaceNuke == "Player" then
 local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.NukeHeightPotion,0)
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.NukeHeightPotion,10)
 end
 task.wait()
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion",_G.PotionThrownNuke,true)
@@ -3716,13 +3691,16 @@ _G.Animation = Value
 Tab7:AddButton({
 	Name = "Start Animation",
 	Callback = function()
-if not game.ReplicatedStorage:FindFirstChild("Animation") then
+if game.ReplicatedStorage:FindFirstChild("Animation") == nil then
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://".._G.Animation
 Anim.Name = "Animation"
 Anim.Parent = game.ReplicatedStorage
+elseif game.ReplicatedStorage:FindFirstChild("Animation") ~= nil then
+game.ReplicatedStorage:FindFirstChild("Animation").AnimationId = "rbxassetid://".._G.Animation
 end
-if game.ReplicatedStorage:FindFirstChild("Animation") then
+wait(0.5)
+if game.ReplicatedStorage:FindFirstChild("Animation") ~= nil then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
 end
   	end    
@@ -3731,7 +3709,7 @@ end
 Tab7:AddButton({
 	Name = "Stop Animation",
 	Callback = function()
-if game.ReplicatedStorage:FindFirstChild("Animation") then
+if game.ReplicatedStorage:FindFirstChild("Animation") ~= nil then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Stop()
 game.ReplicatedStorage.Animation:Destroy()
 end
@@ -3761,7 +3739,7 @@ Tab7:AddToggle({
 	Callback = function(Value)
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
-for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
+for i, v in ipairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
                     firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
                     firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
@@ -4427,7 +4405,7 @@ game:GetService("ReplicatedStorage").BerserkCharge:FireServer(game:GetService("P
 wait(2.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" do
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[game.Players.LocalPlayer.Name].Character.HumanoidRootPart.CFrame})
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame})
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" do
@@ -6324,7 +6302,7 @@ Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local Fps = Tab:AddSection({Name = "Fps You"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
 Tab:AddButton({
 	Name = "Get Elude",
@@ -6735,7 +6713,7 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 local Combat = Tab:AddSection({Name = "Combat"})
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
@@ -7745,14 +7723,6 @@ end
 })
 
 Tab1:AddToggle({
-	Name = "Anti Kick Access",
-	Default = false,
-	Callback = function(Value)
-game.Workspace.Map.OriginOffice:WaitForChild("Antiaccess").CanTouch = Value
-	end    
-})
-
-Tab1:AddToggle({
 	Name = "Anti Lava & Acid",
 	Default = false,
 	Callback = function(Value)
@@ -8373,7 +8343,7 @@ local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-Tab:AddLabel("Game's ID [ "..game.PlaceId.." ] | Server ID [ "..game.JobId.." ]")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing:Set("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -8409,13 +8379,16 @@ TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
 TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"]);
 
+TOGGLE["Ui"].Name = "ToggleUi"
+TOGGLE["Ui"].ResetOnSpawn = false
+
 TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
 TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
 TOGGLE["DaIcon"].Draggable = true
 TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
-TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(17, 36, 66)
+TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
 TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
     gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
-TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
+TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end
