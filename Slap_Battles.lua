@@ -993,7 +993,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests ]"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -2306,7 +2306,7 @@ Tab14:AddTextbox({
 	TextDisappear = false,
 	Callback = function(Value)
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-Person = game.Players.LocalPlayer.Name
+DivebombExplosion = game.Players.LocalPlayer.Name
 else
 local targetAbbreviation = Value
 local targetPlayer
@@ -2317,8 +2317,8 @@ break
 end
 end
 if targetPlayer then
-Explosion = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..Person.." ]",Image = "rbxassetid://7733658504",Time = 5})
+DivebombExplosion = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..DivebombExplosion.." ]",Image = "rbxassetid://7733658504",Time = 5})
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2343,13 +2343,13 @@ Tab14:AddToggle({
 	Name = "Auto Spam Divebomb",
 	Default = false,
 	Callback = function(Value)
-if Person == nil then
-Person = game.Players.LocalPlayer.Name
+if DivebombExplosion == nil then
+DivebombExplosion = game.Players.LocalPlayer.Name
 end
 _G.DivebombSpam = Value
 while _G.DivebombSpam do
-game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 150.758564,["rocketJump"] = true})
-game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[Explosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 99.7833333881571889,["rocketJump"] = true})
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[DivebombExplosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
 task.wait()
 end
 	end    
