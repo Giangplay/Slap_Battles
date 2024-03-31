@@ -124,6 +124,7 @@ local gloveHits = {
     ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
     ["Glovel"] = game.ReplicatedStorage.GeneralHit,
     ["Chicken"] = game.ReplicatedStorage.GeneralHit,
+    ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -992,7 +993,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests ]"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -2294,6 +2295,61 @@ task.wait()
 end
 while _G.RojoSpam and RojoAbility == "Down" do
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
+task.wait()
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Spam Divebomb Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+DivebombExplosion = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+DivebombExplosion = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..DivebombExplosion.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+	end	  
+})
+
+Tab14:AddSlider({
+	Name = "Charge Explosion",
+	Min = 0,
+	Max = 500,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Charge",
+	Callback = function(Value)
+		_G.ChargeExplosion = Value
+	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Spam Divebomb",
+	Default = false,
+	Callback = function(Value)
+if DivebombExplosion == nil then
+DivebombExplosion = game.Players.LocalPlayer.Name
+end
+_G.DivebombSpam = Value
+while _G.DivebombSpam do
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 99.7833333881571889,["rocketJump"] = true})
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[DivebombExplosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
 task.wait()
 end
 	end    
@@ -4244,7 +4300,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(4.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
-game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
 wait(3.1)
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
@@ -4255,6 +4311,7 @@ Target = RandomPlayer
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Head:FindFirstChild("RedEye") == nil then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 end
+wait(0.09)
 game:GetService("ReplicatedStorage").SM:FireServer(Target)
 wait(0.8)
 end
@@ -4482,6 +4539,13 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Adios" do
 game:GetService("ReplicatedStorage").AdiosActivated:FireServer()
 wait(8.3)
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Boogie" do
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Boogie") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Boogie)
+end
+game:GetService("ReplicatedStorage").BoogieBall:FireServer(game.Players.LocalPlayer.Character.Boogie, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+task.wait()
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Balloony" do
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Balloony") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Balloony)
@@ -4514,7 +4578,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(g
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
 wait(3.1)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" or game.Players.LocalPlayer.leaderstats.Glove.Value == "MEGAROCK" do
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 task.wait()
 end
@@ -4565,9 +4629,9 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ferryman" do
 local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil
-Target = RandomPlayer
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("Leap")
 wait(1.85)
 game.Players.LocalPlayer.Character.FerrymanStaff.StaffConfig.AbilityEvent:FireServer("FinishLeap",Target.Character.HumanoidRootPart.Position)
@@ -4990,63 +5054,6 @@ Tab7:AddSlider({
 	end    
 })
 
-Tab7:AddSlider({
-	Name = "Reach HitBox",
-	Min = 2,
-	Max = 30,
-	Default = 10,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Reach",
-	Callback = function(Value)
-		_G.ReachHitbox = Value
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Extend Glove",
-	Min = 2,
-	Max = 50,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Extend",
-	Callback = function(Value)
-		_G.GloveExtendReach = Value
-	end    
-})
-
-Tab7:AddSlider({
-	Name = "Reach Shukuchi",
-	Min = 1,
-	Max = 130,
-	Default = 50,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Reach",
-	Callback = function(Value)
-		_G.ReachShukuchi = Value
-	end    
-})
-
-Tab7:AddDropdown({
-	Name = "Extend Option",
-	Default = "Meat Stick",
-	Options = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
-	Callback = function(Value)
-GloveExtendOption = Value
-	end    
-})
-
-Tab7:AddDropdown({
-	Name = "Shukuchi Friend",
-	Default = "Fight",
-	Options = {"Fight", "Not Fight"},
-	Callback = function(Value)
-ShukuchiFriend = Value
-	end    
-})
-
 Tab7:AddDropdown({
 	Name = "Slap Aura Friend",
 	Default = "Fight",
@@ -5107,6 +5114,28 @@ end
 	end    
 })
 
+Tab7:AddSlider({
+	Name = "Reach Shukuchi",
+	Min = 1,
+	Max = 130,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachShukuchi = Value
+	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Shukuchi Friend",
+	Default = "Fight",
+	Options = {"Fight", "Not Fight"},
+	Callback = function(Value)
+ShukuchiFriend = Value
+	end    
+})
+
 AutoShukuchi = Tab7:AddToggle({
 	Name = "Auto Shukuchi",
 	Default = false,
@@ -5160,6 +5189,19 @@ end
 	end    
 })
 
+Tab7:AddSlider({
+	Name = "Reach HitBox",
+	Min = 2,
+	Max = 30,
+	Default = 10,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Reach",
+	Callback = function(Value)
+		_G.ReachHitbox = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Hitbox Player",
 	Default = false,
@@ -5182,6 +5224,28 @@ for i,v in pairs(game.Players:GetChildren()) do
                     end
                 end
 end
+	end    
+})
+
+Tab7:AddSlider({
+	Name = "Extend Glove",
+	Min = 2,
+	Max = 50,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Extend",
+	Callback = function(Value)
+		_G.GloveExtendReach = Value
+	end    
+})
+
+Tab7:AddDropdown({
+	Name = "Extend Option",
+	Default = "Meat Stick",
+	Options = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
+	Callback = function(Value)
+GloveExtendOption = Value
 	end    
 })
 
@@ -5746,8 +5810,6 @@ while _G.AntiIce do
                 v:Destroy()
             end
        end
-wait(0.5)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 task.wait()
 end
 	end    
@@ -6148,7 +6210,7 @@ Tab15:AddButton({
 	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
 for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
 if v.Name == "ToggleUi" then
 v:Destroy()
