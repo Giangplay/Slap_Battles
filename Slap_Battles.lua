@@ -124,7 +124,6 @@ local gloveHits = {
     ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
     ["Glovel"] = game.ReplicatedStorage.GeneralHit,
     ["Chicken"] = game.ReplicatedStorage.GeneralHit,
-    ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -993,7 +992,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests ]"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -2295,61 +2294,6 @@ task.wait()
 end
 while _G.RojoSpam and RojoAbility == "Down" do
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
-task.wait()
-end
-	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Spam Divebomb Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-DivebombExplosion = game.Players.LocalPlayer.Name
-else
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-DivebombExplosion = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..DivebombExplosion.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-	end	  
-})
-
-Tab14:AddSlider({
-	Name = "Charge Explosion",
-	Min = 0,
-	Max = 500,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Charge",
-	Callback = function(Value)
-		_G.ChargeExplosion = Value
-	end    
-})
-
-Tab14:AddToggle({
-	Name = "Auto Spam Divebomb",
-	Default = false,
-	Callback = function(Value)
-if DivebombExplosion == nil then
-DivebombExplosion = game.Players.LocalPlayer.Name
-end
-_G.DivebombSpam = Value
-while _G.DivebombSpam do
-game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 99.7833333881571889,["rocketJump"] = true})
-game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[DivebombExplosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
 task.wait()
 end
 	end    
