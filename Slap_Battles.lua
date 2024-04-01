@@ -1160,8 +1160,10 @@ game:GetService("ReplicatedStorage").DigEvent:FireServer({["index"] = 2,["cf"] =
 until game.Workspace:FindFirstChild("TreasureChestFolder") ~= nil and game.Workspace.TreasureChestFolder:FindFirstChild("TreasureChest") ~= nil
 wait(1)
 game.Workspace.TreasureChestFolder.TreasureChest.OpenRemote:FireServer()
-wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+wait(1.9)
+game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
