@@ -993,7 +993,7 @@ end
 Tab3:AddDropdown({
 	Name = "Repressed Memory",
 	Default = "",
-	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests ]"},
+	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests Hitman ]"},
 	Callback = function(Value)
 if Value == "Show All" then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
@@ -1005,7 +1005,7 @@ elseif Value == "Teleport Portal" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
-elseif Value == "Click Bob Plushie [ Quests ]" then
+elseif Value == "Click Bob Plushie [ Quests Hitman ]" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame * CFrame.new(0,5,0)
 wait(0.93)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
@@ -1151,7 +1151,7 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Auto Quests Chest",
+	Name = "Auto Quests Chest All Glove",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 repeat task.wait()
@@ -1540,7 +1540,7 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Ice Skate",
+	Name = "Get Free Ice Skate",
 	Callback = function()
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2906002612987222) then
 game:GetService("ReplicatedStorage").IceSkate:FireServer("Freeze")
@@ -1714,7 +1714,7 @@ task.wait()
 Tab3:AddDropdown({
 	Name = "Farm Bob",
 	Default = "Slow",
-	Options = {"Slow", "Auto Spawn", "Fast Spawn", "Normal","Super Fast"},
+	Options = {"Auto Spawn E", "Auto Spawn", "Fast Spawn", "Normal","Super Fast Spawn"},
 	Callback = function(Value)
 Autobob = Value
 	end    
@@ -1726,7 +1726,7 @@ GetBob = Tab3:AddToggle({
 	Callback = function(Value)
 _G.AutoFarmBob = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Replica" then
-while _G.AutoFarmBob and Autobob == "Slow" do
+while _G.AutoFarmBob and Autobob == "Auto Spawn E" do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") or game.Workspace:FindFirstChild("bobcap") == nil then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 else
@@ -1782,7 +1782,7 @@ end
 end
 task.wait()
 end
-while _G.AutoFarmBob and Autobob == "Super Fast" do
+while _G.AutoFarmBob and Autobob == "Super Fast Spawn" do
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.5)
@@ -2039,7 +2039,7 @@ end
 
 Tab14:AddDropdown({
 	Name = "Santa Ability",
-	Default = "",
+	Default = "milk",
 	Options = {"bobplush", "snowpeep", "milk"},
 	Callback = function(Value)
 SantaAbility = Value
@@ -2341,7 +2341,7 @@ Tab14:AddSlider({
 	end    
 })
 
-Tab14:AddToggle({
+AutoSpawnDivebomb = Tab14:AddToggle({
 	Name = "Auto Spam Divebomb",
 	Default = false,
 	Callback = function(Value)
@@ -2349,10 +2349,16 @@ if DivebombExplosion == nil then
 DivebombExplosion = game.Players.LocalPlayer.Name
 end
 _G.DivebombSpam = Value
-while _G.DivebombSpam do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Divebomb" then
+while _G.DivebombSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Divebomb" do
 game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 99.7833333881571889,["rocketJump"] = true})
 game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[DivebombExplosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
 task.wait()
+end
+elseif _G.DivebombSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Divebomb equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoSpawnDivebomb:Set(false)
 end
 	end    
 })
@@ -2665,7 +2671,7 @@ local players = game.Players:GetChildren()
 local randomPlayer = players[math.random(1, #players)]
 repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
 Target = randomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.NukeHeightPotion,10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,_G.NukeHeightPotion,5)
 end
 task.wait()
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion",_G.PotionThrownNuke,true)
@@ -3057,15 +3063,15 @@ end
 })
 
 Tab14:AddSlider({
-	Name = "Reach HitBox Rob",
+	Name = "Extend HitBox Rob",
 	Min = 5,
 	Max = 300,
 	Default = 20,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "Reach",
+	ValueName = "Extend",
 	Callback = function(Value)
-		_G.ReachHitboxRob = Value
+		_G.ExtendHitboxRob = Value
 	end    
 })
 
@@ -3085,7 +3091,7 @@ _G.HitboxRob = Value
 while _G.HitboxRob do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Field" then
-                        v.Size = Vector3.new(_G.ReachHitboxRob,_G.ReachHitboxRob,_G.ReachHitboxRob)
+                        v.Size = Vector3.new(_G.ExtendHitboxRob,_G.ExtendHitboxRob,_G.ExtendHitboxRob)
                         v.BrickColor = BrickColor.new(_G.ColorHitboxRob)
                     end
                 end
@@ -3170,6 +3176,71 @@ end
 	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Cloud Bring",
+	Default = "",
+	Options = {"Player","Your"},
+	Callback = function(Value)
+_G.CloudBring = Value
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Bring Cloud Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BringPlayerCloud = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.BringPlayerCloud.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+CloudBringSit = Tab14:AddToggle({
+	Name = "Auto Bring Cloud",
+	Default = false,
+	Callback = function(Value)
+_G.BringCloud = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
+while _G.BringCloud and _G.CloudBring == "Player" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
+if game.Players[_G.BringPlayerCloud].Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character.Humanoid.Sit == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerCloud].Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.75,0)
+                    end
+               end
+          end
+task.wait()
+end
+while _G.BringCloud and _G.CloudBring == "Your" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.75,0)
+                    end
+               end
+          end
+task.wait()
+end
+elseif _G.BringCloud == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+CloudBringSit:Set(false)
+end
+	end    
+})
+
 FullKinetic = Tab14:AddToggle({
 	Name = "Auto Full Kinetic",
 	Default = false,
@@ -3186,6 +3257,24 @@ wait(0.05)
 FullKinetic:Set(false)
 end
 	end    
+})
+
+Tab14:AddButton({
+	Name = "Infinite Invisibility",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
+OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
+fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+task.wait(1)
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+v.Transparency = 0
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
 })
 
 Tab14:AddTextbox({
@@ -3511,24 +3600,6 @@ end
 	end    
 })
 
-Tab14:AddButton({
-	Name = "Infinite Invisibility",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
-OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-task.wait(1)
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-v.Transparency = 0
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
 Tab14:AddColorpicker({
 	Name = "Set Color Skin",
 	Default = Color3.fromRGB(255, 0, 0),
@@ -3690,7 +3761,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battleare
 elseif Value == "Cannon Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
 elseif Value == "Equip Glovel" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Extended" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.GlovelHoleInTheWall.GlovelHoleInTheWall.CFrame
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Extended equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
 elseif Value == "Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
@@ -3760,7 +3835,7 @@ _G.Animation = Value
 })
 
 Tab7:AddButton({
-	Name = "Start Animation",
+	Name = "Start Animation | Edit ID",
 	Callback = function()
 if game.ReplicatedStorage:FindFirstChild("Animation") == nil then
 local Anim = Instance.new("Animation")
@@ -3778,7 +3853,7 @@ end
 })
 
 Tab7:AddButton({
-	Name = "Stop Animation",
+	Name = "Stop Animation | Destroy",
 	Callback = function()
 if game.ReplicatedStorage:FindFirstChild("Animation") ~= nil then
 game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Animation, game.Players.LocalPlayer.Character.Humanoid):Stop()
@@ -4007,8 +4082,9 @@ NotifyAdminJoin = Tab7:AddToggle({
 while _G.NotifyAdminJoin do
 for i,v in pairs(game.Players:GetChildren()) do
 if v:GetRankInGroup(9950771) >= 2 or v:GetRankInGroup(9950771) >= 3 or v:GetRankInGroup(9950771) >= 4 or v:GetRankInGroup(9950771) >= 5 or v:GetRankInGroup(9950771) >= 7 or v:GetRankInGroup(9950771) >= 8 or v:GetRankInGroup(9950771) >= 9 or v:GetRankInGroup(9950771) >= 10 or v:GetRankInGroup(9950771) >= 11 or v:GetRankInGroup(9950771) >= 12 then
-OrionLib:MakeNotification({Name = "Error",Content = "Server in admin name [ "..v.Name.." ] join guy",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "Server in admin [ "..v.Name.." ] join guy",Image = "rbxassetid://7733658504",Time = 5})
 NotifyAdminJoin:Set(false)
+break
 end
 end
 task.wait()
@@ -4891,7 +4967,7 @@ end
 
 Tab7:AddTextbox({
 	Name = "Glove",
-	Default = "Use Glove Name",
+	Default = "Use Glove",
 	TextDisappear = false,
 	Callback = function(Value)
 		_G.EquipGlove = Value
@@ -4911,7 +4987,7 @@ end
 
 Tab7:AddTextbox({
 	Name = "Glove Tournament",
-	Default = "Use Glove Name",
+	Default = "Use Glove",
 	TextDisappear = false,
 	Callback = function(Value)
 		_G.EquipGloveTournament = Value
@@ -8472,4 +8548,4 @@ TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
     gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
-end
+end 
