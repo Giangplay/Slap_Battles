@@ -696,6 +696,11 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+GoldenSlappleSpawn = Tab:AddLabel("Golden Slapple Spawn [ No ]")
+else
+GoldenSlappleSpawn = Tab:AddLabel("Golden Slapple Spawn [ Yes ]")
+end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
@@ -756,15 +761,20 @@ KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
 end
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+GoldenSlappleSpawn:Set("Golden Slapple Spawn [ No ]")
+else
+GoldenSlappleSpawn:Set("Golden Slapple Spawn [ Yes ]")
+end
 end
 end)
 	end    
 })
 
 Tab1:AddButton({
-	Name = "Synapse X [ PE ]",
+	Name = "Synapse X [ PE Delta ]",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH12/EGWGE/main/synapse%20x%20ui.txt"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/syn_ui_new.lua"))()
   	end    
 })
 
@@ -4058,6 +4068,22 @@ end
 	end    
 })
 
+NotifyGoldenSlapple = Tab7:AddToggle({
+	Name = "Auto Notification Golden Slapple",
+	Default = false,
+	Callback = function(Value)
+	 _G.NotifyGoldenSlapple = Value
+while _G.NotifyGoldenSlapple do
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+repeat task.wait() until game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") ~= nil
+OrionLib:MakeNotification({Name = "Error",Content = "Golden Slapple Spawn.",Image = "rbxassetid://7733658504",Time = 5})
+NotifyGoldenSlapple:Set(false)
+end
+task.wait(0.05)
+end
+	end    
+})
+
 NotifyToolbox = Tab7:AddToggle({
 	Name = "Auto Notification ToolBox",
 	Default = false,
@@ -4352,7 +4378,7 @@ if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.Loca
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 task.wait(0.5)
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-task.wait(0.25)
+task.wait(0.43)
 end
 end
 end
