@@ -675,6 +675,12 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Tab60 = Window:MakeTab({
+	Name = "Update",
+	Icon = "rbxassetid://7733771472",
+	PremiumOnly = false
+})
+
 Tab:AddLabel("Owner Credits Script By Giang And DonjoSx")
 Tab:AddLabel("Bạn muốn vào nhóm zalo thì vào Credit nhé")
 local InfoServer = Tab:AddSection({Name = "Info"})
@@ -6323,6 +6329,11 @@ end
 end
   	end 
 })
+
+Tab60:AddLabel("--------------Update Script--------------")
+Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
+Tab60:AddLabel("[ + ] Info Spawn Golden Slapple")
+Tab60:AddLabel("[ + ] Misc Notification Spawn Golden Slapple")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
