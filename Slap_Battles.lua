@@ -1570,12 +1570,12 @@ end
 Tab3:AddButton({
 	Name = "Get Free Lamp",
 	Callback = function()
-if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 490455814138437) then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 490455814138437) then
 for i = 1,5 do
 game:GetService("ReplicatedStorage").nightmare:FireServer("LightBroken")
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have ZZZZZZZ equipped, or Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -6399,6 +6399,7 @@ end
 Tab60:AddLabel("--------------Update Script--------------")
 Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
 Tab60:AddLabel("[ + ] Get Badge Free Lamp")
+Tab60:AddLabel("[ * ] Badge Free Lamp")
 Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
 Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
 
@@ -8652,4 +8653,4 @@ TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
     gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
-end 
+end
