@@ -125,6 +125,7 @@ local gloveHits = {
     ["Glovel"] = game.ReplicatedStorage.GeneralHit,
     ["Chicken"] = game.ReplicatedStorage.GeneralHit,
     ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
+    ["Lamp"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1566,6 +1567,19 @@ end
   	end 
 })
 
+Tab3:AddButton({
+	Name = "Get Free Lamp",
+	Callback = function()
+if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 490455814138437) then
+for i = 1,5 do
+game:GetService("ReplicatedStorage").nightmare:FireServer("LightBroken")
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have Owner badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 AutoFarmGetAlchemist = Tab3:AddToggle({
 	Name = "Auto Farm Alchemist",
 	Default = false,
@@ -2696,6 +2710,54 @@ elseif _G.AutoThrowPotion == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You dont't have Alchemist equipped, or you have in the lobby",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 PotionThrowNukeAuto:Set(false)
+end
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Place",
+	Default = "",
+	Options = {"Lamp Player"},
+	Callback = function(Value)
+_G.PhaceNukeGlove = Value
+	end    
+})
+
+AutoNukeServerS = Tab14:AddToggle({
+	Name = "Auto Nuke Server",
+	Default = false,
+	Callback = function(Value)
+_G.AutoNukeServer = Value
+if _G.AutoNukeServer == true and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if _G.AutoNukeServer == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
+if _G.PhaceNukeGlove == "Lamp Player" then 
+game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+end
+else
+if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
+end
+while _G.AutoNukeServer do
+if _G.PhaceNuke == "Lamp Player" then
+local players = game.Players:GetChildren()
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,5)
+wait(0.07)
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Lamp" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+end
+task.wait()
+end
+elseif _G.AutoNukeServer == true then
+OrionLib:MakeNotification({Name = "Error",Content = "you have in the arane",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoNukeServerS:Set(false)
 end
 	end    
 })
@@ -4777,6 +4839,10 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Chicken" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Lamp" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
