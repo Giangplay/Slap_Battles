@@ -6398,8 +6398,9 @@ end
 
 Tab60:AddLabel("--------------Update Script--------------")
 Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
-Tab60:AddLabel("[ + ] Info Spawn Golden Slapple")
-Tab60:AddLabel("[ + ] Misc Notification Spawn Golden Slapple")
+Tab60:AddLabel("[ + ] Get Badge Free Lamp")
+Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
+Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
