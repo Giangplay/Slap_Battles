@@ -2714,54 +2714,6 @@ end
 	end    
 })
 
-Tab14:AddDropdown({
-	Name = "Place",
-	Default = "",
-	Options = {"Lamp Player"},
-	Callback = function(Value)
-_G.PhaceNukeGlove = Value
-	end    
-})
-
-AutoNukeServerS = Tab14:AddToggle({
-	Name = "Auto Nuke Server",
-	Default = false,
-	Callback = function(Value)
-_G.AutoNukeServer = Value
-if _G.AutoNukeServer == true and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if _G.AutoNukeServer == true then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
-if _G.PhaceNukeGlove == "Lamp Player" then 
-game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
-end
-else
-if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
-game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
-end
-while _G.AutoNukeServer do
-if _G.PhaceNuke == "Lamp Player" then
-local players = game.Players:GetChildren()
-local randomPlayer = players[math.random(1, #players)]
-repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
-Target = randomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,5)
-wait(0.07)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Lamp" then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
-end
-task.wait()
-end
-elseif _G.AutoNukeServer == true then
-OrionLib:MakeNotification({Name = "Error",Content = "you have in the arane",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoNukeServerS:Set(false)
-end
-	end    
-})
-
 Tab14:AddTextbox({
 	Name = "Speed Ping Pong",
 	Default = "UserSpeed",
@@ -6398,10 +6350,13 @@ end
 
 Tab60:AddLabel("--------------Update Script--------------")
 Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
+Tab60:AddLabel("--------------[ Day 5 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Get Badge Free Lamp")
 Tab60:AddLabel("[ * ] Badge Free Lamp")
 Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
 Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
+Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
+Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
