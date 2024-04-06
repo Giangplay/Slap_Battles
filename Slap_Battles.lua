@@ -2473,6 +2473,109 @@ end
   	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Black Hole",
+	Default = "",
+	Options = {"Normal", "Teleport Cannon Island","Teleport Cannon Island + Black Hole"},
+	Callback = function(Value)
+_G.BlackHoleCre = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Auto Create Black Hole",
+	Callback = function()
+if _G.BlackHoleCre == "Normal" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(4.8)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+game:GetService("ReplicatedStorage").bob:FireServer()
+wait(0.5)
+for i = 1,26 do
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+end
+end
+task.wait()
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.BlackHoleCre == "Teleport Cannon Island" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(4.8)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+game:GetService("ReplicatedStorage").bob:FireServer()
+wait(0.5)
+for i = 1,26 do
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+end
+end
+task.wait()
+end
+wait(0.5)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+repeat wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.BlackHoleCre == "Teleport Cannon Island + Black Hole" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+game:GetService("ReplicatedStorage").rob:FireServer()
+wait(4.8)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+game:GetService("ReplicatedStorage").bob:FireServer()
+wait(0.5)
+for i = 1,26 do
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+end
+end
+task.wait()
+end
+wait(0.5)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+repeat wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true
+wait(0.05)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
 Tab14:AddButton({
 	Name = "Kick Player Za Hando",
 	Callback = function()
@@ -2542,7 +2645,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you not equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -6357,6 +6460,10 @@ Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
 Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
 Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
+Tab60:AddLabel("--------------[ Day 7 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Auto Create Black Hole")
+Tab60:AddLabel("[ + ] Select Teleports When Create Black Hole")
+Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
