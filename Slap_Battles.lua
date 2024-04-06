@@ -6462,7 +6462,6 @@ Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
 Tab60:AddLabel("--------------[ Day 7 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Auto Create Black Hole")
-Tab60:AddLabel("[ + ] Select Teleports When Create Black Hole")
 Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
 
 ---ToggleAllAnti---
