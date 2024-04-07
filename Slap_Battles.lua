@@ -1123,8 +1123,12 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:Fi
 task.wait(0.3)
 game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99, -104, 81)
-task.wait(0.3)
+if workspace.DEATHBARRIER.CanTouch == false then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Please turn off Anti Death Barriers",Image = "rbxassetid://7733658504",Time = 5})
+end
+task.wait(0.2)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
@@ -1153,11 +1157,14 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(1.5)
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.8)
+for i = 1,36 do
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
+end
+task.wait()
 end
 task.wait(3.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
@@ -1596,7 +1603,7 @@ task.wait(0.2)
 game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
-task.wait(3.4)
+task.wait(7.4)
 end
 elseif _G.AutoFarmAlchemist == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -6453,16 +6460,21 @@ end
 
 Tab60:AddLabel("--------------Update Script--------------")
 Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
+Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ]")
+Tab60:AddLabel("--------------[ Day 8 | Months 4 ]--------------")
+Tab60:AddParagraph("[ * ] Get Glove Bomb","Teleport Death Barriers")
+Tab60:AddParagraph("[ * ] Auto Farm Alchemist","Increase Waiting Time To Farm | Waiting The 7.4")
+Tab60:AddParagraph("[ * ] Get Glove Blasphemy","The Bus Will Repeat Every Number Of Times In 36")
+Tab60:AddLabel("--------------[ Day 7 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Auto Create Black Hole")
+Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
+Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
+Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
 Tab60:AddLabel("--------------[ Day 5 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Get Badge Free Lamp")
 Tab60:AddLabel("[ * ] Badge Free Lamp")
 Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
 Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
-Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
-Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
-Tab60:AddLabel("--------------[ Day 7 | Months 4 ]--------------")
-Tab60:AddLabel("[ + ] Auto Create Black Hole")
-Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
