@@ -7,7 +7,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Slap Battles 👏".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass---
 
@@ -47,9 +47,9 @@ _G.GetPotion = {
 	["Field"] = {"Hazel Lily","Plane Flower","Plane Flower"}
 }
 
----GetThe---
+---GetSome---
 
-local gloveHits = {
+gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
     -----------// Glove Hit General Or New Glove \\-----------
@@ -1099,11 +1099,11 @@ OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEven
 OGL1 = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame
 wait(0.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(3.5)
+wait(2.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = OGL
-wait(3.5)
+wait(2.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(3.5)
+wait(2.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = OGL1
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have enter limbo [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
@@ -5324,11 +5324,21 @@ if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.Loca
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
-                    end
+                end
 end
 end
 end
                 end
+end)
+pcall(function()
+for _, c in pairs(workspace:GetChildren()) do
+if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
+Magnitude1 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachSlapArua >= Magnitude1 then
+gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter),true)
+                    end
+end
+                    end
 end)
 task.wait(.1)
 end
@@ -5346,6 +5356,16 @@ end
 end
 end
                 end
+end)
+pcall(function()
+for _, c in pairs(workspace:GetChildren()) do
+if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
+Magnitude1 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachSlapArua >= Magnitude1 then
+gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter),true)
+                    end
+end
+                    end
 end)
 task.wait(.1)
 end
@@ -6457,10 +6477,15 @@ end
 end
   	end 
 })
-
-Tab60:AddLabel("--------------Update Script--------------")
-Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ]")
-Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ]")
+Tab60:AddLabel("--------------[ Warning ] --------------")
+Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
+Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
+Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
+Tab60:AddLabel("--------------[ Update Script ]--------------")
+Tab60:AddLabel("Add [ + ] | Removed [ - ] | Fix [ * ] | Give More Inside [ × ] | Cut [ ÷ ]")
+Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
+Tab60:AddLabel("--------------[ Day 9 | Months 4 ]--------------")
+Tab60:AddParagraph("[ × ] Slap Arua","[ + ] Slap Arua Replica or Baller")
 Tab60:AddLabel("--------------[ Day 8 | Months 4 ]--------------")
 Tab60:AddParagraph("[ * ] Get Glove Bomb","Teleport Death Barriers")
 Tab60:AddParagraph("[ * ] Auto Farm Alchemist","Increase Waiting Time To Farm | Waiting The 7.4")
