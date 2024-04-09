@@ -6477,7 +6477,7 @@ end
 end
   	end 
 })
-Tab60:AddLabel("--------------[ Warning ] --------------")
+Tab60:AddLabel("--------------[ Warning ]--------------")
 Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
