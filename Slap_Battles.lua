@@ -677,7 +677,7 @@ local Tab15 = Window:MakeTab({
 })
 
 local Tab60 = Window:MakeTab({
-	Name = "Update",
+	Name = "Notify Update",
 	Icon = "rbxassetid://7733771472",
 	PremiumOnly = false
 })
@@ -2494,9 +2494,17 @@ Tab14:AddButton({
 	Callback = function()
 if _G.BlackHoleCre == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
+wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
+wait(0.05)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2513,9 +2521,17 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You d
 end
 elseif _G.BlackHoleCre == "Teleport Cannon Island" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
+wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
+wait(0.05)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2544,9 +2560,17 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You d
 end
 elseif _G.BlackHoleCre == "Teleport Cannon Island + Black Hole" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
+wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
+wait(0.05)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -4151,6 +4175,69 @@ end
 task.wait()
 end
 	end    
+})
+
+Tab7:AddButton({
+	Name = "Auto Enter Map Null",
+	Callback = function()
+if game.Workspace:FindFirstChild("Blackhole_Particles") == nil then
+OrionLib:MakeNotification({Name = "Error",Content = "When will someone create a black hole [ BOB + ROB ].",Image = "rbxassetid://7733658504",Time = 5})
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+wait(0.5)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
+fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+wait(0.07)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.05)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+end
+  	end    
 })
 
 Tab7:AddButton({
@@ -6482,9 +6569,15 @@ Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
 Tab60:AddLabel("--------------[ There Are Signs That Indicate ]--------------")
-Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ]")
+Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ]")
 Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
+Tab60:AddLabel("--------------[ Day 11 | Months 4 ]--------------")
+Tab60:AddParagraph("[ × ] Auto Create Black Hole","[ + ] Teleport Enter the arena at height 30 The waiting will return to the original and spawn a bob, While waiting, it will freeze here")
+Tab60:AddParagraph("[ – ] Auto Create Black Hole","Have to fast Auto Rob and bob the [ 0.5 => 0.05 ]")
+Tab60:AddLabel("[ + ] Auto Enter Map Null")
+Tab60:AddLabel("--------------[ Day 10 | Months 4 ]--------------")
+Tab60:AddParagraph("[ × ] Toggle Ui Library","[ + ] Rainbow Toggle")
 Tab60:AddLabel("--------------[ Day 9 | Months 4 ]--------------")
 Tab60:AddParagraph("[ * ] Auto Win Psycho","Reduce Win Time [ 3.5 => 2.5 ]")
 Tab60:AddParagraph("[ × ] Slap Arua","[ + ] Slap Arua Replica or Baller")
@@ -8749,6 +8842,16 @@ TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
 TOGGLE["DaIcon"].Draggable = true
 TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
 TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
+TOGGLE["DaIcon"].BorderColor3 = Color3.fromRGB(255, 186, 117)
+task.spawn(function()
+while true do
+	for hue = 0, 255, 4 do
+		TOGGLE["DaIcon"].BorderColor3 = Color3.fromHSV(hue/256, 1, 1)
+		TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromHSV(hue/256, .5, .8)
+		wait()
+	end
+end
+end)
 TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
     gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
