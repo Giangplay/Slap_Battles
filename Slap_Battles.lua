@@ -126,6 +126,7 @@ gloveHits = {
     ["Chicken"] = game.ReplicatedStorage.GeneralHit,
     ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
     ["Lamp"] = game.ReplicatedStorage.GeneralHit,
+    ["Pocket"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -3840,6 +3841,27 @@ end)
 	end    
 })
 
+Tab7:AddButton({
+	Name = "View Testing Server",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+if teleportFunc then
+    teleportFunc([[
+        if not game:IsLoaded() then
+            game.Loaded:Wait()
+        end
+        local localPlr = game:GetService("Players").LocalPlayer
+        repeat wait() until localPlr
+        game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("GuiService"):ClearError()
+game.CoreGui.RobloxLoadingGUI:Destroy()
+        end)
+    ]])
+end
+game:GetService("TeleportService"):Teleport(9020359053)
+  	end    
+})
+
 Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "",
@@ -4240,6 +4262,75 @@ end
   	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Pocket",
+	Default = "Add All Player",
+	Options = {"Add All Player","Remove All Player"},
+	Callback = function(Value)
+_G.StartMusicGot = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Pocket Player",
+	Callback = function()
+if _G.StartMusicGot == "Add All Player" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pocket" then
+for i,v in pairs(game.Players:GetPlayers()) do
+game:GetService("ReplicatedStorage").PocketWhitelist:FireServer("add", v)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Ypu don't have Pocket Equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.StartMusicGot == "Add All Player" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pocket" then
+for i,v in pairs(game.Players:GetPlayers()) do
+game:GetService("ReplicatedStorage").PocketWhitelist:FireServer("remove", v)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Ypu don't have Pocket Equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Play Pocket Radio",
+	Default = "UserIDMusic",
+	TextDisappear = false,
+	Callback = function(Value)
+_G.IDPocketRadio = Value
+	end	  
+})
+
+Tab7:AddDropdown({
+	Name = "Music",
+	Default = "Play",
+	Options = {"Play","Stop"},
+	Callback = function(Value)
+_G.StartMusicGot = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Play Music",
+	Callback = function()
+if _G.StartMusicGot == "Play" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pocket" then
+game:GetService("ReplicatedStorage").PocketMusic:FireServer("play","rbxassetid://".._G.IDPocketRadio)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Pocket Equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.StartMusicGot == "Stop" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pocket" then
+game:GetService("ReplicatedStorage").PocketMusic:FireServer("stop")
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Pocket Equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
 Tab7:AddButton({
 	Name = "Auto Keypad",
 	Callback = function()
@@ -4434,8 +4525,17 @@ end
   	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Retro Help",
+	Default = "",
+	Options = {"Teleport Button","Get Badge","Enter Retro"},
+	Callback = function(Value)
+_G.HelpPlayerGetHehe = Value
+	end    
+})
+
 Tab7:AddTextbox({
-	Name = "Recall Player Get Retro",
+	Name = "Help Player Retro",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -4448,8 +4548,8 @@ break
 end
 end
 if targetPlayer then
-_G.PlayerGetRetro = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerGetRetro.." ]",Image = "rbxassetid://7733658504",Time = 5})
+_G.PlayerRetroGo = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerRetroGo.." ]",Image = "rbxassetid://7733658504",Time = 5})
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -4457,8 +4557,9 @@ end
 })
 
 Tab7:AddButton({
-	Name = "Player Get Retro",
+	Name = "Player Help Retro",
 	Callback = function()
+if _G.HelpPlayerGetHehe == "Get Retro" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
 if game.Workspace:FindFirstChild("Retro") == nil then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
@@ -4468,56 +4569,47 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoo
 wait(1)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 task.wait(2.4)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerGetRetro].Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.HelpPlayerGetHehe == "Teleport Button" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
+if game.Workspace:FindFirstChild("Retro") == nil then
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+end
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
+wait(1)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2.4)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.HelpPlayerGetHehe == "Enter Retro" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 20000 and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerRetroGo].Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
+wait(0.8)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(0.5)
+fireclickdetector(game.Workspace.Lobby["Error"].ClickDetector)
+task.wait(5.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
+wait(0.5)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.Position).Magnitude
+                        if 30 >= Magnitude then
+game.ReplicatedStorage.Errorhit:FireServer(v.Character:WaitForChild("Head"),true)
+                end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have in Lobby | Player [ ".._G.PlayerRetroGo.." ] in arena, or You don't have Glitch equipped, or you have don't have 20K Slap",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end    
-})
-
-Tab7:AddTextbox({
-	Name = "Help Player Teleport Button",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.HelpPlayerGetButton = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HelpPlayerGetButton.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Start Help Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" then
-if game.Workspace:FindFirstChild("Retro") == nil then
-game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
-end
-wait(0.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
-wait(1)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.4)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetButton].Character.HumanoidRootPart.CFrame
-wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end 
 })
 
 Tab7:AddTextbox({
@@ -6564,14 +6656,23 @@ end
 end
   	end 
 })
-Tab60:AddLabel("--------------[ Warning ]--------------")
+
+Tab60:AddLabel("------------------------------[ Warning ]------------------------------")
 Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
-Tab60:AddLabel("--------------[ There Are Signs That Indicate ]--------------")
+Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
 Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ]")
 Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
+Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 13 | Months 4 ]--------------")
+Tab60:AddParagraph("[ - ] Help Player Get Retro | Teleport Button","[ × ] Option")
+Tab60:AddLabel("[ × ] Option Help Enter Retro Player")
+Tab60:AddParagraph("[ + ] Add All Player Pocket | Remove | Play Music Pocket | Stop","[ × ] Option")
+Tab60:AddLabel("[ + ] Server Testing Leaking Glove")
+Tab60:AddLabel("--------------[ Day 12 | Months 4 ]--------------")
+Tab60:AddLabel("[ Nope ] Nope Update")
 Tab60:AddLabel("--------------[ Day 11 | Months 4 ]--------------")
 Tab60:AddParagraph("[ × ] Auto Create Black Hole","[ + ] Teleport Enter the arena at height 30 The waiting will return to the original and spawn a bob, While waiting, it will freeze here")
 Tab60:AddParagraph("[ – ] Auto Create Black Hole","Have to fast Auto Rob and bob the [ 0.5 => 0.05 ]")
@@ -6590,11 +6691,9 @@ Tab60:AddLabel("[ + ] Auto Create Black Hole")
 Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
 Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
-Tab60:AddLabel("--------------[ Day 5 | Months 4 ]--------------")
-Tab60:AddLabel("[ + ] Get Badge Free Lamp")
-Tab60:AddLabel("[ * ] Badge Free Lamp")
-Tab60:AddLabel("[ + ] Auto Spam Ability Lamp Glove")
-Tab60:AddLabel("[ + ] Auto Nuke Player Lamp Glove")
+Tab60:AddLabel("----------------[ Slap Battles | Eternal Bob ]----------------")
+Tab60:AddLabel("[ + ] Anti VFX")
+Tab60:AddLabel("------------------------------[ The End ]------------------------------")
 
 ---ToggleAllAnti---
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -6742,14 +6841,8 @@ end
 
 --Tab
 local Tab = Window:MakeTab({
-	Name = "Badges",
-	Icon = "rbxassetid://7733673987",
-	PremiumOnly = false
-})
-
-local Tab1 = Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://4370318685",
+	Icon = "rbxassetid://7733673987",
 	PremiumOnly = false
 })
 
@@ -7043,7 +7136,7 @@ end
 	end    
 })
 
-Tab1:AddButton({
+Tab:AddButton({
 	Name = "View Testing Server",
 	Callback = function()
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
@@ -7063,6 +7156,21 @@ end
 game:GetService("TeleportService"):Teleport(9020359053)
   	end    
 })
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
+})
+
 ---GetRun---
 game:GetService("RunService").RenderStepped:Connect(function()
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
@@ -7124,6 +7232,19 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
   	end    
 })
 
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
+})
 elseif game.PlaceId == 13833961666 then
 local Window = OrionLib:MakeWindow({Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
@@ -7304,6 +7425,31 @@ Tab:AddButton({
 	Name = "TP back to Slap Battles",
 	Callback = function()
       		game:GetService("TeleportService"):Teleport(6403373529)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
+})
+
+Tab2:AddButton({
+	Name = "Anti VFX",
+	Callback = function()
+if game.Players.LocalPlayer.PlayerScripts:FindFirstChild("VFXListener") then
+game.Players.LocalPlayer.PlayerScripts:FindFirstChild("VFXListener").Parent = game.ReplicatedStorage
+else
+game.ReplicatedStorage.VFXListener.Parent = game.Players.LocalPlayer.PlayerScripts
+end
   	end    
 })
 
@@ -7656,6 +7802,20 @@ ItemESPText.Text = "Item [ "..v.Name.." ]"
 end
 end
 	end    
+})
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
 })
 
 Tab:AddTextbox({
@@ -8436,6 +8596,20 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5466, -1
 end
 	end    
 })
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
+})
 elseif game.PlaceId == 15507333474 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("Slap Battles Christmas 🎊".." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -8783,6 +8957,20 @@ task.wait()
 end
 	end    
 })
+
+Tab2:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
+})
 elseif game.PlaceId == 16034567693 then
 local Window = OrionLib:MakeWindow({IntroText = GameName, IntroIcon = "rbxassetid://7733955740",Name = (GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -8819,6 +9007,20 @@ end
 OrionLib:MakeNotification({Name = "Error",Content = "Turned on Anti Afk",Image = "rbxassetid://7733658504",Time = 3})
 OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour, or you have view Info.",Image = "rbxassetid://7733658504",Time = 5})
   	end    
+})
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "ToggleUi" then
+v:Destroy()
+end
+end
+end
+  	end 
 })
 end
 for i,v in pairs(gethui().Orion:GetDescendants()) do
