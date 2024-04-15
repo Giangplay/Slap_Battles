@@ -6702,6 +6702,8 @@ Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
 Tab60:AddLabel("----------------[ Slap Battles | Eternal Bob ]----------------")
 Tab60:AddLabel("[ + ] Anti VFX")
+Tab60:AddLabel("----------------[ Slap Battles | Slap Royale ]----------------")
+Tab60:AddLabel("[ + ] Get All Item")
 Tab60:AddLabel("------------------------------[ The End ]------------------------------")
 
 ---ToggleAllAnti---
@@ -7748,6 +7750,23 @@ Tab:AddButton({
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
 repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("JumpPrompt")
 game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
+	end    
+})
+
+Tab:AddButton({
+	Name = "Get All Item",
+	Callback = function()
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+    if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
+        v.Handle.Anchored = false
+        v.Handle.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(v)
+    end
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have start bus get all item, but you got kick if item in your hand for a long time.",Image = "rbxassetid://7733658504",Time = 5})
+end
 	end    
 })
 
