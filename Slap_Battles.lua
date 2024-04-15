@@ -992,7 +992,7 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn", "Teleport Button"},
+	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn", "Click Button"},
 	Callback = function(Value)
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
