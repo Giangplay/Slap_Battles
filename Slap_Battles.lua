@@ -4534,7 +4534,7 @@ end
 Tab7:AddDropdown({
 	Name = "Retro Help",
 	Default = "",
-	Options = {"Get Badge","Teleport Button","Enter Retro"},
+	Options = {"Get Retro","Teleport Button","Enter Retro"},
 	Callback = function(Value)
 _G.HelpPlayerGetHehe = Value
 	end    
@@ -4609,7 +4609,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.Pla
 wait(0.5)
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.Position).Magnitude
                         if 30 >= Magnitude then
-game.ReplicatedStorage.Errorhit:FireServer(v.Character:WaitForChild("Head"),true)
+game.ReplicatedStorage.Errorhit:FireServer(game.Players[_G.PlayerRetroGo].Character:WaitForChild("Head"),true)
                 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have in Lobby | Player [ ".._G.PlayerRetroGo.." ] in arena, or You don't have Glitch equipped, or you have don't have 20K Slap",Image = "rbxassetid://7733658504",Time = 5})
