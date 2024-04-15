@@ -1002,8 +1002,14 @@ elseif Value == "Off Show All" then
 game.Workspace.Retro.Parent = game.ReplicatedStorage.Assets
 elseif Value == "Teleport Spawn" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
-elseif Value == "Teleport Button" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16976, 801, 4907)
+elseif Value == "Click Button" then
+if game:GetService("ReplicatedStorage").Assets.Retro.Map then
+game.ReplicatedStorage.Assets.Retro.Map.Parent = workspace
+wait(0.7)
+fireclickdetector(workspace.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+else
+fireclickdetector(workspace.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+end
 end
 	end    
 })
@@ -4528,7 +4534,7 @@ end
 Tab7:AddDropdown({
 	Name = "Retro Help",
 	Default = "",
-	Options = {"Teleport Button","Get Badge","Enter Retro"},
+	Options = {"Get Badge","Teleport Button","Enter Retro"},
 	Callback = function(Value)
 _G.HelpPlayerGetHehe = Value
 	end    
@@ -4598,7 +4604,7 @@ wait(0.8)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(0.5)
 fireclickdetector(game.Workspace.Lobby["Error"].ClickDetector)
-task.wait(5.5)
+task.wait(8.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
 wait(0.5)
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.Position).Magnitude
@@ -6663,16 +6669,19 @@ Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]"
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
 Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
 Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ]")
-Tab60:AddLabel("Label [ + ] or [ - ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
+Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 15 | Months 4 ]--------------")
+Tab60:AddParagraph("[ * ] Retro Obby Help Player","[ * ] Auto Help Player Get Badge")
+Tab60:AddParagraph("[ × ] Retro Obby Help Player","[ – ] Auto Help Player Enter Retro than increase waiting time 5 => 8")
+Tab60:AddLabel("--------------[ Day 14 | Months 4 ]--------------")
+Tab60:AddParagraph("[ × ] Retro Obby | Click Button","[ + ] Auto Click Button")
 Tab60:AddLabel("--------------[ Day 13 | Months 4 ]--------------")
 Tab60:AddParagraph("[ - ] Help Player Get Retro | Teleport Button","[ × ] Option")
 Tab60:AddLabel("[ × ] Option Help Enter Retro Player")
 Tab60:AddParagraph("[ + ] Add All Player Pocket | Remove | Play Music Pocket | Stop","[ × ] Option")
 Tab60:AddLabel("[ + ] Server Testing Leaking Glove")
-Tab60:AddLabel("--------------[ Day 12 | Months 4 ]--------------")
-Tab60:AddLabel("[ Nope ] Nope Update")
 Tab60:AddLabel("--------------[ Day 11 | Months 4 ]--------------")
 Tab60:AddParagraph("[ × ] Auto Create Black Hole","[ + ] Teleport Enter the arena at height 30 The waiting will return to the original and spawn a bob, While waiting, it will freeze here")
 Tab60:AddParagraph("[ – ] Auto Create Black Hole","Have to fast Auto Rob and bob the [ 0.5 => 0.05 ]")
