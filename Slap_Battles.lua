@@ -6136,6 +6136,48 @@ end
 	end    
 })
 
+AntiBallBaller = Tab2:AddToggle({
+	Name = "Anti Ball Baller",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiBallBaller = Value
+while _G.AntiBallBaller do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v:FindFirstChild("ClonedBall") then
+                        v:FindFirstChild("ClonedBall").CanTouch = false
+                        v:FindFirstChild("ClonedBall").CanCollide = true
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+AntiPingPong = Tab2:AddToggle({
+	Name = "Anti Ping Pong",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiPingPong = Value
+if _G.AntiPingPong == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
+v.CanTouch = true
+v.CanQuery = true
+end
+end
+end
+while _G.AntiPingPong do
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
+v.CanTouch = false
+v.CanQuery = false
+end
+end
+task.wait()
+end
+	end    
+})
+
 AntiBus = Tab2:AddToggle({
 	Name = "Anti Bus",
 	Default = false,
@@ -6672,6 +6714,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 17 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Anti Ball Baller")
+Tab60:AddLabel("[ + ] Anti Ping Pong [ Haven't tried yet ]")
 Tab60:AddLabel("--------------[ Day 15 | Months 4 ]--------------")
 Tab60:AddParagraph("[ * ] Retro Obby Help Player","[ * ] Auto Help Player Get Badge")
 Tab60:AddParagraph("[ × ] Retro Obby Help Player","[ – ] Auto Help Player Enter Retro than increase waiting time 5 => 8")
@@ -6702,8 +6747,6 @@ Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
 Tab60:AddLabel("----------------[ Slap Battles | Eternal Bob ]----------------")
 Tab60:AddLabel("[ + ] Anti VFX")
-Tab60:AddLabel("----------------[ Slap Battles | Slap Royale ]----------------")
-Tab60:AddLabel("[ + ] Get All Item")
 Tab60:AddLabel("------------------------------[ The End ]------------------------------")
 
 ---ToggleAllAnti---
@@ -6729,6 +6772,14 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRock:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiBallBaller:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiPingPong:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -7750,23 +7801,6 @@ Tab:AddButton({
 game:GetService("ReplicatedStorage").Events.BusJumping:FireServer()
 repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("JumpPrompt")
 game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
-	end    
-})
-
-Tab:AddButton({
-	Name = "Get All Item",
-	Callback = function()
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-    if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
-        v.Handle.Anchored = false
-        v.Handle.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(v)
-    end
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have start bus get all item, but you got kick if item in your hand for a long time.",Image = "rbxassetid://7733658504",Time = 5})
-end
 	end    
 })
 
