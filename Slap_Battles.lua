@@ -127,6 +127,7 @@ gloveHits = {
     ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
     ["Lamp"] = game.ReplicatedStorage.GeneralHit,
     ["Pocket"] = game.ReplicatedStorage.GeneralHit,
+    ["BONK"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -290,6 +291,35 @@ wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+end
+end
+
+function SpamReplicaReverse()
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+while ReplicaAndReverseGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+wait(0.05)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+wait(0.05)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.09)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.07)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(20)
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+wait(3.75)
+fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+end
 end
 end
 
@@ -2615,6 +2645,39 @@ end
 })
 
 Tab14:AddButton({
+	Name = "Replica UNO",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+wait(0.3)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+wait(0.3)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.07)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(25)
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+wait(3.75)
+fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
 	Name = "Kick Player Za Hando",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
@@ -3033,6 +3096,43 @@ end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
+	end    
+})
+
+SlapChooseGet = 20
+Tab14:AddTextbox({
+	Name = "Farm Slap Replica Reverse",
+	Default = "UserSlap [ Than in Lag ]",
+	TextDisappear = false,
+	Callback = function(Value)
+SlapChooseGet = Value
+	end	  
+})
+
+ReplicaAndReverse = Tab14:AddToggle({
+	Name = "Reverse + Replica Slap Farm",
+	Default = false,
+	Callback = function(Value)
+		ReplicaAndReverseGet = Value 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if ReplicaAndReverseGet == true then 
+coroutine.wrap(SpamReplicaReverse)() 
+end
+while ReplicaAndReverseGet do 
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+                 for i = 1, SlapChooseGet do
+game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+end
+                 end
+end
+task.wait()
+end
+elseif ReplicaAndReverseGet == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndReverse:Set(false) 
+end 
 	end    
 })
 
@@ -4288,7 +4388,7 @@ end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Ypu don't have Pocket Equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
-elseif _G.StartMusicGot == "Add All Player" then
+elseif _G.StartMusicGot == "Remove All Player" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pocket" then
 for i,v in pairs(game.Players:GetPlayers()) do
 game:GetService("ReplicatedStorage").PocketWhitelist:FireServer("remove", v)
@@ -5091,6 +5191,10 @@ task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Lamp" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "BONK" do
+game:GetService("ReplicatedStorage").BONK:FireServer()
 task.wait()
 end
 	end    
@@ -6714,6 +6818,10 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Replica UNO")
+Tab60:AddLabel("[ + ] Auto Farm Fast [ is that lag ]")
+Tab60:AddParagraph("[ Ã— ] Auto Spam Ability","[ + ] Spam BONK")
 Tab60:AddLabel("--------------[ Day 17 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Ball Baller")
 Tab60:AddLabel("[ + ] Anti Ping Pong [ Haven't tried yet ]")
