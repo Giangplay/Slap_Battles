@@ -128,6 +128,8 @@ gloveHits = {
     ["Lamp"] = game.ReplicatedStorage.GeneralHit,
     ["Pocket"] = game.ReplicatedStorage.GeneralHit,
     ["BONK"] = game.ReplicatedStorage.GeneralHit,
+    ["Knockoff"] = game.ReplicatedStorage.GeneralHit,
+    ["Divert"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
