@@ -6867,7 +6867,7 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
-Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
+Tab60:AddLabel("--------------[ Day 21 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Knockoff")
 Tab60:AddParagraph("[ + | × ] Choose ones will teleport safe","[ × ] Choose [ Up To You ] | [ SafeSpotBox 1.0 ] | [ SafeSpotBox 2.0 ]")
 Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
