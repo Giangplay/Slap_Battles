@@ -264,7 +264,11 @@ end
 end
 end
 
+_G.GetTeleport = ""
 function SpamReplicaBaller()
+if _G.GetTeleport == "Up To You" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
 while ReplicaBallerFarm do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -288,6 +292,14 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
+if _G.GetTeleport == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.5)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
@@ -297,13 +309,15 @@ end
 end
 
 function SpamReplicaReverse()
+if _G.GetTeleport == "Up To You" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
 while ReplicaAndReverseGet do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
-wait(0.05)
+wait()
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
-wait(0.05)
+wait(0.01)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
@@ -311,9 +325,15 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.09)
+wait(0.04)
+if _G.GetTeleport == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-wait(0.07)
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.1)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
@@ -326,7 +346,9 @@ end
 end
 
 function SpamReplicaBallerBlink()
+if _G.GetTeleport == "Up To You" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
 while ReplicaBallerBlinkFarm do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.25)
@@ -341,7 +363,13 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
+if _G.GetTeleport == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
 wait(0.25)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
@@ -2541,9 +2569,8 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
-wait(0.05)
+task.wait(0.01)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2568,9 +2595,8 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
-wait(0.05)
+task.wait(0.01)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2607,9 +2633,8 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,5,0)
-wait(0.05)
+task.wait(0.01)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -3098,6 +3123,15 @@ end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Will Teleport Farm",
+	Default = "Up To You",
+	Options = {"Up To You","SafeSpotBox 1.0","SafeSpotBox 2.0"},
+	Callback = function(Value)
+_G.GetTeleport = Value
 	end    
 })
 
@@ -4702,13 +4736,12 @@ end
 elseif _G.HelpPlayerGetHehe == "Enter Retro" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 20000 and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerRetroGo].Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
-wait(0.8)
+wait(0.35)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-wait(0.5)
 fireclickdetector(game.Workspace.Lobby["Error"].ClickDetector)
 task.wait(8.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
-wait(0.5)
+wait(0.07)
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.Position).Magnitude
                         if 30 >= Magnitude then
 game.ReplicatedStorage.Errorhit:FireServer(game.Players[_G.PlayerRetroGo].Character:WaitForChild("Head"),true)
@@ -6836,6 +6869,7 @@ Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Knockoff")
+Tab60:AddParagraph("[ + | × ] Choose ones will teleport safe","[ × ] Choose [ Up To You ] | [ SafeSpotBox 1.0 ] | [ SafeSpotBox 2.0 ]")
 Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Replica UNO")
 Tab60:AddLabel("[ + ] Auto Farm Fast [ is that lag ]")
