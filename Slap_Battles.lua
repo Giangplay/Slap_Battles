@@ -4241,7 +4241,7 @@ end
 	end	  
 })
 
-ViewPlayer = Tab7:AddToggle({
+Tab7:AddToggle({
 	Name = "Auto View Player",
 	Default = false,
 	Callback = function(Value)
@@ -6329,6 +6329,20 @@ end
 	end    
 })
 
+AntiKnock = Tab2:AddToggle({
+	Name = "Anti Knockoff",
+	Default = false,
+	Callback = function(Value)
+_G.AntiKnock = Value
+while _G.AntiKnock do
+if game.Workspace.CurrentCamera and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject == game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s_falsehead") then
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+task.wait()
+end
+	end    
+})
+
 AntiJack = Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
@@ -6821,6 +6835,8 @@ Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ 
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Anti Knockoff")
+Tab60:AddLabel("--------------[ Day 20 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Replica UNO")
 Tab60:AddLabel("[ + ] Auto Farm Fast [ is that lag ]")
 Tab60:AddParagraph("[ × ] Auto Spam Ability","[ + ] Spam BONK")
@@ -6904,6 +6920,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiJack:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiKnock:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
