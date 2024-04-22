@@ -341,6 +341,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 wait(3.75)
 fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+wait(0.8)
 end
 end
 end
@@ -3210,8 +3211,10 @@ end
 while ReplicaAndReverseGet do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-                 for i = 1, SlapChooseGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i = 1, SlapChooseGet do
 game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+end
 end
                  end
 end
@@ -6925,6 +6928,8 @@ Tab60:AddLabel("[ + ] Check Player [ Teleport Player Recall ] | [ Up To You Posi
 Tab60:AddParagraph("[ + | × ] Choose ones Teleport Old Phace","[ × ] Choose [ Yes ] | [ No ] | [ Player ]")
 Tab60:AddLabel("[ + ] Player Teleport Recall")
 Tab60:AddParagraph("[ – ] Kick Player Recall","[ * | ± | – ] Fix Time Teleport Player | That wait [ 2.4 => 2.45 ] | Teleport Old Place Waiting [ 1.45 => 0.5 ]")
+Tab60:AddLabel("--------------[ Day 22 | Months 4 ]--------------")
+Tab60:AddParagraph("[ * ] Farm Slap [ Reverse + Replica ]","[ - ] Crash the game | [ × ] Will then if you health not 0%")
 Tab60:AddLabel("--------------[ Day 21 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Knockoff")
 Tab60:AddParagraph("[ + | × ] Choose ones will teleport safe","[ × ] Choose [ Up To You ] | [ SafeSpotBox 1.0 ] | [ SafeSpotBox 2.0 ]")
