@@ -341,7 +341,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 wait(3.75)
 fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
-wait(0.8)
 end
 end
 end
@@ -2705,6 +2704,59 @@ end
   	end    
 })
 
+Tab14:AddTextbox({
+	Name = "Teleport Player Recall",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+PlayerTeleport = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKick.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddDropdown({
+	Name = "Teleport Old Place",
+	Default = "Yes",
+	Options = {"Yes", "No","Player"},
+	Callback = function(Value)
+_G.TeleportOldPlace = Value
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Player Teleport",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Backpack:FindFirstChild("Recall") == nil then
+if _G.TeleportOldPlace == "Yes" then
+OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+task.wait(2.45)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
+task.wait(0.5)
+if _G.TeleportOldPlace == "Yes" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLG
+elseif _G.TeleportOldPlace == "Player" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped or you haven't in arena or you have equip Backpack Recall.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
 Tab14:AddButton({
 	Name = "Kick Player Za Hando",
 	Callback = function()
@@ -2716,7 +2768,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.47)
+wait(0.48)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
@@ -2764,11 +2816,11 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(0.5)
+task.wait(0.35)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.4)
+task.wait(2.45)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
-task.wait(1.54)
+task.wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
@@ -3158,10 +3210,8 @@ end
 while ReplicaAndReverseGet do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
-for i = 1, SlapChooseGet do
+                 for i = 1, SlapChooseGet do
 game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
-end
 end
                  end
 end
@@ -6866,12 +6916,15 @@ Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
 Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
-Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ]")
+Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ] | Increase Time [ ± ]")
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
-Tab60:AddLabel("--------------[ Day 22 | Months 4 ]--------------")
-Tab60:AddParagraph("[ * ] Farm Slap [ Reverse + Replica ]","[ - ] Crash the game | [ × ] Will then if you health not 0%")
+Tab60:AddLabel("--------------[ Day 23 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Check Player [ Teleport Player Recall ] | [ Up To You Position ]")
+Tab60:AddParagraph("[ + | × ] Choose ones Teleport Old Phace","[ × ] Choose [ Yes ] | [ No ] | [ Player ]")
+Tab60:AddLabel("[ + ] Player Teleport Recall")
+Tab60:AddParagraph("[ – ] Kick Player Recall","[ * | ± | – ] Fix Time Teleport Player | That wait [ 2.4 => 2.45 ] | Teleport Old Place Waiting [ 1.45 => 0.5 ]")
 Tab60:AddLabel("--------------[ Day 21 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Knockoff")
 Tab60:AddParagraph("[ + | × ] Choose ones will teleport safe","[ × ] Choose [ Up To You ] | [ SafeSpotBox 1.0 ] | [ SafeSpotBox 2.0 ]")
