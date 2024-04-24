@@ -1981,8 +1981,8 @@ end
 
 Tab3:AddDropdown({
 	Name = "Farm Time",
-	Default = "Slow",
-	Options = {"Fish", "Voodoo", "MegaRock"},
+	Default = "",
+	Options = {"Voodoo + Fish", "MegaRock"},
 	Callback = function(Value)
 AutoTime = Value
 	end    
@@ -1990,49 +1990,39 @@ AutoTime = Value
 
 FarmTimeServer = Tab3:AddLabel("Farm Time [ 0 ]")
 
-Tab3:AddToggle({
+GetFarmTime = Tab3:AddToggle({
 	Name = "AutoFarm Time",
 	Default = false,
 	Callback = function(Value)
 _G.AutoTimeGet = Value
-if AutoTime == "Fish" and Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" then
+if AutoTime == "Voodoo + Fish" and Value == true then
+if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
+wait(0.2)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-end
-elseif AutoTime ~= "Fish" or Value == false then
-SleepTime = 0
+elseif AutoTime ~= "Voodoo + Fish" or Value == false then
+SleepTimeandTimeGhost = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
-task.wait()
-while _G.AutoTimeGet and AutoTime == "Fish" and task.wait() do
+end
+task.wait(1.6)
+while _G.AutoTimeGet and AutoTime == "Voodoo + Fish" and task.wait() do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
-SleepTime += 1
-FarmTimeServer:Set("Farm Time [ "..SleepTime.." ] | [ "..(3600 - SleepTime).." ]")
+SleepTimeandTimeGhost += 1
+FarmTimeServer:Set("Farm Time [ "..SleepTimeandTimeGhost.." ]")
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == false then
-SleepTime = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-end
-if AutoTime == "Voodoo" and Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-end
-elseif AutoTime ~= "Voodoo" or Value == false then
-game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-TimeGhost = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-task.wait()
-while _G.AutoTimeGet and AutoTime == "Voodoo" do
-task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 1 then
-TimeGhost += 1
-FarmTimeServer:Set("Farm Time [ "..TimeGhost.." ] | [ "..(3600 - TimeGhost).." ]")
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart.Transparency == 0 then
-TimeGhost = 0
+SleepTimeandTimeGhost = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 end
@@ -2041,7 +2031,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 end
 elseif AutoTime ~= "MegaRock" or Value == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") ~= nil then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") ~= nil then
 game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
@@ -2052,7 +2042,7 @@ while _G.AutoTimeGet and AutoTime == "MegaRock" do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
-FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ] | [ "..(900 - TimeMegarock).." | "..(36000 - TimeMegarock).." ]")
+FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ]")
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
 TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
@@ -3580,7 +3570,7 @@ while _G.BringCloud and _G.CloudBring == "Player" and game.Players.LocalPlayer.l
 if game.Players[_G.BringPlayerCloud].Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character.Humanoid.Sit == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
-                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerCloud].Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.75,0)
+                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerCloud].Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.75,0)
                     end
                end
           end
@@ -3590,7 +3580,7 @@ while _G.BringCloud and _G.CloudBring == "Your" and game.Players.LocalPlayer.lea
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
-                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.75,0)
+                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.75,0)
                     end
                end
           end
@@ -6919,10 +6909,12 @@ Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
 Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
-Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ] | Increase Time [ ± ]")
+Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ] | Increase Time [ ± ] | Grafting [ = ]")
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 24 | Months 4 ]--------------")
+Tab60:AddParagraph("[ = ] Fish & Voodoo","Get 2 Badge Fish and Voodoo and 1 time")
 Tab60:AddLabel("--------------[ Day 23 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Check Player [ Teleport Player Recall ] | [ Up To You Position ]")
 Tab60:AddParagraph("[ + | × ] Choose ones Teleport Old Phace","[ × ] Choose [ Yes ] | [ No ] | [ Player ]")
