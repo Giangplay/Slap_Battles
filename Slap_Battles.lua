@@ -5285,6 +5285,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "BONK" do
 game:GetService("ReplicatedStorage").BONK:FireServer()
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Frostbite" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0)
+task.wait()
+end
 	end    
 })
 
