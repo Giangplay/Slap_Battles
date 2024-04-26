@@ -130,6 +130,7 @@ gloveHits = {
     ["BONK"] = game.ReplicatedStorage.GeneralHit,
     ["Knockoff"] = game.ReplicatedStorage.GeneralHit,
     ["Divert"] = game.ReplicatedStorage.GeneralHit,
+    ["Frostbite"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1651,6 +1652,13 @@ end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have ZZZZZZZ equipped, or Owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
+  	end 
+})
+
+Tab3:AddButton({
+	Name = "Teleport Map Ice",
+	Callback = function()
+game:GetService("TeleportService"):Teleport(17290438723)
   	end 
 })
 
@@ -6954,6 +6962,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 27 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Join Map New")
+Tab60:AddLabel("[ + ] Tab New | [ + ] Get Badge")
 Tab60:AddLabel("--------------[ Day 26 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Anti Swapper")
 Tab60:AddLabel("[ + ] Change Slap Fake")
@@ -9371,7 +9382,42 @@ end
 end
   	end 
 })
+elseif game.PlaceId == 17290438723 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = (GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+Tab:AddLabel("Owner Credits Script By [ Giang ]")
+Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
+local InfoServer = Tab:AddSection({Name = "Misc"})
+
+Tab:AddButton({
+	Name = "Get Badge",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
+wait(0.7)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                v.HoldDuration = 0
+            end
+        end
+wait(0.08)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+wait(1.5)
+game:GetService("TeleportService"):Teleport(6403373529)
+  	end 
+})
 end
+wait(0.5)
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
