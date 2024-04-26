@@ -264,7 +264,6 @@ end
 end
 end
 
-_G.GetTeleport = ""
 function SpamReplicaBaller()
 if _G.GetTeleport == "Up To You" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -6117,6 +6116,34 @@ repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("Name
 	end    
 })
 
+Tab7:AddTextbox({
+	Name = "Auto Change Slap Fake",
+	Default = "Slap",
+	TextDisappear = false,
+	Callback = function(Value)
+game.Workspace.SlapChanged.Value = Value
+	end	  
+})
+
+if game.Workspace:FindFirstChild("SlapChanged") == nil then
+local SlapChanged = Instance.new("StringValue", workspace)
+SlapChanged.Name = "SlapChanged"
+SlapChanged.Value = ""
+end
+Tab7:AddToggle({
+	Name = " Auto Change Slap Fake",
+	Default = false,
+	Callback = function(Value)
+_G.AutoChangeSlapFake = Value
+while _G.AutoChangeSlapFake do
+if game.Players.LocalPlayer.leaderstats.Slaps.Value ~= game.Workspace.SlapChanged.Value then
+game.Players.LocalPlayer.leaderstats.Slaps.Value = game.Workspace.SlapChanged.Value
+end
+task.wait()
+end
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Auto Destroy Tycoon",
 	Default = false,
@@ -6416,6 +6443,20 @@ _G.AntiKnock = Value
 while _G.AntiKnock do
 if game.Workspace.CurrentCamera and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject == game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s_falsehead") then
 game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+task.wait()
+end
+	end    
+})
+
+AntiSwapped = Tab2:AddToggle({
+	Name = "Anti Swapped",
+	Default = false,
+	Callback = function(Value)
+_G.AntiSwapped = Value
+while _G.AntiSwapped do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Workspace:FindFirstChild("SwapEffect") ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("SwapEffect").CFrame * CFrame.new(0,5,0)
 end
 task.wait()
 end
@@ -6913,6 +6954,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 26 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Anti Swapper")
 Tab60:AddLabel("--------------[ Day 24 | Months 4 ]--------------")
 Tab60:AddParagraph("[ = ] Fish & Voodoo","Get 2 Badge Fish and Voodoo and 1 time")
 Tab60:AddLabel("--------------[ Day 23 | Months 4 ]--------------")
@@ -7045,6 +7088,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiNull:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiSwapped:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
