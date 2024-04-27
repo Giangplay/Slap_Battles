@@ -6468,6 +6468,7 @@ AntiSwapped = Tab2:AddToggle({
 _G.AntiSwapped = Value
 while _G.AntiSwapped do
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Workspace:FindFirstChild("SwapEffect") ~= nil then
+OldTele = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("SwapEffect").CFrame * CFrame.new(0,5,0)
 end
 task.wait()
