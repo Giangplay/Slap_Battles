@@ -3186,16 +3186,6 @@ _G.GetTeleport = Value
 	end    
 })
 
-SlapChooseGet = 20
-Tab14:AddTextbox({
-	Name = "Farm Slap Replica Reverse",
-	Default = "UserSlap [ Than in Lag ]",
-	TextDisappear = false,
-	Callback = function(Value)
-SlapChooseGet = Value
-	end	  
-})
-
 ReplicaAndReverse = Tab14:AddToggle({
 	Name = "Reverse + Replica Slap Farm",
 	Default = false,
@@ -3206,16 +3196,14 @@ if ReplicaAndReverseGet == true then
 coroutine.wrap(SpamReplicaReverse)() 
 end
 while ReplicaAndReverseGet do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
-for i = 1, SlapChooseGet do
-game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
-end
+game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("Head"),true)
 end
                  end
 end
-task.wait()
+task.wait(0.07)
 end
 elseif ReplicaAndReverseGet == true then 
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
