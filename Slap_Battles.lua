@@ -4795,6 +4795,51 @@ end
 })
 
 Tab7:AddTextbox({
+	Name = "Help Player Join Ice",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PlayerJoinMapGo = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerJoinMapGo.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Player Help Join Ice",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ice" and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 1286358044443937) and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerJoinMapGo].Character:FindFirstChild("entered") and game.Players[_G.PlayerJoinMapGo].leaderstats.Glove.Value == "Shard" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.CFrame
+wait(0.5)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.Position).Magnitude
+                        if 30 >= Magnitude then
+game.ReplicatedStorage.IceHit:FireServer(game.Players[_G.PlayerJoinMapGo].Character:WaitForChild("Head"),true)
+                end
+fireclickdetector(game.Workspace.Lobby["Frostbite"].ClickDetector)
+wait(0.1)
+for i = 1,5 do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.CFrame
+wait(0.02)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0.5)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You in Lobby | [ ".._G.PlayerJoinMapGo.." ] in arena | You haven't Ice equip | you haven't badge Ice Essence | [ ".._G.PlayerJoinMapGo.." ] haven't Shard equip",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab7:AddTextbox({
 	Name = "Help Player Get Quake",
 	Default = "Username",
 	TextDisappear = false,
@@ -6505,6 +6550,25 @@ end
 	end    
 })
 
+AntiDruid = Tab2:AddToggle({
+	Name = "Anti Druid",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiDruid = Value
+while _G.AntiDruid do
+if game.Workspace:FindFirstChild("Vines_Bin") and game.Workspace.Vines_Bin:FindFirstChild("VineHitbox") then
+      for i,v in pairs(game.Workspace:GetChildren()) do
+                      if v.Name == "Vines_Bin" and v:FindFirstChild("VineHitbox") ~= nil then
+                            v.CanTouch = false
+                            v.CanQuery = false
+                      end
+           end
+end
+task.wait()
+end
+	end    
+})
+
 AntiConveyor = Tab2:AddToggle({
 	Name = "Anti Conveyor",
 	Default = false,
@@ -6955,6 +7019,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 29 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Help Player Join Ice")
+Tab60:AddLabel("[ + ] Auto Help Player Join Ice")
 Tab60:AddLabel("--------------[ Day 27 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Join Map New")
 Tab60:AddLabel("[ + ] Tab New | [ + ] Get Badge")
@@ -9350,7 +9417,7 @@ local InfoServer = Tab:AddSection({Name = "Misc"})
 Tab:AddButton({
 	Name = "Teleport Enter Final Room",
 	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(499.860291, 77.2709045, 60.5982056, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(502, 76, 59)
 task.wait(4)
 if getconnections then
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
