@@ -2960,12 +2960,12 @@ elseif _G.PhaceNuke == "Moai Island" then
 game.Workspace.CurrentCamera.CameraSubject = game.Workspace.Arena.island4.Grass
 elseif _G.PhaceNuke == "Player" then 
 game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
-end
 else
 if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
+end
 end
 while _G.AutoThrowPotion do
 local RandomTeleX = math.random(-_G.NukeExtend,_G.NukeExtend)
@@ -3565,7 +3565,7 @@ while _G.BringCloud and _G.CloudBring == "Player" and game.Players.LocalPlayer.l
 if game.Players[_G.BringPlayerCloud].Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character:FindFirstChild("entered") and game.Players[_G.BringPlayerCloud].Character.Humanoid.Sit == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
-                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerCloud].Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.75,0)
+                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerCloud].Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.32,0)
                     end
                end
           end
@@ -3575,7 +3575,7 @@ while _G.BringCloud and _G.CloudBring == "Your" and game.Players.LocalPlayer.lea
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
-                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.75,0)
+                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-2.32,0)
                     end
                end
           end
@@ -3585,6 +3585,71 @@ elseif _G.BringCloud == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Cloud equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 CloudBringSit:Set(false)
+end
+	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Firework Bring",
+	Default = "",
+	Options = {"Player","Your"},
+	Callback = function(Value)
+_G.FireworkBring = Value
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Bring Firework Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BringPlayerFirework = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.BringPlayerFirework.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+FireworkBringSit = Tab14:AddToggle({
+	Name = "Auto Bring Firework",
+	Default = false,
+	Callback = function(Value)
+_G.BringFirework = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Firework" then
+while _G.BringFirework and _G.FireworkBring == "Player" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Firework" do
+if game.Players[_G.BringPlayerFirework].Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.BringPlayerFirework].Character:FindFirstChild("entered") and game.Players[_G.BringPlayerFirework].Character.Humanoid.Sit == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        v.VehicleSeat.CFrame = game.Players[_G.BringPlayerFirework].Character.HumanoidRootPart.CFrame
+                    end
+               end
+          end
+task.wait()
+end
+while _G.BringFirework and _G.FireworkBring == "Your" and game.Players.LocalPlayer.leaderstats.Glove.Value == "Firework" do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        v.VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    end
+               end
+          end
+task.wait()
+end
+elseif _G.BringFirework == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Firework equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+FireworkBringSit:Set(false)
 end
 	end    
 })
@@ -4830,9 +4895,11 @@ fireclickdetector(game.Workspace.Lobby["Frostbite"].ClickDetector)
 wait(0.1)
 for i = 1,5 do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.CFrame
+wait(0.01)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 wait(0.02)
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0.5)
 end
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0.5)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You in Lobby | [ ".._G.PlayerJoinMapGo.." ] in arena | You haven't Ice equip | you haven't badge Ice Essence | [ ".._G.PlayerJoinMapGo.." ] haven't Shard equip",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -6598,6 +6665,7 @@ while _G.AntiIce do
     for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
             if v.Name == "Icecube" then
                 v:Destroy()
+                game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
             end
        end
 task.wait()
@@ -7019,6 +7087,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 30 | Months 4 ]--------------")
+Tab60:AddLabel("[ + ] Bring Firework Player | You")
+Tab60:AddLabel("[ + ] Auto Bring Firework Player | You")
+Tab60:AddLabel("[ * ] Anti Ice")
+Tab60:AddLabel("[ * ] Help Player Join Ice")
 Tab60:AddLabel("--------------[ Day 29 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Help Player Join Ice")
 Tab60:AddLabel("[ + ] Auto Help Player Join Ice")
@@ -7080,6 +7153,7 @@ Tab60:AddLabel("----------------[ Slap Battles | Eternal Bob ]----------------")
 Tab60:AddLabel("[ + ] Anti VFX")
 Tab60:AddLabel("----------------[ Slap Battles | Slap Royale ]----------------")
 Tab60:AddLabel("[ + ] Get All Item")
+Tab60:AddLabel("[ * ] Anti Ice")
 Tab60:AddLabel("------------------------------[ The End ]------------------------------")
 
 ---ToggleAllAnti---
@@ -8750,6 +8824,7 @@ while _G.AntiIce do
     for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
             if v.Name == "Icecube" then
                 v:Destroy()
+                game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
             end
        end
 task.wait()
