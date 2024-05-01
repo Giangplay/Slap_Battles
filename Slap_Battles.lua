@@ -1671,9 +1671,9 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
 while _G.AutoFarmAlchemist do
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false and RandomPlayer..Character:FindFirstChild("rock") == nil 
 Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,10)
 task.wait(0.2)
 game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.2)
@@ -2960,12 +2960,12 @@ elseif _G.PhaceNuke == "Moai Island" then
 game.Workspace.CurrentCamera.CameraSubject = game.Workspace.Arena.island4.Grass
 elseif _G.PhaceNuke == "Player" then 
 game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+end
 else
 if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
-end
 end
 while _G.AutoThrowPotion do
 local RandomTeleX = math.random(-_G.NukeExtend,_G.NukeExtend)
@@ -6518,6 +6518,23 @@ end
 	end    
 })
 
+AntiPie = Tab2:AddToggle({
+	Name = "Anti Pie",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiPie = Value
+while _G.AntiPie do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Pie" then
+                        v.CanTouch = false
+                        v.CanQuery = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -6555,21 +6572,6 @@ _G.AntiKnock = Value
 while _G.AntiKnock do
 if game.Workspace.CurrentCamera and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject == game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s_falsehead") then
 game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-end
-task.wait()
-end
-	end    
-})
-
-AntiSwapped = Tab2:AddToggle({
-	Name = "Anti Swapped",
-	Default = false,
-	Callback = function(Value)
-_G.AntiSwapped = Value
-while _G.AntiSwapped do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Workspace:FindFirstChild("SwapEffect") ~= nil then
-OldTele = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("SwapEffect").CFrame * CFrame.new(0,5,0)
 end
 task.wait()
 end
@@ -7087,6 +7089,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 1 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Anti Pie [ not test yet ]")
+Tab60:AddLabel("[ - ] Anti Swapped [ Not Work ]")
 Tab60:AddLabel("--------------[ Day 30 | Months 4 ]--------------")
 Tab60:AddLabel("[ + ] Bring Firework Player | You")
 Tab60:AddLabel("[ + ] Auto Bring Firework Player | You")
@@ -7198,6 +7203,10 @@ AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiPie:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiJack:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -7235,10 +7244,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiNull:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiSwapped:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
