@@ -4591,7 +4591,7 @@ game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, v.id)
 end
 end
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
@@ -4630,8 +4630,8 @@ NotifyGoldenSlapple = Tab7:AddToggle({
 	Callback = function(Value)
 	 _G.NotifyGoldenSlapple = Value
 while _G.NotifyGoldenSlapple do
-if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
-repeat task.wait() until game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") ~= nil
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+repeat task.wait() until game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") ~= nil
 OrionLib:MakeNotification({Name = "Error",Content = "Golden Slapple Spawn.",Image = "rbxassetid://7733658504",Time = 5})
 NotifyGoldenSlapple:Set(false)
 end
@@ -4699,7 +4699,7 @@ if _G.EnterKeypad == "Not Enter" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.writeCode do
 wait(.5)
@@ -4711,7 +4711,7 @@ elseif _G.EnterKeypad == "Enter" then
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.writeCode do
 wait(.5)
@@ -4740,7 +4740,7 @@ Tab7:AddButton({
 if not workspace:FindFirstChild("Keypad") then
 OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
 else
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.EggCodes do
 wait(.5)
@@ -4950,6 +4950,96 @@ wait(3)
 game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.Size = OGLSize
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab7:AddDropdown({
+	Name = "Will Teleport Help",
+	Default = "Up To You",
+	Options = {"Up To You","SafeSpotBox 1.0","SafeSpotBox 2.0"},
+	Callback = function(Value)
+_G.GetTeleportHelp = Value
+	end    
+})
+
+Tab7:AddTextbox({
+	Name = "Help Player Get Berserk",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.HelpPlayerGetBerserk = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HelpPlayerGetBerserk.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab7:AddSlider({
+	Name = "Time Help Berserk",
+	Min = 1,
+	Max = 3,
+	Default = 3,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Time",
+	Callback = function(Value)
+		_G.TimeHelpGotIm = Value
+	end    
+})
+
+Tab7:AddButton({
+	Name = "Start Help Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.HelpPlayerGetBerserk].Character:FindFirstChild("entered") then
+for o = 1,_G.TimeHelpGotIm do
+if _G.GetTeleportHelp == "Up To You" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+elseif _G.GetTeleportHelp == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleportHelp == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+for i = 1,137 do
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
+task.wait()
+end
+wait(2)
+if _G.GetTeleportHelp == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleportHelp == "SafeSpotBox 1.0" or _G.GetTeleportHelp == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetBerserk].Character.Head.CFrame * CFrame.new(0,5.80,0)
+end
+wait(0.21)
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Kinetic") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Kinetic)
+end
+wait(0.12)
+game:GetService("ReplicatedStorage").KineticExpl:FireServer(game.Players.LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+wait(0.78)
+if _G.GetTeleportHelp == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleportHelp == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleportHelp == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(2.3)
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped, or you have to go Arena, or player have go to arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
 })
@@ -7089,6 +7179,12 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 4 | Months 5 ]--------------")
+Tab60:AddParagraph("[ Ã— ] All Script Keypad","View Keypad")
+Tab60:AddLabel("[ + ] Help Player Get Berserk")
+Tab60:AddLabel("[ + ] Choose Will Teleport Help")
+Tab60:AddParagraph("[ + ] Time Spam Help","Max Time [ 3 ] | Min Time [ 1 ] | Default [ 3 ]")
+Tab60:AddLabel("[ + ] Get Player Help Berserk")
 Tab60:AddLabel("--------------[ Day 1 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Pie [ not test yet ]")
 Tab60:AddLabel("[ - ] Anti Swapped [ Not Work ]")
