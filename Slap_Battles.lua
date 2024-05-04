@@ -131,6 +131,7 @@ gloveHits = {
     ["Knockoff"] = game.ReplicatedStorage.GeneralHit,
     ["Divert"] = game.ReplicatedStorage.GeneralHit,
     ["Frostbite"] = game.ReplicatedStorage.GeneralHit,
+    ["Sbeve"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -1151,7 +1152,7 @@ wait(0.5)
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") then
 OrionLib:MakeNotification({Name = "Error",Content = "Counter Stun [ "..game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value.." ]",Image = "rbxassetid://7733658504",Time = 5})
 end
-wait(10.3)
+wait(12.3)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Stun equipped, or you aren't in the arena",Image = "rbxassetid://7733658504",Time = 5})
@@ -1259,6 +1260,36 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Boun
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Auto Get Glove FrostBite",
+	Callback = function()
+local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+    if teleportFunc then
+        teleportFunc([[
+            if not game:IsLoaded() then
+                game.Loaded:Wait()
+            end
+            repeat wait() until game.Players.LocalPlayer
+wait(4.6)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
+wait(0.7)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                v.HoldDuration = 0
+            end
+        end
+       wait(0.5)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+]])
+end
+game:GetService("TeleportService"):Teleport(17290438723)
   	end    
 })
 
@@ -1459,9 +1490,19 @@ _G.SelectMaze = Value
 	end    
 })
 
+Tab3:AddDropdown({
+	Name = "Badge Teleport",
+	Default = "",
+	Options = {"Elude","Counter"},
+	Callback = function(Value)
+_G.SelectMazeBadge = Value
+	end    
+})
+
 Tab3:AddButton({
-	Name = "Get Glove Elude",
+	Name = "Get Glove Badge Teleport",
 	Callback = function()
+if _G.SelectMazeBadge == "Elude" then
 if _G.SelectMaze == "Teleport" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
@@ -1513,12 +1554,7 @@ task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
 end
-  	end    
-})
-
-Tab3:AddButton({
-	Name = "Get Glove Counter",
-	Callback = function()
+elseif _G.SelectMazeBadge == "Counter" then
 if _G.SelectMaze == "Teleport" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
@@ -1595,6 +1631,7 @@ task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
 end
+end
   	end    
 })
 
@@ -1669,14 +1706,22 @@ AutoFarmGetAlchemist = Tab3:AddToggle({
 _G.AutoFarmAlchemist = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
 while _G.AutoFarmAlchemist do
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Plague") == nil then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false and RandomPlayer..Character:FindFirstChild("rock") == nil 
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false and RandomPlayer.Character:FindFirstChild("rock") == nil 
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,10)
 task.wait(0.2)
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Plague") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Plague)
+end
+wait(0.2)
 game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
-task.wait(0.2)
+task.wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 task.wait(7.4)
 end
@@ -5015,20 +5060,20 @@ for i = 1,137 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
 end
-wait(2)
+wait(2.8)
 if _G.GetTeleportHelp == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 elseif _G.GetTeleportHelp == "SafeSpotBox 1.0" or _G.GetTeleportHelp == "SafeSpotBox 2.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetBerserk].Character.Head.CFrame * CFrame.new(0,5.80,0)
 end
-wait(0.21)
+wait(0.28)
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Kinetic") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Kinetic)
 end
-wait(0.12)
+wait(0.19)
 game:GetService("ReplicatedStorage").KineticExpl:FireServer(game.Players.LocalPlayer.Character.Kinetic, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-wait(0.78)
+wait(0.7)
 if _G.GetTeleportHelp == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 elseif _G.GetTeleportHelp == "SafeSpotBox 1.0" then
@@ -5036,7 +5081,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"
 elseif _G.GetTeleportHelp == "SafeSpotBox 2.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 end
-wait(2.3)
+wait(3.8)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Kinetic equipped, or you have to go Arena, or player have go to arena.",Image = "rbxassetid://7733658504",Time = 5})
@@ -5129,7 +5174,7 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "bob" do
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(9)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" do
 game:GetService("ReplicatedStorage").KrakenArm:FireServer()
 wait(5)
 end
@@ -5697,7 +5742,7 @@ end
 })
 
 Tab7:AddTextbox({
-	Name = "Glove",
+	Name = "Glove & Glove Tournament",
 	Default = "Use Glove",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -5716,20 +5761,11 @@ end
   	end    
 })
 
-Tab7:AddTextbox({
-	Name = "Glove Tournament",
-	Default = "Use Glove",
-	TextDisappear = false,
-	Callback = function(Value)
-		_G.EquipGloveTournament = Value
-	end	  
-})
-
 Tab7:AddButton({
-	Name = "Equip Glove",
+	Name = "Equip Glove Tournament",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.EquipGloveTournament].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -6242,7 +6278,7 @@ for _, v in pairs(workspace:GetDescendants()) do
     if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
         local doors = v.Doors
         for _, y in ipairs(doors:GetChildren()) do
-            if y:FindFirstChild("Hitbox") and y:FindFirstChild("ExitEsp") and y.Hitbox:FindFirstChild("TouchInterest") then
+            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("ExitEsp") and y.Hitbox:FindFirstChild("TouchInterest") then
 y.Hitbox.ExitEsp:Destroy()
             end
         end
@@ -6256,7 +6292,7 @@ for _, v in pairs(workspace:GetDescendants()) do
     if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
         local doors = v.Doors
         for _, y in ipairs(doors:GetChildren()) do
-            if y:FindFirstChild("Hitbox") and y:FindFirstChild("ExitEsp") == nil and y.Hitbox:FindFirstChild("TouchInterest") then
+            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("ExitEsp") == nil and y.Hitbox:FindFirstChild("TouchInterest") then
               ExitEsp = Instance.new("BillboardGui", y.Hitbox)
               ExitEsp.Adornee = y.Hitbox
               ExitEsp.Name = "ExitEsp"
@@ -7179,6 +7215,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 5 | Months 5 ]--------------")
+Tab60:AddParagraph("[ × | * ] Auto Farm Alchemist","Auto Equip and UnEquip | Fix Farm")
+Tab60:AddParagraph("[ × ] Get Glove Elude & Country Choose","Auto Teleport")
+Tab60:AddLabel("[ – | ± ] Help Player Get Berserk")
+Tab60:AddLabel("[ ± ] Get Glove Kinetic")
 Tab60:AddLabel("--------------[ Day 4 | Months 5 ]--------------")
 Tab60:AddParagraph("[ × ] All Script Keypad","View Keypad")
 Tab60:AddLabel("[ + ] Help Player Get Berserk")
