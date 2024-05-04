@@ -7220,6 +7220,7 @@ Tab60:AddParagraph("[ × | * ] Auto Farm Alchemist","Auto Equip and UnEquip | Fi
 Tab60:AddParagraph("[ × ] Get Glove Elude & Country Choose","Auto Teleport")
 Tab60:AddLabel("[ – | ± ] Help Player Get Berserk")
 Tab60:AddLabel("[ ± ] Get Glove Kinetic")
+Tab60:AddLabel("[ + ] Get Glove Frostbite")
 Tab60:AddLabel("--------------[ Day 4 | Months 5 ]--------------")
 Tab60:AddParagraph("[ × ] All Script Keypad","View Keypad")
 Tab60:AddLabel("[ + ] Help Player Get Berserk")
