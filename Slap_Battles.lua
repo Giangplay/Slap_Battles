@@ -6586,6 +6586,24 @@ end
 	end    
 })
 
+AntiSbeve = Tab2:AddToggle({
+	Name = "Anti Sbeve",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiSbeve = Value
+while _G.AntiSbeve do
+for _,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character:FindFirstChild("stevebody") then
+                        v.Character:FindFirstChild("stevebody").CanTouch = false
+                        v.Character:FindFirstChild("stevebody").CanQuery = false
+                        v.Character:FindFirstChild("stevebody").CanCollide = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiBallBaller = Tab2:AddToggle({
 	Name = "Anti Ball Baller",
 	Default = false,
@@ -6610,19 +6628,19 @@ AntiPingPong = Tab2:AddToggle({
 	_G.AntiPingPong = Value
 if _G.AntiPingPong == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
-v.CanTouch = true
-v.CanQuery = true
-end
-end
+                    if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
+                        v.CanTouch = true
+                        v.CanQuery = true
+                    end
+                end
 end
 while _G.AntiPingPong do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
-v.CanTouch = false
-v.CanQuery = false
-end
-end
+                    if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
+                        v.CanTouch = false
+                        v.CanQuery = false
+                    end
+                end
 task.wait()
 end
 	end    
@@ -6718,9 +6736,9 @@ AntiBooster = Tab2:AddToggle({
 	Callback = function(Value)
 		_G.AntiBooster = Value
 while _G.AntiBooster do
-for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-                    if v.Name == "BoosterObject" then
-                        v:Destroy()
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:FindFirstChild("BoosterObject") then
+                        v:FindFirstChild("BoosterObject"):Destroy()
                     end
                 end
 task.wait()
@@ -6753,12 +6771,12 @@ AntiDruid = Tab2:AddToggle({
 while _G.AntiDruid do
 if game.Workspace:FindFirstChild("Vines_Bin") and game.Workspace.Vines_Bin:FindFirstChild("VineHitbox") then
       for i,v in pairs(game.Workspace:GetChildren()) do
-                      if v.Name == "Vines_Bin" and v:FindFirstChild("VineHitbox") ~= nil then
-                            v.CanTouch = false
-                            v.CanQuery = false
-                      end
-           end
-end
+                          if v.Name == "Vines_Bin" and v:FindFirstChild("VineHitbox") ~= nil then
+                              v.CanTouch = false
+                              v.CanQuery = false
+                          end
+                     end
+                 end
 task.wait()
 end
 	end    
@@ -6989,17 +7007,17 @@ AntiDefend = Tab2:AddToggle({
 	_G.NoclipBarrier = Value
 if _G.NoclipBarrier == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅBarrier") then
-v.CanCollide = true
-end
-end
-end
+                    if string.find(v.Name, "ÅBarrier") then
+                        v.CanCollide = true
+                    end
+                end
+            end
 while _G.NoclipBarrier do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅBarrier") then
-v.CanCollide = false
-end
-end
+                    if string.find(v.Name, "ÅBarrier") then
+                         v.CanCollide = false
+                     end
+                end
 task.wait()
 end
 	end    
@@ -7012,10 +7030,10 @@ AntiBubble = Tab2:AddToggle({
 		 _G.AntiBubble = Value
 while _G.AntiBubble do
 for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "BubbleObject" and v:FindFirstChild("Weld") then
-v:FindFirstChild("Weld"):Destroy()
-end
-end
+                    if v.Name == "BubbleObject" and v:FindFirstChild("Weld") then
+                        v:FindFirstChild("Weld"):Destroy()
+                    end
+               end
 task.wait()
 end
 	end    
@@ -7215,6 +7233,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 7 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Anti Sbeve")
 Tab60:AddLabel("--------------[ Day 5 | Months 5 ]--------------")
 Tab60:AddParagraph("[ × | * ] Auto Farm Alchemist","Auto Equip and UnEquip | Fix Farm")
 Tab60:AddParagraph("[ × ] Get Glove Elude & Country Choose","Auto Teleport")
@@ -7322,6 +7342,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRock:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiSbeve:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
