@@ -1692,13 +1692,6 @@ end
   	end 
 })
 
-Tab3:AddButton({
-	Name = "Teleport Map Ice",
-	Callback = function()
-game:GetService("TeleportService"):Teleport(17290438723)
-  	end 
-})
-
 AutoFarmGetAlchemist = Tab3:AddToggle({
 	Name = "Auto Farm Alchemist",
 	Default = false,
@@ -1981,13 +1974,13 @@ end
 })
 
 Tab3:AddToggle({
-	Name = "Jet Farm",
+	Name = "Phase Or Jet Farm",
 	Default = false,
 	Callback = function(Value)
-Jetfarm = Value
-while Jetfarm do
+_G.PhaseOrJetfarm = Value
+while _G.PhaseOrJetfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "JetOrb" then
+                    if v.Name == "JetOrb" or v.Name == "PhaseOrb" then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
                     end
@@ -1997,19 +1990,26 @@ end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Phase Farm",
+Glitchfarm = Tab3:AddToggle({
+	Name = "Phase Or Jet Glitch",
 	Default = false,
 	Callback = function(Value)
-Phasefarm = Value
-while Phasefarm do
+_G.Glitchfarm = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+while _G.Glitchfarm do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" and game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "PhaseOrb" then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    if v.Name == "JetOrb" or v.Name == "PhaseOrb" then
+game.ReplicatedStorage.Errorhit:FireServer(v)
                     end
                 end
+            end
 task.wait()
+end
+elseif _G.Glitchfarm == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Error equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+Glitchfarm:Set(false)
 end
 	end    
 })
@@ -2048,7 +2048,7 @@ GetFarmTime = Tab3:AddToggle({
 	Callback = function(Value)
 _G.AutoTimeGet = Value
 if AutoTime == "Voodoo + Fish" and Value == true then
-if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
 wait(0.2)
@@ -2061,13 +2061,13 @@ until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+wait(0.2)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+end
 elseif AutoTime ~= "Voodoo + Fish" or Value == false then
 SleepTimeandTimeGhost = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
-end
-task.wait(1.6)
 while _G.AutoTimeGet and AutoTime == "Voodoo + Fish" and task.wait() do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
 task.wait(1)
@@ -2089,8 +2089,7 @@ TimeMegarock = 0
 FarmTimeServer:Set("Farm Time [ 0 ]")
 end
 end
-task.wait()
-while _G.AutoTimeGet and AutoTime == "MegaRock" do
+while _G.AutoTimeGet and AutoTime == "MegaRock" and task.wait() do
 task.wait(1)
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
 TimeMegarock += 1
@@ -2735,7 +2734,7 @@ until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.07)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
-wait(25)
+wait(20)
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -2907,12 +2906,12 @@ for b = 1, _G.GivePotion do
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-wait(0.0000005)
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+task.wait()
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2992,6 +2991,11 @@ PotionThrowNukeAuto = Tab14:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoThrowPotion = Value
+if _G.AutoThrowPotion == false then
+if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end
+end
 if _G.AutoThrowPotion == true and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if _G.AutoThrowPotion == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
@@ -3006,10 +3010,7 @@ game.Workspace.CurrentCamera.CameraSubject = game.Workspace.Arena.island4.Grass
 elseif _G.PhaceNuke == "Player" then 
 game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
 end
-else
-if game.Workspace.CurrentCamera and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
-game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-end
+elseif _G.AutoThrowPotion == false then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame
 end
 while _G.AutoThrowPotion do
@@ -7211,15 +7212,11 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] | [ Destroy Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -7233,6 +7230,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 8 | Months 5 ]--------------")
+Tab60:AddLabel("[ * ] Auto Nuke Potion")
+Tab60:AddLabel("[ - ] Join Map ice")
+Tab60:AddLabel("[ = ] Jet Farm & Phase Farm")
+Tab60:AddLabel("[ + ] Jet Or Phase Glitch [ Glove Error Hit ]")
 Tab60:AddLabel("--------------[ Day 7 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Sbeve")
 Tab60:AddLabel("--------------[ Day 5 | Months 5 ]--------------")
