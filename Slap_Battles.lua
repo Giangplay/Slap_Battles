@@ -2589,6 +2589,35 @@ end
   	end    
 })
 
+SbeveAll = Tab14:AddToggle({
+	Name = "Auto Sbeve All Player",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSbeveAllPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" then
+while _G.AutoSbeveAllPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" do
+if game.Players.LocalPlayer.Character:WaitForChild("stevebody") ~= nil then
+for i,v in pairs(game.Players:GetChildren()) do
+         if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+              if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                 v.Character.HumanoidRootPart.CanCollide = true
+              elseif v.Character:FindFirstChild("stevebody") ~= nil then
+                 v.Character.HumanoidRootPart.CanCollide = false
+              end
+          end
+     end
+end
+task.wait()
+end
+elseif _G.AutoSbeveAllPlayer == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+SbeveAll:Set(false)
+end
+	end    
+})
+
 Tab14:AddDropdown({
 	Name = "Black Hole",
 	Default = "",
@@ -6843,10 +6872,10 @@ AntiNull = Tab2:AddToggle({
 _G.AntiNull = Value
 while _G.AntiNull do
 for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Imp" and v:FindFirstChild("Body") then
-gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
-end
-end
+                if v.Name == "Imp" and v:FindFirstChild("Body") then
+                       gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
+                 end
+            end
 task.wait()
 end
 	end    
@@ -6920,18 +6949,18 @@ AntiBrazil = Tab2:AddToggle({
 _G.AntiBrazil = Value
 while _G.AntiBrazil do
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-if v.CanTouch == true then
-v.CanTouch = false
-end
-end
+                  if v.CanTouch == true then
+                     v.CanTouch = false
+                 end
+             end
 task.wait()
 end
 if _G.AntiBrazil == false then
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-if v.CanTouch == false then
-v.CanTouch = true
-end
-end
+                  if v.CanTouch == false then
+                     v.CanTouch = true
+                 end
+            end
 end
 	end    
 })
@@ -7230,6 +7259,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 9 | Months 5 ]--------------")
+Tab60:AddLabel("[ * ] Shows Loading Menu")
+Tab60:AddLabel("[ + ] Sbeve All Player [ Bring Player ]")
 Tab60:AddLabel("--------------[ Day 8 | Months 5 ]--------------")
 Tab60:AddLabel("[ * ] Auto Nuke Potion")
 Tab60:AddLabel("[ - ] Join Map ice")
