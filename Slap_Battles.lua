@@ -5086,7 +5086,7 @@ elseif _G.GetTeleportHelp == "SafeSpotBox 2.0" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 end
 game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-for i = 1,137 do
+for i = 1,150 do
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 task.wait()
 end
@@ -6842,6 +6842,7 @@ while _G.AntiIce do
             if v.Name == "Icecube" then
                 v:Destroy()
                 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+                game.Players.LocalPlayer.Character.Humanoid.AutoRotate = true
             end
        end
 task.wait()
@@ -8423,16 +8424,72 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 Tab:AddButton({
 	Name = "Get All Item",
 	Callback = function()
-if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-    if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
-        v.Handle.Anchored = false
-        v.Handle.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-        game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(v)
-    end
-end
-else
+if game.Players.LocalPlayer.Character.inMatch.Value == true then
+            for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
+                    v.Handle.Anchored = false
+                    v.Handle.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+                    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(v)
+                    game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+                end
+            end
+            game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        else
 OrionLib:MakeNotification({Name = "Error",Content = "You have start bus get all item, but you got kick if item in your hand for a long time.",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Infinity 250 Power",
+	Callback = function()
+for i = 1, 2 do
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
+    game.Players.LocalPlayer.Character["True Power"]:Activate()
+    end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Use Item Power",
+	Callback = function()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v.Name == "Bull's essence" or v.Name == "Potion of Strength" or v.Name == "Boba" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Strength Brew" or v.Name == "Frog Brew" or v.Name == "Speed Brew" then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                v:Activate()
+            end
+        end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Bomb Bus",
+	Callback = function()
+if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v.Name == "Bomb" then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                v:Activate()
+            end
+        end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have start bus.",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Use Item",
+	Default = false,
+	Callback = function(Value)
+_G.AutoUseItem = state
+while _G.AutoUseItem do
+for i, v in ipairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                 if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
+                    v:Activate()
+                end
+            end
+task.wait()
 end
 	end    
 })
@@ -8986,7 +9043,7 @@ Tab1:AddDropdown({
 	Options = {"Lava", "Zone Blur Remove", "Acid"},
 	Callback = function(Value)
 if Value == "Lava" then
-game.Workspace.Map.DragonDepths:WaitForChild("Lava").CanTouch = false
+workspace.Map.DragonDepths.Lava.CanTouch = false
 elseif Value == "Zone Blur Remove" then
 for _, v in ipairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
     if v.Name == "ZoneEffects" then
@@ -9026,6 +9083,7 @@ while _G.AntiIce do
             if v.Name == "Icecube" then
                 v:Destroy()
                 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+                game.Players.LocalPlayer.Character.Humanoid.AutoRotate = true
             end
        end
 task.wait()
