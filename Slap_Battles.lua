@@ -132,6 +132,7 @@ gloveHits = {
     ["Divert"] = game.ReplicatedStorage.GeneralHit,
     ["Frostbite"] = game.ReplicatedStorage.GeneralHit,
     ["Sbeve"] = game.ReplicatedStorage.GeneralHit,
+    ["Plank"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
