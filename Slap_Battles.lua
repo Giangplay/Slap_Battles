@@ -1207,6 +1207,25 @@ end
 })
 
 Tab3:AddButton({
+	Name = "Get Glove Plank",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 97, 4)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(0.3)
+game:GetService("ReplicatedStorage").Fortlol:FireServer()
+wait(3.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 106, -6)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge [ Don't turn on shiftlock ]",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab3:AddButton({
 	Name = "Get Glove Blasphemy",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061) then
@@ -7261,6 +7280,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 11 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Get Glove Plank")
 Tab60:AddLabel("--------------[ Day 9 | Months 5 ]--------------")
 Tab60:AddLabel("[ * ] Shows Loading Menu")
 Tab60:AddLabel("[ + ] Sbeve All Player [ Bring Player ]")
