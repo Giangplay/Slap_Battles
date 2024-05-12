@@ -6729,6 +6729,23 @@ end
 	end    
 })
 
+AntiAttackPlank = Tab2:AddToggle({
+	Name = "Anti Attack Plank",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiPlank = Value
+while _G.AntiPlank do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if string.find(v.Name, "'s Plank") then
+                         v.CanTouch = false
+                        v.CanQuery = false
+                     end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -7067,23 +7084,6 @@ while _G.NoclipBarrier do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if string.find(v.Name, "ÅBarrier") then
                          v.CanCollide = false
-                     end
-                end
-task.wait()
-end
-	end    
-})
-
-AntiAttackPlank = Tab2:AddToggle({
-	Name = "Anti Attack Plank",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiPlank = Value
-while _G.AntiPlank do
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if string.find(v.Name, "'s Plank") then
-                         v.CanTouch = false
-                        v.CanQuery = false
                      end
                 end
 task.wait()
@@ -7443,6 +7443,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiPie:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiAttackPlank:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
