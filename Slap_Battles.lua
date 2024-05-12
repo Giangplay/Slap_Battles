@@ -7074,6 +7074,23 @@ end
 	end    
 })
 
+AntiAttackPlank = Tab2:AddToggle({
+	Name = "Anti Attack Plank",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiPlank = Value
+while _G.AntiPlank do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if string.find(v.Name, "'s Plank") then
+                         v.CanTouch = false
+                        v.CanQuery = false
+                     end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiBubble = Tab2:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
@@ -7275,11 +7292,14 @@ Tab60:AddLabel("------------------------------[ Warning ]-----------------------
 Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
+Tab60:AddParagraph("[ Tired ]","I'm Very Tired of Script and Script Update is slow. Please forgive me because I update slowly")
 Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
 Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ] | Increase Time [ ± ] | Grafting [ = ]")
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 12 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Anti Attack Plank")
 Tab60:AddLabel("--------------[ Day 11 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Get Glove Plank")
 Tab60:AddLabel("--------------[ Day 9 | Months 5 ]--------------")
