@@ -7450,6 +7450,10 @@ AntiBallBaller:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiAttackPlank:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiPingPong:Set(game.Workspace.NoChanged.Value)
 end)
 
