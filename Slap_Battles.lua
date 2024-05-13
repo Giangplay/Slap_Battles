@@ -2622,8 +2622,6 @@ for i,v in pairs(game.Players:GetChildren()) do
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
                  v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                  v.Character.HumanoidRootPart.CanCollide = true
-              elseif v.Character:FindFirstChild("stevebody") ~= nil then
-                 v.Character.HumanoidRootPart.CanCollide = false
               end
           end
      end
@@ -2636,6 +2634,25 @@ wait(0.05)
 SbeveAll:Set(false)
 end
 	end    
+})
+
+Tab14:AddButton({
+	Name = "Sbeve All Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" then
+if game.Players.LocalPlayer.Character:WaitForChild("stevebody") ~= nil then
+for i,v in pairs(game.Players:GetChildren()) do
+         if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+              if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+              end
+          end
+     end
+     end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
 })
 
 Tab14:AddDropdown({
@@ -6729,23 +6746,6 @@ end
 	end    
 })
 
-AntiAttackPlank = Tab2:AddToggle({
-	Name = "Anti Attack Plank",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiPlank = Value
-while _G.AntiPlank do
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if string.find(v.Name, "'s Plank") then
-                         v.CanTouch = false
-                        v.CanQuery = false
-                     end
-                end
-task.wait()
-end
-	end    
-})
-
 AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
@@ -7091,6 +7091,23 @@ end
 	end    
 })
 
+AntiAttackPlank = Tab2:AddToggle({
+	Name = "Anti Attack Plank",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiPlank = Value
+while _G.AntiPlank do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if string.find(v.Name, "'s Plank") and v.Name == "Part" then
+                         v.CanTouch = false
+                        v.CanQuery = false
+                     end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiBubble = Tab2:AddToggle({
 	Name = "Anti Bubble",
 	Default = false,
@@ -7298,13 +7315,16 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 13 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Sbeve All Player")
+Tab60:AddLabel("[ * ] Fix Auto Sbeve All Play")
 Tab60:AddLabel("--------------[ Day 12 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Attack Plank")
 Tab60:AddLabel("--------------[ Day 11 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Get Glove Plank")
 Tab60:AddLabel("--------------[ Day 9 | Months 5 ]--------------")
 Tab60:AddLabel("[ * ] Shows Loading Menu")
-Tab60:AddLabel("[ + ] Sbeve All Player [ Bring Player ]")
+Tab60:AddLabel("[ + ] Auto Sbeve All Player [ Bring Player ]")
 Tab60:AddLabel("--------------[ Day 8 | Months 5 ]--------------")
 Tab60:AddLabel("[ * ] Auto Nuke Potion")
 Tab60:AddLabel("[ - ] Join Map ice")
@@ -7443,10 +7463,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiPie:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiAttackPlank:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
