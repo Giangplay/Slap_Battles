@@ -1193,7 +1193,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:Fi
 task.wait(0.3)
 game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.2)
-if workspace.DEATHBARRIER.CanTouch == false then
+if workspace.DEATHBARRIER.CanTouch == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Please turn off Anti Death Barriers",Image = "rbxassetid://7733658504",Time = 5})
@@ -2083,6 +2083,8 @@ wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 wait(0.2)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ghost equipped, or You have go to lobby",Image = "rbxassetid://7733658504",Time = 5})
 end
 elseif AutoTime ~= "Voodoo + Fish" or Value == false then
 SleepTimeandTimeGhost = 0
@@ -2620,8 +2622,8 @@ if game.Players.LocalPlayer.Character:WaitForChild("stevebody") ~= nil then
 for i,v in pairs(game.Players:GetChildren()) do
          if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                 v.Character.HumanoidRootPart.CanCollide = true
+                 v.Character.HumanoidRootPart.CanCollide = false
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
               end
           end
      end
@@ -2640,17 +2642,18 @@ Tab14:AddButton({
 	Name = "Sbeve All Player",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" then
-if game.Players.LocalPlayer.Character:WaitForChild("stevebody") ~= nil then
+if game.Players.LocalPlayer.Character:WaitForChild("stevebody") then
 for i,v in pairs(game.Players:GetChildren()) do
          if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                 v.Character.HumanoidRootPart.CanCollide = false
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
               end
           end
      end
-     end
+ end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped, or you have Sbeve Transformation",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -5066,6 +5069,52 @@ end
   	end 
 })
 
+Tab7:AddTextbox({
+	Name = "Help Player Get Goofy",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.HelpPlayerGetGoofy = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HelpPlayerGetGoofy.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab7:AddButton({
+	Name = "Start Help Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Confusion" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2133016756) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetGoofy].Character.HumanoidRootPart.CFrame
+wait(0.2)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.HelpPlayerGetGoofy].Character.HumanoidRootPart.Position).Magnitude
+                        if 30 >= Magnitude then
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.HelpPlayerGetGoofy].Character:WaitForChild("HumanoidRootPart"))
+end
+fireclickdetector(workspace.Lobby.Goofy.ClickDetector)
+wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetGoofy].Character.HumanoidRootPart.CFrame
+wait(0.2)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.HelpPlayerGetGoofy].Character.HumanoidRootPart.Position).Magnitude
+                        if 30 >= Magnitude then
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.HelpPlayerGetGoofy].Character:WaitForChild("HumanoidRootPart"))
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Confusion equipped, or you have to go lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 Tab7:AddDropdown({
 	Name = "Will Teleport Help",
 	Default = "Up To You",
@@ -7315,9 +7364,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 17 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Help Player Get Goofy")
 Tab60:AddLabel("--------------[ Day 13 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Sbeve All Player")
-Tab60:AddLabel("[ * ] Fix Auto Sbeve All Play")
+Tab60:AddLabel("[ * ] Fix Auto Sbeve All Player")
 Tab60:AddLabel("--------------[ Day 12 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Attack Plank")
 Tab60:AddLabel("--------------[ Day 11 | Months 5 ]--------------")
