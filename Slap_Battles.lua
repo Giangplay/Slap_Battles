@@ -4771,7 +4771,7 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 elseif _G.HelpPlayerGetHehe == "Enter Retro" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 20000 and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerRetroGo].Character:FindFirstChild("entered") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 50000 and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerRetroGo].Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.CFrame
 wait(0.35)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -4784,7 +4784,7 @@ Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game
 game.ReplicatedStorage.Errorhit:FireServer(game.Players[_G.PlayerRetroGo].Character:WaitForChild("Head"),true)
                 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You have in Lobby | Player [ ".._G.PlayerRetroGo.." ] in arena, or You don't have Glitch equipped, or you have don't have 20K Slap",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You have in Lobby | Player [ ".._G.PlayerRetroGo.." ] in arena, or You don't have Glitch equipped, or you have don't have 50K Slap",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
   	end    
@@ -7210,7 +7210,8 @@ Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 18 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Cannon Ball")
-Tab60:AddLabel("Notify [ Cheeky has been deleted ]")
+Tab60:AddLabel("[ Notify ] Cheeky has been deleted")
+Tab60:AddLabel("[ Notify ] Error Price increase [ 20k => 50k slap ]")
 Tab60:AddLabel("[ * ] Error Glove Slap arua [ I placed it on the bottom to avoid errors ]")
 Tab60:AddLabel("--------------[ Day 17 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Help Player Get Goofy")
