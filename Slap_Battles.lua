@@ -5666,17 +5666,6 @@ end
   	end    
 })
 
-Tab7:AddButton({
-	Name = "Destroy AFK",
-	Callback = function()
-if getconnections then
-for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
-v:Disable() 
-end
-end
-  	end    
-})
-
 Tab7:AddTextbox({
 	Name = "Glove & Glove Tournament",
 	Default = "Use Glove",
@@ -6478,6 +6467,21 @@ end
 	end    
 })
 
+AntiAfk = Tab2:AddToggle({
+	Name = "Anti Afk",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiAfk = Value
+for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
+if _G.AntiAfk then
+v:Disable()
+else
+v:Enable()
+end
+end
+	end    
+})
+
 AntiObby = Tab2:AddToggle({
 	Name = "Anti Obby",
 	Default = false,
@@ -7208,6 +7212,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 19 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Anti Afk | [ - ] Delete Afk")
 Tab60:AddLabel("--------------[ Day 18 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Cannon Ball")
 Tab60:AddLabel("[ Notify ] Cheeky has been deleted")
@@ -7331,6 +7337,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiKick:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
