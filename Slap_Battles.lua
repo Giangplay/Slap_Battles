@@ -884,7 +884,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9
 elseif Value == "Click Button" then
 if game:GetService("ReplicatedStorage").Assets.Retro.Map then
 game.ReplicatedStorage.Assets.Retro.Map.Parent = workspace
-wait(0.7)
+wait(1.5)
 fireclickdetector(workspace.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
 else
 fireclickdetector(workspace.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
@@ -7214,6 +7214,7 @@ Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ 
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 21 | Months 5 ]--------------")
+Tab60:AddLabel("[ * ] Fix Click Button [ Retro ]")
 Tab60:AddLabel("[ + ] Anti Lure [ Not tested yet ] | [ - ] Anti Pie [ Don't Work ]")
 Tab60:AddLabel("--------------[ Day 19 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Afk | [ - ] Delete Afk")
@@ -10014,4 +10015,4 @@ TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
     gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
-end
+end 
