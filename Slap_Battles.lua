@@ -583,7 +583,7 @@ KeypadSpawn = Tab:AddLabel("Keypad Spawn [ No ]")
 else
 KeypadSpawn = Tab:AddLabel("Keypad Spawn [ Yes ]")
 end
-if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") == nil then
 GoldenSlappleSpawn = Tab:AddLabel("Golden Slapple Spawn [ No ]")
 else
 GoldenSlappleSpawn = Tab:AddLabel("Golden Slapple Spawn [ Yes ]")
@@ -648,7 +648,7 @@ KeypadSpawn:Set("Keypad Spawn [ No ]")
 else
 KeypadSpawn:Set("Keypad Spawn [ Yes ]")
 end
-if game.Workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChildWhichIsA("TouchTransmitter") == nil then
+if game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") == nil then
 GoldenSlappleSpawn:Set("Golden Slapple Spawn [ No ]")
 else
 GoldenSlappleSpawn:Set("Golden Slapple Spawn [ Yes ]")
@@ -6602,16 +6602,16 @@ end
 	end    
 })
 
-AntiPie = Tab2:AddToggle({
-	Name = "Anti Pie",
+AntiLure = Tab2:AddToggle({
+	Name = "Anti Lure",
 	Default = false,
 	Callback = function(Value)
-		_G.AntiPie = Value
-while _G.AntiPie do
+		_G.AntiLure = Value
+while _G.AntiLure do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Pie" then
-                        v.CanTouch = false
-                        v.CanQuery = false
+                    if string.find(v.Name, "_lure") and v:FindFirstChild("Root") and v:FindFirstChild("watercircle") then
+                        v.Root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                        v.watercircle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
 task.wait()
@@ -7207,11 +7207,14 @@ Tab60:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab60:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab60:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
 Tab60:AddParagraph("[ Tired ]","I'm Very Tired of Script and Script Update is slow. Please forgive me because I update slowly")
+Tab60:AddParagraph("[ Script Giang ]","This script was created by Giang, but there is a problem when creating a feature but no one testing no one can help me see if it works | I'm really sorry that I couldn't do the feature and it all failed and didn't work | I hope everyone understands me")
 Tab60:AddLabel("----------------[ There Are Signs That Indicate ]----------------")
 Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ × ] | Cut [ ÷ ] | Reduced Time [ – ] | Increase Time [ ± ] | Grafting [ = ]")
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 21 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Anti Lure [ Not tested yet ] | [ - ] Anti Pie [ Don't Work ]")
 Tab60:AddLabel("--------------[ Day 19 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Anti Afk | [ - ] Delete Afk")
 Tab60:AddLabel("--------------[ Day 18 | Months 5 ]--------------")
@@ -7376,7 +7379,7 @@ AntiMail:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiPie:Set(game.Workspace.NoChanged.Value)
+AntiLure:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -9791,7 +9794,6 @@ game:GetService("TeleportService"):Teleport(6403373529)
   	end 
 })
 end
-wait(0.5)
 gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
@@ -9976,7 +9978,6 @@ gloveHits = {
     ["God's Hand"] = game.ReplicatedStorage.Godshand,
     ["Error"] = game.ReplicatedStorage.Errorhit
 }
-
 ----Transparency----
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
