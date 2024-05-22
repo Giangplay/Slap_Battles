@@ -198,8 +198,8 @@ wait(0.01)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.04)
@@ -3151,11 +3151,34 @@ _G.GetTeleport = Value
 	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Slap Farm",
+	Default = "Normal",
+	Options = {"Normal","Fast × Slap Farm [ Lag ]"},
+	Callback = function(Value)
+_G.GetSlapGot = Value
+	end    
+})
+
+Tab14:AddSlider({
+	Name = "Slap Farm",
+	Min = 1,
+	Max = 2000,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Slap",
+	Callback = function(Value)
+		_G.SlapFarmGet = Value
+	end    
+})
+
 ReplicaAndReverse = Tab14:AddToggle({
 	Name = "Reverse + Replica Slap Farm",
 	Default = false,
 	Callback = function(Value)
 		ReplicaAndReverseGet = Value 
+if _G.GetSlapGot == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 if ReplicaAndReverseGet == true then 
 coroutine.wrap(SpamReplicaReverse)() 
@@ -3164,7 +3187,31 @@ while ReplicaAndReverseGet do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game:GetService("ReplicatedStorage").ReplicaHit:FireServer(v:WaitForChild("Head"),true)
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+                 end
+end
+task.wait()
+end
+elseif ReplicaAndReverseGet == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndReverse:Set(false) 
+end
+elseif _G.GetSlapGot == "Fast × Slap Farm [ Lag ]" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if ReplicaAndReverseGet == true then 
+coroutine.wrap(SpamReplicaReverse)() 
+end
+while ReplicaAndReverseGet do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+for i = 1,_G.SlapFarmGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+end
 end
                  end
 end
@@ -3174,7 +3221,8 @@ elseif ReplicaAndReverseGet == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
 ReplicaAndReverse:Set(false) 
-end 
+end
+end
 	end    
 })
 
@@ -3183,6 +3231,7 @@ ReplicaBlinkReverseBaller = Tab14:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.ReplicaBlinkReverseBaller = Value 
+if _G.GetSlapGot == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 if _G.ReplicaBlinkReverseBaller == true then 
 coroutine.wrap(SpamReplicaBlinkReverseAndBaller)() 
@@ -3195,13 +3244,38 @@ game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
 end
                  end
 end
-task.wait(0.07)
+task.wait()
 end
 elseif _G.ReplicaBlinkReverseBaller == true then 
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
 ReplicaAndReverse:Set(false) 
-end 
+end
+elseif _G.GetSlapGot == "Fast × Slap Farm [ Lag ]" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if _G.ReplicaBlinkReverseBaller == true then 
+coroutine.wrap(SpamReplicaBlinkReverseAndBaller)() 
+end
+while _G.ReplicaBlinkReverseBaller do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+for i = 1,_G.SlapFarmGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+end
+end
+                 end
+end
+task.wait()
+end
+elseif _G.ReplicaBlinkReverseBaller == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndReverse:Set(false) 
+end
+end
 	end    
 })
 
@@ -7282,6 +7356,8 @@ Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ 
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 23 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Custom farm slap [ Min 1 ] [ Max 2000 ] [ You have Lag ]")
+Tab60:AddLabel("[ + ] Choose Slap Farm [ Normal ] [ Fast × Slap Farm ]")
 Tab60:AddLabel("[ + ] Auto Farm Replica + Blink + Reverse | Baller")
 Tab60:AddLabel("--------------[ Day 22 | Months 5 ]--------------")
 Tab60:AddLabel("[ = ] Kill Player | Random Kill Player [ Hitbox Size 50 ]")
