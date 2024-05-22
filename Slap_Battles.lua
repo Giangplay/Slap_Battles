@@ -5182,10 +5182,9 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoFarmSlap = Value
 while _G.AutoFarmSlap do
-pcall(function()
 for i,v in next, game.Players:GetChildren() do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 task.wait(0.5)
@@ -5195,7 +5194,6 @@ end
 end
 end
 end
-end)
 task.wait()
 end
 	end    
@@ -5993,7 +5991,7 @@ while SlapAura and SlapAuraFriend == "Fight" do
 pcall(function()
 for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
@@ -6020,7 +6018,7 @@ while SlapAura and SlapAuraFriend == "Not Fight" do
 pcall(function()
 for i,v in next, game.Players:GetChildren() do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
@@ -6069,7 +6067,7 @@ ShukuchiFriend = Value
 })
 
 AutoShukuchi = Tab7:AddToggle({
-	Name = "Auto Shukuchi",
+	Name = "Auto Shukuchi Player",
 	Default = false,
 	Callback = function(Value)
          _G.AutoShukuchi = Value
@@ -6078,7 +6076,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
                 while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Fight" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachShukuchi >= Magnitude then
@@ -6100,7 +6098,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
                 while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Not Fight" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachShukuchi >= Magnitude then
@@ -7355,6 +7353,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 24 | Months 5 ]--------------")
+Tab60:AddLabel("[ * ] Slap Aura")
+Tab60:AddLabel("[ * ] Auto Shukuchi Player")
 Tab60:AddLabel("--------------[ Day 23 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Custom farm slap [ Min 1 ] [ Max 2000 ] [ You have Lag ]")
 Tab60:AddLabel("[ + ] Choose Slap Farm [ Normal ] [ Fast Ã— Slap Farm ]")
