@@ -126,6 +126,65 @@ fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
+function SpamReplicaBlinkReverseAndBaller()
+if _G.GetTeleport == "Up To You" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+while _G.ReplicaBlinkReverseBaller do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+wait()
+fireclickdetector(workspace.Lobby.Blink.ClickDetector)
+wait(0.05)
+if _G.GetTeleport == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.08)
+game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
+wait(0.05)
+fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(0.09)
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+wait(2.5)
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+wait(0.1)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+wait(0.1)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+if _G.GetTeleport == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.3)
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+wait(20)
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+wait(3.75)
+fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+wait(0.8)
+end
+end
+end
+
 function SpamReplicaReverse()
 if _G.GetTeleport == "Up To You" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -3112,6 +3171,33 @@ end
 task.wait(0.07)
 end
 elseif ReplicaAndReverseGet == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+ReplicaAndReverse:Set(false) 
+end 
+	end    
+})
+
+ReplicaBlinkReverseBaller = Tab14:AddToggle({
+	Name = "Reverse + Replica & Blink | Baller Slap Farm",
+	Default = false,
+	Callback = function(Value)
+		_G.ReplicaBlinkReverseBaller = Value 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if _G.ReplicaBlinkReverseBaller == true then 
+coroutine.wrap(SpamReplicaBlinkReverseAndBaller)() 
+end
+while _G.ReplicaBlinkReverseBaller do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+                 end
+end
+task.wait(0.07)
+end
+elseif _G.ReplicaBlinkReverseBaller == true then 
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
 ReplicaAndReverse:Set(false) 
@@ -7195,6 +7281,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 23 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Auto Farm Replica + Blink + Reverse | Baller")
 Tab60:AddLabel("--------------[ Day 22 | Months 5 ]--------------")
 Tab60:AddLabel("[ = ] Kill Player | Random Kill Player [ Hitbox Size 50 ]")
 Tab60:AddLabel("[ - ] Beatdown All Player")
