@@ -164,7 +164,7 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.5)
+wait(0.04)
 if _G.GetTeleport == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 elseif _G.GetTeleport == "SafeSpotBox 1.0" then
@@ -213,6 +213,44 @@ end
 wait(0.1)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+end
+wait(3.75)
+fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+wait(0.8)
+end
+end
+end
+
+function SpamBlinkReverse()
+if _G.GetTeleport == "Up To You" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+while _G.BlinkAndReverseGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+game:GetService("ReplicatedStorage"):WaitForChild("ReverseAbility"):FireServer()
+wait()
+fireclickdetector(workspace.Lobby.Blink.ClickDetector)
+wait(0.01)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.04)
+if _G.GetTeleport == "Up To You" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.1)
+game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
+wait(50.05)
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
 end
@@ -1066,7 +1104,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Wo
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Please turn off Anti Death Barriers",Image = "rbxassetid://7733658504",Time = 5})
 end
-task.wait(0.2)
+wait(0.1)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
@@ -1078,7 +1116,7 @@ Tab3:AddButton({
 	Name = "Get Glove Plank",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 97, 0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 97, 4)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.3)
@@ -1141,7 +1179,7 @@ game:GetService("ReplicatedStorage").DigEvent:FireServer({["index"] = 2,["cf"] =
 until game.Workspace:FindFirstChild("TreasureChestFolder") ~= nil and game.Workspace.TreasureChestFolder:FindFirstChild("TreasureChest") ~= nil
 wait(1)
 game.Workspace.TreasureChestFolder.TreasureChest.OpenRemote:FireServer()
-wait(1.9)
+wait(0.9)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
 wait(3.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
@@ -1587,26 +1625,20 @@ AutoFarmGetAlchemist = Tab3:AddToggle({
 _G.AutoFarmAlchemist = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
 while _G.AutoFarmAlchemist do
-if game.Players.LocalPlayer.Backpack:FindFirstChild("Plague") == nil then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-end
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false and RandomPlayer.Character:FindFirstChild("rock") == nil 
 Target = RandomPlayer
-if game.Players.LocalPlayer.Backpack:FindFirstChild("Plague") then
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Plague)
-end
-wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,10)
 wait(0.2)
 game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
-task.wait(0.08)
+task.wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
 task.wait(7.4)
 end
 elseif _G.AutoFarmAlchemist == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
 AutoFarmGetAlchemist:Set(false)
 end
 	end    
@@ -2046,7 +2078,7 @@ end
 Tab14:AddDropdown({
 	Name = "Prop Ability",
 	Default = "",
-	Options = {"Barrel", "Bench", "Brick", "Bush 1", "Bush 2", "Cauldron", "Diamond", "Frenzy Bot", "Gift", "GoldenSlapple", "Imp", "Jet Orb", "Larry", "MEGAROCK", "Moai Head", "Obby 1", "Obby 2", "Obby 3", "Obby 4", "Obby 5", "Orange", "Oven", "Phase Heart", "Phase Orb", "Rock 1", "Rock 2", "Rock 3", "Sentry", "Slapple", "Snow Peep", "Snow Turret", "bob", "rob"},
+	Options = {"Barrel", "Bench", "Brick", "Bush 1", "Bush 2", "Cauldron", "Diamond", "Frenzy Bot", "Gift", "GoldenSlapple", "Imp", "Jet Orb", "Larry", "MEGAROCK", "Moai Head", "Obby 1", "Obby 2", "Obby 3", "Obby 4", "Obby 5", "Orange", "Oven", "Phase Heart", "Phase Orb", "Rock 1", "Rock 2", "Rock 3", "Sentry", "Slapple", "Snow Peep", "Snow Turret", "bob", "rob","Sbeve"},
 	Callback = function(Value)
 PropAbility = Value
 	end    
@@ -2236,54 +2268,6 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Beatdown Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-BeatdownPlayer = game.Players.LocalPlayer.Name
-else
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-BeatdownPlayer = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..BeatdownPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-	end	  
-})
-
-BeatdownPlayerGet = Tab14:AddToggle({
-	Name = "Auto Beatdown Player",
-	Default = false,
-	Callback = function(Value)
-if BeatdownPlayer == nil then
-BeatdownPlayer = game.Players.LocalPlayer.Name
-end
-BeatdownSpam = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" then
-while BeatdownSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beatdown" do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-game:GetService("ReplicatedStorage").beatdownevent:FireServer("standhit",{["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,["hit"] = game.Players[BeatdownPlayer].Character.HumanoidRootPart})
-task.wait(0.3)
-end
-elseif BeatdownSpam == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Beatdown equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-BeatdownPlayerGet:Set(false)
-end
-	end    
-})
-
-Tab14:AddTextbox({
 	Name = "Spam Rojo Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -2366,7 +2350,7 @@ end
 Tab14:AddSlider({
 	Name = "Charge Explosion",
 	Min = 0,
-	Max = 500,
+	Max = 100,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -2526,15 +2510,14 @@ Tab14:AddButton({
 if _G.BlackHoleCre == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
-wait(0.05)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.01)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
+task.wait(0.5)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2551,15 +2534,14 @@ end
 elseif _G.BlackHoleCre == "Teleport Cannon Island" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
-wait(0.05)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.01)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
+task.wait(0.5)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2588,15 +2570,14 @@ end
 elseif _G.BlackHoleCre == "Teleport Cannon Island + Black Hole" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2147429609) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
-wait(0.05)
+wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.01)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,10,0)
+task.wait(0.5)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -3144,7 +3125,7 @@ end
 
 Tab14:AddDropdown({
 	Name = "Will Teleport Farm",
-	Default = "Up To You",
+	Default = "SafeSpotBox 1.0",
 	Options = {"Up To You","SafeSpotBox 1.0","SafeSpotBox 2.0"},
 	Callback = function(Value)
 _G.GetTeleport = Value
@@ -3221,6 +3202,59 @@ elseif ReplicaAndReverseGet == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
 wait(0.05)
 ReplicaAndReverse:Set(false) 
+end
+end
+	end    
+})
+
+BlinkAndReverse = Tab14:AddToggle({
+	Name = "Reverse + Blink Slap Farm",
+	Default = false,
+	Callback = function(Value)
+		_G.BlinkAndReverseGet = Value 
+if _G.GetSlapGot == "Normal" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if _G.BlinkAndReverseGet == true then 
+coroutine.wrap(BlinkAndReverse)() 
+end
+while _G.BlinkAndReverseGet do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+                 end
+end
+task.wait()
+end
+elseif _G.BlinkAndReverseGet == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+BlinkAndReverse:Set(false) 
+end
+elseif _G.GetSlapGot == "Fast Ã— Slap Farm [ Lag ]" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
+if ReplicaAndReverseGet == true then 
+coroutine.wrap(BlinkAndReverse)() 
+end
+while _G.BlinkAndReverseGet do 
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+for i, v in pairs(workspace:GetChildren()) do 
+                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+for i = 1,_G.SlapFarmGet do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"),true)
+end
+end
+end
+                 end
+end
+task.wait(0.07)
+end
+elseif _G.BlinkAndReverseGet == true then 
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Reverse equipped or you have in lobby.",Image = "rbxassetid://7733658504",Time = 5}) 
+wait(0.05)
+BlinkAndReverse:Set(false) 
 end
 end
 	end    
@@ -5600,6 +5634,11 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golem" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("recall")
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Spoonful" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx",["origin"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-3.141592502593994, 1.0475832223892212, 3.141592502593994),["vfx"] = "jumptween",["sendplr"] = game:GetService("Players").LocalPlayer})
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx",["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-2.1319260597229004, 0.651054859161377, 2.3744168281555176),["vfx"] = "crash"})
+task.wait()
+end
 	end    
 })
 
@@ -6481,7 +6520,7 @@ end
 	end    
 })
 
-AntiPyschoVoid = Tab12:AddToggle({
+Tab12:AddToggle({
 	Name = "Anti Void Obby Pyscho",
 	Default = false,
 	Callback = function(Value)
@@ -7353,7 +7392,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 25 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Slap Aura Glove | Ability")
 Tab60:AddLabel("--------------[ Day 24 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Auto Farm Slap [ Blink + Reverse ]")
+Tab60:AddLabel("[ * ] Auto Create Black Hole")
 Tab60:AddLabel("[ * ] Slap Aura")
 Tab60:AddLabel("[ * ] Auto Shukuchi Player")
 Tab60:AddLabel("--------------[ Day 23 | Months 5 ]--------------")
@@ -8106,12 +8149,22 @@ CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.S
 CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
-local Combat = Tab:AddSection({Name = "Combat"})
-game:GetService("RunService").RenderStepped:Connect(function()
+
+Tab:AddToggle({
+	Name = "Auto Set Info",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSetInfo = Value
+while _G.AutoSetInfo do
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth:Set("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
-end)
+task.wait()
+end
+	end    
+})
+
+local Combat = Tab:AddSection({Name = "Combat"})
 
 Tab:AddToggle({
 	Name = "Damage Boss",
@@ -9878,11 +9931,21 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
-game:GetService("RunService").RenderStepped:Connect(function()
+
+Tab:AddToggle({
+	Name = "Auto Set Info",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSetInfo = Value
+while _G.AutoSetInfo do
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing:Set("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 TimeServer:Set("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
-end)
+task.wait()
+end
+	end    
+})
+
 local InfoServer = Tab:AddSection({Name = "Misc"})
 
 Tab:AddButton({
@@ -10033,6 +10096,7 @@ gloveHits = {
     ["Sbeve"] = game.ReplicatedStorage.GeneralHit,
     ["Plank"] = game.ReplicatedStorage.GeneralHit,
     ["Golem"] = game.ReplicatedStorage.GeneralHit,
+    ["Spoonful"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
