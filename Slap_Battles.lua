@@ -3215,7 +3215,7 @@ BlinkAndReverse = Tab14:AddToggle({
 if _G.GetSlapGot == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 if _G.BlinkAndReverseGet == true then 
-coroutine.wrap(BlinkAndReverse)() 
+coroutine.wrap(SpamBlinkReverse)() 
 end
 while _G.BlinkAndReverseGet do 
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
@@ -3235,7 +3235,7 @@ end
 elseif _G.GetSlapGot == "Fast × Slap Farm [ Lag ]" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
 if ReplicaAndReverseGet == true then 
-coroutine.wrap(BlinkAndReverse)() 
+coroutine.wrap(SpamBlinkReverse)() 
 end
 while _G.BlinkAndReverseGet do 
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
