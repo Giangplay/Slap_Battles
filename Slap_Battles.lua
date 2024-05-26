@@ -6486,11 +6486,70 @@ end
 	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Tycoon Auto",
+	Default = "All",
+	Options = {"Other","All","Your"},
+	Callback = function(Value)
+_G.TycoonAuto = Value
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "Auto Click Tycoon",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoClickTycoon = Value
+if _G.TycoonAuto == "Other" then
+while _G.AutoClickTycoon and _G.TycoonAuto == "Other" do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") ~= v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
+end
+end
+task.wait()
+end
+elseif _G.TycoonAuto == "All" then
+while _G.AutoClickTycoon and _G.TycoonAuto == "All" do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
+end
+end
+task.wait()
+end
+elseif _G.TycoonAuto == "Your" then
+while _G.AutoClickTycoon and _G.TycoonAuto == "Your" do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("Click") then
+fireclickdetector(v.Click.ClickDetector, 0)
+fireclickdetector(v.Click.ClickDetector, 1)
+end
+end
+task.wait()
+end
+end
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Auto Destroy Tycoon",
 	Default = false,
 	Callback = function(Value)
 		_G.AutoDestroyTycoon = Value
+if _G.TycoonAuto == "Other" then
+while _G.AutoDestroyTycoon and _G.TycoonAuto == "Other" do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") ~= v.Name:match(game.Players.LocalPlayer.Name) and string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
+fireclickdetector(v.Destruct.ClickDetector, 0)
+fireclickdetector(v.Destruct.ClickDetector, 1)
+end
+end
+task.wait()
+end
+elseif _G.TycoonAuto == "All" then
 while _G.AutoDestroyTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
@@ -6500,22 +6559,16 @@ end
 end
 task.wait()
 end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Auto Click Tycoon",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoClickTycoon = Value
-while _G.AutoClickTycoon do
-for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
-fireclickdetector(v.Click.ClickDetector, 0)
-fireclickdetector(v.Click.ClickDetector, 1)
+elseif _G.TycoonAuto == "Your" then
+while _G.AutoDestroyTycoon do
+for _,v in pairs(game.Workspace:GetChildren()) do
+if v.Name:match(game.Players.LocalPlayer.Name)  and v:FindFirstChild("Destruct") then
+fireclickdetector(v.Destruct.ClickDetector, 0)
+fireclickdetector(v.Destruct.ClickDetector, 1)
 end
 end
 task.wait()
+end
 end
 	end    
 })
@@ -7392,6 +7445,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 26 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Choose Auto Tycoon")
 Tab60:AddLabel("--------------[ Day 25 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Slap Aura Glove | Ability")
 Tab60:AddLabel("[ + ] Blink + Reverse")
