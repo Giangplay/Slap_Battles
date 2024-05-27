@@ -3234,7 +3234,7 @@ BlinkAndReverse:Set(false)
 end
 elseif _G.GetSlapGot == "Fast × Slap Farm [ Lag ]" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Reverse" then
-if ReplicaAndReverseGet == true then 
+if _G.BlinkAndReverseGet == true then 
 coroutine.wrap(SpamBlinkReverse)() 
 end
 while _G.BlinkAndReverseGet do 
