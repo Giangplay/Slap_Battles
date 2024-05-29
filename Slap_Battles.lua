@@ -1047,6 +1047,9 @@ wait(0.05)
 end
 wait(1.5)
 repeat
+if game.Players.LocalPlayer.Character.Humanoid.Health == 0 or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+break
+end
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid.Health ~= 0
@@ -1230,6 +1233,7 @@ if teleportFunc then
             game.Loaded:Wait()
         end
         repeat wait() until game.Players.LocalPlayer
+wait(5)
  repeat wait() until game.Workspace:FindFirstChild("Map"):FindFirstChild("CodeBrick")
 if game.Workspace.Map.CodeBrick.SurfaceGui:FindFirstChild("IMGTemplate") then
 game.Workspace.Map.CodeBrick.SurfaceGui.IMGTemplate.Name = "1st"
@@ -1386,17 +1390,17 @@ for i,v in pairs(game.Workspace.Map.CodeBrick.SurfaceGui:GetChildren()) do
                     end
                 end
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
-task.wait(1)
+task.wait(0.07)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[first].ClickDetector)
-task.wait(1)
+task.wait(0.07)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[second].ClickDetector)
-task.wait(1)
+task.wait(0.07)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[third].ClickDetector)
-task.wait(1)
+task.wait(0.07)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[fourth].ClickDetector)
-task.wait(1)
+task.wait(0.07)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
-task.wait(0.5)
+task.wait(2)
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
 end
@@ -1564,16 +1568,13 @@ end
 Tab3:AddButton({
 	Name = "Get Glove [Redacted]",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
+if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
 Door = 0
 for i = 1, 10 do
 Door = Door + 1
-if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
-else
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
 wait(3.75)
-end
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have 5000 slap, or you have Owner bagde",Image = "rbxassetid://7733658504",Time = 5})
@@ -2517,7 +2518,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.5)
+task.wait(0.1)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2541,7 +2542,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.5)
+task.wait(0.1)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2577,7 +2578,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.5)
+task.wait(0.1)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2611,6 +2612,22 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You d
 end
 end
   	end    
+})
+
+Tab14:AddToggle({
+	Name = "Auto Teleport Black Hole",
+	Default = false,
+	Callback = function(Value)
+_G.TeleportBlackHole = Value
+while _G.TeleportBlackHole do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+end
+end
+task.wait()
+end
+	end    
 })
 
 Tab14:AddButton({
@@ -7445,6 +7462,10 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 29 | Months 5 ]--------------")
+Tab60:AddLabel("[ + ] Auto Teleport Black Hole")
+Tab60:AddLabel("[ * ] Create Black Hole")
+Tab60:AddLabel("[ + | Â± ] Add Time 5 Second [ Get Badge ]")
 Tab60:AddLabel("--------------[ Day 26 | Months 5 ]--------------")
 Tab60:AddLabel("[ + ] Choose Auto Tycoon")
 Tab60:AddLabel("--------------[ Day 25 | Months 5 ]--------------")
