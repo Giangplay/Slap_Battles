@@ -1,1 +1,1 @@
-print("in Not Work")
+print("In my banned")
