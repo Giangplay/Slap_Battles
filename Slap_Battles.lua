@@ -565,231 +565,6 @@ end
 
 ---Anti Void---
 
-if workspace:FindFirstChild("BobWalk1") == nil then
-local BobWalk = Instance.new("Part", workspace)
-BobWalk.Name = "BobWalk1"
-BobWalk.CFrame = CFrame.new(-458.458, -8.97129, 1.83554)
-BobWalk.Size = Vector3.new(1139.26, 1.5, 2048)
-BobWalk.Material = "ForceField"
-BobWalk.Anchored = true
-BobWalk.CanCollide = false
-BobWalk.Transparency = 1
-
-local BobWalk1 = Instance.new("Part", BobWalk)
-BobWalk1.Name = "BobWalk2"
-BobWalk1.CFrame = CFrame.new(23.2798, -19.8447, 1.83554)
-BobWalk1.Size = Vector3.new(1139.26, 1.5, 2048)
-BobWalk1.Material = "ForceField"
-BobWalk1.Anchored = true
-BobWalk1.CanCollide = false
-BobWalk1.Transparency = 1
-
-local BobWalk2 = Instance.new("Part", BobWalk)
-BobWalk2.Name = "BobWalk3"
-BobWalk2.CFrame = CFrame.new(23.2798, -19.8447, 1.83554)
-BobWalk2.Size = Vector3.new(1139.26, 1.5, 2048)
-BobWalk2.Material = "ForceField"
-BobWalk2.Anchored = true
-BobWalk2.Rotation = Vector3.new(0, 0, 171.728)
-BobWalk2.CanCollide = false
-BobWalk2.Transparency = 1
-
-local BobWalk3 = Instance.new("Part", BobWalk)
-BobWalk3.Name = "BobWalk4"
-BobWalk3.CFrame = CFrame.new(178.719, -18.9417, 1.83554)
-BobWalk3.Size = Vector3.new(143.948, 1.5, 2048)
-BobWalk3.Material = "ForceField"
-BobWalk3.Anchored = true
-BobWalk3.Rotation = Vector3.new(0, 0, 144.782)
-BobWalk3.CanCollide = false
-BobWalk3.Transparency = 1
-
-local BobWalk4 = Instance.new("Part", BobWalk)
-BobWalk4.Name = "BobWalk5"
-BobWalk4.CFrame = CFrame.new(-309.153, 15.4762, 1.83554)
-BobWalk4.Size = Vector3.new(110.135, 2.74, 2048)
-BobWalk4.Material = "ForceField"
-BobWalk4.Anchored = true
-BobWalk4.CanCollide = false
-BobWalk4.Transparency = 1
-
-local BobWalk5 = Instance.new("Part", BobWalk)
-BobWalk5.Name = "BobWalk6"
-BobWalk5.CFrame = CFrame.new(-690.66, 47.8217, 1.83554)
-BobWalk5.Size = Vector3.new(674.856, 0.604849, 2048)
-BobWalk5.Material = "ForceField"
-BobWalk5.Anchored = true
-BobWalk5.CanCollide = false
-BobWalk5.Transparency = 1
-
-local BobWalk6 = Instance.new("Part", BobWalk)
-BobWalk6.Name = "BobWalk7"
-BobWalk6.CFrame = CFrame.new(402.965, 29.9136, 222.31)
-BobWalk6.Size = Vector3.new(379.889, 1.5, 160.884)
-BobWalk6.Material = "ForceField"
-BobWalk6.Anchored = true
-BobWalk6.CanCollide = false
-BobWalk6.Transparency = 1
-
-local BobWalk7 = Instance.new("Part", BobWalk)
-BobWalk7.Name = "BobWalk8"
-BobWalk7.CFrame = CFrame.new(174.972, 5.34897, 222.31)
-BobWalk7.Size = Vector3.new(89.761, 1.5, 160.884)
-BobWalk7.Material = "ForceField"
-BobWalk7.Anchored = true
-BobWalk7.Rotation = Vector3.new(0, 0, -147.002)
-BobWalk7.CanCollide = false
-BobWalk7.Transparency = 1
-
-local BobWalk8 = Instance.new("Part", BobWalk)
-BobWalk8.Name = "BobWalk9"
-BobWalk8.CFrame = CFrame.new(402.965, 29.9136, 121.982)
-BobWalk8.Size = Vector3.new(379.889, 1.5, 39.7731)
-BobWalk8.Material = "ForceField"
-BobWalk8.Anchored = true
-BobWalk8.CanCollide = false
-BobWalk8.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge"
-Wedge.CFrame = CFrame.new(212.612, 20.3341, 121.982)
-Wedge.Size = Vector3.new(39.773, 0.239058, 0.817832)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(32.796, -89.997, 0.001)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge1"
-Wedge.CFrame = CFrame.new(185.07, 1.85193, 121.982)
-Wedge.Size = Vector3.new(1, 67.1434, 39.773)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(0, 0, 122.793)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge2"
-Wedge.CFrame = CFrame.new(184.391, 2.15125, 141.368)
-Wedge.Size = Vector3.new(1, 0.239058, 66.3256)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(-32.796, 89.997, 0.001)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge3"
-Wedge.CFrame = CFrame.new(212.612, 20.3341, 141.368)
-Wedge.Size = Vector3.new(1, 0.239058, 0.817832)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(32.796, -89.997, 0.001)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge4"
-Wedge.CFrame = CFrame.new(174.836, 5.55865, 141.871)
-Wedge.Size = Vector3.new(1, 36.089, 82.1865)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(29.777, 117.594, 75.066)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge5"
-Wedge.CFrame = CFrame.new(212.884, 30.1233, 121.985)
-Wedge.Size = Vector3.new(1, 0.852056, 39.773)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(29.777, -62.406, -75.066)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local BobWalk8 = Instance.new("Part", BobWalk)
-BobWalk8.Name = "BobWalk10"
-BobWalk8.CFrame = CFrame.new(362.615, -19.6864, 26.9817)
-BobWalk8.Size = Vector3.new(460.589, 1.5, 39.7731)
-BobWalk8.Material = "ForceField"
-BobWalk8.Anchored = true
-BobWalk8.CanCollide = false
-BobWalk8.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge6"
-Wedge.CFrame = CFrame.new(172.67, 5.49165, 74.8158)
-Wedge.Size = Vector3.new(1, 74.2306, 80.7)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(-0.001, 90.003, 48.072)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("Part", BobWalk)
-Wedge.Name = "Part"
-Wedge.CFrame = CFrame.new(402.965, 5.49165, 74.8158)
-Wedge.Size = Vector3.new(74.2306, 1, 379.889)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(0.001, -90.002, -138.076)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge7"
-Wedge.CFrame = CFrame.new(165.965, 2.12956, 77.8576)
-Wedge.Size = Vector3.new(1, 13.5361, 99.8001)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(-26.893, 55.612, 108.64)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge8"
-Wedge.CFrame = CFrame.new(206.315, 26.9296, 105.471)
-Wedge.Size = Vector3.new(1, 13.5361, 9.84772)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(26.893, -124.388, -108.64)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge9"
-Wedge.CFrame = CFrame.new(168.442, 2.46394, 125.815)
-Wedge.Size = Vector3.new(1, 0.999992, 82.1865)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(-29.779, 117.596, -13.193)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge10"
-Wedge.CFrame = CFrame.new(165.427, 2.9722, 77.8847)
-Wedge.Size = Vector3.new(1, 88.6679, 47.7629)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(30.453, -62.225, 102.906)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-
-local Wedge = Instance.new("WedgePart", BobWalk)
-Wedge.Name = "Wedge11"
-Wedge.CFrame = CFrame.new(134.084, -17.8584, 94.3954)
-Wedge.Size = Vector3.new(1, 88.6679, 34.4297)
-Wedge.Material = "ForceField"
-Wedge.Anchored = true
-Wedge.Rotation = Vector3.new(-30.453, 117.775, -102.906)
-Wedge.CanCollide = false
-Wedge.Transparency = 1
-end
-
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
 VoidPart.Position = Vector3.new(-80.5, -10.005, -246.5)
@@ -6876,25 +6651,20 @@ game.Workspace.NoChanged.Value = Value
 	end    
 })
 
-Tab2:AddDropdown({
-	Name = "Anti Void",
-	Default = "Normal",
-	Options = {"Normal","Bob"},
-	Callback = function(Value)
-_G.AntiVoidGot = Value
-	end    
-})
-
 Tab2:AddSlider({
 	Name = "Transparency Anti Void",
-	Min = 0.1,
+	Min = 0,
 	Max = 1,
 	Default = 0.5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 0.1,
-	ValueName = "Time",
+	ValueName = "Transparency",
 	Callback = function(Value)
-		_G.Transparency = Value
+_G.Transparency = Value
+if _G.AntiVoid == true then
+game.Workspace["VoidPart"].Transparency = Value
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = Value
+end
 	end    
 })
 
@@ -6902,35 +6672,15 @@ AntiVoid = Tab2:AddToggle({
 	Name = "Anti Void",
 	Default = false,
 	Callback = function(Value)
-if _G.AntiVoidGot == "Normal" then
+_G.AntiVoid = Value
 game.Workspace["VoidPart"].CanCollide = Value
 game.Workspace["VoidPart"]["TAntiVoid"].CanCollide = Value
-if Value == true then
-game.Workspace["VoidPart"].Transparency = _G.Transparency
-game.Workspace["VoidPart"]["TAntiVoid"].Transparency = _G.Transparency
-else
+if Value == false then
 game.Workspace["VoidPart"].Transparency = 1
 game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 1
-end
-elseif _G.AntiVoidGot == "Bob" then
-game.Workspace["BobWalk1"].CanCollide = Value
-game.Workspace["VoidPart"]["TAntiVoid"].CanCollide = Value
-for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
-v.CanCollide = Value
-end
-if Value == true then
-game.Workspace["BobWalk1"].Transparency = _G.Transparency
-game.Workspace["VoidPart"]["TAntiVoid"].Transparency = _G.Transparency
-for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
-v.Transparency = _G.Transparency
-end
 else
-for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
-v.Transparency = 1
-end
-game.Workspace["BobWalk1"].Transparency = 1
-game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 1
-end
+game.Workspace["VoidPart"].Transparency = _G.Transparency
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = _G.Transparency
 end
 	end    
 })
@@ -7734,6 +7484,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 2 | Months 6 ]--------------")
+Tab60:AddLabel("[ - ] Anti Void V2 [ Not work ]")
+Tab60:AddLabel("[ - ] Anti Void Choose [ Not work ]")
 Tab60:AddLabel("--------------[ Day 1 | Months 6 ]--------------")
 Tab60:AddLabel("[ + ] Anti Void V2")
 Tab60:AddLabel("[ + ] Anti Void Choose")
