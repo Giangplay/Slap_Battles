@@ -5651,6 +5651,10 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golem" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("recall")
 task.wait()
 end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Grab" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Spoonful" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx",["origin"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-3.141592502593994, 1.0475832223892212, 3.141592502593994),["vfx"] = "jumptween",["sendplr"] = game:GetService("Players").LocalPlayer})
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx",["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-2.1319260597229004, 0.651054859161377, 2.3744168281555176),["vfx"] = "crash"})
@@ -10175,6 +10179,7 @@ gloveHits = {
     ["Plank"] = game.ReplicatedStorage.GeneralHit,
     ["Golem"] = game.ReplicatedStorage.GeneralHit,
     ["Spoonful"] = game.ReplicatedStorage.GeneralHit,
+    ["Grab"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
