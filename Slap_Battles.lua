@@ -704,13 +704,12 @@ end
 GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position In Your [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 
-Tab:AddToggle({
+AutoSetInfo = Tab:AddToggle({
 	Name = "Auto Set Info",
-	Default = true,
+	Default = false,
 	Callback = function(Value)
 _G.AutoSetInfo = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.AutoSetInfo then
+while _G.AutoSetInfo do
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer:Set("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
@@ -750,8 +749,8 @@ GoldenSlappleSpawn:Set("Golden Slapple Spawn [ No ]")
 else
 GoldenSlappleSpawn:Set("Golden Slapple Spawn [ Yes ]")
 end
+task.wait()
 end
-end)
 	end    
 })
 
@@ -999,13 +998,21 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Repr
 elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie [ Quests Hitman ]" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame * CFrame.new(0,5,0)
-wait(0.93)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(1)
+if game:GetService("ReplicatedStorage").RepressedMemoriesMap ~= nil then
+game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
+wait(1.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
+wait(0.5)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
-wait(3)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(1.5)
+game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
+wait(0.5)
+fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
+wait(1.5)
+game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
+end
 end
 	end    
 })
@@ -1099,9 +1106,9 @@ local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
 Target = RandomPlayer
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame
-task.wait(0.3)
-game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.2)
+game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
+task.wait(0.15)
 if workspace.DEATHBARRIER.CanTouch == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 else
@@ -1119,6 +1126,7 @@ Tab3:AddButton({
 	Name = "Get Glove Plank",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 97, 4)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
@@ -1128,6 +1136,8 @@ wait(3.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 106, -6)
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge [ Don't turn on shiftlock ]",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -1645,142 +1655,6 @@ end
 	end    
 })
 
-Tab3:AddToggle({
-	Name = "Auto Exit Run",
-	Default = false,
-	Callback = function(Value)
-_G.AutoExit = Value
-while _G.AutoExit do
-if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in pairs(workspace:GetDescendants()) do
-    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
-        local doors = v.Doors
-        for _, y in ipairs(doors:GetChildren()) do
-            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = y.Hitbox.CFrame
-                break
-            end
-        end
-    end
-end
-end
-task.wait()
-end
-	end    
-})
-
-Tab5:AddSlider({
-	Name = "WalkSpeed",
-	Min = 20,
-	Max = 1000,
-	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "WalkSpeed",
-	Callback = function(Value)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-Walkspeed = Value
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "Walkspeed Set Auto",
-	Default = false,
-	Callback = function(Value)
-		KeepWalkspeed = Value
-            while KeepWalkspeed do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
-                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
-                end
-task.wait()
-            end
-	end    
-})
-
-Tab5:AddSlider({
-	Name = "JumpPower",
-	Min = 50,
-	Max = 1000,
-	Default = 50,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "JumpPower",
-	Callback = function(Value)
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-Jumppower = Value
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "Jumppower Set Auto",
-	Default = false,
-	Callback = function(Value)
-		KeepJumppower = Value
-            while KeepJumppower do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= Jumppower then
-                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
-                end
-task.wait()
-            end
-	end    
-})
-
-Tab5:AddSlider({
-	Name = "Hip Height",
-	Min = 0,
-	Max = 100,
-	Default = 0,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Hip Height",
-	Callback = function(Value)
-game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
-HipHeight = Value
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "Hip Height Set Auto",
-	Default = false,
-	Callback = function(Value)
-		KeepHipHeight = Value
-           while KeepHipHeight do
-              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
-                  game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
-              end
-task.wait()
-         end
-	end    
-})
-
-Tab5:AddSlider({
-	Name = "Gravity",
-	Min = 0,
-	Max = 600,
-	Default = 196,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Gravity",
-	Callback = function(Value)
-game.Workspace.Gravity = Value
-Gravity = Value
-	end    
-})
-
-Tab5:AddToggle({
-	Name = "Gravity Set Auto",
-	Default = false,
-	Callback = function(Value)
-		KeepGravity = Value
-           while KeepGravity do
-              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace.Gravity ~= nil and game.Workspace.Gravity ~= Gravity then
-                  game.Workspace.Gravity = Gravity
-              end
-task.wait()
-         end
-	end    
-})
-
 Tab3:AddDropdown({
 	Name = "Farm Bob",
 	Default = "Slow",
@@ -1915,21 +1789,17 @@ Glitchfarm = Tab3:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.Glitchfarm = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 while _G.Glitchfarm do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" and game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+if game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "JetOrb" or v.Name == "PhaseOrb" then
 game.ReplicatedStorage.Errorhit:FireServer(v)
                     end
                 end
             end
+        end
 task.wait()
-end
-elseif _G.Glitchfarm == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Error equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-Glitchfarm:Set(false)
 end
 	end    
 })
@@ -2046,7 +1916,7 @@ end
 while Brickfarm and AutoBrick == "Fast" do
 game:GetService("ReplicatedStorage").lbrick:FireServer()
 game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
-task.wait(2)
+wait(1.5)
 end
 elseif Brickfarm == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Brick equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -2073,6 +1943,118 @@ OrionLib:MakeNotification({Name = "Error",Content = "You need enter erane, or 7 
 wait(0.05)
 AutoTycoon:Set(false)
 end
+	end    
+})
+
+Tab5:AddSlider({
+	Name = "WalkSpeed",
+	Min = 20,
+	Max = 1000,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "WalkSpeed",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+Walkspeed = Value
+	end    
+})
+
+Tab5:AddToggle({
+	Name = "Walkspeed Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepWalkspeed = Value
+            while KeepWalkspeed do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
+                end
+task.wait()
+            end
+	end    
+})
+
+Tab5:AddSlider({
+	Name = "JumpPower",
+	Min = 50,
+	Max = 1000,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JumpPower",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+Jumppower = Value
+	end    
+})
+
+Tab5:AddToggle({
+	Name = "Jumppower Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepJumppower = Value
+            while KeepJumppower do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= Jumppower then
+                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
+                end
+task.wait()
+            end
+	end    
+})
+
+Tab5:AddSlider({
+	Name = "Hip Height",
+	Min = 0,
+	Max = 100,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hip Height",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+HipHeight = Value
+	end    
+})
+
+Tab5:AddToggle({
+	Name = "Hip Height Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepHipHeight = Value
+           while KeepHipHeight do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
+                  game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
+              end
+task.wait()
+         end
+	end    
+})
+
+Tab5:AddSlider({
+	Name = "Gravity",
+	Min = 0,
+	Max = 600,
+	Default = 196,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(Value)
+game.Workspace.Gravity = Value
+Gravity = Value
+	end    
+})
+
+Tab5:AddToggle({
+	Name = "Gravity Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepGravity = Value
+           while KeepGravity do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace.Gravity ~= nil and game.Workspace.Gravity ~= Gravity then
+                  game.Workspace.Gravity = Gravity
+              end
+task.wait()
+         end
 	end    
 })
 
@@ -2518,7 +2500,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.1)
+task.wait(0.06)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2542,7 +2524,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.1)
+task.wait(0.06)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2578,7 +2560,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.1)
+task.wait(0.06)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2678,7 +2660,7 @@ end
 end
 if targetPlayer then
 PlayerTeleport = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKick.." ]",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerTeleport.." ]",Image = "rbxassetid://7733658504",Time = 5})
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2702,7 +2684,7 @@ if _G.TeleportOldPlace == "Yes" then
 OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.45)
+wait(2.683)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
 task.wait(0.5)
 if _G.TeleportOldPlace == "Yes" then
@@ -2767,7 +2749,7 @@ end
 })
 
 Tab14:AddButton({
-	Name = "Start Kick Player Recall",
+	Name = "Kick Player Recall",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2775,11 +2757,39 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(0.35)
+task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-task.wait(2.45)
+wait(2.682)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
-task.wait(0.5)
+task.wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Kick Random Player Recall",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(0.25)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+wait(2.682)
+local players = game.Players:GetChildren()
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+task.wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = true
@@ -5959,8 +5969,7 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 AntiCooldown = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if AntiCooldown then
+while AntiCooldown do
 local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
 local localscript = tool:FindFirstChildOfClass("LocalScript")
@@ -5969,8 +5978,8 @@ localscriptclone = localscript:Clone()
 localscriptclone:Clone()
 localscript:Destroy()
 localscriptclone.Parent = tool
+task.wait()
 end
-end)
 	end    
 })
 
@@ -6711,11 +6720,11 @@ AntiAdmin = Tab2:AddToggle({
 AntiMods = Value
 while AntiMods do
 for i,v in pairs(game.Players:GetChildren()) do
-if v:GetRankInGroup(9950771) >= 2 then
-_G.AntiKick = false
-game.Players.LocalPlayer:Kick("High Rank Player Detected.".." [ "..v.Name.." ]")
-break
-end
+        if v:GetRankInGroup(9950771) >= 2 then
+         _G.AntiKick = false
+     game.Players.LocalPlayer:Kick("High Rank Player Detected.".." [ "..v.Name.." ]")
+   break
+     end
 end
 task.wait()
 end
@@ -6760,22 +6769,22 @@ AntiObby = Tab2:AddToggle({
 		_G.AntiObby = Value
 while _G.AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
-if v.CanTouch == true then
-v.CanTouch = false
-end
-end
-end
+          if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+             if v.CanTouch == true then
+                 v.CanTouch = false
+             end
+         end
+     end
 task.wait()
 end
 if _G.AntiObby == false then
 for _, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
-if v.CanTouch == false then
-v.CanTouch = true
-end
-end
-end
+          if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+              if v.CanTouch == false then
+                  v.CanTouch = true
+             end
+         end
+    end
 end
 	end    
 })
@@ -6974,25 +6983,6 @@ end
 	end    
 })
 
-AntiDruid = Tab2:AddToggle({
-	Name = "Anti Druid",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiDruid = Value
-while _G.AntiDruid do
-if game.Workspace:FindFirstChild("Vines_Bin") and game.Workspace.Vines_Bin:FindFirstChild("VineHitbox") then
-      for i,v in pairs(game.Workspace:GetChildren()) do
-                          if v.Name == "Vines_Bin" and v:FindFirstChild("VineHitbox") ~= nil then
-                              v:FindFirstChild("VineHitbox").CanTouch = false
-                              v:FindFirstChild("VineHitbox").CanQuery = false
-                          end
-                     end
-                 end
-task.wait()
-end
-	end    
-})
-
 AntiConveyor = Tab2:AddToggle({
 	Name = "Anti Conveyor",
 	Default = false,
@@ -7082,6 +7072,30 @@ for i,v in pairs(game.Workspace:GetChildren()) do
                        gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
                  end
             end
+task.wait()
+end
+	end    
+})
+
+AntiRun = Tab2:AddToggle({
+	Name = "Anti Run",
+	Default = false,
+	Callback = function(Value)
+_G.AutoExit = Value
+while _G.AutoExit do
+if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
+for _, v in pairs(workspace:GetDescendants()) do
+    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
+        local doors = v.Doors
+        for _, y in ipairs(doors:GetChildren()) do
+            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = y.Hitbox.CFrame
+                break
+            end
+        end
+    end
+end
+end
 task.wait()
 end
 	end    
@@ -7464,7 +7478,7 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "[ Destroy GUI ] | [ Destroy Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
@@ -7487,6 +7501,13 @@ Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 2 | Months 6 ]--------------")
 Tab60:AddLabel("[ - ] Anti Void V2 [ Not work ]")
 Tab60:AddLabel("[ - ] Anti Void Choose [ Not work ]")
+Tab60:AddLabel("[ * ] Auto Set Info")
+Tab60:AddLabel("[ = ] Get Plank [ Old Teleport ]")
+Tab60:AddLabel("[ + ] Kick Random Player Recall")
+Tab60:AddLabel("[ ± ] Kick Player Recall [ Follow the right time to kick ]")
+Tab60:AddLabel("[ + ] Anti Run | [ - ] Auto Exit Run")
+Tab60:AddLabel("[ - ] Anti Druid [ Sry don't work ]")
+Tab60:AddLabel("[ * | All ] Delete Toggle | [ * | All ] Auto Set Info")
 Tab60:AddLabel("--------------[ Day 1 | Months 6 ]--------------")
 Tab60:AddLabel("[ + ] Anti Void V2")
 Tab60:AddLabel("[ + ] Anti Void Choose")
@@ -7636,6 +7657,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiPortal:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+AntiRun:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -7817,6 +7842,18 @@ Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local Fps = Tab:AddSection({Name = "Fps You"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
+
+AutoSetInfo = Tab:AddToggle({
+	Name = "Auto Set Info",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSetInfo = Value
+while _G.AutoSetInfo do
+CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+task.wait()
+end
+	end    
+})
 
 Tab:AddButton({
 	Name = "Get Elude",
@@ -8124,23 +8161,14 @@ game:GetService("TeleportService"):Teleport(9020359053)
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
-
----GetRun---
-game:GetService("RunService").RenderStepped:Connect(function()
-CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-end)
 elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = (GameName.." - ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -8199,15 +8227,11 @@ game:GetService("TeleportService"):Teleport(game.PlaceId)
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -8257,7 +8281,7 @@ CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
-Tab:AddToggle({
+AutoSetInfo = Tab:AddToggle({
 	Name = "Auto Set Info",
 	Default = false,
 	Callback = function(Value)
@@ -8405,15 +8429,11 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -8854,15 +8874,11 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -9538,15 +9554,14 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 AntiNull = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if AntiNull then
+while AntiNull do
 for i,v in pairs(game.Workspace.Mobs:GetChildren()) do
 if v.Name == "Imp" and v:FindFirstChild("Body") then
 game:GetService("ReplicatedStorage").b:FireServer(v.Body)
 end
 end
+task.wait()
 end
-end)
 	end    
 })
 
@@ -9555,8 +9570,7 @@ Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 AntiCooldown = Value
-game:GetService("RunService").RenderStepped:Connect(function()
-if AntiCooldown then
+while AntiCooldown do
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
@@ -9566,8 +9580,8 @@ localscriptclone = localscript:Clone()
 localscriptclone:Clone()
 localscript:Destroy()
 localscriptclone.Parent = tool
+task.wait()
 end
-end)
 	end    
 })
 
@@ -9649,15 +9663,11 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -10010,15 +10020,11 @@ end
 })
 
 Tab2:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -10039,7 +10045,7 @@ CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.Serve
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
-Tab:AddToggle({
+AutoSetInfo = Tab:AddToggle({
 	Name = "Auto Set Info",
 	Default = false,
 	Callback = function(Value)
@@ -10071,15 +10077,11 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ All Toggle Gui ]",
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-if v.Name == "ToggleUi" then
-v:Destroy()
-end
-end
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
@@ -10117,7 +10119,56 @@ wait(1.5)
 game:GetService("TeleportService"):Teleport(6403373529)
   	end 
 })
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
+  	end 
+})
+end
+--------------------------------------------------------
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") == nil then
+local TOGGLE = {}
+TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
+TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
+
+TOGGLE["Ui"].Name = "ToggleUi"
+TOGGLE["Ui"].ResetOnSpawn = false
+
+TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
+TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
+TOGGLE["DaIcon"].Draggable = true
+TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
+TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
+TOGGLE["DaIcon"].BorderColor3 = Color3.fromRGB(255, 186, 117)
+task.spawn(function()
+while true do
+	for i = 0, 255, 4 do
+		TOGGLE["DaIcon"].BorderColor3 = Color3.fromHSV(i/256, 1, 1)
+		TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromHSV(i/256, .5, .8)
+		wait()
+	end
+end
+end)
+TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
+    gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
+end)
+TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
+end 
+----Transparency----
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+v.BackgroundTransparency = 0.2
+                    end
+                end
+gethui().Orion.Name = "OrionEdited"
+AutoSetInfo:Set(true)
+------------------------------------------------------------------------
 gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
@@ -10304,40 +10355,3 @@ gloveHits = {
     ["God's Hand"] = game.ReplicatedStorage.Godshand,
     ["Error"] = game.ReplicatedStorage.Errorhit
 }
-----Transparency----
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.2
-                    end
-                end
-gethui().Orion.Name = "OrionEdited"
------------------------------------------------------------
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") == nil then
-local TOGGLE = {}
-TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
-TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
-TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"]);
-
-TOGGLE["Ui"].Name = "ToggleUi"
-TOGGLE["Ui"].ResetOnSpawn = false
-
-TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
-TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
-TOGGLE["DaIcon"].Draggable = true
-TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
-TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
-TOGGLE["DaIcon"].BorderColor3 = Color3.fromRGB(255, 186, 117)
-task.spawn(function()
-while true do
-	for hue = 0, 255, 4 do
-		TOGGLE["DaIcon"].BorderColor3 = Color3.fromHSV(hue/256, 1, 1)
-		TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromHSV(hue/256, .5, .8)
-		wait()
-	end
-end
-end)
-TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
-    gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
-end)
-TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
-end 
