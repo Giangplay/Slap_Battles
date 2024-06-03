@@ -11,6 +11,7 @@ if not game:IsLoaded() then
 end
 repeat wait() until game.Players.LocalPlayer
 wait(3.5)
+_G.AutoExecuter = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     ]])
 end
