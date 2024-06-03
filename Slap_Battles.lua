@@ -1109,7 +1109,7 @@ end
 Tab3:AddDropdown({
 	Name = "Retro Obby",
 	Default = "",
-	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn", "Click Button"},
+	Options = {"Get Badge", "Show All", "Off Show All", "Teleport Spawn 1", "Teleport Spawn 2", "Teleport Spawn 3", "Click Button"},
 	Callback = function(Value)
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
@@ -1117,10 +1117,14 @@ elseif Value == "Show All" then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 elseif Value == "Off Show All" then
 game.Workspace.Retro.Parent = game.ReplicatedStorage.Assets
-elseif Value == "Teleport Spawn" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-16872.9, -6.1, 4774.94)
+elseif Value == "Teleport Spawn 1" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn.CFrame
+elseif Value == "Teleport Spawn 2" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn_stage2.CFrame
+elseif Value == "Teleport Spawn 3" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn_stage3.CFrame
 elseif Value == "Click Button" then
-if game:GetService("ReplicatedStorage").Assets.Retro ~= nill then
+if game:GetService("ReplicatedStorage").Assets.Retro ~= nil then
 game.ReplicatedStorage.Assets.Retro.Parent = workspace
 wait(1.5)
 fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
