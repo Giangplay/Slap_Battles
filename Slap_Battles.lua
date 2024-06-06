@@ -10,7 +10,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 repeat wait() until game.Players.LocalPlayer
-wait(3.5)
 _G.AutoExecuter = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     ]])
@@ -1139,7 +1138,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retr
 elseif Value == "Teleport Spawn 3" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn_stage3.CFrame
 elseif Value == "Click Button" then
-if game:GetService("ReplicatedStorage").Assets.Retro ~= nil then
+if game:GetService("ReplicatedStorage").Assets.Retro then
 game.ReplicatedStorage.Assets.Retro.Parent = workspace
 wait(1.5)
 fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
@@ -1166,21 +1165,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Repr
 elseif Value == "Teleport Bob Plushie" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 elseif Value == "Click Bob Plushie [ Quests Hitman ]" then
-if game:GetService("ReplicatedStorage").RepressedMemoriesMap ~= nil then
-game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
-wait(1.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
-wait(0.5)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
-wait(1.5)
-game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
-else
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
-wait(0.5)
-fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
-wait(1.5)
-game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
-end
 end
 	end    
 })
@@ -2813,6 +2798,15 @@ end
   	end    
 })
 
+Tab14:AddDropdown({
+	Name = "Teleport Old Place",
+	Default = "Yes",
+	Options = {"Yes", "No","Player"},
+	Callback = function(Value)
+_G.TeleportOldPlace = Value
+	end    
+})
+
 Tab14:AddTextbox({
 	Name = "Teleport Player Recall",
 	Default = "Username",
@@ -2833,15 +2827,6 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
 end
 	end	  
-})
-
-Tab14:AddDropdown({
-	Name = "Teleport Old Place",
-	Default = "Yes",
-	Options = {"Yes", "No","Player"},
-	Callback = function(Value)
-_G.TeleportOldPlace = Value
-	end    
 })
 
 Tab14:AddButton({
@@ -2865,6 +2850,51 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equip
 end
   	end    
 })
+
+Tab14:AddTextbox({
+	Name = "Grab Player Teleport",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+GrabPlayerGot = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..GrabPlayerGot.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Grab Player Teleport",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Grab" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[GrabPlayerGot].Character:FindFirstChild("entered") then
+if _G.TeleportOldPlace == "Yes" then
+OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[GrabPlayerGot].Character.HumanoidRootPart.CFrame
+wait(0.15)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+wait(0.15)
+if _G.TeleportOldPlace == "Yes" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLG
+elseif _G.TeleportOldPlace == "Player" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Grab equipped, or you have to go Arena, or player go to Arena",mage = "rbxasdetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 
 Tab14:AddButton({
 	Name = "Kick Player Za Hando",
@@ -2908,8 +2938,8 @@ break
 end
 end
 if targetPlayer then
-PlayerKick = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKick.." ]",Image = "rbxassetid://7733658504",Time = 5})
+PlayerKickRecall = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKickRecall.." ]",Image = "rbxassetid://7733658504",Time = 5})
 else
 OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2919,7 +2949,7 @@ end
 Tab14:AddButton({
 	Name = "Kick Player Recall",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKickRecall].Character:FindFirstChild("entered") and game.Players[PlayerKickRecall].Character:FindFirstChild("HumanoidRootPart") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
@@ -2928,7 +2958,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310
 task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
 wait(2.682)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKick].Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKickRecall].Character.HumanoidRootPart.CFrame
 task.wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
@@ -4391,27 +4421,6 @@ end)
 	end    
 })
 
-Tab7:AddButton({
-	Name = "View Testing Server",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9020359053)
-  	end    
-})
-
 Tab7:AddDropdown({
 	Name = "Godmode",
 	Default = "",
@@ -5162,53 +5171,6 @@ end
 })
 
 Tab7:AddTextbox({
-	Name = "Help Player Join Ice",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.PlayerJoinMapGo = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PlayerJoinMapGo.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-Tab7:AddButton({
-	Name = "Player Help Join Ice",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ice" and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 1286358044443937) and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerJoinMapGo].Character:FindFirstChild("entered") and game.Players[_G.PlayerJoinMapGo].leaderstats.Glove.Value == "Shard" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.CFrame
-wait(0.5)
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.Position).Magnitude
-                        if 30 >= Magnitude then
-game.ReplicatedStorage.IceHit:FireServer(game.Players[_G.PlayerJoinMapGo].Character:WaitForChild("Head"),true)
-                end
-fireclickdetector(game.Workspace.Lobby["Frostbite"].ClickDetector)
-wait(0.1)
-for i = 1,5 do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerJoinMapGo].Character.HumanoidRootPart.CFrame
-wait(0.01)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-wait(0.02)
-end
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0.5)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You in Lobby | [ ".._G.PlayerJoinMapGo.." ] in arena | You haven't Ice equip | you haven't badge Ice Essence | [ ".._G.PlayerJoinMapGo.." ] haven't Shard equip",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab7:AddTextbox({
 	Name = "Help Player Get Quake",
 	Default = "Username",
 	TextDisappear = false,
@@ -5822,7 +5784,7 @@ game:GetService("ReplicatedStorage").BONK:FireServer()
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Frostbite" do
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(0)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(2)
 task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Golem" do
@@ -6823,6 +6785,7 @@ game.Workspace["Psycho"]["Kraken"].Transparency = Value
 elseif _G.AntiVoidChoose == "Psycho" then
 game.Workspace["Psycho"].Transparency = Value
 elseif _G.AntiVoidChoose == "Bob" then
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = Value
 game.Workspace["BobWalk1"].Transparency = Value
 for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
 v.Transparency = _G.Transparency
@@ -6875,16 +6838,19 @@ else
 game.Workspace["Psycho"].Transparency = 1
 end
 elseif _G.AntiVoidChoose == "Bob" then
+game.Workspace["VoidPart"]["TAntiVoid"].CanCollide = Value
 game.Workspace["BobWalk1"].CanCollide = Value
 for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
 v.CanCollide = Value
 end
 if Value == true then
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = _G.Transparency
 game.Workspace["BobWalk1"].Transparency = _G.Transparency
 for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
 v.Transparency = _G.Transparency
 end
 else
+game.Workspace["VoidPart"]["TAntiVoid"].Transparency = 1
 game.Workspace["BobWalk1"].Transparency = 1
 for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
 v.Transparency = 1
@@ -7034,31 +7000,6 @@ for i,v in pairs(game.Workspace:GetChildren()) do
                     if v:FindFirstChild("ClonedBall") then
                         v:FindFirstChild("ClonedBall").CanTouch = false
                         v:FindFirstChild("ClonedBall").CanCollide = true
-                    end
-                end
-task.wait()
-end
-	end    
-})
-
-AntiPingPong = Tab2:AddToggle({
-	Name = "Anti Ping Pong",
-	Default = false,
-	Callback = function(Value)
-	_G.AntiPingPong = Value
-if _G.AntiPingPong == false then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
-                        v.CanTouch = true
-                        v.CanQuery = true
-                    end
-                end
-end
-while _G.AntiPingPong do
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and string.find(v.Name, "_PingPongBall") then
-                        v.CanTouch = false
-                        v.CanQuery = false
                     end
                 end
 task.wait()
@@ -7698,6 +7639,11 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 6 | Months 6 ]--------------")
+Tab60:AddLabel("[ - ] Anti Ping Pong [ Get Not work sry, my bad create anti ]")
+Tab60:AddLabel("[ + ] Grab Player Teleport")
+Tab60:AddLabel("[ - ] Windows Slap Testing")
+Tab60:AddLabel("[ - ] Leak Server Testing")
 Tab60:AddLabel("--------------[ Day 3 | Months 6 ]--------------")
 Tab60:AddLabel("[ + ] Anti Void V2 [ Come back ]")
 Tab60:AddLabel("[ + ] Anti Void Choose [ Come back ]")
@@ -7850,11 +7796,6 @@ Tab60:AddLabel("[ + ] Auto Create Black Hole")
 Tab60:AddParagraph("[ + ] Select Teleports When Create Black Hole","[ Normal ] | [ Teleport Cannon Island ] | [ Teleport Cannon Island + Black Hole ]")
 Tab60:AddLabel("--------------[ Day 6 | Months 4 ]--------------")
 Tab60:AddLabel("[ - ] Auto Nuke Player Lamp Glove")
-Tab60:AddLabel("----------------[ Slap Battles | Eternal Bob ]----------------")
-Tab60:AddLabel("[ + ] Anti VFX")
-Tab60:AddLabel("----------------[ Slap Battles | Slap Royale ]----------------")
-Tab60:AddLabel("[ + ] Get All Item")
-Tab60:AddLabel("[ * ] Anti Ice")
 Tab60:AddLabel("------------------------------[ The End ]------------------------------")
 
 ---ToggleAllAnti---
@@ -7900,10 +7841,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiAttackPlank:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiPingPong:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -8364,72 +8301,6 @@ game.CoreGui.RobloxLoadingGUI:Destroy()
     ]])
 end
 game:GetService("TeleportService"):Teleport(9020359053)
-  	end    
-})
-
-Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
-	Callback = function()
-OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
-  	end 
-})
-elseif game.PlaceId == 9020359053 or game.PlaceId == 9412268818 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = (GameName.." - ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
-
-local Tab = Window:MakeTab({
-	Name = "Main",
-	Icon = "rbxassetid://4370345144",
-	PremiumOnly = false
-})
-
-Tab:AddButton({
-	Name = "Testing Server Freecam",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/SB%20Freecam"))()
-      end    
-})
-
-Tab:AddButton({
-	Name = "Testing Server Freecam [ Mobile ]",
-	Callback = function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Giangplay/Script/main/Freecam_mobile.lua'))()
-       end    
-})
-
-Tab:AddButton({
-	Name = "Infinite Yield",
-	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Infinite%20Yield%20but%20with%20secure%20dex'))()
-  	end    
-})
-
-Tab:AddButton({
-	Name = "TP back to Slap Battles",
-	Callback = function()
-      		game:GetService("TeleportService"):Teleport(6403373529)
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Rejoin Server",
-	Callback = function()
-      		local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
-        game:GetService("RunService").RenderStepped:Connect(function()
-            game:GetService("GuiService"):ClearError()
-            game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(game.PlaceId)
   	end    
 })
 
