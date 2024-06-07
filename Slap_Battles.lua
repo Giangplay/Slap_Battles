@@ -1782,6 +1782,60 @@ end
   	end 
 })
 
+Tab3:AddButton({
+	Name = "Get The Schlop",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2130032297) and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,2,35)
+wait(0.3)
+game:GetService("ReplicatedStorage").CloudAbility:FireServer()
+fireclickdetector(workspace.Lobby.fish.ClickDetector)
+wait(0.2)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.3)
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.Sit == false then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.VehicleSeat.CFrame
+                    end
+               end
+          end
+          wait(0.7)
+for _ = 1, 10 do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("VehicleSeat") then
+                        v.VehicleSeat.CFrame = CFrame.new(245, 129, -91)
+                    end
+               end
+task.wait()
+end
+wait(0.4)
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
+wait(0.5)
+repeat task.wait()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+break
+end
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.ClassName == "Part" and v.Name ~= "Humanoid" then
+v.CFrame = game.workspace.Arena.Plate.CFrame
+end
+end
+end
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have equiped Cloud | Badge Fish | You are in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
 AutoFarmGetAlchemist = Tab3:AddToggle({
 	Name = "Auto Farm Alchemist",
 	Default = false,
@@ -2653,7 +2707,7 @@ fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.06)
+task.wait(0.08)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
@@ -2886,15 +2940,12 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 wait(0.15)
 if _G.TeleportOldPlace == "Yes" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLG
-elseif _G.TeleportOldPlace == "Player" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Grab equipped, or you have to go Arena, or player go to Arena",mage = "rbxasdetid://7733658504",Time = 5})
 end
   	end 
 })
-
 
 Tab14:AddButton({
 	Name = "Kick Player Za Hando",
@@ -5437,9 +5488,13 @@ while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "bob" do
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(9)
 end
-while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" or game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" do
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Kraken" do
 game:GetService("ReplicatedStorage").KrakenArm:FireServer()
 wait(5)
+end
+while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" do
+game:GetService("ReplicatedStorage").KrakenArm:FireServer()
+task.wait()
 end
 while On and game.Players.LocalPlayer.leaderstats.Glove.Value == "Psycho" do
 game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer({["grabEnabled"] = true})
@@ -6649,7 +6704,7 @@ end
 Tab7:AddDropdown({
 	Name = "Tycoon Auto",
 	Default = "All",
-	Options = {"Other","All","Your"},
+	Options = {"All","Your"},
 	Callback = function(Value)
 _G.TycoonAuto = Value
 	end    
@@ -6660,17 +6715,7 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoClickTycoon = Value
-if _G.TycoonAuto == "Other" then
-while _G.AutoClickTycoon and _G.TycoonAuto == "Other" do
-for _,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅTycoon") ~= v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("Click") then
-fireclickdetector(v.Click.ClickDetector, 0)
-fireclickdetector(v.Click.ClickDetector, 1)
-end
-end
-task.wait()
-end
-elseif _G.TycoonAuto == "All" then
+if _G.TycoonAuto == "All" then
 while _G.AutoClickTycoon and _G.TycoonAuto == "All" do
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Click") then
@@ -6699,17 +6744,7 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoDestroyTycoon = Value
-if _G.TycoonAuto == "Other" then
-while _G.AutoDestroyTycoon and _G.TycoonAuto == "Other" do
-for _,v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅTycoon") ~= v.Name:match(game.Players.LocalPlayer.Name) and string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
-fireclickdetector(v.Destruct.ClickDetector, 0)
-fireclickdetector(v.Destruct.ClickDetector, 1)
-end
-end
-task.wait()
-end
-elseif _G.TycoonAuto == "All" then
+if _G.TycoonAuto == "All" then
 while _G.AutoDestroyTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
 if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
@@ -7399,14 +7434,18 @@ AntiDefend = Tab2:AddToggle({
 if _G.NoclipBarrier == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if string.find(v.Name, "ÅBarrier") then
-                        v.CanCollide = true
+                        if v.CanCollide == false then
+                            v.CanCollide = true
+                         end
                     end
                 end
-            end
+           end
 while _G.NoclipBarrier do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if string.find(v.Name, "ÅBarrier") then
-                         v.CanCollide = false
+                        if v.CanCollide == true then
+                            v.CanCollide = false
+                         end
                      end
                 end
 task.wait()
@@ -7421,9 +7460,9 @@ AntiAttackPlank = Tab2:AddToggle({
 	_G.AntiPlank = Value
 while _G.AntiPlank do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if string.find(v.Name, "'s Plank") and v.Name == "Part" then
+                    if string.find(v.Name, "'s Plank") and v.ClassName == "Part" then
                          v.CanTouch = false
-                        v.CanQuery = false
+                         v.CanQuery = false
                      end
                 end
 task.wait()
@@ -7534,11 +7573,13 @@ end)
 end)
 end
 while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
+if game.Players.LocalPlayers.Character.Humanoid.Heath ~= 0 then
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Ragdolled") then
 if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
+end
 end
 end
 task.wait()
@@ -7602,7 +7643,7 @@ end
 
 Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend")
 Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese")
-Tab15:AddParagraph("Owner Zalo","[ Tấn Lộc ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
+Tab15:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
 
 Tab15:AddButton({
 	Name = "Copy Join Zalo",
@@ -7639,6 +7680,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ �
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 7 | Months 6 ]--------------")
+Tab60:AddLabel("[ + ] Get The Schlop Glove")
 Tab60:AddLabel("--------------[ Day 6 | Months 6 ]--------------")
 Tab60:AddLabel("[ - ] Anti Ping Pong [ Get Not work sry, my bad create anti ]")
 Tab60:AddLabel("[ + ] Grab Player Teleport")
@@ -10334,6 +10377,7 @@ gloveHits = {
     ["Golem"] = game.ReplicatedStorage.GeneralHit,
     ["Spoonful"] = game.ReplicatedStorage.GeneralHit,
     ["Grab"] = game.ReplicatedStorage.GeneralHit,
+    ["the schlop"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
