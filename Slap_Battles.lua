@@ -1694,25 +1694,20 @@ if teleportFunc then
             game.Loaded:Wait()
         end
         repeat wait() until game.Players.LocalPlayer
-    task.wait(5)
-Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-for i = 1,Time do
-Time = Time - 1
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
-wait(1)
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Wait for in spawn Glove.",Icon = "rbxassetid://7733658504",Duration = 2})
+while true do
+if game.Workspace.Maze:FindFirstChild("ClickDetector") then
+fireclickdetector(game.Workspace.Maze.ClickDetector)
 end
-for i,v in pairs(workspace.Maze:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
-end
+task.wait()
 end
     ]])
 end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
+game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter.CFrame
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
 for i = 1, #digits do
@@ -1914,11 +1909,15 @@ end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
-repeat task.wait() until game.Players.LocalPlayer.Character
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
-game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Workspace.Lobby.Teleport1.Position
+repeat wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+for i,v in pairs(game.Workspace.Lobby:GetChildren()) do
+if v.Name == "Teleport1" and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = v.Position
 end
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character then
+end
+end
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 task.wait(0.2)
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
@@ -5994,60 +5993,6 @@ end)
   	end    
 })
 
-Tab7:AddSlider({
-	Name = "Time Give Kill Reaper",
-	Min = 1,
-	Max = 20,
-	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Kill Reaper",
-	Callback = function(Value)
-		_G.GiveKillReaper = Value
-	end    
-})
-
-Tab7:AddButton({
-	Name = "Give Player Kill Reaper",
-	Callback = function()
-if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
-for i = 1, _G.GiveKillReaper do
-game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Player hit you for glove reaper.",Image = "rbxassetid://7733658504",Time = 5})
-end
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v.Name == "DeathMark" then
-                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(v)
-                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
-                    end 
-                end
-  	end    
-})
-
-Tab7:AddToggle({
-	Name = "Auto Give Player Kill Reaper",
-	Default = false,
-	Callback = function(Value)
-_G.AutoGiveKill = Value
-while _G.AutoGiveKill do
-if game.Players.LocalPlayer.Character:FindFirstChild("DeathMark") then
-for i = 1, _G.GiveKillReaper do
-game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
-end
-end
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v.Name == "DeathMark" then
-                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(v)
-                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
-                    end 
-                end
-task.wait()
-end
-	end    
-})
-
 Tab7:AddButton({
 	Name = "Destroy All Tycoon",
 	Callback = function()
@@ -7680,6 +7625,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 9 | Months 6 ]--------------")
+Tab60:AddLabel("[ - ] Give Kill Reaper [ Patched Give ]")
 Tab60:AddLabel("--------------[ Day 7 | Months 6 ]--------------")
 Tab60:AddLabel("[ + ] Get The Schlop Glove")
 Tab60:AddLabel("--------------[ Day 6 | Months 6 ]--------------")
