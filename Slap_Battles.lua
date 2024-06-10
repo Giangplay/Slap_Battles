@@ -1365,7 +1365,6 @@ local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_o
                 game.Loaded:Wait()
             end
             repeat wait() until game.Players.LocalPlayer
-wait(4.6)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
 wait(0.7)
 for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
@@ -1396,7 +1395,7 @@ if teleportFunc then
             game.Loaded:Wait()
         end
         repeat wait() until game.Players.LocalPlayer
-wait(5)
+wait(4)
  repeat wait() until game.Workspace:FindFirstChild("Map"):FindFirstChild("CodeBrick")
 if game.Workspace.Map.CodeBrick.SurfaceGui:FindFirstChild("IMGTemplate") then
 game.Workspace.Map.CodeBrick.SurfaceGui.IMGTemplate.Name = "1st"
@@ -1553,15 +1552,15 @@ for i,v in pairs(game.Workspace.Map.CodeBrick.SurfaceGui:GetChildren()) do
                     end
                 end
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
-task.wait(0.07)
+task.wait(0.1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[first].ClickDetector)
-task.wait(0.07)
+task.wait(0.1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[second].ClickDetector)
-task.wait(0.07)
+task.wait(0.1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[third].ClickDetector)
-task.wait(0.07)
+task.wait(0.1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons[fourth].ClickDetector)
-task.wait(0.07)
+task.wait(0.1)
 fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
 task.wait(2)
 game:GetService("TeleportService"):Teleport(6403373529)
@@ -1832,32 +1831,6 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have equiped Cloud | Badge Fish | You are in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end 
-})
-
-AutoFarmGetAlchemist = Tab3:AddToggle({
-	Name = "Auto Farm Alchemist",
-	Default = false,
-	Callback = function(Value)
-_G.AutoFarmAlchemist = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Plague" then
-while _G.AutoFarmAlchemist do
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("ded") == nil and RandomPlayer.Character:FindFirstChild("InLabyrinth") == nil and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false and RandomPlayer.Character:FindFirstChild("rock") == nil 
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,10)
-wait(0.2)
-game.ReplicatedStorage.PlagueHit:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
-task.wait(0.1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
-task.wait(7.4)
-end
-elseif _G.AutoFarmAlchemist == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Plague equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoFarmGetAlchemist:Set(false)
-end
-	end    
 })
 
 Tab3:AddDropdown({
@@ -2753,9 +2726,13 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
-repeat wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true
+wait(0.53)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2789,18 +2766,116 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
-repeat wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true
+wait(0.53)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+wait(0.05)
+repeat task.wait()
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Auto Enter Map Null",
+	Callback = function()
+if game.Workspace:FindFirstChild("Blackhole_Particles") == nil then
+OrionLib:MakeNotification({Name = "Error",Content = "When will someone create a black hole [ BOB + ROB ].",Image = "rbxassetid://7733658504",Time = 5})
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
+wait(3.75)
+fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+wait(0.5)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.5)
+if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+repeat task.wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
+fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+wait(0.07)
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
 wait(0.05)
 if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
 repeat task.wait()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
 until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You have in lobby, or You don't have badge bob, or badge rob.",Image = "rbxassetid://7733658504",Time = 5})
 end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Auto Enter Cannon",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+repeat task.wait() until game.Players.LocalPlayer.Character
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
+wait(0.5)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
+wait(0.5)
+for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
 end
   	end    
 })
@@ -4666,12 +4741,14 @@ Tab7:AddToggle({
 	Callback = function(Value)
 	    SlappleFarm = Value
 while SlappleFarm do
-for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+for i, v in pairs(workspace.Arena.island5.Slapples:GetDescendants()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
                 end
             end
+       end
 task.wait()
 end
 	end    
@@ -4683,7 +4760,7 @@ Tab7:AddToggle({
 	Callback = function(Value)
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
-for i, v in ipairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
+for i, v in pairs(game:GetService("Workspace"):WaitForChild("CandyCorns"):GetChildren()) do
                 if v:FindFirstChildWhichIsA("TouchTransmitter") then
                     firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
                     firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
@@ -4809,69 +4886,6 @@ end
 task.wait()
 end
 	end    
-})
-
-Tab7:AddButton({
-	Name = "Auto Enter Map Null",
-	Callback = function()
-if game.Workspace:FindFirstChild("Blackhole_Particles") == nil then
-OrionLib:MakeNotification({Name = "Error",Content = "When will someone create a black hole [ BOB + ROB ].",Image = "rbxassetid://7733658504",Time = 5})
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
-game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(game.Players.LocalPlayer.Character,false)
-wait(3.75)
-fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
-wait(0.5)
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-wait(0.5)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
-repeat task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
-end
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
-repeat task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
-end
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-wait(0.5)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
-repeat task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
-end
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
-fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
-wait(0.07)
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-wait(0.05)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
-repeat task.wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
-end
-end
-  	end    
 })
 
 Tab7:AddDropdown({
@@ -6501,94 +6515,6 @@ GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
                 end
             end
-task.wait()
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "ESP Gift | Jet | Phase",
-	Default = false,
-	Callback = function(Value)
-_G.AllESP = Value
-if _G.AllESP == false then
-for i, v in pairs(game.Workspace:GetChildren()) do
-                if v:FindFirstChild("BadgeEsp") then
-v.BadgeEsp:Destroy()
-                end
-            end
-end
-while _G.AllESP do
-for i, v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Gift" or v.Name == "PhaseOrb" or v.Name == "JetOrb" and v:FindFirstChild("BadgeEsp") == nil then
-BadgeEsp = Instance.new("BillboardGui", v)
-BadgeEsp.Adornee = v
-BadgeEsp.Name = "BadgeEsp"
-BadgeEsp.Size = UDim2.new(0, 100, 0, 150)
-BadgeEsp.StudsOffset = Vector3.new(0, 1, 0)
-BadgeEsp.AlwaysOnTop = true
-BadgeEsp.StudsOffset = Vector3.new(0, 3, 0)
-BadgeEspText = Instance.new("TextLabel", BadgeEsp)
-BadgeEspText.BackgroundTransparency = 1
-BadgeEspText.Size = UDim2.new(0, 100, 0, 100)
-BadgeEspText.TextSize = 20
-BadgeEspText.Font = Enum.Font.FredokaOne
-BadgeEspText.TextColor3 = _G.ColorESP
-BadgeEspText.TextStrokeTransparency = 0.5
-BadgeEspText.Text = v.Name
-                end
-            end
-task.wait()
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "Esp Exit Run",
-	Default = false,
-	Callback = function(Value)
-_G.ExitESP = Value
-if _G.ExitESP == false then
-if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in pairs(workspace:GetDescendants()) do
-    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
-        local doors = v.Doors
-        for _, y in ipairs(doors:GetChildren()) do
-            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("ExitEsp") and y.Hitbox:FindFirstChild("TouchInterest") then
-y.Hitbox.ExitEsp:Destroy()
-            end
-        end
-    end
-end
-end
-end
-while _G.ExitESP do
-if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in pairs(workspace:GetDescendants()) do
-    if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
-        local doors = v.Doors
-        for _, y in ipairs(doors:GetChildren()) do
-            if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("ExitEsp") == nil and y.Hitbox:FindFirstChild("TouchInterest") then
-              ExitEsp = Instance.new("BillboardGui", y.Hitbox)
-              ExitEsp.Adornee = y.Hitbox
-              ExitEsp.Name = "ExitEsp"
-              ExitEsp.Size = UDim2.new(0, 100, 0, 150)
-              ExitEsp.StudsOffset = Vector3.new(0, 1, 0)
-              ExitEsp.AlwaysOnTop = true
-              ExitEsp.StudsOffset = Vector3.new(0, 3, 0)
-              ExitEspText = Instance.new("TextLabel", ExitEsp)
-              ExitEspText.BackgroundTransparency = 1
-              ExitEspText.Size = UDim2.new(0, 50, 0, 50)
-              ExitEspText.TextSize = 15
-              ExitEspText.Font = Enum.Font.FredokaOne
-              ExitEspText.TextColor3 = _G.ColorESP
-              ExitEspText.TextStrokeTransparency = 0.5
-              ExitEspText.Text = "Exit"
-            end
-        end
-    end
-end
-end
 task.wait()
 end
 	end    
