@@ -11,8 +11,8 @@ if not game:IsLoaded() then
 end
 repeat wait() until game.Players.LocalPlayer
 if _G.AutoExeChangeOrion == true then
-_G.Orion = _G.Orion
-_G.WindowT = _G.WindowT
+_G.Orion = _G.AutoOrion
+_G.WindowT = _G.AutoWindowT
 end
 _G.AutoExecuter = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
