@@ -2726,10 +2726,10 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.5)
+wait(0.27)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-wait(0.53)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+wait(0.25)
+for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
@@ -2766,10 +2766,10 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
-wait(0.5)
+wait(0.27)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-wait(0.53)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+wait(0.25)
+for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
@@ -2863,16 +2863,16 @@ until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-wait(0.5)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+wait(0.25)
+for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
         end
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-wait(0.5)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
+wait(0.25)
+for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
