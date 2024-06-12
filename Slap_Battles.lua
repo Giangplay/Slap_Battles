@@ -325,38 +325,6 @@ fireclickdetector(workspace.Lobby.Blink.ClickDetector)
 end
 end
 
-if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil then
-local bv = Instance.new("BodyVelocity")
-bv.Name = "VelocityHandler"
-bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bv.MaxForce = Vector3.new(0,0,0)
-bv.Velocity = Vector3.new(0,0,0)
-end
-
-if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
-local bg = Instance.new("BodyGyro")
-bg.Name = "GyroHandler"
-bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bg.MaxTorque = Vector3.new(0,0,0)
-bg.P = 1000
-bg.D = 50
-end
-
-game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(NewChar)
-local bv = Instance.new("BodyVelocity")
-bv.Name = "VelocityHandler"
-bv.Parent = NewChar:WaitForChild("Humanoid").RootPart
-bv.MaxForce = Vector3.new(0,0,0)
-bv.Velocity = Vector3.new(0,0,0)
-
-local bg = Instance.new("BodyGyro")
-bg.Name = "GyroHandler"
-bg.Parent = NewChar:WaitForChild("Humanoid").RootPart
-bg.MaxTorque = Vector3.new(0,0,0)
-bg.P = 1000
-bg.D = 50
-end)
-
 ---SafeSpotBox---
 
 if workspace:FindFirstChild("SafeBox") == nil then
@@ -868,12 +836,13 @@ end
 GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position In Your [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 
-AutoSetInfo = Tab:AddToggle({
+Tab:AddToggle({
 	Name = "Auto Set Info",
-	Default = false,
+	Default = true,
 	Callback = function(Value)
 _G.AutoSetInfo = Value
-while _G.AutoSetInfo do
+_G.AutoSetInfoGet = game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoSetInfo then
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer:Set("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
@@ -913,8 +882,8 @@ GoldenSlappleSpawn:Set("Golden Slapple Spawn [ No ]")
 else
 GoldenSlappleSpawn:Set("Golden Slapple Spawn [ Yes ]")
 end
-task.wait()
 end
+end)
 	end    
 })
 
@@ -4859,9 +4828,25 @@ Tab7:AddToggle({
 	 _G.StartFly = Value
 if _G.StartFly == false then
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(0,0,0)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler:Destroy()
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+elseif _G.StartFly == true then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
+local bv = Instance.new("BodyVelocity")
+local bg = Instance.new("BodyGyro")
+
+bv.Name = "VelocityHandler"
+bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bv.MaxForce = Vector3.new(0,0,0)
+bv.Velocity = Vector3.new(0,0,0)
+
+bg.Name = "GyroHandler"
+bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bg.MaxTorque = Vector3.new(0,0,0)
+bg.P = 1000
+bg.D = 50
 end
 end
 while _G.StartFly do
@@ -7051,30 +7036,6 @@ game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
 	end    
 })
 
-AntiCannonBall = Tab2:AddToggle({
-	Name = "Anti Cannon Ball",
-	Default = false,
-	Callback = function(Value)
-_G.AntiCannonBall = Value
-while _G.AntiCannonBall do
-if game.Workspace:FindFirstChild("Explosion") ~= nil then
-game.Workspace:FindFirstChild("Explosion"):Destroy()
-end
-for i,v in pairs(game.Workspace:GetChildren()) do
-             if v.Name == "CannonBallStuff" and v:FindFirstChild("CannonBalls") then
-                if v.CannonBalls:FindFirstChild("CannonBall") ~= nil and v.CannonBalls.CannonBall:FindFirstChild("Hitbox") ~= nil then
-                    v.CannonBalls:FindFirstChild("CannonBall").CanTouch = false
-                    v.CannonBalls:FindFirstChild("CannonBall").CanQuery = false
-                    v.CannonBalls.CannonBall:FindFirstChild("Hitbox").CanTouch = false
-                    v.CannonBalls.CannonBall:FindFirstChild("Hitbox").CanQuery = false
-               end
-          end
-     end
-task.wait()
-end
-	end    
-})
-
 AntiNightmareAndPotion = Tab2:AddToggle({
 	Name = "Anti Nightmare & Potion",
 	Default = false,
@@ -7550,6 +7511,10 @@ OrionLib:Destroy()
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
+if _G.AutoSetInfoGet then
+_G.AutoSetInfoGet:Disconnect()
+_G.AutoSetInfoGet = nil
+end
   	end 
 })
 
@@ -7794,10 +7759,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiKnock:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiCannonBall:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -8214,27 +8175,6 @@ end
 task.wait()
 end
 	end    
-})
-
-Tab:AddButton({
-	Name = "View Testing Server",
-	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        local localPlr = game:GetService("Players").LocalPlayer
-        repeat wait() until localPlr
-        game:GetService("RunService").RenderStepped:Connect(function()
-game:GetService("GuiService"):ClearError()
-game.CoreGui.RobloxLoadingGUI:Destroy()
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(9020359053)
-  	end    
 })
 
 Tab:AddButton({
