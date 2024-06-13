@@ -1855,8 +1855,7 @@ end
 task.wait()
 end
 while _G.AutoFarmBob and Autobob == "Normal" do
-repeat wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 for i,v in pairs(game.Workspace.Lobby:GetChildren()) do
 if v.Name == "Teleport1" and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = v.Position
@@ -7059,6 +7058,8 @@ while _G.AntiIce do
                 v:Destroy()
                 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
                 game.Players.LocalPlayer.Character.Humanoid.AutoRotate = true
+                elseif v.Name ~= "Icecube" then
+                game.Players.LocalPlayer.Character.Humanoid.AutoRotate = false
             end
        end
 task.wait()
@@ -7418,13 +7419,11 @@ end)
 end)
 end
 while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
-if game.Players.LocalPlayers.Character.Humanoid.Heath ~= 0 then
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Ragdolled") then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Torso") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") then
 if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
 game.Players.LocalPlayer.Character.Torso.Anchored = false
-end
 end
 end
 task.wait()
