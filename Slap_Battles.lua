@@ -2856,7 +2856,7 @@ Tab14:AddToggle({
 _G.TeleportBlackHole = Value
 while _G.TeleportBlackHole do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
 end
 end
@@ -4104,7 +4104,9 @@ game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
 fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 task.wait(1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name  ~= "Humanoid" then
 v.Transparency = 0
+end
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
@@ -4987,22 +4989,6 @@ end
 	end    
 })
 
-NotifyGoldenSlapple = Tab7:AddToggle({
-	Name = "Auto Notification Golden Slapple",
-	Default = false,
-	Callback = function(Value)
-	 _G.NotifyGoldenSlapple = Value
-while _G.NotifyGoldenSlapple do
-if game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") == nil then
-repeat task.wait() until game.Workspace.Arena.island5.Slapples.GoldenSlapple.Glove:FindFirstChildWhichIsA("TouchTransmitter") ~= nil
-OrionLib:MakeNotification({Name = "Error",Content = "Golden Slapple Spawn.",Image = "rbxassetid://7733658504",Time = 5})
-NotifyGoldenSlapple:Set(false)
-end
-task.wait(0.05)
-end
-	end    
-})
-
 NotifyToolbox = Tab7:AddToggle({
 	Name = "Auto Notification ToolBox",
 	Default = false,
@@ -5865,6 +5851,12 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["state"] = "vfx",["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(-2.1319260597229004, 0.651054859161377, 2.3744168281555176),["vfx"] = "crash"})
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "UFO" do
+if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO VFX") == nil or game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO") == nil then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+task.wait(0.3)
+end
 	end    
 })
 
@@ -6625,7 +6617,7 @@ end
 elseif _G.TycoonAuto == "Your" then
 while _G.AutoDestroyTycoon do
 for _,v in pairs(game.Workspace:GetChildren()) do
-if v.Name:match(game.Players.LocalPlayer.Name)  and v:FindFirstChild("Destruct") then
+if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("Destruct") then
 fireclickdetector(v.Destruct.ClickDetector, 0)
 fireclickdetector(v.Destruct.ClickDetector, 1)
 end
@@ -7528,6 +7520,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 15 | Months 6 ]--------------")
+Tab60:AddLabel("[ + ] Slap Aura | Ability [ Glove new ]")
 Tab60:AddLabel("--------------[ Day 10 | Months 6 ]--------------")
 Tab60:AddLabel("[ - ] Auto Farm Alchemist")
 Tab60:AddLabel("[ + ] Auto Enter Cannon")
@@ -10189,6 +10183,7 @@ gloveHits = {
     ["Spoonful"] = game.ReplicatedStorage.GeneralHit,
     ["Grab"] = game.ReplicatedStorage.GeneralHit,
     ["the schlop"] = game.ReplicatedStorage.GeneralHit,
+    ["UFO"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
