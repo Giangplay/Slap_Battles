@@ -836,9 +836,9 @@ end
 GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position In Your [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
 
-Tab:AddToggle({
+AutoSetInfo = Tab:AddToggle({
 	Name = "Auto Set Info",
-	Default = true,
+	Default = false,
 	Callback = function(Value)
 _G.AutoSetInfo = Value
 _G.AutoSetInfoGet = game:GetService("RunService").RenderStepped:Connect(function()
@@ -1578,8 +1578,6 @@ if teleportFunc then
         end)
     ]])
 end
-OrionLib:MakeNotification({Name = "Error",Content = "If you get kicked, get out or It's okay if you don't kick",Image = "rbxassetid://7733658504",Time = 5})
-wait(2)
 game:GetService("TeleportService"):Teleport(11828384869)
 elseif _G.SelectMaze == "Auto Keypad" then
 if not workspace:FindFirstChild("Keypad") then
@@ -1642,8 +1640,6 @@ end
 end
     ]])
 end
-OrionLib:MakeNotification({Name = "Error",Content = "If you get kicked, get out or It's okay if you don't kick",Image = "rbxassetid://7733658504",Time = 5})
-wait(2)
 game:GetService("TeleportService"):Teleport(11828384869)
 elseif _G.SelectMaze == "Auto Keypad" then
 if not workspace:FindFirstChild("Keypad") then
@@ -3004,7 +3000,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
 end
 game:GetService("ReplicatedStorage").Erase:FireServer()
-wait(0.48)
+wait(0.47)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
@@ -3438,6 +3434,8 @@ elseif Value == "Replica" then
 fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
 elseif Value == "Blink" then
 fireclickdetector(workspace.Lobby["Blink"].ClickDetector)
+elseif Value == "Reverse" then
+fireclickdetector(workspace.Lobby["Reverse"].ClickDetector)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
@@ -6010,7 +6008,7 @@ end
 })
 
 Tab7:AddTextbox({
-	Name = "Glove & Glove Tournament",
+	Name = "Glove & Tournament",
 	Default = "Use Glove",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -6018,20 +6016,26 @@ Tab7:AddTextbox({
 	end	  
 })
 
-Tab7:AddButton({
+Tab7:AddDropdown({
 	Name = "Equip Glove",
+	Default = "",
+	Options = {"Normal","Tournament"},
+	Callback = function(Value)
+_G.GloveEquipHehe = Value
+	end    
+})
+
+
+Tab7:AddButton({
+	Name = "Start Equip Glove",
 	Callback = function()
+if _G.GloveEquipHehe == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "Equip Glove Tournament",
-	Callback = function()
+elseif _G.GloveEquipHehe == "Tournament" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 wait(0.5)
@@ -6046,6 +6050,7 @@ wait(0.3)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "you are in Tournament not equip, 1 you use it.",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end    
 })
@@ -6062,14 +6067,16 @@ _G.IDGame = Value
 Tab7:AddButton({
 	Name = "Teleport To Game ID",
 	Callback = function()
-      		game:GetService("TeleportService"):Teleport(_G.IDGame)
+game:GetService("TeleportService"):Teleport(_G.IDGame)
   	end    
 })
 
 Tab7:AddButton({
 	Name = "Slap Battles",
 	Callback = function()
-      		game:GetService("TeleportService"):Teleport(6403373529)
+if game.PlaceId ~= 6403373529 then
+game:GetService("TeleportService"):Teleport(6403373529)
+end
   	end    
 })
 
@@ -6184,14 +6191,24 @@ SlapAuraCharacter = Value
 	end    
 })
 
+Tab7:AddDropdown({
+	Name = "Slap Aura Choose",
+	Default = "Normal",
+	Options = {"Normal", "Reverse"},
+	Callback = function(Value)
+_G.SlapAuraChoose = Value
+	end    
+})
+
 Tab7:AddToggle({
 	Name = "Slap Aura",
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
-while SlapAura and SlapAuraFriend == "Fight" do
+if _G.SlapAuraChoose == "Normal" then
+while SlapAura and SlapAuraFriend == "Fight" and _G.SlapAuraChoose == "Normal" do
 pcall(function()
-for i,v in next, game.Players:GetChildren() do
+for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
@@ -6216,9 +6233,9 @@ end
 end)
 task.wait(.1)
 end
-while SlapAura and SlapAuraFriend == "Not Fight" do
+while SlapAura and SlapAuraFriend == "Not Fight" and _G.SlapAuraChoose == "Normal" do
 pcall(function()
-for i,v in next, game.Players:GetChildren() do
+for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
@@ -6242,6 +6259,23 @@ end
                     end
 end)
 task.wait(.1)
+end
+elseif _G.SlapAuraChoose == "Reverse" then
+while SlapAura and _G.SlapAuraChoose == "Reverse" do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
+if v.Character.Head:FindFirstChild("UnoReverseCard") and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        if _G.ReachSlapArua >= Magnitude then
+game.ReplicatedStorage.ReverseHit:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+                    end
+end
+end
+end
+                end
+task.wait()
+end
 end
 	end    
 })
@@ -7411,7 +7445,7 @@ end)
 end)
 end
 while _G.AntiRagdoll and RagdollGetAnti == "Not Reset" do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Torso") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") then
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Torso") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") then
 if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
 repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
@@ -7520,6 +7554,10 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 18 | Months 6 ]--------------")
+Tab60:AddLabel("[ = ] Slap Aura [ Reverse Player ]")
+Tab60:AddLabel("[ + ] Slap Aura Choose")
+Tab60:AddLabel("[ - ] Auto Notification Golden Slapple")
 Tab60:AddLabel("--------------[ Day 15 | Months 6 ]--------------")
 Tab60:AddLabel("[ + ] Slap Aura | Ability [ Glove new ]")
 Tab60:AddLabel("--------------[ Day 10 | Months 6 ]--------------")
@@ -7873,7 +7911,6 @@ Tab:AddButton({
 	Name = "Get Elude",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-game:GetService("TeleportService"):Teleport(6403373529)
   	end    
 })
 
@@ -10057,7 +10094,7 @@ end
 })
 end
 --------------------------------------------------------
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") == nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
 local TOGGLE = {}
 TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
