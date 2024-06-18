@@ -1,0 +1,444 @@
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+if game.PlaceId == 9772878203 then
+local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
+local Window = OrionLib:MakeWindow({IntroText = "Rasie A Floppy 2",Name = ("Rasie A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
+
+local Main = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://7734053426",
+	PremiumOnly = false
+})
+
+local Farm = Window:MakeTab({
+	Name = "Farm",
+	Icon = "rbxassetid://7733673987",
+	PremiumOnly = false
+})
+
+local Misc = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+local Local = Window:MakeTab({
+	Name = "Local",
+	Icon = "rbxassetid://4335489011",
+	PremiumOnly = false
+})
+
+local Credit = Window:MakeTab({
+	Name = "Credit",
+	Icon = "rbxassetid://7733955511",
+	PremiumOnly = false
+})
+
+Main:AddLabel("Owner Credits Script By Giang")
+Main:AddLabel("Bạn muốn vào nhóm zalo thì vào Credit nhé")
+
+Main:AddButton({
+	Name = "Keyboard",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+  	end    
+})
+
+Main:AddButton({
+	Name = "Rejoin Gui",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
+  	end    
+})
+
+Main:AddButton({
+	Name = "Inf yield Delta",
+	Callback = function()
+      		loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
+  	end    
+})
+
+Main:AddButton({
+	Name = "Inf yield",
+	Callback = function()
+      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()	
+  	end    
+})
+
+Farm:AddToggle({
+	Name = "Auto Click Floppy",
+	Default = false,
+	Callback = function(Value)
+_G.AutoClickFoppy = Value
+while _G.AutoClickFoppy do
+fireclickdetector(game.Workspace.Floppa.ClickDetector)
+if game.Workspace.Unlocks:FindFirstChild("Baby Floppa") then
+fireclickdetector(game.Workspace.Unlocks["Baby Floppa"].ClickDetector)
+end
+task.wait()
+end
+	end    
+})
+
+Farm:AddToggle({
+	Name = "Auto Collect Money",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCollectMoney = Value
+while _G.AutoCollectMoney do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "Money" or v.Name == "Money Bag" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                end
+end
+task.wait()
+end
+	end    
+})
+
+Farm:AddToggle({
+	Name = "Auto Collect Gem",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCollectGem = Value
+while _G.AutoCollectGem do
+if game.Workspace:FindFirstChild("Ruby") or game.Workspace:FindFirstChild("Diamond") or game.Workspace:FindFirstChild("Emerald") or game.Workspace:FindFirstChild("Sapphire") then
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Ruby" or v.Name == "Diamond" or v.Name == "Emerald" or v.Name == "Sapphire" then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
+end
+end
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Prompt Floppy",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPromptFloppy = Value
+while _G.AutoPromptFloppy do
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Clear Poop",
+	Default = false,
+	Callback = function(Value)
+_G.AutoClearPoop = Value
+while _G.AutoClearPoop do
+if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Litter Box") and game.Workspace["Key Parts"]["Litter Box"]:FindFirstChild("Poop") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Key Parts"]["Litter Box"].Poop.PoopPart.CFrame
+wait(0.3)
+for i,v in pairs(workspace["Key Parts"]["Litter Box"]:GetDescendants()) do
+if v.ClassName == "ProximityPrompt" then
+fireproximityprompt(v)
+end
+end
+end
+task.wait(0.2)
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Floppa Cube",
+	Default = false,
+	Callback = function(Value)
+_G.AutoFloppaCube = Value
+while _G.AutoFloppaCube do
+for i,v in ipairs(game.Workspace.Unlocks.Altar["Floppa Cube"]["Floppa cube"]:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddDropdown({
+	Name = "Almond Water",
+	Default = "Normal",
+	Options = {"Normal","Auto Floppy Eat"},
+	Callback = function(Value)
+_G.AlmondWater = Value
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Collect Almond Water",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCollectAlmondWater = Value
+while _G.AutoCollectAlmondWater and _G.AlmondWater == "Normal" do
+for i = 1, 5 do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame.CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+wait(0.3)
+end
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Almond Water"].CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+task.wait()
+end
+while _G.AutoCollectAlmondWater and _G.AlmondWater == "Auto Floppy Eat" do
+for i = 1, 5 do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame.CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+wait(0.3)
+end
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Almond Water"].CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Collect Space Crystal",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCollectSpaceCrystal = Value
+while _G.AutoCollectSpaceCrystal do
+if game.Workspace.Unlocks:FindFirstChild("Wormhole Machine") and game.Workspace.Unlocks["Wormhole Machine"]:FindFirstChild("Crystal") and game.Workspace.Unlocks["Wormhole Machine"].Crystal:FindFirstChild("Crystal") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Unlocks["Wormhole Machine"].Crystal.Crystal.CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Unlocks["Wormhole Machine"].Crystal:GetDescendants()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddDropdown({
+	Name = "Space Crystal",
+	Default = "Equip All",
+	Options = {"Equip All","Thown All"},
+	Callback = function(Value)
+_G.SpaceCrystal = Value
+	end    
+})
+
+Misc:AddButton({
+	Name = "Start Space Crystal",
+	Callback = function()
+if _G.SpaceCrystal == "Equip All" then
+for i,v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.Name == "Space Crystal" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+elseif _G.SpaceCrystal == "Thown All" then
+for i,v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.Name == "Space Crystal" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+wait(0.3)
+for i,v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name == "Space Crystal" then
+v.Parent = game.Workspace
+end
+end
+end
+  	end    
+})
+
+Local:AddSlider({
+	Name = "WalkSpeed",
+	Min = 20,
+	Max = 1000,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "WalkSpeed",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+Walkspeed = Value
+	end    
+})
+
+Local:AddToggle({
+	Name = "Walkspeed Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepWalkspeed = Value
+            while KeepWalkspeed do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
+                end
+task.wait()
+            end
+	end    
+})
+
+Local:AddSlider({
+	Name = "JumpPower",
+	Min = 50,
+	Max = 1000,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JumpPower",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+Jumppower = Value
+	end    
+})
+
+Local:AddToggle({
+	Name = "Jumppower Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepJumppower = Value
+            while KeepJumppower do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= Jumppower then
+                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
+                end
+task.wait()
+            end
+	end    
+})
+
+Local:AddSlider({
+	Name = "Hip Height",
+	Min = 0,
+	Max = 100,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hip Height",
+	Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+HipHeight = Value
+	end    
+})
+
+Local:AddToggle({
+	Name = "Hip Height Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepHipHeight = Value
+           while KeepHipHeight do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
+                  game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
+              end
+task.wait()
+         end
+	end    
+})
+
+Local:AddSlider({
+	Name = "Gravity",
+	Min = 0,
+	Max = 600,
+	Default = 196,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Gravity",
+	Callback = function(Value)
+game.Workspace.Gravity = Value
+Gravity = Value
+	end    
+})
+
+Local:AddToggle({
+	Name = "Gravity Set Auto",
+	Default = false,
+	Callback = function(Value)
+		KeepGravity = Value
+           while KeepGravity do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Workspace.Gravity ~= nil and game.Workspace.Gravity ~= Gravity then
+                  game.Workspace.Gravity = Gravity
+              end
+task.wait()
+         end
+	end    
+})
+end
+--------------------------------------------------------
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
+local TOGGLE = {}
+TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
+TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
+
+TOGGLE["Ui"].Name = "ToggleUi"
+TOGGLE["Ui"].ResetOnSpawn = false
+
+TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
+TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
+TOGGLE["DaIcon"].Draggable = true
+TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
+TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
+TOGGLE["DaIcon"].BorderColor3 = Color3.fromRGB(255, 186, 117)
+task.spawn(function()
+while true do
+	for i = 0, 255, 4 do
+		TOGGLE["DaIcon"].BorderColor3 = Color3.fromHSV(i/256, 1, 1)
+		TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromHSV(i/256, .5, .8)
+		wait()
+	end
+end
+end)
+TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
+    gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
+end)
+TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
+end 
+
+----Transparency----
+
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+v.BackgroundTransparency = 0.2
+                    end
+                end
+gethui().Orion.Name = "OrionEdited"
