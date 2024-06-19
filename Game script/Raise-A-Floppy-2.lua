@@ -4,7 +4,7 @@ end
 
 if game.PlaceId == 9772878203 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
-local Window = OrionLib:MakeWindow({IntroText = "Rasie A Floppy 2",Name = ("Rasie A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
+local Window = OrionLib:MakeWindow({IntroText = "Rasie A Floppy 2",Name = ("Raise A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
 
 local Main = Window:MakeTab({
 	Name = "Main",
@@ -75,7 +75,11 @@ _G.AutoClickFoppy = Value
 while _G.AutoClickFoppy do
 fireclickdetector(game.Workspace.Floppa.ClickDetector)
 if game.Workspace.Unlocks:FindFirstChild("Baby Floppa") then
-fireclickdetector(game.Workspace.Unlocks["Baby Floppa"].ClickDetector)
+for i,v in pairs(game.Workspace.Unlocks:GetDescendants()) do
+if v.Name == "Baby Floppa" then
+fireclickdetector(v.ClickDetector)
+end
+end
 end
 task.wait()
 end
@@ -118,16 +122,51 @@ end
 	end    
 })
 
+Misc:AddDropdown({
+	Name = "Prompt Floppy",
+	Default = "Pet",
+	Options = {"Normal","Pet"},
+	Callback = function(Value)
+_G.PromptFloppyGet = Value
+	end    
+})
+
+Misc:AddSlider({
+	Name = "Will Pet Happy Floppa",
+	Min = 30,
+	Max = 75,
+	Default = 40,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "%",
+	Callback = function(Value)
+_G.HappyFloppa = Value
+	end    
+})
+
 Misc:AddToggle({
 	Name = "Auto Prompt Floppy",
 	Default = false,
 	Callback = function(Value)
 _G.AutoPromptFloppy = Value
-while _G.AutoPromptFloppy do
+while _G.AutoPromptFloppy and _G.PromptFloppyGet == "Normal" do
 for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
+        end
+task.wait()
+end
+while _G.AutoPromptFloppy and _G.PromptFloppyGet == "Pet" do
+_G.Happy = string.gsub(game.Players.LocalPlayer.PlayerGui.FloppaUI.Frame.Floppa.Happiness.Percentage.Text, "%D", "")
+_G.Happys = tonumber(_G.Happy)
+if _G.Happys <= _G.HappyFloppa then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
         end
 task.wait()
 end
@@ -142,11 +181,38 @@ _G.AutoClearPoop = Value
 while _G.AutoClearPoop do
 if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Litter Box") and game.Workspace["Key Parts"]["Litter Box"]:FindFirstChild("Poop") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Key Parts"]["Litter Box"].Poop.PoopPart.CFrame
-wait(0.3)
 for i,v in pairs(workspace["Key Parts"]["Litter Box"]:GetDescendants()) do
 if v.ClassName == "ProximityPrompt" then
 fireproximityprompt(v)
 end
+end
+end
+task.wait(0.2)
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Cook Floppa",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCookFloppa = Value
+while _G.AutoCookFloppa do
+_G.FloppaHunger = string.gsub(workspace.Floppa.Display.Frame.Hunger.Text, "%D", "")
+_G.FloppaHungers = tonumber(_G.FloppaHunger)
+if _G.FloppaHungers <= 20 then
+game:GetService("ReplicatedStorage").Events.Unlock:FireServer("Floppa Food","the_interwebs")
+task.wait(0.7)
+for i = 1, 20 do
+if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Key Parts"].Bowl.Part.CFrame
+for i,v in ipairs(game.Workspace["Key Parts"].Bowl.Part:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+end
+task.wait()
 end
 end
 task.wait(0.2)
@@ -160,10 +226,13 @@ Misc:AddToggle({
 	Callback = function(Value)
 _G.AutoFloppaCube = Value
 while _G.AutoFloppaCube do
+if game.Workspace.Unlocks:FindFirstChild("Altar") and game.Workspace.Unlocks.Altar:FindFirstChild("Floppa Cube") and game.Workspace.Unlocks.Altar["Floppa Cube"]:FindFirstChild("Floppa cube") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Unlocks.Altar["Floppa Cube"]["Floppa cube"].CFrame
 for i,v in ipairs(game.Workspace.Unlocks.Altar["Floppa Cube"]["Floppa cube"]:GetChildren()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
+        end
         end
 task.wait()
 end
@@ -216,7 +285,7 @@ for i,v in ipairs(game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame:Ge
         end
 wait(0.3)
 end
-wait(0.2)
+wait(0.4)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Almond Water"].CFrame
 wait(0.3)
 for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
@@ -224,7 +293,7 @@ for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
                 fireproximityprompt(v)
             end
         end
-wait(0.3)
+wait(0.35)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
 wait(0.3)
 for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
@@ -232,7 +301,7 @@ for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
                 fireproximityprompt(v)
             end
         end
-task.wait()
+task.wait(0.28)
 end
 	end    
 })
@@ -252,6 +321,23 @@ for i,v in ipairs(game.Workspace.Unlocks["Wormhole Machine"].Crystal:GetDescenda
             end
         end
         end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Pick Up Seeds",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPickUpSeeds = Value
+while _G.AutoPickUpSeeds do
+for i, v in ipairs(game.Workspace.Seeds:GetChildren()) do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+if v:FindFirstChild("ProximityPrompt") then
+fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
+end
+end
 task.wait()
 end
 	end    
@@ -402,15 +488,36 @@ task.wait()
          end
 	end    
 })
+
+Credit:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend")
+Credit:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese")
+Credit:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
+
+Credit:AddButton({
+	Name = "Copy Join Zalo",
+	Callback = function()
+            setclipboard("https://zalo.me/g/qlukiy407")
+  	end    
+})
+
+Credit:AddButton({
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi200") ~= nil then
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi200"):Destroy()
+end
+  	end 
+})
 end
 --------------------------------------------------------
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi200") == nil then
 local TOGGLE = {}
 TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
 TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
 
-TOGGLE["Ui"].Name = "ToggleUi"
+TOGGLE["Ui"].Name = "ToggleUi200"
 TOGGLE["Ui"].ResetOnSpawn = false
 
 TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
