@@ -791,9 +791,8 @@ local Tab60 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddLabel("Owner Credits Script By Giang And DonjoSx")
-Tab:AddLabel("Bạn muốn vào nhóm zalo thì vào Credit nhé")
-local InfoServer = Tab:AddSection({Name = "Info"})
+Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the hack slap battles group, go to the credits section ] | Good Luck")
+local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 ServerPlayer = Tab:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
@@ -7511,9 +7510,12 @@ end
 	end    
 })
 
-Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend")
-Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese")
+Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
+Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt")
 Tab15:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
+Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
+Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt hoặc Tiếng Anh")
+Tab15:AddLabel("Owner Credits Script By Giang")
 
 Tab15:AddButton({
 	Name = "Copy Join Zalo",
@@ -7523,9 +7525,9 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "Copy Subscribe DonjoSx [ DonjoScript ]",
+	Name = "Copy Join Slap Battles Group",
 	Callback = function()
-            setclipboard("www.youtube.com/@DonjoScript")
+            setclipboard("https://discord.com/invite/w7AgjFP4")
   	end    
 })
 
