@@ -4,7 +4,7 @@ end
 
 if game.PlaceId == 9772878203 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
-local Window = OrionLib:MakeWindow({IntroText = "Rasie A Floppy 2",Name = ("Raise A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
+local Window = OrionLib:MakeWindow({IntroText = "Raise A Floppy 2",Name = ("Raise A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
 
 local Main = Window:MakeTab({
 	Name = "Main",
@@ -122,12 +122,36 @@ end
 	end    
 })
 
+Farm:AddToggle({
+	Name = "Auto Buy Items",
+	Default = false,
+	Callback = function(Value)
+_G.AutoBuyItems = Value
+while _G.AutoBuyItems do
+for i, v in ipairs(game.Players.LocalPlayer.PlayerGui.PlayerUI["the_interwebs"].Unlocks:GetChildren()) do
+if v:IsA("Frame") and not v.Name:match("Food") and not v.Name:match("food") then
+game:GetService("ReplicatedStorage").Events.Unlock:FireServer(v.Name,"the_interwebs")
+end
+end
+task.wait()
+end
+	end    
+})
+
 Misc:AddDropdown({
 	Name = "Prompt Floppy",
 	Default = "Pet",
 	Options = {"Normal","Pet"},
 	Callback = function(Value)
+if _G.AutoPromptFloppy == true then
+AutoPromptFloppy:Set(false)
+wait(0.05)
 _G.PromptFloppyGet = Value
+wait(0.08)
+AutoPromptFloppy:Set(true)
+elseif _G.AutoPromptFloppy == false then
+_G.PromptFloppyGet = Value
+end
 	end    
 })
 
@@ -144,7 +168,7 @@ _G.HappyFloppa = Value
 	end    
 })
 
-Misc:AddToggle({
+AutoPromptFloppy = Misc:AddToggle({
 	Name = "Auto Prompt Floppy",
 	Default = false,
 	Callback = function(Value)
@@ -264,7 +288,7 @@ for i,v in ipairs(game.Workspace.Backrooms["Rooms"]["Backrooms 5"].Exit.Frame:Ge
         end
 wait(0.3)
 end
-wait(0.2)
+wait(0.35)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Almond Water"].CFrame
 wait(0.3)
 for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
@@ -272,7 +296,7 @@ for i,v in ipairs(game.Workspace.Backrooms["Almond Water"]:GetDescendants()) do
                 fireproximityprompt(v)
             end
         end
-task.wait()
+task.wait(0.38)
 end
 while _G.AutoCollectAlmondWater and _G.AlmondWater == "Auto Floppy Eat" do
 for i = 1, 5 do
@@ -306,6 +330,17 @@ end
 	end    
 })
 
+Misc:AddButton({
+	Name = "Equip Almond Water All",
+	Callback = function()
+for i,v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.Name == "Almond Water" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+  	end    
+})
+
 Misc:AddToggle({
 	Name = "Auto Collect Space Crystal",
 	Default = false,
@@ -337,6 +372,47 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
 if v:FindFirstChild("ProximityPrompt") then
 fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
 end
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Plant Seeds",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPlantSeeds = Value
+while _G.AutoPlantSeeds do
+local Seeds = {}
+local function SeedGet()
+for i, v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v.Name:match("Seed") or v.Name:match("Spore") then
+            table.insert(Seeds, v)
+       end
+end
+for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+         if v.Name:match("Seed") or v.Name:match("Spore") then
+             table.insert(Seeds, v)
+		end
+	end
+end
+local function PotGet()
+     for _,v in ipairs(workspace.Unlocks:GetChildren()) do
+			if v.Name:match("Planter") and #Seeds ~= 0 then
+				if v.Plant.Value == nil or v.Plant.Value == "" then
+				    return v
+				end
+			end
+		end
+	end
+SeedGet()
+for i, v in ipairs(Seeds) do
+v.Parent = game.Players.LocalPlayer.Character
+end
+if PotGet() ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PotGet().Soil.CFrame * CFrame.new(0,5.7,0)
+fireproximityprompt(PotGet().Soil.ProximityPrompt)
 end
 task.wait()
 end
@@ -501,6 +577,13 @@ Credit:AddButton({
 })
 
 Credit:AddButton({
+	Name = "Copy Join Slap Battles Group",
+	Callback = function()
+            setclipboard("https://discord.com/invite/w7AgjFP4")
+  	end    
+})
+
+Credit:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
@@ -511,6 +594,16 @@ end
 })
 end
 --------------------------------------------------------
+
+for i,v in pairs(gethui().Orion:GetDescendants()) do
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
+v.BackgroundTransparency = 0.2
+                    end
+                end
+gethui().Orion.Name = "OrionEdited"
+
+----Transparency----
+
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi200") == nil then
 local TOGGLE = {}
 TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
@@ -518,7 +611,7 @@ TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
 TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
 
 TOGGLE["Ui"].Name = "ToggleUi200"
-TOGGLE["Ui"].ResetOnSpawn = false
+TOGGLE["Ui"].ResetOnSpawn = false 
 
 TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
 TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
@@ -540,12 +633,3 @@ TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end 
-
-----Transparency----
-
-for i,v in pairs(gethui().Orion:GetDescendants()) do
-                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
-v.BackgroundTransparency = 0.2
-                    end
-                end
-gethui().Orion.Name = "OrionEdited"
