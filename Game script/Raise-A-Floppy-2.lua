@@ -138,6 +138,7 @@ end
 	end    
 })
 
+_G.PromptFloppyGet = "Pet"
 Misc:AddDropdown({
 	Name = "Prompt Floppy",
 	Default = "Pet",
@@ -149,7 +150,7 @@ wait(0.05)
 _G.PromptFloppyGet = Value
 wait(0.08)
 AutoPromptFloppy:Set(true)
-elseif _G.AutoPromptFloppy == false then
+else
 _G.PromptFloppyGet = Value
 end
 	end    
@@ -368,7 +369,7 @@ Misc:AddToggle({
 _G.AutoPickUpSeeds = Value
 while _G.AutoPickUpSeeds do
 for i, v in ipairs(game.Workspace.Seeds:GetChildren()) do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,3,0)
 if v:FindFirstChild("ProximityPrompt") then
 fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
 end
@@ -411,12 +412,79 @@ for i, v in ipairs(Seeds) do
 v.Parent = game.Players.LocalPlayer.Character
 end
 if PotGet() ~= nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PotGet().Soil.CFrame * CFrame.new(0,5.7,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PotGet().Soil.CFrame * CFrame.new(-1,-5,0)
 fireproximityprompt(PotGet().Soil.ProximityPrompt)
 end
 task.wait()
 end
 	end    
+})
+
+Misc:AddDropdown({
+	Name = "Grilled Cheese",
+	Default = "Auto Equip",
+	Options = {"Not Auto Equip","Auto Equip", "Auto Equip + Feed Floppa"},
+	Callback = function(Value)
+_G.GrilledCheeseGet = Value
+	end    
+})
+
+Misc:AddButton({
+	Name = "Get Grilled Cheese",
+	Callback = function()
+if _G.GrilledCheeseGet == "Not Auto Equip" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.CFrame * CFrame.new(0,4,0)
+wait(0.25)
+fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.ProximityPrompt)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
+wait(0.25)
+fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
+wait(0.42)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Change Temperature", 3)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Cook")
+elseif _G.GrilledCheeseGet == "Auto Equip" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.CFrame * CFrame.new(0,4,0)
+wait(0.4)
+fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.ProximityPrompt)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
+wait(0.4)
+fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
+wait(0.89)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Change Temperature", 3)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Cook")
+task.wait(20)
+firetouchinterest(workspace:WaitForChild("Grilled Cheese").Handle, game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 0)
+firetouchinterest(workspace:WaitForChild("Grilled Cheese").Handle, game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 1)
+elseif _G.GrilledCheeseGet == "Auto Equip + Feed Floppa" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.CFrame * CFrame.new(0,4,0)
+wait(0.3)
+fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.ProximityPrompt)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
+wait(0.3)
+fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
+wait(0.42)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
+wait(0.05)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Change Temperature", 3)
+game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Cook")
+task.wait(20)
+firetouchinterest(workspace:WaitForChild("Grilled Cheese").Handle, game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 0)
+firetouchinterest(workspace:WaitForChild("Grilled Cheese").Handle, game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 1)
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
+wait(0.3)
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+end
+  	end    
 })
 
 Misc:AddDropdown({
@@ -611,7 +679,7 @@ TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
 TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
 
 TOGGLE["Ui"].Name = "ToggleUi200"
-TOGGLE["Ui"].ResetOnSpawn = false 
+TOGGLE["Ui"].ResetOnSpawn = false
 
 TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
 TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
