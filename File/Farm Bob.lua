@@ -12,12 +12,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battle
 end
 
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "[ Giang ]",Text = "📢 [ You have not issued Bob, and not badge bob ] 🇻🇳.",Icon = "rbxassetid://7733658504",Duration = 10})
+wait(0.5)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
 wait(0.25)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.4)
-for i = 1, 2500 do
+for i = 1, 3000 do
 game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 end
 wait(0.4)
@@ -30,5 +32,7 @@ end
 if #serverList > 0 then
 	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
 end
+else
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "[ Giang ]",Text = "📢 [ You Got Badge Bob, Meaning you already have Bob ] 🇻🇳.",Icon = "rbxassetid://7733658504",Duration = 10})
 end
 end
