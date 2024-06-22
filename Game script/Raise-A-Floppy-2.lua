@@ -459,7 +459,7 @@ end
 })
 
 Misc:AddDropdown({
-	Name = "Grilled Cheese & Auto",
+	Name = "Grilled Cheese",
 	Default = "Auto Equip",
 	Options = {"Not Auto Equip","Auto Equip", "Auto Equip + Feed Floppa"},
 	Callback = function(Value)
