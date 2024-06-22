@@ -380,6 +380,44 @@ end
 })
 
 Misc:AddToggle({
+	Name = "Auto Pick Up Mike",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPickUpMike = Value
+while _G.AutoPickUpMike do
+if game.Workspace:FindFirstChild("Milk Delivery") and game.Workspace["Milk Delivery"]:FindFirstChild("Crate") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Milk Delivery"].Crate.CFrame
+for i,v in ipairs(game.Workspace["Milk Delivery"].Crate:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Claim Rent",
+	Default = false,
+	Callback = function(Value)
+_G.AutoClaimRent = Value
+while _G.AutoClaimRent do
+if workspace:FindFirstChild("Rent") == nil then
+game:GetService("ReplicatedStorage").Events["Collect Rent"]:FireServer()
+end
+task.wait(2)
+if workspace:FindFirstChild("Rent") then
+firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 0)
+firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 1)
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
 	Name = "Auto Plant Seeds",
 	Default = false,
 	Callback = function(Value)
@@ -421,7 +459,7 @@ end
 })
 
 Misc:AddDropdown({
-	Name = "Grilled Cheese",
+	Name = "Grilled Cheese & Auto",
 	Default = "Auto Equip",
 	Options = {"Not Auto Equip","Auto Equip", "Auto Equip + Feed Floppa"},
 	Callback = function(Value)
@@ -434,26 +472,28 @@ Misc:AddButton({
 	Callback = function()
 if _G.GrilledCheeseGet == "Not Auto Equip" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.CFrame * CFrame.new(0,4,0)
-wait(0.25)
+wait(0.3)
 fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.ProximityPrompt)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
-wait(0.25)
+wait(0.3)
 fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
-wait(0.42)
+wait(0.82)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
+wait(0.05)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Change Temperature", 3)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Cook")
 elseif _G.GrilledCheeseGet == "Auto Equip" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.CFrame * CFrame.new(0,4,0)
-wait(0.4)
+wait(0.3)
 fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Display Crate"].Primary.ProximityPrompt)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
-wait(0.4)
+wait(0.3)
 fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
-wait(0.89)
+wait(0.82)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
+wait(0.05)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Change Temperature", 3)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Cook")
 task.wait(20)
@@ -466,7 +506,7 @@ fireproximityprompt(workspace.Village.FoodMarket["Bread Crate"].Crate["Empty Dis
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.FoodMarket.Cheese.CFrame * CFrame.new(0,4,0)
 wait(0.3)
 fireproximityprompt(workspace.Village.FoodMarket.Cheese.ProximityPrompt)
-wait(0.42)
+wait(0.82)
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient","Bread")
 game:GetService("ReplicatedStorage").Events.Cooking:FireServer("Add Ingredient", "Cheese")
 wait(0.05)
