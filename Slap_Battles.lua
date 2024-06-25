@@ -792,6 +792,7 @@ local Tab60 = Window:MakeTab({
 })
 
 Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the hack slap battles group, go to the credits section ] | Good Luck")
+Tab:AddParagraph("Notification"," [ IMPORTANT MESSAGE: MY YOUTUBE ACCOUNT DONJOSX GOT HACKED AND I AM TRYING TO GET IT BACK, PLEASE DON'T TRUST ANYTHING HE SAYS  [ INFORMATION NOT FROM SLAP BATTLE SCRIPTS ] ALSO PLEASE SAY IT IN THE COMMENTS OF MY VIDEO FOR EVERYONE!!! ]")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -2932,7 +2933,7 @@ if _G.TeleportOldPlace == "Yes" then
 OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.683)
+wait(2.7)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.HumanoidRootPart.CFrame
 task.wait(0.5)
 if _G.TeleportOldPlace == "Yes" then
@@ -3049,7 +3050,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.684)
+wait(2.7)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKickRecall].Character.HumanoidRootPart.CFrame
 task.wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -3073,7 +3074,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.684)
+wait(2.7)
 local players = game.Players:GetChildren()
 local randomPlayer = players[math.random(1, #players)]
 repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
