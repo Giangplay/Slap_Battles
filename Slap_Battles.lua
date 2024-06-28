@@ -841,7 +841,7 @@ AutoSetInfo = Tab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoSetInfo = Value
-_G.AutoSetInfoGet = game:GetService("RunService").RenderStepped:Connect(function()
+game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoSetInfo then
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 ServerPlayer:Set("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
@@ -989,6 +989,13 @@ Tab1:AddButton({
 	Name = "Slap battles new R2O",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/6403373529.lua"))()
+  	end    
+})
+
+Tab1:AddButton({
+	Name = "Auto Farm Bob",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/File/Farm%20Bob.lua"))()
   	end    
 })
 
@@ -1552,19 +1559,9 @@ _G.SelectMaze = Value
 	end    
 })
 
-Tab3:AddDropdown({
-	Name = "Badge Teleport",
-	Default = "",
-	Options = {"Elude","Counter"},
-	Callback = function(Value)
-_G.SelectMazeBadge = Value
-	end    
-})
-
 Tab3:AddButton({
-	Name = "Get Glove Badge Teleport",
+	Name = "Get Counter + Elude",
 	Callback = function()
-if _G.SelectMazeBadge == "Elude" then
 if _G.SelectMaze == "Teleport" then
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
@@ -1573,56 +1570,7 @@ if teleportFunc then
             game.Loaded:Wait()
         end
         repeat wait() until game.Players.LocalPlayer
-        game:GetService("RunService").RenderStepped:Connect(function()
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-        end)
-    ]])
-end
-game:GetService("TeleportService"):Teleport(11828384869)
-elseif _G.SelectMaze == "Auto Keypad" then
-if not workspace:FindFirstChild("Keypad") then
-OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, auto start Serverhop",Image = "rbxassetid://7733658504",Time = 5})
-	for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-    	if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
-        	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
-    	end
-	end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "server in have spawn keypad, auto start keypad",Image = "rbxassetid://7733658504",Time = 5})
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
-        game:GetService("RunService").RenderStepped:Connect(function()
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-        end)
-game:GetService("TeleportService"):Teleport(6403373529)
-    ]])
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
-for i = 1, #digits do
-task.wait(0.8)
-local digit = digits:sub(i, i)
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
-end
-task.wait(0.5)
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-end
-end
-elseif _G.SelectMazeBadge == "Counter" then
-if _G.SelectMaze == "Teleport" then
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
-if teleportFunc then
-    teleportFunc([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
+        wait(3)
 Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
@@ -1630,9 +1578,13 @@ wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 for i = 1,Time do
 Time = Time - 1
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 1})
 wait(1)
 end
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.5)
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 0)
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 1)
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -1650,7 +1602,6 @@ OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, a
     	end
 	end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "server in have spawn keypad, auto start keypad",Image = "rbxassetid://7733658504",Time = 5})
 local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
 if teleportFunc then
     teleportFunc([[
@@ -1658,16 +1609,19 @@ if teleportFunc then
             game.Loaded:Wait()
         end
         repeat wait() until game.Players.LocalPlayer
-        Time = 121
+        wait(3)
+Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 for i = 1,Time do
 Time = Time - 1
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 2})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 1})
 wait(1)
 end
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 0)
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 1)
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -1675,6 +1629,7 @@ end
 end
     ]])
 end
+OrionLib:MakeNotification({Name = "Error",Content = "Server in have spawn keypad, auto start keypad",Image = "rbxassetid://7733658504",Time = 5})
 game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7)
@@ -1685,7 +1640,6 @@ fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit)
 end
 task.wait(0.5)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-end
 end
 end
   	end    
@@ -6214,7 +6168,7 @@ while SlapAura and SlapAuraFriend == "Fight" and _G.SlapAuraChoose == "Normal" d
 pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
@@ -6241,7 +6195,7 @@ while SlapAura and SlapAuraFriend == "Not Fight" and _G.SlapAuraChoose == "Norma
 pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
@@ -6316,7 +6270,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
                 while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Fight" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character:FindFirstChild("Mirage") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachShukuchi >= Magnitude then
@@ -6338,7 +6292,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
                 while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Not Fight" do
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and v.Character:FindFirstChild("Mirage") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachShukuchi >= Magnitude then
@@ -7540,12 +7494,9 @@ Tab15:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
+_G.AutoSetInfo = false
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
-if _G.AutoSetInfoGet then
-_G.AutoSetInfoGet:Disconnect()
-_G.AutoSetInfoGet = nil
 end
   	end 
 })
@@ -7561,6 +7512,9 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 28 | Months 6 ]--------------")
+Tab60:AddLabel("[ = ] Slap Aura")
+Tab60:AddLabel("Sorry I can't think of anything that updates scripts so slow")
 Tab60:AddLabel("--------------[ Day 18 | Months 6 ]--------------")
 Tab60:AddLabel("[ = ] Slap Aura [ Reverse Player ]")
 Tab60:AddLabel("[ + ] Slap Aura Choose")
@@ -7915,14 +7869,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Get Elude",
-	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502.336, 14.228, -179.597)
-  	end    
-})
-
-Tab:AddButton({
-	Name = "Get Counter",
+	Name = "Get Counter + Elude",
 	Callback = function()
 Time = 121
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
@@ -7934,6 +7881,10 @@ Time = Time - 1
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You wait time [ "..Time.." ] receive.",Icon = "rbxassetid://7733658504",Duration = 1})
 wait(1)
 end
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.5)
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 0)
+firetouchinterest(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), game.Workspace.Ruins.Elude.Glove, 1)
 for i,v in pairs(workspace.Maze:GetDescendants()) do
 if v:IsA("ClickDetector") then
 fireclickdetector(v)
@@ -8143,9 +8094,23 @@ Tab:AddDropdown({
 	Options = {"Click", "Teleport"},
 	Callback = function(Value)
 if Value == "Click" then
-fireclickdetector(workspace._ugcQuestObjectEludeHat.ClickDetector)
-elseif Value == "Teleport" then
+if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
+wait(0.5)
+fireclickdetector(workspace._ugcQuestObjectEludeHat.ClickDetector)
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
+wait(0.5)
+fireclickdetector(workspace._ugcQuestObjectEludeHat.ClickDetector)
+end
+elseif Value == "Teleport" then
+if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
+end
 end
 	end    
 })
@@ -9624,6 +9589,8 @@ Tab:AddDropdown({
 	Options = {"Click", "Teleport"},
 	Callback = function(Value)
 if Value == "Click" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace._ugcQuestObjectBobPlushie.Handle.CFrame
+wait(0.5)
 fireclickdetector(workspace._ugcQuestObjectBobPlushie.ClickDetector)
 elseif Value == "Teleport" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace._ugcQuestObjectBobPlushie.Handle.CFrame
