@@ -1885,7 +1885,26 @@ end
 	end    
 })
 
-Glitchfarm = Tab3:AddToggle({
+Tab3:AddToggle({
+	Name = "Siphon Farm",
+	Default = false,
+	Callback = function(Value)
+_G.Siphonfarm = Value
+while _G.Siphonfarm do
+if game.Workspace:FindFirstChild("SiphonOrb") then
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "SiphonOrb" then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
+                end
+task.wait()
+end
+	end    
+})
+
+Tab3:AddToggle({
 	Name = "Phase Or Jet Glitch",
 	Default = false,
 	Callback = function(Value)
@@ -7513,6 +7532,9 @@ Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ 
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
 Tab60:AddLabel("--------------[ Day 28 | Months 6 ]--------------")
+Tab60:AddLabel("[ + ] Siphon Farm")
+Tab60:AddLabel("[ + ] New Glove [ Slap Aura | Anti Null ]")
+Tab60:AddLabel("--------------[ Day 28 | Months 6 ]--------------")
 Tab60:AddLabel("[ = ] Slap Aura")
 Tab60:AddLabel("Sorry I can't think of anything that updates scripts so slow")
 Tab60:AddLabel("--------------[ Day 18 | Months 6 ]--------------")
@@ -10196,6 +10218,7 @@ gloveHits = {
     ["the schlop"] = game.ReplicatedStorage.GeneralHit,
     ["UFO"] = game.ReplicatedStorage.GeneralHit,
     ["el gato"] = game.ReplicatedStorage.GeneralHit,
+    ["Siphon"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
