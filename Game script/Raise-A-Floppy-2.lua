@@ -406,6 +406,22 @@ end
 })
 
 Misc:AddToggle({
+	Name = "Auto Pick Meteorite",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPickMeteorite = Value
+while _G.AutoPickMeteorite do
+for i, v in ipairs(game.Workspace:GetChildren()) do
+if v.Name == "Meteorite" and v:FindFirstChild("Handle") then
+v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
 	Name = "Auto Pick Up Seeds",
 	Default = false,
 	Callback = function(Value)
