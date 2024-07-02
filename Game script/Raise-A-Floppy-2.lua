@@ -2,7 +2,7 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-if game.PlaceId == 9772878203 then
+if game.PlaceId == 9772878203 or game.PlaceId == 9921522947 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local Window = OrionLib:MakeWindow({IntroText = "Raise A Floppy 2",Name = ("Raise A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
 
@@ -36,8 +36,7 @@ local Credit = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Main:AddLabel("Owner Credits Script By Giang")
-Main:AddLabel("Bạn muốn vào nhóm zalo thì vào Credit nhé")
+Main:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the hack slap battles group, go to the credits section ] | Good Luck")
 
 Main:AddButton({
 	Name = "Keyboard",
@@ -75,7 +74,7 @@ _G.AutoClickFoppy = Value
 while _G.AutoClickFoppy do
 fireclickdetector(game.Workspace.Floppa.ClickDetector)
 if game.Workspace.Unlocks:FindFirstChild("Baby Floppa") then
-for i,v in pairs(game.Workspace.Unlocks:GetDescendants()) do
+for i,v in next, game.Workspace.Unlocks:GetChildren() do
 if v.Name == "Baby Floppa" then
 fireclickdetector(v.ClickDetector)
 end
@@ -212,7 +211,15 @@ fireproximityprompt(v)
 end
 end
 end
-task.wait(0.2)
+if game.Workspace:FindFirstChild("Poop") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Poop.PoopPart.CFrame
+for i,v in pairs(workspace.Poop:GetChildren()) do
+if v.ClassName == "ProximityPrompt" then
+fireproximityprompt(v)
+end
+end
+end
+task.wait()
 end
 	end    
 })
@@ -225,7 +232,7 @@ _G.AutoCookFloppa = Value
 while _G.AutoCookFloppa do
 _G.FloppaHunger = string.gsub(workspace.Floppa.Display.Frame.Hunger.Text, "%D", "")
 _G.FloppaHungers = tonumber(_G.FloppaHunger)
-if _G.FloppaHungers <= 20 then
+if _G.FloppaHungers <= 50 then
 game:GetService("ReplicatedStorage").Events.Unlock:FireServer("Floppa Food","the_interwebs")
 task.wait(0.7)
 for i = 1, 20 do
@@ -326,7 +333,6 @@ for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
                 fireproximityprompt(v)
             end
         end
-task.wait(0.28)
 end
 	end    
 })
@@ -350,30 +356,12 @@ _G.AutoCollectSpaceCrystal = Value
 while _G.AutoCollectSpaceCrystal do
 if game.Workspace.Unlocks:FindFirstChild("Wormhole Machine") and game.Workspace.Unlocks["Wormhole Machine"]:FindFirstChild("Crystal") and game.Workspace.Unlocks["Wormhole Machine"].Crystal:FindFirstChild("Crystal") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Unlocks["Wormhole Machine"].Crystal.Crystal.CFrame
-wait(0.3)
 for i,v in ipairs(game.Workspace.Unlocks["Wormhole Machine"].Crystal:GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
         end
         end
-task.wait()
-end
-	end    
-})
-
-Misc:AddToggle({
-	Name = "Auto Pick Up Seeds",
-	Default = false,
-	Callback = function(Value)
-_G.AutoPickUpSeeds = Value
-while _G.AutoPickUpSeeds do
-for i, v in ipairs(game.Workspace.Seeds:GetChildren()) do
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,3,0)
-if v:FindFirstChild("ProximityPrompt") then
-fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
-end
-end
 task.wait()
 end
 	end    
@@ -411,6 +399,40 @@ task.wait(2)
 if workspace:FindFirstChild("Rent") then
 firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 0)
 firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 1)
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Pick Meteorite",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPickMeteorite = Value
+while _G.AutoPickMeteorite do
+for i, v in ipairs(game.Workspace:GetChildren()) do
+if v.Name == "Meteorite" then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
+end
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Pick Up Seeds",
+	Default = false,
+	Callback = function(Value)
+_G.AutoPickUpSeeds = Value
+while _G.AutoPickUpSeeds do
+for i, v in ipairs(game.Workspace.Seeds:GetChildren()) do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,3,0)
+if v:FindFirstChild("ProximityPrompt") then
+fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
+end
 end
 task.wait()
 end
@@ -673,9 +695,12 @@ task.wait()
 	end    
 })
 
-Credit:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend")
-Credit:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese")
+Credit:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
+Credit:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt")
 Credit:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
+Credit:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
+Credit:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt hoặc Tiếng Anh")
+Credit:AddLabel("Owner Credits Script By Giang")
 
 Credit:AddButton({
 	Name = "Copy Join Zalo",
