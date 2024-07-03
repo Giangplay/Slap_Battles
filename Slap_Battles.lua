@@ -2538,7 +2538,7 @@ end
 })
 
 Tab14:AddTextbox({
-	Name = "Make Punish Player",
+	Name = "Punish Player",
 	Default = "Username",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -2561,7 +2561,7 @@ end
 
 Cancel = false
 Tab14:AddButton({
-	Name = "Get Punish Player",
+	Name = "Punish Player",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2600,6 +2600,442 @@ Tab14:AddButton({
 Cancel = true
 wait(0.1)
 Cancel = false
+  	end    
+})
+
+Tab14:AddDropdown({
+	Name = "Player",
+	Default = "Usename",
+	Options = {"Username","Random"},
+	Callback = function(Value)
+_G.PlayerChoose = Value
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Teleport Void Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.VoidPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.VoidPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Teleport Void Player",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+repeat task.wait()
+if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
+task.wait(0.37)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+end
+until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
+task.wait(0.6)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+task.wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
+Target = RandomPlayer
+repeat task.wait()
+if Target.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
+task.wait(0.37)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+end
+until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
+task.wait(0.6)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+task.wait(0.05)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Home Run Kill Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.KillerPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.KillerPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Home Run Kill Player",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players[_G.KillerPlayer].Character:FindFirstChild("entered") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGLZ = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size
+game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+wait(4.2)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait(0.12)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = OGLZ
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
+wait(4.2)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+OGLZ = Target.Character.HumanoidRootPart.Size
+Target.Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
+wait(0.25)
+game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
+task.wait(0.12)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+task.wait(0.25)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+Target.Character.HumanoidRootPart.Size = OGLZ
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
+Tab14:AddTextbox({
+	Name = "Quake Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.PressIntoTheGround = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PressIntoTheGround.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Quake Player",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.PressIntoTheGround].Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
+wait(3.45)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
+task.wait(0.18)
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
+task.wait(0.17)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped.",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
+wait(4)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
+task.wait(0.13)
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
+task.wait(0.17)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
+Tab14:AddTextbox({
+	Name = "Cards Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+PersonCar = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+PersonCar = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PersonCar.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Cards Player",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[PersonCar])
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",Target)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Oven Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.OvenPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.OvenPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+AutoOven = Tab14:AddToggle({
+	Name = "Auto Oven Player",
+	Default = false,
+	Callback = function(Value)
+_G.OvenPlayerAuto = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" then
+while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+if _G.PlayerChoose == "Username" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
+end
+elseif _G.PlayerChoose == "Random" then
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
+Target = RandomPlayer
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
+end
+end
+task.wait()
+end
+elseif _G.OvenPlayerAuto == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Oven equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoOven:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Siphon Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.SiphonPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.SiphonPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+AutoSiphon = Tab14:AddToggle({
+	Name = "Auto Siphon Player",
+	Default = false,
+	Callback = function(Value)
+_G.AutoSiphonPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Siphon" then
+while _G.AutoSiphonPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Siphon" do
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.SiphonPlayer].Character:FindFirstChild("entered") then
+game:GetService("ReplicatedStorage").Events.Siphon:FireServer({["cf"] = game.Players[_G.SiphonPlayer].Character.HumanoidRootPart.CFrame})
+end
+elseif _G.PlayerChoose == "Random" then
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
+if RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character:FindFirstChild("stevebody") == nil and RandomPlayer.Character:FindFirstChild("rock") == nil then
+game:GetService("ReplicatedStorage").Events.Siphon:FireServer({["cf"] = RandomPlayer.Character.HumanoidRootPart.CFrame})
+end
+end
+end 
+task.wait()
+end
+elseif _G.AutoSiphonPlayer == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Siphon equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+AutoSiphon:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Kick Player Recall",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+PlayerKickRecall = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKickRecall.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Kick Player Recall",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKickRecall].Character:FindFirstChild("entered") and game.Players[PlayerKickRecall].Character:FindFirstChild("HumanoidRootPart") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(0.25)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+wait(2.7)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKickRecall].Character.HumanoidRootPart.CFrame
+task.wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = false
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
+task.wait(0.25)
+game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
+wait(2.7)
+local players = game.Players:GetChildren()
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+task.wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+v.CanTouch = true
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
   	end    
 })
 
@@ -3042,76 +3478,17 @@ end
   	end    
 })
 
-Tab14:AddTextbox({
-	Name = "Kick Player Recall",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-PlayerKickRecall = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PlayerKickRecall.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
 Tab14:AddButton({
-	Name = "Kick Player Recall",
+	Name = "Spawn Orb Siphon",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKickRecall].Character:FindFirstChild("entered") and game.Players[PlayerKickRecall].Character:FindFirstChild("HumanoidRootPart") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(0.25)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.7)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKickRecall].Character.HumanoidRootPart.CFrame
-task.wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Siphon" then
+game:GetService("ReplicatedStorage").Events.Siphon:FireServer({["cf"] = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame})
+wait(0.1)
+if game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("siphon_charge") then
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab14:AddButton({
-	Name = "Kick Random Player Recall",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = false
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
-task.wait(0.25)
-game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.7)
-local players = game.Players:GetChildren()
-local randomPlayer = players[math.random(1, #players)]
-repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
-Target = randomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-task.wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
-v.CanTouch = true
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Siphon equipped or you haven't in arena.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -4135,319 +4512,6 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You need to be in lobby and have 666+ slaps.",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
-})
-
-Tab14:AddDropdown({
-	Name = "Player",
-	Default = "Usename",
-	Options = {"Username","Random"},
-	Callback = function(Value)
-_G.PlayerChoose = Value
-	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Make Void Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.VoidPlayer = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.VoidPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Player Teleport Void",
-	Callback = function()
-if _G.PlayerChoose == "Username" then
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-task.wait(0.25)
-repeat task.wait()
-if workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace[_G.VoidPlayer].HumanoidRootPart.Position.X,-70,workspace[_G.VoidPlayer].HumanoidRootPart.Position.Z)
-task.wait(0.37)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-end
-until game.Players[_G.VoidPlayer].Character and workspace[_G.VoidPlayer]:FindFirstChild("HumanoidRootPart") and workspace[_G.VoidPlayer]:FindFirstChild("entered") and workspace[_G.VoidPlayer].Ragdolled.Value == false
-task.wait(0.6)
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.05)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.Character:FindFirstChild("Swapper") or game.Players.LocalPlayer.Backpack:FindFirstChild("Swapper") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
-Target = RandomPlayer
-repeat task.wait()
-if Target.Character:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,-70,Target.Character.HumanoidRootPart.Position.Z)
-task.wait(0.37)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-end
-until Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") and Target.Character:FindFirstChild("entered") and Target.Character:FindFirstChild("Ragdolled").Value == false
-task.wait(0.6)
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-wait(.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.05)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you aren't in the arena.",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Home Run Kill Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.KillerPlayer = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.KillerPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Home Run Kill Player",
-	Callback = function()
-if _G.PlayerChoose == "Username" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players[_G.KillerPlayer].Character:FindFirstChild("entered") then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-OGLZ = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size
-game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(4.2)
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.KillerPlayer].Character.HumanoidRootPart.CFrame
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players[_G.KillerPlayer].Character.HumanoidRootPart.Size = OGLZ
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-wait(4.2)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
-Target = RandomPlayer
-OGLZ = Target.Character.HumanoidRootPart.Size
-Target.Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
-wait(0.25)
-game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
-task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-task.wait(0.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-Target.Character.HumanoidRootPart.Size = OGLZ
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end 
-})
-
-Tab14:AddTextbox({
-	Name = "Make Player Quake",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.PressIntoTheGround = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.PressIntoTheGround.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Player Quake",
-	Callback = function()
-if _G.PlayerChoose == "Username" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.PressIntoTheGround].Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
-wait(3.45)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PressIntoTheGround].Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
-task.wait(0.18)
-game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
-task.wait(0.17)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped.",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
-wait(4)
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
-Target = RandomPlayer
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character:FindFirstChild("Head").CFrame * CFrame.new(0,4,0)
-task.wait(0.13)
-game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["finished"] = true})
-task.wait(0.17)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end 
-})
-
-Tab14:AddTextbox({
-	Name = "Cards Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
-PersonCar = game.Players.LocalPlayer.Name
-else
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-PersonCar = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ "..PersonCar.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-	end	  
-})
-
-Tab14:AddButton({
-	Name = "Cards Player",
-	Callback = function()
-if _G.PlayerChoose == "Username" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[PersonCar])
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
-Target = RandomPlayer
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",Target)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
-end
-  	end    
-})
-
-Tab14:AddTextbox({
-	Name = "Oven Player",
-	Default = "Username",
-	TextDisappear = false,
-	Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
-for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
-end
-end
-if targetPlayer then
-_G.OvenPlayer = targetPlayer.Name
-OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.OvenPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
-end
-	end	  
-})
-
-AutoOven = Tab14:AddToggle({
-	Name = "Auto Oven Player",
-	Default = false,
-	Callback = function(Value)
-_G.OvenPlayerAuto = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" then
-while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
-if _G.PlayerChoose == "Username" then
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
-end
-elseif _G.PlayerChoose == "Random" then
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
-Target = RandomPlayer
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer(Target.Character.HumanoidRootPart.CFrame)
-end
-end
-task.wait()
-end
-elseif _G.OvenPlayerAuto == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Oven equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoOven:Set(false)
-end
-	end    
 })
 
 Tab14:AddColorpicker({
@@ -7566,6 +7630,10 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 3 | Months 7 ]--------------")
+Tab60:AddLabel("[ + ] Spawn Orb Siphon")
+Tab60:AddLabel("[ = ] Random Player [ Button | Toggle ]")
+Tab60:AddLabel("[ + ] Auto Player Siphon")
 Tab60:AddLabel("--------------[ Day 2 | Months 7 ]--------------")
 Tab60:AddLabel("[ + ] Info Toolbox Spawn")
 Tab60:AddLabel("[ + ] Info Siphon Orb Spawn")
