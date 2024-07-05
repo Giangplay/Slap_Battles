@@ -6,6 +6,11 @@ if game.PlaceId == 9772878203 or game.PlaceId == 9921522947 then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
 local Window = OrionLib:MakeWindow({IntroText = "Raise A Floppy 2",Name = ("Raise A Floppy 2".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true})
 
+BackroomLevel = {}
+for i,v in pairs(game.Workspace.Backrooms.Rooms:GetChildren()) do
+table.insert(BackroomLevel, v.Name)
+end
+
 local Main = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://7734053426",
@@ -92,7 +97,7 @@ Farm:AddToggle({
 _G.AutoCollectMoney = Value
 while _G.AutoCollectMoney do
 for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "Money" or v.Name == "Money Bag" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+if v.Name == "Money" or v.Name == "Money Bag" or v.Name == "Money2" and v:FindFirstChildWhichIsA("TouchTransmitter") then
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
                 end
@@ -405,15 +410,65 @@ end
 	end    
 })
 
+Misc:AddSlider({
+	Name = "Hitbox Enemies",
+	Min = 10,
+	Max = 65,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hitbox",
+	Callback = function(Value)
+_G.HitboxEnemies = Value
+	end    
+})
+
 Misc:AddToggle({
-	Name = "Auto Pick Meteorite",
+	Name = "Enemies Hitbox",
 	Default = false,
 	Callback = function(Value)
-_G.AutoPickMeteorite = Value
-while _G.AutoPickMeteorite do
-for i, v in ipairs(game.Workspace:GetChildren()) do
-if v.Name == "Meteorite" and v:FindFirstChild("Handle") then
-v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+_G.EnemiesHitbox = Value
+if _G.EnemiesHitbox == false then
+for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
+v.HumanoidRootPart.Size = Vector3.new(2,2,1)
+v.HumanoidRootPart.Transparency = 1
+end
+end
+end
+while _G.EnemiesHitbox do
+for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
+v.HumanoidRootPart.Size = Vector3.new(_G.HitboxEnemies,_G.HitboxEnemies,_G.HitboxEnemies)
+v.HumanoidRootPart.Transparency = 0.75
+end
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Kill Enemies",
+	Default = false,
+	Callback = function(Value)
+_G.AutoKillMod = Value
+while _G.AutoKillMod do
+for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
+if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,6)
+if game.Players.LocalPlayer.Character:FindFirstChild("Sword") then
+game.Players.LocalPlayer.Character:FindFirstChild("Sword"):Activate()
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") then
+game.Players.LocalPlayer.Character:FindFirstChild("Excalibur"):Activate()
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Sword") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Sword").Parent = game.Players.LocalPlayer.Character
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Excalibur") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Excalibur").Parent = game.Players.LocalPlayer.Character
+end
+end
 end
 end
 task.wait()
@@ -477,6 +532,24 @@ end
 task.wait()
 end
 	end    
+})
+
+Misc:AddDropdown({
+	Name = "Choose Backroom",
+	Default = "",
+	Options = BackroomLevel,
+	Callback = function(Value)
+_G.TeleportBlackRoom = Value
+	end    
+})
+
+Misc:AddButton({
+	Name = "Teleport Room",
+	Callback = function()
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Backrooms["Rooms"][_G.TeleportBlackRoom].Exit.Frame.CFrame
+end
+  	end    
 })
 
 Misc:AddDropdown({
@@ -726,14 +799,11 @@ end
 })
 end
 --------------------------------------------------------
-
 for i,v in pairs(gethui().Orion:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
                     end
                 end
-gethui().Orion.Name = "OrionEdited"
-
 ----Transparency----
 
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi200") == nil then
@@ -761,7 +831,7 @@ while true do
 end
 end)
 TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
-    gethui().OrionEdited.Enabled = not gethui().OrionEdited.Enabled
+    gethui().Orion.Enabled = not gethui().Orion.Enabled
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end 
