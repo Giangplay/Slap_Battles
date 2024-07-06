@@ -392,6 +392,23 @@ end
 })
 
 Misc:AddToggle({
+	Name = "Auto Collect Meteorite",
+	Default = false,
+	Callback = function(Value)
+_G.AutoCollectMeteorite = Value
+while _G.AutoCollectMeteorite do
+for i,v in ipairs(game.Workspace:GetChildren()) do
+            if v.Name == "Meteorite" and v:FindFirstChild("Handle") and v.Handle:FindFirstChildWhichIsA("TouchTransmitter") then
+                firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v:FindFirstChild("Handle"), 0)
+                firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v:FindFirstChild("Handle"), 1)
+            end
+        end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
 	Name = "Auto Claim Rent",
 	Default = false,
 	Callback = function(Value)
@@ -432,6 +449,7 @@ if _G.EnemiesHitbox == false then
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.Size = Vector3.new(2,2,1)
+v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Transparency = 1
 end
 end
@@ -440,6 +458,7 @@ while _G.EnemiesHitbox do
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.Size = Vector3.new(_G.HitboxEnemies,_G.HitboxEnemies,_G.HitboxEnemies)
+v.HumanoidRootPart.CanCollide = true
 v.HumanoidRootPart.Transparency = 0.75
 end
 end
@@ -457,8 +476,9 @@ while _G.AutoKillMod do
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
-v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,6)
+v.HumanoidRootPart.Size = Vector3.new(40,40,40)
+v.HumanoidRootPart.CanCollide = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,5,6)
 if game.Players.LocalPlayer.Character:FindFirstChild("Sword") then
 game.Players.LocalPlayer.Character:FindFirstChild("Sword"):Activate()
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") then
