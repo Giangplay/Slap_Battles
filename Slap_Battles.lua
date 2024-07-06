@@ -1704,7 +1704,6 @@ if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 and not game:GetServ
 Door = 0
 for i = 1, 10 do
 Door = Door + 1
-
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
 wait(3.75)
