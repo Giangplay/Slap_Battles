@@ -78,13 +78,6 @@ Farm:AddToggle({
 _G.AutoClickFoppy = Value
 while _G.AutoClickFoppy do
 fireclickdetector(game.Workspace.Floppa.ClickDetector)
-if game.Workspace.Unlocks:FindFirstChild("Baby Floppa") then
-for i,v in next, game.Workspace.Unlocks:GetChildren() do
-if v.Name == "Baby Floppa" then
-fireclickdetector(v.ClickDetector)
-end
-end
-end
 task.wait()
 end
 	end    
@@ -97,7 +90,7 @@ Farm:AddToggle({
 _G.AutoCollectMoney = Value
 while _G.AutoCollectMoney do
 for i,v in pairs(workspace:GetChildren()) do
-if v.Name == "Money" or v.Name == "Money Bag" or v.Name == "Money2" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+if v.Name == "Money" or v.Name == "Money Bag" or v.Name == "Money2" or v.Name == "Gold" and v:FindFirstChildWhichIsA("TouchTransmitter") then
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
                     firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
                 end
@@ -235,24 +228,21 @@ Misc:AddToggle({
 	Callback = function(Value)
 _G.AutoCookFloppa = Value
 while _G.AutoCookFloppa do
-_G.FloppaHunger = string.gsub(workspace.Floppa.Display.Frame.Hunger.Text, "%D", "")
-_G.FloppaHungers = tonumber(_G.FloppaHunger)
-if _G.FloppaHungers <= 50 then
+if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") and game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
+if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Floppa Food") == nil then
 game:GetService("ReplicatedStorage").Events.Unlock:FireServer("Floppa Food","the_interwebs")
-task.wait(0.7)
-for i = 1, 20 do
-if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
+end
+task.wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Key Parts"].Bowl.Part.CFrame
 for i,v in ipairs(game.Workspace["Key Parts"].Bowl.Part:GetChildren()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
         end
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Floppa Food") and game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild("Floppa Food"))
 end
-task.wait()
-end
-end
-task.wait(0.2)
+task.wait(0.05)
 end
 	end    
 })
@@ -381,9 +371,9 @@ while _G.AutoPickUpMike do
 if game.Workspace:FindFirstChild("Milk Delivery") and game.Workspace["Milk Delivery"]:FindFirstChild("Crate") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Milk Delivery"].Crate.CFrame
 for i,v in ipairs(game.Workspace["Milk Delivery"].Crate:GetChildren()) do
-            if v.ClassName == "ProximityPrompt" then
-                fireproximityprompt(v)
-            end
+            if v:FindFirstChild("ProximityPrompt") then
+               fireproximityprompt(v:FindFirstChild("ProximityPrompt"))
+           end
         end
         end
 task.wait()
@@ -448,9 +438,9 @@ _G.EnemiesHitbox = Value
 if _G.EnemiesHitbox == false then
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
-v.HumanoidRootPart.Size = Vector3.new(2,2,1)
+v.HumanoidRootPart.Size = Vector3.new(1,2,2)
 v.HumanoidRootPart.CanCollide = false
-v.HumanoidRootPart.Transparency = 1
+v.HumanoidRootPart.Transparency = 0.75
 end
 end
 end
@@ -458,7 +448,7 @@ while _G.EnemiesHitbox do
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.Size = Vector3.new(_G.HitboxEnemies,_G.HitboxEnemies,_G.HitboxEnemies)
-v.HumanoidRootPart.CanCollide = true
+v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Transparency = 0.75
 end
 end
@@ -473,12 +463,23 @@ Misc:AddToggle({
 	Callback = function(Value)
 _G.AutoKillMod = Value
 while _G.AutoKillMod do
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Sword") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Sword") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.SwordStore.Villager.HumanoidRootPart.CFrame
+wait(0.45)
+for i,v in pairs(workspace.Village.SwordStore.Villager.HumanoidRootPart:GetChildren()) do
+if v.ClassName == "ProximityPrompt" then
+fireproximityprompt(v)
+end
+end
+end
+end
 for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
-v.HumanoidRootPart.Size = Vector3.new(40,40,40)
 v.HumanoidRootPart.CanCollide = false
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,5,6)
+v.Humanoid.WalkSpeed = 0
+v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4)
 if game.Players.LocalPlayer.Character:FindFirstChild("Sword") then
 game.Players.LocalPlayer.Character:FindFirstChild("Sword"):Activate()
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") then
