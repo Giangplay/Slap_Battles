@@ -228,11 +228,12 @@ Misc:AddToggle({
 	Callback = function(Value)
 _G.AutoCookFloppa = Value
 while _G.AutoCookFloppa do
-if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") and game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
+if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
 if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Floppa Food") == nil then
 game:GetService("ReplicatedStorage").Events.Unlock:FireServer("Floppa Food","the_interwebs")
 end
-task.wait(0.05)
+end
+if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") and game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Key Parts"].Bowl.Part.CFrame
 for i,v in ipairs(game.Workspace["Key Parts"].Bowl.Part:GetChildren()) do
             if v.ClassName == "ProximityPrompt" then
