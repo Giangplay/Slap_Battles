@@ -2784,12 +2784,12 @@ game.Players[_G.HivePlayer].Character.HumanoidRootPart.Size = Vector3.new(20,20,
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HivePlayer].Character.HumanoidRootPart.CFrame
-wait(0.2)
+wait(0.25)
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.HivePlayer].Character.HumanoidRootPart.Position).Magnitude
 if 30 >= Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.HivePlayer].Character:WaitForChild("HumanoidRootPart"))
 end
-wait(0.19)
+wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players[_G.HivePlayer].Character.HumanoidRootPart.Size = OGLZ
 else
@@ -2802,17 +2802,17 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(4.32)
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
 Target = RandomPlayer
 OGLZ = Target.Character.HumanoidRootPart.Size
 Target.Character.HumanoidRootPart.Size = Vector3.new(20,20,20)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-wait(0.2)
+wait(0.25)
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Target.Character.HumanoidRootPart.Position).Magnitude
 if 30 >= Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 end
-wait(0.19)
+wait(0.22)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 Target.Character.HumanoidRootPart.Size = OGLZ
 else
@@ -10398,6 +10398,7 @@ gloveHits = {
     ["el gato"] = game.ReplicatedStorage.GeneralHit,
     ["Siphon"] = game.ReplicatedStorage.GeneralHit,
     ["Hive"] = game.ReplicatedStorage.GeneralHit,
+    ["Wrench"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
