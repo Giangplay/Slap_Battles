@@ -983,7 +983,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Inf yield",
 	Callback = function()
-      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()	
+      	loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
   	end    
 })
 
@@ -2746,6 +2746,77 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 Target.Character.HumanoidRootPart.Size = OGLZ
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Home Run equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+end
+  	end 
+})
+
+Tab14:AddTextbox({
+	Name = "Hive Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.HivePlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.HivePlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddButton({
+	Name = "Hive Player",
+	Callback = function()
+if _G.PlayerChoose == "Username" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Hive" and game.Players[_G.HivePlayer].Character:FindFirstChild("entered") then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+OGLZ = game.Players[_G.HivePlayer].Character.HumanoidRootPart.Size
+game.Players[_G.HivePlayer].Character.HumanoidRootPart.Size = Vector3.new(20,20,20)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(4.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HivePlayer].Character.HumanoidRootPart.CFrame
+wait(0.2)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.HivePlayer].Character.HumanoidRootPart.Position).Magnitude
+if 30 >= Magnitude then
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.HivePlayer].Character:WaitForChild("HumanoidRootPart"))
+end
+wait(0.19)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+game.Players[_G.HivePlayer].Character.HumanoidRootPart.Size = OGLZ
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Hive equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PlayerChoose == "Random" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Hive" then
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(4.32)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil
+Target = RandomPlayer
+OGLZ = Target.Character.HumanoidRootPart.Size
+Target.Character.HumanoidRootPart.Size = Vector3.new(20,20,20)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+wait(0.2)
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Target.Character.HumanoidRootPart.Position).Magnitude
+if 30 >= Magnitude then
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
+end
+wait(0.19)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+Target.Character.HumanoidRootPart.Size = OGLZ
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Hive equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
 end
   	end 
@@ -7637,6 +7708,8 @@ Tab60:AddParagraph("Add [ + ] | Removed [ - ] | Fix [ * ]","Give More Inside [ Ã
 Tab60:AddLabel("Label [ + ] or [ - ] or [ All ] | Paragraph [ + ] or [ - ] or [ * ] or [ All ]")
 Tab60:AddLabel("--------------[ Notify Update Script ]--------------")
 Tab60:AddLabel("--------------[ Slap Battles ]--------------")
+Tab60:AddLabel("--------------[ Day 12 | Months 7 ]--------------")
+Tab60:AddLabel("[ + ] Hive Player")
 Tab60:AddLabel("--------------[ Day 3 | Months 7 ]--------------")
 Tab60:AddLabel("[ + ] Spawn Orb Siphon")
 Tab60:AddLabel("[ = ] Random Player [ Button | Toggle ]")
