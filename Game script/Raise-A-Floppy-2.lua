@@ -579,36 +579,50 @@ Misc:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoFeelCatnip = Value
-while _G.AutoPlantSeeds do
-local Seeds = {}
-local function SeedGet()
-for i, v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v.Name:match("Seed") or v.Name:match("Spore") then
-            table.insert(Seeds, v)
-       end
-end
-for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-         if v.Name:match("Seed") or v.Name:match("Spore") then
-             table.insert(Seeds, v)
+while _G.AutoFeelCatnip do
+local Catnip = nil
+	local function CatnipFloppa()
+         for _,v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v.Name:match("Catnip") then
+				Catnip = v
+			end
 		end
-	end
+			for _,v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+				if v.Name:match("Catnip") then
+				Catnip = v
+			end
+		end
+return Catnip
 end
-local function PotGet()
-     for _,v in ipairs(workspace.Unlocks:GetChildren()) do
-			if v.Name:match("Planter") and #Seeds ~= 0 then
-				if v.Plant.Value == nil or v.Plant.Value == "" then
-				    return v
+Catnip = CatnipFloppa()
+if Catnip ~= nil then
+Catnip.Parent = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Floppa.HumanoidRootPart.CFrame
+fireproximityprompt(workspace.Floppa.HumanoidRootPart.ProximityPrompt)
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Harvest Plants",
+	Default = false,
+	Callback = function(Value)
+_G.AutoHarvestPlants = Value
+while _G.AutoHarvestPlants do
+local function FindPot()
+	for _,v in ipairs(workspace.Unlocks:GetChildren()) do
+			if v.Name:match("Planter") then
+				if v.Plant.Value ~= nil and v.Growth.Value == 100 then
+					return v
 				end
 			end
 		end
 	end
-SeedGet()
-for i, v in ipairs(Seeds) do
-v.Parent = game.Players.LocalPlayer.Character
-end
-if PotGet() ~= nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PotGet().Soil.CFrame * CFrame.new(-1,-5,0)
-fireproximityprompt(PotGet().Soil.ProximityPrompt)
+if FindPot() ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FindPot().Soil.CFrame * CFrame.new(-1,-5,0)
+fireproximityprompt(FindPot().Soil.ProximityPrompt)
 end
 task.wait()
 end
@@ -851,8 +865,8 @@ task.wait()
 Credit:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
 Credit:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt")
 Credit:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
-Credit:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
-Credit:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt hoặc Tiếng Anh")
+Credit:AddParagraph("Share Link Slap Battles Group","Join Link Discord Message All People Or Friend | Tham Gia Link Discord Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
+Credit:AddParagraph("Message Slap Battles Group","You Have To Message Discord In VietNamese Or English | Bạn Phải Nhắn Tin Discord Bằng Tiếng Việt hoặc Tiếng Anh")
 Credit:AddLabel("Owner Credits Script By Giang")
 
 Credit:AddButton({
