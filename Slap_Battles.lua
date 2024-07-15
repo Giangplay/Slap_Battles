@@ -4855,10 +4855,10 @@ Tab7:AddToggle({
 	    SlappleFarm = Value
 while SlappleFarm do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-for i, v in pairs(workspace.Arena.island5.Slapples:GetDescendants()) do
-                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+for i, v in next, workspace.Arena.island5.Slapples:GetChildren() do
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Slapple" or v.Name == "GoldenSlapple" and v:FindFirstChild("Glove") and v.Glove:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 1)
                 end
             end
        end
@@ -5551,14 +5551,16 @@ Tab7:AddToggle({
 	Callback = function(Value)
 		_G.AutoFarmSlap = Value
 while _G.AutoFarmSlap do
-for i,v in next, game.Players:GetChildren() do
+for i,v in pairs(game.Players:GetChildren()) do
 if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+if _G.AutoFarmSlap == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
 task.wait(0.5)
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
 task.wait(0.43)
+end
 end
 end
 end
@@ -6162,7 +6164,7 @@ end
 })
 
 Tab7:AddTextbox({
-	Name = "Glove & Tournament",
+	Name = "Glove",
 	Default = "Use Glove",
 	TextDisappear = false,
 	Callback = function(Value)
@@ -6178,7 +6180,6 @@ Tab7:AddDropdown({
 _G.GloveEquipHehe = Value
 	end    
 })
-
 
 Tab7:AddButton({
 	Name = "Start Equip Glove",
@@ -7286,13 +7287,12 @@ AntiRun = Tab2:AddToggle({
 _G.AutoExit = Value
 while _G.AutoExit do
 if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in pairs(workspace:GetDescendants()) do
+for _, v in next, workspace:GetChildren() do
     if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
-        local doors = v.Doors
-        for _, y in ipairs(doors:GetChildren()) do
+        for _, y in ipairs(v.Doors:GetChildren()) do
             if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = y.Hitbox.CFrame
-                break
+              firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), y.Hitbox, 0)
+              firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), y.Hitbox, 1)
             end
         end
     end
@@ -7682,7 +7682,7 @@ Tab15:AddButton({
 Tab15:AddButton({
 	Name = "Copy Join Slap Battles Group",
 	Callback = function()
-            setclipboard("https://discord.com/invite/w7AgjFP4")
+            setclipboard("https://discord.com/invite/xdCKBcS6")
   	end    
 })
 
@@ -8319,6 +8319,8 @@ if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
+else
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace._ugcQuestObjectEludeHat.Handle.CFrame
 end
 end
 	end    
@@ -8880,9 +8882,12 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
 	end    
 })
 
-Tab:AddButton({
-	Name = "Get All Item",
-	Callback = function()
+Tab:AddToggle({
+	Name = "Auto Get All Item",
+	Default = false,
+	Callback = function(Value)
+_G.AutoGetAllItem = Value
+while _G.AutoGetAllItem do
 if game.Players.LocalPlayer.Character.inMatch.Value == true then
             for i, v in ipairs(game.Workspace.Items:GetChildren()) do
                 if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
@@ -8892,10 +8897,8 @@ if game.Players.LocalPlayer.Character.inMatch.Value == true then
                     game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
                 end
             end
-            wait(0.25)
-            game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-        else
-OrionLib:MakeNotification({Name = "Error",Content = "You have start bus get all item, but you got kick if item in your hand for a long time.",Image = "rbxassetid://7733658504",Time = 5})
+end
+task.wait()
 end
 	end    
 })
@@ -8942,7 +8945,7 @@ Tab:AddToggle({
 	Name = "Auto Use Item",
 	Default = false,
 	Callback = function(Value)
-_G.AutoUseItem = state
+_G.AutoUseItem = Value
 while _G.AutoUseItem do
 for i, v in ipairs(game.Players.LocalPlayer.Character:GetDescendants()) do
                  if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
@@ -10398,7 +10401,6 @@ gloveHits = {
     ["el gato"] = game.ReplicatedStorage.GeneralHit,
     ["Siphon"] = game.ReplicatedStorage.GeneralHit,
     ["Hive"] = game.ReplicatedStorage.GeneralHit,
-    ["Wrench"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
