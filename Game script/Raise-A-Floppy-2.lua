@@ -84,6 +84,22 @@ end
 })
 
 Farm:AddToggle({
+	Name = "Auto Click Floppy Baby",
+	Default = false,
+	Callback = function(Value)
+_G.AutoClickFoppyBaby = Value
+while _G.AutoClickFoppyBaby do
+for i,v in next, game.Workspace.Unlocks:GetChildren() do
+if v.Name == "Baby Floppa" then
+fireclickdetector(v.ClickDetector)
+end
+end
+task.wait()
+end
+	end    
+})
+
+Farm:AddToggle({
 	Name = "Auto Collect Money",
 	Default = false,
 	Callback = function(Value)
@@ -437,7 +453,7 @@ Misc:AddToggle({
 	Callback = function(Value)
 _G.EnemiesHitbox = Value
 if _G.EnemiesHitbox == false then
-for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+for i,v in next, game.Workspace.Enemies:GetChildren() do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.Size = Vector3.new(1,2,2)
 v.HumanoidRootPart.CanCollide = false
@@ -446,7 +462,7 @@ end
 end
 end
 while _G.EnemiesHitbox do
-for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+for i,v in next, game.Workspace.Enemies:GetChildren() do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.Size = Vector3.new(_G.HitboxEnemies,_G.HitboxEnemies,_G.HitboxEnemies)
 v.HumanoidRootPart.CanCollide = false
@@ -468,18 +484,20 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Player
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Sword") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Sword") == nil then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Village.SwordStore.Villager.HumanoidRootPart.CFrame
 wait(0.45)
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Sword") == nil and game.Players.LocalPlayer.Character:FindFirstChild("Sword") == nil then
 for i,v in pairs(workspace.Village.SwordStore.Villager.HumanoidRootPart:GetChildren()) do
 if v.ClassName == "ProximityPrompt" then
 fireproximityprompt(v)
 end
 end
 end
+wait(0.15)
 end
-for i, v in ipairs(game.Workspace.Enemies:GetDescendants()) do
+end
+for i,v in next, game.Workspace.Enemies:GetChildren() do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.CanCollide = false
-v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4)
 if game.Players.LocalPlayer.Character:FindFirstChild("Sword") then
 game.Players.LocalPlayer.Character:FindFirstChild("Sword"):Activate()
@@ -520,6 +538,47 @@ Misc:AddToggle({
 	Default = false,
 	Callback = function(Value)
 _G.AutoPlantSeeds = Value
+while _G.AutoPlantSeeds do
+local Seeds = {}
+local function SeedGet()
+for i, v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v.Name:match("Seed") or v.Name:match("Spore") then
+            table.insert(Seeds, v)
+       end
+end
+for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+         if v.Name:match("Seed") or v.Name:match("Spore") then
+             table.insert(Seeds, v)
+		end
+	end
+end
+local function PotGet()
+     for _,v in ipairs(workspace.Unlocks:GetChildren()) do
+			if v.Name:match("Planter") and #Seeds ~= 0 then
+				if v.Plant.Value == nil or v.Plant.Value == "" then
+				    return v
+				end
+			end
+		end
+	end
+SeedGet()
+for i, v in ipairs(Seeds) do
+v.Parent = game.Players.LocalPlayer.Character
+end
+if PotGet() ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PotGet().Soil.CFrame * CFrame.new(-1,-5,0)
+fireproximityprompt(PotGet().Soil.ProximityPrompt)
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Auto Feel Catnip",
+	Default = false,
+	Callback = function(Value)
+_G.AutoFeelCatnip = Value
 while _G.AutoPlantSeeds do
 local Seeds = {}
 local function SeedGet()
