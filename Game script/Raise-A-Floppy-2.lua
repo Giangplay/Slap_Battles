@@ -350,7 +350,7 @@ end
 })
 
 Misc:AddButton({
-	Name = "Equip Almond Water All",
+	Name = "Equip All Almond Water",
 	Callback = function()
 for i,v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v.Name == "Almond Water" then
@@ -428,6 +428,43 @@ task.wait(2)
 if workspace:FindFirstChild("Rent") then
 firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 0)
 firetouchinterest(workspace:FindFirstChild("Rent"), game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), 1)
+end
+task.wait()
+end
+	end    
+})
+
+Misc:AddToggle({
+	Name = "Anti Floppa Hot",
+	Default = false,
+	Callback = function(Value)
+_G.AutoFeelLemonade = Value
+while _G.AutoFeelLemonade do
+if game.Workspace.Floppa:FindFirstChild("Moodlets") and game.Workspace.Floppa.Moodlets:FindFirstChild("Hot") and game.Workspace.Floppa.Moodlets.Hot.Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") == nil then
+if game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand") and game.Workspace.World.Foliage["Lemonade Stand"]:FindFirstChild("Handle") then
+for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand"):GetChildren()) do
+if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+if v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ProximityPrompt") then
+fireproximityprompt(v.Handle:FindFirstChild("ProximityPrompt"))
+end
+end
+end
+end
+end
+end
+if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") then
+if game.Workspace.Floppa:FindFirstChild("Moodlets") and game.Workspace.Floppa.Moodlets:FindFirstChild("Hot") and game.Workspace.Floppa.Moodlets.Hot.Value == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+end
+elseif game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") then
+game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade").Parent = game.Players.LocalPlayer.Character
 end
 task.wait()
 end
