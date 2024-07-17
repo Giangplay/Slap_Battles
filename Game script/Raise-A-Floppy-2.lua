@@ -100,7 +100,7 @@ end
 })
 
 Farm:AddToggle({
-	Name = "Auto Collect Money",
+	Name = "Auto Collect Money / Gold",
 	Default = false,
 	Callback = function(Value)
 _G.AutoCollectMoney = Value
@@ -435,36 +435,58 @@ end
 })
 
 Misc:AddToggle({
-	Name = "Anti Floppa Hot",
+	Name = "Anti Floppa Hot / Cold",
 	Default = false,
 	Callback = function(Value)
-_G.AutoFeelLemonade = Value
-while _G.AutoFeelLemonade do
-if game.Workspace.Floppa:FindFirstChild("Moodlets") and game.Workspace.Floppa.Moodlets:FindFirstChild("Hot") and game.Workspace.Floppa.Moodlets.Hot.Value == true then
-if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") == nil then
+_G.AntiFloppaHotCold = Value
+while _G.AntiFloppaHotCold do
+if game.Workspace.Floppa.Moodlets.Hot.Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Lemonade") == nil then
 if game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand") and game.Workspace.World.Foliage["Lemonade Stand"]:FindFirstChild("Handle") then
-for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand"):GetChildren()) do
-if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") == nil then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
-if v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ProximityPrompt") then
-fireproximityprompt(v.Handle:FindFirstChild("ProximityPrompt"))
-end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand").Handle.CFrame
+for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand").Handle:GetChildren()) do
+if v.ClassName == "ProximityPrompt" then
+fireproximityprompt(v)
 end
 end
 end
 end
 end
 if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") then
-if game.Workspace.Floppa:FindFirstChild("Moodlets") and game.Workspace.Floppa.Moodlets:FindFirstChild("Hot") and game.Workspace.Floppa.Moodlets.Hot.Value == true then
+if game.Workspace.Floppa.Moodlets.Hot.Value == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
 for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
         end
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Lemonade") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Lemonade").Parent = game.Players.LocalPlayer.Character
 end
-elseif game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade") then
-game.Players.LocalPlayer.Backpack.FindFirstChild("Lemonade").Parent = game.Players.LocalPlayer.Character
+end
+if game.Workspace.Floppa.Moodlets.Cold.Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("Hot Chocolate") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate") == nil then
+if game.Workspace.World.Foliage:FindFirstChild("Hot Chocolate Stand") and game.Workspace.World.Foliage["Hot Chocolate Stand"]:FindFirstChild("HotChocolate") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.World.Foliage["Hot Chocolate Stand"].HotChocolate.CFrame
+for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Hot Chocolate Stand").HotChocolate:GetChildren()) do
+if v.ClassName == "ProximityPrompt" then
+fireproximityprompt(v)
+end
+end
+end
+end
+end
+if game.Workspace.Floppa.Moodlets.Cold.Value == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("Hot Chocolate") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Floppa.HumanoidRootPart.CFrame
+for i,v in ipairs(game.Workspace.Floppa.HumanoidRootPart:GetChildren()) do
+            if v.ClassName == "ProximityPrompt" then
+                fireproximityprompt(v)
+            end
+        end
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate").Parent = game.Players.LocalPlayer.Character
+end
 end
 task.wait()
 end
@@ -535,7 +557,7 @@ for i,v in next, game.Workspace.Enemies:GetChildren() do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health ~= 0 then
 if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 v.HumanoidRootPart.CanCollide = false
-v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4)
+v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4.5)
 if game.Players.LocalPlayer.Character:FindFirstChild("Sword") then
 game.Players.LocalPlayer.Character:FindFirstChild("Sword"):Activate()
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Excalibur") then
@@ -612,7 +634,7 @@ end
 })
 
 Misc:AddToggle({
-	Name = "Auto Feel Catnip",
+	Name = "Auto Feed Catnip",
 	Default = false,
 	Callback = function(Value)
 _G.AutoFeelCatnip = Value
