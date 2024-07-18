@@ -444,11 +444,15 @@ if game.Workspace.Floppa.Moodlets.Hot.Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Lemonade") == nil then
 if game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand") and game.Workspace.World.Foliage["Lemonade Stand"]:FindFirstChild("Handle") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand").Handle.CFrame
+wait(0.45)
+if game.Players.LocalPlayer.Character:FindFirstChild("Lemonade") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Lemonade") == nil then
 for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Lemonade Stand").Handle:GetChildren()) do
 if v.ClassName == "ProximityPrompt" then
 fireproximityprompt(v)
 end
 end
+end
+wait(0.15)
 end
 end
 end
@@ -468,11 +472,15 @@ if game.Workspace.Floppa.Moodlets.Cold.Value == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("Hot Chocolate") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate") == nil then
 if game.Workspace.World.Foliage:FindFirstChild("Hot Chocolate Stand") and game.Workspace.World.Foliage["Hot Chocolate Stand"]:FindFirstChild("HotChocolate") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.World.Foliage["Hot Chocolate Stand"].HotChocolate.CFrame
+wait(0.45)
+if game.Players.LocalPlayer.Character:FindFirstChild("Hot Chocolate") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate") == nil then
 for i,v in pairs(game.Workspace.World.Foliage:FindFirstChild("Hot Chocolate Stand").HotChocolate:GetChildren()) do
 if v.ClassName == "ProximityPrompt" then
 fireproximityprompt(v)
 end
 end
+end
+wait(0.15)
 end
 end
 end
@@ -488,7 +496,7 @@ elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Hot Chocolate").Parent = game.Players.LocalPlayer.Character
 end
 end
-task.wait()
+task.wait(0.05)
 end
 	end    
 })
