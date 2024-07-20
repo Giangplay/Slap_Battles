@@ -1,5 +1,5 @@
-# --// Copy Script \\--
---// Scripts in the game [ By Giang ] \\--
+# // Copy Script \\
+// Scripts [ By Giang ] \\
 
 ## Slap Battles
 ```lua
