@@ -10100,13 +10100,13 @@ Tab:AddButton({
 	Name = "Start Enter + 1 Heart",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3258, -75, 823)
-wait(3.5)
+wait(2.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["the cube of life"].Part.CFrame
 wait(0.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Big Heart"].CFrame
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.ShackLever.Base.CFrame
-wait(0.8)
+wait(0.5)
 for i,v in pairs(game.Workspace:GetDescendants()) do
                     if v.Name == "ShackLever" and v:FindFirstChild("ClickDetector") then
 fireclickdetector(v.ClickDetector, 0)
@@ -10139,13 +10139,16 @@ if game.Workspace:FindFirstChild("TrackGloveMissile") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "TrackGloveMissile" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4)
-end
-end
-end
-if game.Workspace:FindFirstChild("TrackGloveMissile") and game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
-elseif game.Workspace:FindFirstChild("TrackGloveMissile") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
+if game.Workspace:FindFirstChild("TrackGloveMissile") then
+game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v)
+end
+end
+end
+end
 end
 task.wait()
 end
@@ -10162,17 +10165,58 @@ if game.Workspace:FindFirstChild("GuideNPC") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "GuideNPC" then
 v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-5)
-end
-end
-end
-if game.Workspace:FindFirstChild("GuideNPC") and game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
-elseif game.Workspace:FindFirstChild("GuideNPC") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
+if game.Workspace:FindFirstChild("GuideNPC") then
+game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
+end
+end
+end
+end
 end
 task.wait()
 end
 	end    
+})
+
+Tab:AddToggle({
+	Name = "Fight Golem",
+	Default = false,
+	Callback = function(Value)
+_G.FightGolem = Value
+while _G.FightGolem do
+if game.Workspace:FindFirstChild("golem") then
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "golem" and v:FindFirstChild("Hitbox") then
+v.Hitbox.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-4)
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
+if game.Workspace:FindFirstChild("golem") then
+game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.Hitbox)
+end
+end
+end
+end
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddButton({
+	Name = "Lever Start",
+	Callback = function()
+for i,v in pairs(game.Workspace:GetDescendants()) do
+                    if v.Name == "Gate1Lever" and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+                    end
+                end
+  	end 
 })
 
 Tab:AddTextbox({
