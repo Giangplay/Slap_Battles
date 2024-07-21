@@ -10322,7 +10322,7 @@ TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end 
 ----Transparency----
 for i,v in pairs(gethui().Orion:GetDescendants()) do
-                    if v.ClassName == "Frame" then
+                    if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
                     end
                 end
