@@ -246,7 +246,9 @@ _G.AutoCookFloppa = Value
 while _G.AutoCookFloppa do
 if game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
 if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") == nil and game.Players.LocalPlayer.Backpack:FindFirstChild("Floppa Food") == nil then
+wait(0.50)
 game:GetService("ReplicatedStorage").Events.Unlock:FireServer("Floppa Food","the_interwebs")
+wait(0.3)
 end
 end
 if game.Players.LocalPlayer.Character:FindFirstChild("Floppa Food") and game.Workspace:FindFirstChild("Key Parts") and game.Workspace["Key Parts"]:FindFirstChild("Bowl") and game.Workspace["Key Parts"].Bowl:FindFirstChild("Part") and game.Workspace["Key Parts"].Bowl.Part.Transparency ~= 0 then
