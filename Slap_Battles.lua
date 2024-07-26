@@ -1373,12 +1373,6 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 17
 wait(0.7)
 for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
-                v.HoldDuration = 0
-            end
-        end
-       wait(0.5)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
-            if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
             end
         end
@@ -3142,38 +3136,13 @@ end
   	end    
 })
 
-SbeveAll = Tab14:AddToggle({
+Tab14:AddToggle({
 	Name = "Auto Sbeve All Player",
 	Default = false,
 	Callback = function(Value)
 _G.AutoSbeveAllPlayer = Value
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" then
-while _G.AutoSbeveAllPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" do
-if game.Players.LocalPlayer.Character:WaitForChild("stevebody") ~= nil then
-for i,v in pairs(game.Players:GetChildren()) do
-         if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-              if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                 v.Character.HumanoidRootPart.CanCollide = false
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
-              end
-          end
-     end
-end
-task.wait()
-end
-elseif _G.AutoSbeveAllPlayer == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-SbeveAll:Set(false)
-end
-	end    
-})
-
-Tab14:AddButton({
-	Name = "Sbeve All Player",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" then
-if game.Players.LocalPlayer.Character:WaitForChild("stevebody") then
+while _G.AutoSbeveAllPlayer do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" or game.Players.LocalPlayer.Character:FindFirstChild("stevebody") then
 for i,v in pairs(game.Players:GetChildren()) do
          if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
@@ -3183,9 +3152,24 @@ for i,v in pairs(game.Players:GetChildren()) do
           end
      end
  end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Sbeve equipped, or you have Sbeve Transformation",Image = "rbxassetid://7733658504",Time = 5})
+task.wait()
 end
+	end    
+})
+
+Tab14:AddButton({
+	Name = "Sbeve All Player",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" or game.Players.LocalPlayer.Character:FindFirstChild("stevebody") then
+for i,v in pairs(game.Players:GetChildren()) do
+         if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+              if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
+                 v.Character.HumanoidRootPart.CanCollide = false
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
+              end
+          end
+     end
+ end
   	end    
 })
 
@@ -3618,9 +3602,22 @@ Tab14:AddSlider({
 	end    
 })
 
+if _G.PotionChooseNuke == nil then
+_G.PotionChooseNuke = "Normal"
+end
+Tab14:AddDropdown({
+	Name = "Potions",
+	Default = "",
+	Options = {"Nuke", "Normal"},
+	Callback = function(Value)
+_G.PotionChooseNuke = Value
+	end    
+})
+
 Tab14:AddButton({
 	Name = "Get Potions",
 	Callback = function()
+if _G.PotionChooseNuke == "Normal" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -3638,6 +3635,25 @@ task.wait()
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
+elseif _G.PotionChooseNuke == "Nuke" then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for b = 1, _G.GivePotion do
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.GetPotion[_G.MakePotion][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+end
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
+end
 end
   	end    
 })
@@ -4416,11 +4432,11 @@ end
 
 Tab14:AddSlider({
 	Name = "Speed Cloud",
-	Min = 1,
-	Max = 20,
-	Default = 5,
+	Min = 0.1,
+	Max = 1.2,
+	Default = 0.5,
 	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
+	Increment = 0.1,
 	ValueName = "Speed",
 	Callback = function(Value)
 		_G.SetSpeedCloud = Value
@@ -4436,7 +4452,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
-                        v.BodyVelocity.Velocity = v.BodyVelocity.Velocity + _G.SetSpeedCloud
+                        v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
                     end
                end
 task.wait(0.10)
