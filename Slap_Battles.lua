@@ -1792,9 +1792,6 @@ wait(0.4)
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
 wait(0.5)
 repeat task.wait()
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-break
-end
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v.ClassName == "Part" and v.Name ~= "Humanoid" then
@@ -4419,11 +4416,11 @@ end
 
 Tab14:AddSlider({
 	Name = "Speed Cloud",
-	Min = 0.1,
-	Max = 1.2,
-	Default = 0.5,
+	Min = 1,
+	Max = 20,
+	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
-	Increment = 0.1,
+	Increment = 1,
 	ValueName = "Speed",
 	Callback = function(Value)
 		_G.SetSpeedCloud = Value
@@ -4439,7 +4436,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" then
 while _G.CloudSpeed and game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("BodyVelocity") then
-                        v.BodyVelocity.Velocity = v.BodyVelocity.Velocity * _G.SetSpeedCloud
+                        v.BodyVelocity.Velocity = v.BodyVelocity.Velocity + _G.SetSpeedCloud
                     end
                end
 task.wait(0.10)
@@ -10102,12 +10099,12 @@ VoidPart.Transparency = 1
 VoidPart.CanCollide = false
 
 local Safe = Instance.new("Part", VoidPart)
+Safe.Position = Vector3.new(595, 120, -330)
 Safe.Name = "Safe"
-Safe.Size = Vector3.new(2000, 10, 2000) 
+Safe.Size = Vector3.new(2000, 10, 2000)
+Safe.Anchored = true
 Safe.Transparency = 0.5 
 Safe.CanCollide = true
-Safe.Anchored = true
-Safe.CFrame = CFrame.new(595, 120, -330)
 end
 
 local Tab = Window:MakeTab({
@@ -10129,7 +10126,7 @@ local Tab2 = Window:MakeTab({
 })
 
 Tab:AddButton({
-	Name = "Start Enter + 1 Heart",
+	Name = "Start Enter + 1 HP",
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3258, -68, 823)
 wait(2.8)
@@ -10174,9 +10171,11 @@ if v.Name == "TrackGloveMissile" then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
-if game.Workspace:FindFirstChild("TrackGloveMissile") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v)
+end
 end
 end
 end
@@ -10199,9 +10198,11 @@ if v.Name == "GuideNPC" and v:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
-if game.Workspace:FindFirstChild("GuideNPC") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
+end
 end
 end
 end
@@ -10224,9 +10225,11 @@ if v.Name == "ReplicaNPC" and v:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
-if game.Workspace:FindFirstChild("ReplicaNPC") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
+end
 end
 end
 end
@@ -10243,15 +10246,59 @@ Tab:AddToggle({
 	Callback = function(Value)
 _G.FightGolem = Value
 while _G.FightGolem do
-if game.Workspace:FindFirstChild("golem") then
+if game.Workspace:FindFirstChild("golem") and game.Workspace.golem:FindFirstChild("Hitbox") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "golem" and v:FindFirstChild("Hitbox") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
-if game.Workspace:FindFirstChild("golem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.Hitbox)
+end
+end
+end
+end
+end
+elseif game.Workspace:FindFirstChild("DungeonGolem") then
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "DungeonGolem" and v:FindFirstChild("Cube.001") then
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
+game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v:FindFirstChild("Cube.001"))
+end
+end
+end
+end
+end
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Fight Potato",
+	Default = false,
+	Callback = function(Value)
+_G.FightPotato = Value
+while _G.FightPotato do
+if game.Workspace:FindFirstChild("PotatoLord") then
+for i,v in pairs(game.workspace:GetChildren()) do
+if v.Name == "PotatoLord" and v:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
+elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("PotatoLord") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
+if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
+game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
+end
 end
 end
 end
@@ -10607,6 +10654,7 @@ gloveHits = {
     ["Wrench"] = game.ReplicatedStorage.GeneralHit,
     ["Hunter"] = game.ReplicatedStorage.GeneralHit,
     ["Relude"] = game.ReplicatedStorage.GeneralHit,
+    ["Avatar"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
