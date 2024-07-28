@@ -787,7 +787,7 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the hack slap battles group, go to the credits section ] | Good Luck")
+Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -4805,6 +4805,10 @@ OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad
 else
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 end
+elseif Value == "Cube Of Death" then
+if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,5,0)
+end
 elseif Value == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(215, -15.5, 0.5)
 elseif Value == "Default Arena" then
@@ -5638,7 +5642,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(4.1)
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
-game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer(CFrame.new(math.random(-70, 63), -5.72293854, math.random(-90, 93), 0.151493087, -8.89114702e-08, 0.988458335, 1.45089563e-09, 1, 8.97272727e-08, -0.988458335, -1.21589121e-08, 0.151493087))
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.Head.CFrame * CFrame.new(0, -2, -10))
 wait(3.1)
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
@@ -6050,7 +6054,7 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "UFO" do
-if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO VFX") == nil or game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO") == nil then
+if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO VFX") == nil and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s UFO") == nil then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 task.wait(0.3)
@@ -6881,6 +6885,9 @@ game.Workspace.NoChanged.Value = Value
 	end    
 })
 
+if _G.AntiVoidChoose == nil then
+_G.AntiVoidChoose = "Normal"
+end
 Tab2:AddDropdown({
 	Name = "Anti Void",
 	Default = "Normal",
@@ -7002,15 +7009,21 @@ AntiPortal = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
-workspace.Lobby.Teleport2.CanTouch = false
-workspace.Lobby.Teleport3.CanTouch = false
-workspace.Lobby.Teleport4.CanTouch = false
-workspace.Lobby.Teleport6.CanTouch = false
+for i,v in pairs(workspace.Lobby:GetChildren()) do
+if v.Name == "Teleport2" and v.Name == "Teleport3" and v.Name == "Teleport4" and v.Name == "Teleport6" then
+if v.CanTouch == true then
+v.CanTouch = false
+end
+end
+end
 else
-workspace.Lobby.Teleport2.CanTouch = true
-workspace.Lobby.Teleport3.CanTouch = true
-workspace.Lobby.Teleport4.CanTouch = true
-workspace.Lobby.Teleport6.CanTouch = true
+for i,v in pairs(workspace.Lobby:GetChildren()) do
+if v.Name == "Teleport2" and v.Name == "Teleport3" and v.Name == "Teleport4" and v.Name == "Teleport6" then
+if v.CanTouch == false then
+v.CanTouch = true
+end
+end
+end
 end
 	end    
 })
@@ -7019,8 +7032,8 @@ AntiAdmin = Tab2:AddToggle({
 	Name = "Anti Mod | Admin",
 	Default = false,
 	Callback = function(Value)
-AntiMods = Value
-while AntiMods do
+_G.AntiMods = Value
+while _G.AntiMods do
 for i,v in pairs(game.Players:GetChildren()) do
         if v:GetRankInGroup(9950771) >= 2 then
          _G.AntiKick = false
@@ -7233,9 +7246,9 @@ AntiBooster = Tab2:AddToggle({
 	Callback = function(Value)
 		_G.AntiBooster = Value
 while _G.AntiBooster do
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v:FindFirstChild("BoosterObject") then
-                        v:FindFirstChild("BoosterObject"):Destroy()
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                    if v.Name == "BoosterObject" then
+                        v:Destroy()
                     end
                 end
 task.wait()
@@ -7583,12 +7596,14 @@ AntiCOD = Tab2:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		if Value == true then
-if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) and game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("Part") then
 game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CanTouch = false
 end
 else
-if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) and game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("Part") then
 game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CanTouch = true
 end
 end
 	end    
@@ -10187,7 +10202,7 @@ if v.Name == "TrackGloveMissile" then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
-if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("TrackGloveMissile") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
 if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v)
@@ -10214,7 +10229,7 @@ if v.Name == "GuideNPC" and v:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
-if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("GuideNPC") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
 if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
@@ -10241,7 +10256,7 @@ if v.Name == "ReplicaNPC" and v:FindFirstChild("HumanoidRootPart") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
-if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("ReplicaNPC") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
 if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)
@@ -10268,7 +10283,7 @@ if v.Name == "golem" and v:FindFirstChild("Hitbox") then
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern").Parent = game.Players.LocalPlayer.Character
 elseif game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
-if game.Workspace:FindFirstChild("DungeonGolem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
+if game.Workspace:FindFirstChild("golem") and game.Players.LocalPlayer.Character:FindFirstChild("Lantern") then
 game.Players.LocalPlayer.Character:FindFirstChild("Lantern"):Activate()
 if game.Players.LocalPlayer.Character:FindFirstChild("Lantern") and game.Players.LocalPlayer.Character.Lantern:FindFirstChild("Network") then
 game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.Hitbox)
