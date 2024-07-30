@@ -13,13 +13,31 @@ end
 
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2125950512) then
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "[ Giang ]",Text = "📢 [ You have not issued Bob, and not badge bob ] 🇻🇳.",Icon = "rbxassetid://7733658504",Duration = 10})
-wait(0.5)
 fireclickdetector(workspace.Lobby.Replica.ClickDetector)
 wait(0.25)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 wait(0.4)
-for i = 1, 3000 do
+if _G.SlappleFarm == true then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Slapple" or v.Name == "GoldenSlapple" and v:FindFirstChild("Glove") and v.Glove:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 1)
+                end
+            end
+       end
+   end
+if _G.CandyFarm == true then
+for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Head") and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
+                end
+            end
+end
+wait(0.4)
+for i = 1, 4000 do
 game:GetService("ReplicatedStorage").Duplicate:FireServer(true)
 end
 wait(0.4)
