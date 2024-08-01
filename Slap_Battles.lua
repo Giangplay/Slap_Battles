@@ -6071,6 +6071,11 @@ while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Siph
 game:GetService("ReplicatedStorage").Events.Siphon:FireServer({["cf"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame})
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Demolition" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("c4")
+game:GetService("ReplicatedStorage").Events.c4:FireServer()
+task.wait()
+end
 	end    
 })
 
@@ -6827,6 +6832,13 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoClickTycoon = Value
+if _G.AutoClickTycoon == true then
+for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "End" and v.ClassName == "Part" then
+            v.Size = Vector3.new(20, 0.5, 4)
+        end
+    end
+end
 if _G.TycoonAuto == "All" then
 while _G.AutoClickTycoon and _G.TycoonAuto == "All" do
 for _,v in pairs(game.Workspace:GetChildren()) do
@@ -7768,10 +7780,19 @@ Tab15:AddButton({
 Tab15:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
-OrionLib:Destroy()
 _G.AutoSetInfo = false
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+OrionLib:Destroy()
+_G.OrionMu = 0
+wait(0.1)
+for i,v in pairs(gethui():GetChildren()) do
+if v.Name == "Orion" then
+_G.OrionMu = _G.OrionMu + 1
+end
+end
+if _G.OrionMu == 0 then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
+end
 end
   	end 
 })
@@ -8270,7 +8291,7 @@ Tab:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
@@ -8381,6 +8402,32 @@ GloveSlap = Value
 	end    
 })
 
+Tab:AddToggle({
+	Name = "Slap Aura Bob Clone [ Test... ]",
+	Default = false,
+	Callback = function(Value)
+		_G.SlapBobClone = Value
+while _G.SlapBobClone do
+if game.Workspace:FindFirstChild("BobClone") then
+for _, v in ipairs(workspace:GetChildren()) do
+if v.Name == "BobClone" then
+if GloveSlap == "Killstreak" then
+game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+elseif GloveSlap == "Reaper" then
+game:GetService("ReplicatedStorage").ReaperHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+elseif GloveSlap == "God's Hand" then
+game:GetService("ReplicatedStorage").Godshand:FireServer(v:FindFirstChild("HumanoidRootPart"))
+elseif GloveSlap == "Tycoon" then
+game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
+end
+end
+end
+task.wait()
+end
+	end    
+})
+
 Tab:AddButton({
 	Name = "Slap Aura Bob",
 	Callback = function()
@@ -8460,7 +8507,7 @@ Tab:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
@@ -8760,7 +8807,7 @@ if game.Players.LocalPlayer.Character.inMatch.Value == true then
                 if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
                     v.Handle.Anchored = false
                     v.Handle.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-                    game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(v)
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
                     game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
                 end
             end
@@ -8865,7 +8912,7 @@ Tab:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
@@ -9667,25 +9714,13 @@ Tab:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
 elseif game.PlaceId == 15507333474 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
-
-local Namecall
-Namecall = hookmetamethod(game, "__namecall", function(self, ...)
-   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
-       return
-   end
-   return Namecall(self, ...)
-end)
 
 if workspace:FindFirstChild("AntiVoid") == nil then
 local Anti = Instance.new("Part", workspace)
@@ -10006,7 +10041,7 @@ Tab2:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
@@ -10063,7 +10098,7 @@ Tab:AddButton({
 	Name = "[ Destroy GUI ] [ Toggle Gui ]",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") ~= nil then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
@@ -10087,12 +10122,6 @@ Tab:AddButton({
 	Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
 wait(0.7)
-for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
-            if v.ClassName == "ProximityPrompt" then
-                v.HoldDuration = 0
-            end
-        end
-wait(0.08)
 for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
             if v.ClassName == "ProximityPrompt" then
                 fireproximityprompt(v)
@@ -10308,12 +10337,9 @@ end
 	end    
 })
 
-Tab:AddToggle({
+Tab:AddButton({
 	Name = "Fight Potato",
-	Default = false,
-	Callback = function(Value)
-_G.FightPotato = Value
-while _G.FightPotato do
+	Callback = function()
 if game.Workspace:FindFirstChild("PotatoLord") then
 for i,v in pairs(game.workspace:GetChildren()) do
 if v.Name == "PotatoLord" and v:FindFirstChild("HumanoidRootPart") then
@@ -10330,9 +10356,7 @@ end
 end
 end
 end
-task.wait()
-end
-	end    
+  	end 
 })
 
 Tab:AddButton({
@@ -10540,6 +10564,40 @@ task.wait()
             end
 	end    
 })
+elseif game.PlaceId == 18698003301 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+Tab:AddToggle({
+	Name = "Auto Slap Player",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoSlapPlayer = Value
+            while _G.AutoSlapPlayer do
+                for i, v in pairs(game.Players:GetChildren()) do
+                if v ~= game.Players.LocalPlayer and v.Character then
+                    game:GetService("ReplicatedStorage").remotes.Slap:FireServer(v.Character:FindFirstChild("HumanoidRootPart"), Vector3.new(0.5891937017440796, 0.6427874565124512, -0.4895661175251007))
+                end
+            end
+task.wait()
+            end
+	end    
+})
+
+Tab:AddButton({
+	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Callback = function()
+OrionLib:Destroy()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
+game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
+end
+  	end 
+})
 end
 --------------------------------------------------------
 if gethui():FindFirstChild("Orion") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
@@ -10568,18 +10626,26 @@ end
 end)
 TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
 if gethui():FindFirstChild("Orion") then
-    gethui().Orion.Enabled = not gethui().Orion.Enabled
+for i,v in pairs(gethui():GetChildren()) do
+if v.Name == "Orion" then
+v.Enabled = not v.Enabled
+end
+end
 end
 end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end 
 ------------------------------------------------------------------------
 if gethui():FindFirstChild("Orion") then
-for i,v in pairs(gethui().Orion:GetDescendants()) do
+for _, i in pairs(gethui():GetChildren()) do
+if i.Name == "Orion" then
+for i,v in pairs(i:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
 v.BackgroundTransparency = 0.2
                     end
                 end
+            end
+        end
 if AutoSetInfo then
 AutoSetInfo:Set(true)
 end
@@ -10681,6 +10747,7 @@ gloveHits = {
     ["Hunter"] = game.ReplicatedStorage.GeneralHit,
     ["Relude"] = game.ReplicatedStorage.GeneralHit,
     ["Avatar"] = game.ReplicatedStorage.GeneralHit,
+    ["Demolition"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
