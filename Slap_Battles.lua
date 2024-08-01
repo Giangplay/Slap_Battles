@@ -7782,17 +7782,8 @@ Tab15:AddButton({
 	Callback = function()
 _G.AutoSetInfo = false
 OrionLib:Destroy()
-_G.OrionMu = 0
-wait(0.1)
-for i,v in pairs(gethui():GetChildren()) do
-if v.Name == "Orion" then
-_G.OrionMu = _G.OrionMu + 1
-end
-end
-if _G.OrionMu == 0 then
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
 game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
 end
   	end 
 })
