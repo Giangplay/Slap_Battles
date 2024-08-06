@@ -3,7 +3,7 @@ if not game:IsLoaded() then
 end
 
 if _G.AutoExecuter == true then
-local ScriptSpawnSlap = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local ScriptSpawnSlap = queueonteleport or queue_on_teleport
 if ScriptSpawnSlap then
     ScriptSpawnSlap([[
 if not game:IsLoaded() then
@@ -1363,7 +1363,7 @@ end
 Tab3:AddButton({
 	Name = "Auto Get Glove FrostBite",
 	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
     if teleportFunc then
         teleportFunc([[
             if not game:IsLoaded() then
@@ -1386,7 +1386,7 @@ game:GetService("TeleportService"):Teleport(17290438723)
 Tab3:AddButton({
 	Name = "Auto Get Glove Admin",
 	Callback = function()
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
     if teleportFunc then
         teleportFunc([[
             if not game:IsLoaded() then
@@ -1417,7 +1417,7 @@ Tab3:AddButton({
 	Name = "Get Glove Chain",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
 if teleportFunc then
     teleportFunc([[
         if not game:IsLoaded() then
@@ -1614,7 +1614,7 @@ Tab3:AddButton({
 	Name = "Get Counter + Elude",
 	Callback = function()
 if _G.SelectMaze == "Teleport" then
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
 if teleportFunc then
     teleportFunc([[
         if not game:IsLoaded() then
@@ -1653,7 +1653,7 @@ OrionLib:MakeNotification({Name = "Error",Content = "Server don't have keypad, a
     	end
 	end
 else
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
 if teleportFunc then
     teleportFunc([[
         if not game:IsLoaded() then
@@ -5692,7 +5692,7 @@ task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" do
 game:GetService("ReplicatedStorage").KSABILI:FireServer()
-wait(6.1)
+wait(6.9)
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" do
 game:GetService("ReplicatedStorage").busmoment:FireServer()
@@ -6104,6 +6104,20 @@ end
 	end    
 })
 
+Tab7:AddToggle({
+	Name = "Spam Ability 250 Kill",
+	Default = false,
+	Callback = function(Value)
+_G.SpamAbliKilll = Value
+while _G.SpamAbliKilll do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills:FindFirstChild("Frame") and game.Players.LocalPlayer.PlayerGui.Kills.Frame:FindFirstChild("TextLabel") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text > 249 then
+game:GetService("ReplicatedStorage").TheForce:FireServer()
+end
+task.wait()
+end
+	end    
+})
+
 RhythmNote = Tab7:AddToggle({
 	Name = "Infinite Rhythm",
 	Default = false,
@@ -6251,13 +6265,13 @@ Tab7:AddButton({
 	Callback = function()
 if _G.GloveEquipHehe == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[_G.GloveEquipHehe].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
 elseif _G.GloveEquipHehe == "Tournament" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[_G.GloveEquipHehe].ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -6322,25 +6336,6 @@ for _, v in pairs(game.Lighting:GetChildren()) do
 v:Destroy()
 end
   	end    
-})
-
-Tab7:AddToggle({
-	Name = "Anti Cooldown",
-	Default = false,
-	Callback = function(Value)
-AntiCooldown = Value
-while AntiCooldown do
-local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
-local localscript = tool:FindFirstChildOfClass("LocalScript")
-local localscriptclone = localscript:Clone()
-localscriptclone = localscript:Clone()
-localscriptclone:Clone()
-localscript:Destroy()
-localscriptclone.Parent = tool
-task.wait()
-end
-	end    
 })
 
 Tab7:AddDropdown({
@@ -6728,7 +6723,14 @@ for i, v in ipairs(game.Players:GetChildren()) do
 end
 while _G.GloveESP do
 for i,v in ipairs(game.Players:GetChildren()) do
-if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and v.Character.IsInDefaultArena.Value == false and v.Character.Head:FindFirstChild("GloveEsp") == nil then
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") then
+if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") and v.Character.Head.GloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
+v.Character.Head.GloveEsp.TextLabel.TextColor3 = _G.ColorESP
+end
+if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") and v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.leaderstats.Glove.Value.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
+end
+if v.Character.Head:FindFirstChild("GloveEsp") == nil then
 GloveEsp = Instance.new("BillboardGui", v.Character.Head)
 GloveEsp.Adornee = v.Character.Head
 GloveEsp.Name = "GloveEsp"
@@ -6744,10 +6746,8 @@ GloveEspText.Font = Enum.Font.FredokaOne
 GloveEspText.TextColor3 = _G.ColorESP
 GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
-if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") and v.Character.Head.GloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
-v.Character.Head.GloveEsp.TextLabel.TextColor3 = _G.ColorESP
-                  end
                 end
+            end
             end
 task.wait()
 end
@@ -7997,7 +7997,7 @@ Tab:AddButton({
 	Name = "Get Chain",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
-local teleportFunc = queueonteleport or queue_on_teleport or syn and syn.queue_on_teleport
+local teleportFunc = queueonteleport or queue_on_teleport
 if teleportFunc then
     teleportFunc([[
         if not game:IsLoaded() then
@@ -8400,7 +8400,7 @@ Tab:AddToggle({
 		_G.SlapBobClone = Value
 while _G.SlapBobClone do
 if game.Workspace:FindFirstChild("BobClone") then
-for _, v in ipairs(workspace:GetChildren()) do
+for _, v in next, workspace:GetChildren() do
 if v.Name == "BobClone" then
 if GloveSlap == "Killstreak" then
 game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
@@ -8414,7 +8414,7 @@ end
 end
 end
 end
-task.wait()
+wait(0.5)
 end
 	end    
 })
