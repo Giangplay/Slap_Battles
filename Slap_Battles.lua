@@ -26,19 +26,19 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
----Bypass---
+---Bypass----
 
-local Namecall
-Namecall = hookmetamethod(game, "__namecall", function(self, ...)
-   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
-       return
-   end
-   return Namecall(self, ...)
-end)
+local bypass;
+    bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+        if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
+            return
+        end
+        return bypass(method, ...)
+    end)
 
 ---Potion---
 
@@ -1270,6 +1270,7 @@ Tab3:AddButton({
 	Name = "Get Glove Bomb",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Warp" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124919840) then
+OldTouch = workspace.DEATHBARRIER.CanTouch
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("Ragdolled").Value == false
@@ -1281,12 +1282,64 @@ task.wait(0.15)
 if workspace.DEATHBARRIER.CanTouch == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 else
-OrionLib:MakeNotification({Name = "Error",Content = "Please turn off Anti Death Barriers",Image = "rbxassetid://7733658504",Time = 5})
+workspace.DEATHBARRIER.CanTouch = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 end
 wait(0.1)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
+wait(0.2)
+workspace.DEATHBARRIER.CanTouch = OldTouch
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Warp equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Get Glove Warp",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124914780) then
+if _G.ClosestMagnitude == nil then
+_G.ClosestMagnitude = 999999
+end
+repeat
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
+local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if Magnitude <= _G.ClosestMagnitude then
+if v.Character:FindFirstChild("entered") == nil or v.Character.Humanoid.Health == 0 then
+_G.ClosestMagnitude = 999999
+RandomPlayer = nil
+else
+_G.ClosestMagnitude = Magnitude
+RandomPlayer = v
+end
+end
+end
+end
+if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
+if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character.Ragdolled.Value == false then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("Head").CFrame
+wait(0.17)
+game.ReplicatedStorage.HitSwapper:FireServer(RandomPlayer.Character:WaitForChild("Head"))
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+end
+end
+end
+task.wait(0.15)
+until RandomPlayer.Character.HumanoidRootPart.Position.Y < -10
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
+wait(0.15)
+game:GetService("ReplicatedStorage").SLOC:FireServer()
+wait(0.2)
+if _G.ClosestMagnitude and RandomPlayer then
+_G.ClosestMagnitude = nil
+RandomPlayer = nil
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -5642,6 +5695,28 @@ end
 	end    
 })
 
+Tab7:AddToggle({
+	Name = "Auto Slap Ball",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoSlapBall = Value
+while _G.AutoSlapBall do
+if game.Workspace:FindFirstChild("Balls") then
+for i, v in pairs(workspace:GetChildren()) do
+if v.Name == "Balls" then
+for i, z in pairs(v:GetChildren()) do
+if string.find(z.Name, "'s Ball") then
+game:GetService("ReplicatedStorage").Events.BeachBall:FireServer(z, Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
+end
+end
+end
+end
+end
+task.wait()
+end
+	end    
+})
+
 _G.OnAbility = false
 Tab7:AddToggle({
 	Name = "Auto Spam Ability",
@@ -6088,6 +6163,22 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer("c4")
 game:GetService("ReplicatedStorage").Events.c4:FireServer()
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shotgun" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("buckshot")
+task.wait()
+end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beachball" do
+if workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball") == nil then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+elseif workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball").Position < -10 then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+wait(0.2)
+if workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball") then
+game:GetService("ReplicatedStorage").Events.BeachBall:FireServer(workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball"), Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
+end
+task.wait()
+end
 	end    
 })
 
@@ -6122,10 +6213,53 @@ Tab7:AddToggle({
 	Callback = function(Value)
 _G.SpamAbliKilll = Value
 while _G.SpamAbliKilll do
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills:FindFirstChild("Frame") and game.Players.LocalPlayer.PlayerGui.Kills.Frame:FindFirstChild("TextLabel") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text > 249 then
+if game.Players.LocalPlayer.Character:FindFirstChild("KS250Complete") then
 game:GetService("ReplicatedStorage").TheForce:FireServer()
 end
 task.wait()
+end
+	end    
+})
+
+Tab7:AddToggle({
+	Name = "AutoFarm Kill",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoFarmKill = Value
+if _G.AutoFarmKill == true then
+if _G.ClosestMagnitude == nil then
+_G.ClosestMagnitude = 99999
+end
+else
+if _G.ClosestMagnitude then
+_G.ClosestMagnitude = nil
+end
+end
+while _G.AutoFarmKill do
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
+local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if Magnitude <= _G.ClosestMagnitude then
+_G.ClosestMagnitude = Magnitude
+RandomPlayer = v
+end
+end
+end
+if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 or RandomPlayer.Character:FindFirstChild("Torso") and RandomPlayer.Character.Torso.Anchored == true then
+_G.ClosestMagnitude = 999999
+RandomPlayer = nil
+end
+if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
+if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character.Ragdolled.Value == false then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("Head").CFrame
+wait(0.19)
+game.ReplicatedStorage.KSHit:FireServer(RandomPlayer.Character:WaitForChild("Head"))
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+end
+end
+end
+task.wait(0.4)
 end
 	end    
 })
@@ -6458,11 +6592,27 @@ gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitFor
 end
                     end
 end)
+pcall(function()
+if game.Workspace:FindFirstChild("Balls") then
+for i, g in pairs(workspace:GetChildren()) do
+if g.Name == "Balls" then
+for i, z in pairs(g:GetChildren()) do
+if string.find(z.Name, "'s Ball") then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - z.Position).Magnitude
+if _G.ReachSlapArua >= Magnitude then
+game:GetService("ReplicatedStorage").Events.BeachBall:FireServer(z, Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
+end
+end
+end
+end
+end
+end
+end)
 task.wait(.1)
 end
 while SlapAura and SlapAuraFriend == "Not Fight" and _G.SlapAuraChoose == "Normal" do
 pcall(function()
-for i,v in pairs(game.Players:GetChildren()) do
+for i, v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
@@ -6476,7 +6626,7 @@ end
                 end
 end)
 pcall(function()
-for _, c in pairs(workspace:GetChildren()) do
+for i, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
 Magnitude1 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude1 then
@@ -6484,6 +6634,22 @@ gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitFor
                     end
 end
                     end
+end)
+pcall(function()
+if game.Workspace:FindFirstChild("Balls") then
+for i, g in pairs(workspace:GetChildren()) do
+if g.Name == "Balls" then
+for i, z in pairs(g:GetChildren()) do
+if string.find(z.Name, "'s Ball") then
+Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - z.Position).Magnitude
+if _G.ReachSlapArua >= Magnitude then
+game:GetService("ReplicatedStorage").Events.BeachBall:FireServer(z, Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
+end
+end
+end
+end
+end
+end
 end)
 task.wait(.1)
 end
@@ -7924,17 +8090,17 @@ end)
 elseif game.PlaceId == 11520107397 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
-local Namecall
-Namecall = hookmetamethod(game, "__namecall", function(self, ...)
-   if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
-       return
-   elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
-       return
-   end
-   return Namecall(self, ...)
-end)
+local bypass;
+    bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+        if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.AdminGUI then
+            return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
+            return
+        end
+        return bypass(method, ...)
+    end)
 
 if game.Workspace:FindFirstChild("NametagChanged") == nil then
 local NametagChanged = Instance.new("StringValue", workspace)
@@ -9195,7 +9361,7 @@ Tab7:AddToggle({
 while SlapAura and SlapAuraFriend == "Fight" do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Ragdolled.Value == false and v.Character.Torso.Anchored ~= false and v.Character:FindFirstChild("Mirage") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
 game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
@@ -9203,12 +9369,12 @@ game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPa
 end
 end
 end
-task.wait(.1)
+task.wait(0.2)
 end
 while SlapAura and SlapAuraFriend == "Not Fight" do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character.Torso.Anchored ~= false and v.Character:FindFirstChild("Mirage") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
 game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
@@ -9216,7 +9382,7 @@ game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPa
 end
 end
 end
-task.wait(.1)
+task.wait(0.2)
 end
 	end    
 })
@@ -9358,18 +9524,40 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.AutoFarmKill = Value
+if _G.AutoFarmKill == true then
+if _G.ClosestMagnitude == nil then
+_G.ClosestMagnitude = 99999
+end
+else
+if _G.ClosestMagnitude then
+_G.ClosestMagnitude = nil
+end
+end
 while _G.AutoFarmKill do
-local Player = game.Players:GetChildren()
-local RandomPlayer = Player[math.random(1, #Player)]
+for _, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
+local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if Magnitude <= _G.ClosestMagnitude then
+_G.ClosestMagnitude = Magnitude
+RandomPlayer = v
+end
+end
+end
+if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 or RandomPlayer.Character:FindFirstChild("Torso") and RandomPlayer.Character.Torso.Anchored == true then
+_G.ClosestMagnitude = 999999
+RandomPlayer = nil
+end
+if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
 if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character.Ragdolled.Value == false then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("Head").CFrame
-wait(0.2)
-game.ReplicatedStorage.KSHit:FireServer(RandomPlayer.Character:WaitForChild("HumanoidRootPart"))
+wait(0.19)
+game.ReplicatedStorage.KSHit:FireServer(RandomPlayer.Character:WaitForChild("Head"))
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
 end
 end
-task.wait(1.3)
+end
+task.wait(0.4)
 end
 	end    
 })
@@ -9383,7 +9571,7 @@ Tab7:AddColorpicker({
 })
 
 Tab7:AddToggle({
-	Name = "ESP Glove",
+	Name = "ESP Kill",
 	Default = false,
 	Callback = function(Value)
 _G.KillESP = Value
@@ -9396,18 +9584,16 @@ for i, v in ipairs(game.Players:GetChildren()) do
 end
 while _G.KillESP do
 for i,v in ipairs(game.Players:GetChildren()) do
-if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") then
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("KillstreakLevel") then
 if v.Character.Head:FindFirstChild("KillESP") and v.Character.Head.KillESP:FindFirstChild("TextLabel") and v.Character.Head.KillESP.TextLabel.TextColor3 ~= _G.ColorESP then
 v.Character.Head.KillESP.TextLabel.TextColor3 = _G.ColorESP
 end
-if v.Character.Head:FindFirstChild("KillESP") and v.Character.Head.KillESP:FindFirstChild("TextLabel") and v.Character.Head.KillESP.TextLabel.Text ~= "Kill [ "..v.Character.Head.Nametag.TextLabel.Text.." ]" then
-if v.Character.Head.Nametag.TextLabel.Text ~= v.Name then
-v.Character.Head.KillESP.TextLabel.Text = "Kill [ "..v.Character.Head.Nametag.TextLabel.Text.." | "..v.Name.." ]"
-else
-v.Character.Head.KillESP.TextLabel.Text = "Kill [ No Kill ]"
+if v.Character.Head:FindFirstChild("KillESP") and v.Character.Head.KillESP:FindFirstChild("TextLabel") and v.Character.Head.KillESP.TextLabel.Text ~= "Kill [ "..v.Character.KillstreakLevel.Value.." ]" then
+if v.Character:FindFirstChild("KillstreakLevel") and v.Character.KillstreakLevel.Value ~= 0 then
+v.Character.Head.KillESP.TextLabel.Text = "Kill [ "..v.Character.KillstreakLevel.Value.." | "..v.Name.." ]"
 end
 end
-if v.Character.Head.Nametag.TextLabel.Text ~= v.Name and v.Character.Head:FindFirstChild("KillESP") == nil then
+if v.Character:FindFirstChild("KillstreakLevel") and v.Character.Head:FindFirstChild("KillESP") == nil then
 KillESP = Instance.new("BillboardGui", v.Character.Head)
 KillESP.Adornee = v.Character.Head
 KillESP.Name = "KillESP"
@@ -9422,7 +9608,7 @@ KillESPText.TextSize = 20
 KillESPText.Font = Enum.Font.FredokaOne
 KillESPText.TextColor3 = _G.ColorESP
 KillESPText.TextStrokeTransparency = 0.5
-KillESPText.Text = "Kill [ "..v.Character.Head.Nametag.TextLabel.Text.." | "..v.Name.." ]"
+KillESPText.Text = "Kill [ "..v.Character.KillstreakLevel.Value.." | "..v.Name.." ]"
                 end
             end
             end
@@ -9511,12 +9697,24 @@ end
 })
 
 Tab7:AddToggle({
+	Name = "Spam Ability 75 & 100 Kill",
+	Default = false,
+	Callback = function(Value)
+_G.SpamAbliKilll = Value
+while _G.SpamAbliKilll do
+game:GetService("ReplicatedStorage").KSABILI:FireServer()
+wait(6.9)
+end
+	end    
+})
+
+Tab7:AddToggle({
 	Name = "Spam Ability 250 Kill",
 	Default = false,
 	Callback = function(Value)
 _G.SpamAbliKilll = Value
 while _G.SpamAbliKilll do
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Kills") and game.Players.LocalPlayer.PlayerGui.Kills:FindFirstChild("Frame") and game.Players.LocalPlayer.PlayerGui.Kills.Frame:FindFirstChild("TextLabel") and game.Players.LocalPlayer.PlayerGui.Kills.Frame.TextLabel.Text > 249 then
+if game.Players.LocalPlayer.Character:FindFirstChild("KS250Complete") then
 game:GetService("ReplicatedStorage").TheForce:FireServer()
 end
 task.wait()
@@ -10326,7 +10524,7 @@ Tab:AddToggle({
 		_G.SlapBobClone = Value
 while _G.SlapBobClone do
 if game.Workspace:FindFirstChild("BobClone") then
-for _, v in next, workspace:GetChildren() do
+for _, v in pairs(workspace:GetChildren()) do
 if v.Name == "BobClone" then
 if GloveSlap == "Killstreak" then
 game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
@@ -10340,7 +10538,7 @@ end
 end
 end
 end
-wait(0.5)
+task.wait(1.2)
 end
 	end    
 })
@@ -10517,18 +10715,18 @@ elseif game.PlaceId == 9431156611 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local bypass;
-bypass = hookmetamethod(game, "__namecall", function(method, ...) 
-if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.Ban then
-     return
-elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.AdminGUI then
-     return
-elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS then
-     return
-elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS2 then
-     return
-end
-return bypass(method, ...)
-end)
+     bypass = hookmetamethod(game, "__namecall", function(method, ...) 
+         if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.Ban then
+             return
+         elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.AdminGUI then
+             return
+         elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS then
+             return
+          elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.WS2 then
+            return
+       end
+          return bypass(method, ...)
+     end)
 
 if workspace:FindFirstChild("AntiLava") == nil then
 local AntiLava = Instance.new("Part", workspace)
@@ -12498,11 +12696,46 @@ Tab:AddToggle({
             while _G.AutoSlapPlayer do
                 for i, v in pairs(game.Players:GetChildren()) do
                 if v ~= game.Players.LocalPlayer and v.Character then
-                    game:GetService("ReplicatedStorage").remotes.Slap:FireServer(v.Character:FindFirstChild("HumanoidRootPart"), Vector3.new(0.5891937017440796, 0.6427874565124512, -0.4895661175251007))
+                    game:GetService("ReplicatedStorage").remotes.Slap:FireServer(v.Character:FindFirstChild("HumanoidRootPart"), Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
                 end
             end
 task.wait()
             end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Slap Ball",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoSlapBall = Value
+while _G.AutoSlapBall do
+if workspace.Map:FindFirstChild("Balls") and workspace.Map.Balls:FindFirstChild("ball") then
+game:GetService("ReplicatedStorage").remotes.Slap:FireServer(workspace.Map.Balls.ball, Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
+end
+task.wait()
+end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto View Ball",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoViewBall = Value
+if _G.AutoViewBall == false then
+if game.Players.LocalPlayers.Character:FindFirstChild("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayers.Character:FindFirstChild("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayers.Character:FindFirstChild("Humanoid")
+end
+end
+while _G.AutoViewBall do
+if workspace.Map:FindFirstChild("Balls") and workspace.Map.Balls:FindFirstChild("ball") and game.Workspace.CurrentCamera.CameraSubject ~= workspace.Map.Balls:FindFirstChild("ball") then
+game.Workspace.CurrentCamera.CameraSubject = workspace.Map.Balls:FindFirstChild("ball")
+else
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayers.Character:FindFirstChild("Humanoid")
+end
+task.wait()
+end
 	end    
 })
 
@@ -12665,6 +12898,8 @@ gloveHits = {
     ["Relude"] = game.ReplicatedStorage.GeneralHit,
     ["Avatar"] = game.ReplicatedStorage.GeneralHit,
     ["Demolition"] = game.ReplicatedStorage.GeneralHit,
+    ["Shotgun"] = game.ReplicatedStorage.GeneralHit,
+    ["Beachball"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
