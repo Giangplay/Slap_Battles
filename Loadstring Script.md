@@ -7,6 +7,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battle
 ```
 
 ```lua
+
 _G.AutoExecuter = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
 ```
